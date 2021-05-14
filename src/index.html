@@ -31,7 +31,7 @@
 
   <script>
 
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && navigator.onLine) {
       navigator.serviceWorker.register('offline-worker.js');
     }
 
