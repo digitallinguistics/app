@@ -57,6 +57,8 @@ The following build scripts are available:
   - `npm run test:unit`
   - `npm run cypress`
 
+* `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
+
 ## Project Structure
 
 Folder     | Description
