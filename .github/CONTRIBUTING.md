@@ -10,6 +10,20 @@ Consider [opening an issue][new-issue] for any of the following:
 
 Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open Source Guide][gh-contributing] on contributing to open source projects.
 
+## Contents
+
+<!-- TOC -->
+
+- [Project Principles](#project-principles)
+- [Building & Testing the App](#building--testing-the-app)
+- [Project Structure](#project-structure)
+- [App Structure](#app-structure)
+- [Directory Structure](#directory-structure)
+- [Pages & Components](#pages--components)
+- [Styleguides](#styleguides)
+
+<!-- /TOC -->
+
 ## Project Principles
 
 This project is driven by the needs of documentary and descriptive linguists, and so its development should be sensitive to the following principles:
@@ -22,6 +36,26 @@ This project is driven by the needs of documentary and descriptive linguists, an
 - **fieldwork-oriented** (e.g. works offline, launches quickly)
 - **linguistically diverse** (e.g. support RTL and LTR writing systems, choice of font, choice of lexical category)
 - **open source** (e.g. free, easy to contribute, rely only on well-supported tools/libraries, well-documented)
+
+## Building & Testing the App
+
+This project uses the following build and testing tools:
+
+* [Babel][Babel]: Transpiles the latest JavaScript syntax to earlier versions that are compatible with most browsers.
+* [Cypress][Cypress]: Runs both unit and integration tests.
+* [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
+
+The following build scripts are available:
+
+* `npm run build`: Builds the production code for the app and outputs to `/dist`. Build scripts are located in `/build`. Individual build steps can be run with the following commands:
+  - `npm run build:css`
+  - `npm run build:html`
+  - `npm run build:js`
+
+* `npm test`: Runs both unit and integration tests. You can also run them separately. By default tests are run on the command line. To run tests manually in the Cypress dashboard, use `npm run cypress`.
+  - `npm run test:integration`
+  - `npm run test:unit`
+  - `npm run cypress`
 
 ## Project Structure
 
@@ -94,26 +128,6 @@ JavaScript and CSS / SASS code should be linted before opening a pull request.
 * SASS / CSS code is linted with [Stylelint][Stylelint]. The Stylelint config file for this project is located at `.stylelintrc.yml`.
 
 JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
-
-## Building & Testing the App
-
-This project uses the following build and testing tools:
-
-* [Babel][Babel]: Transpiles the latest JavaScript syntax to earlier versions that are compatible with most browsers.
-* [Cypress][Cypress]: Runs both unit and integration tests.
-* [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
-
-The following build scripts are available:
-
-* `npm run build`: Builds the production code for the app and outputs to `/dist`. Build scripts are located in `/build`. Individual build steps can be run with the following commands:
-  - `npm run build:css`
-  - `npm run build:html`
-  - `npm run build:js`
-
-* `npm test`: Runs both unit and integration tests. You can also run them separately. By default tests are run on the command line. To run tests manually in the Cypress dashboard, use `npm run cypress`.
-  - `npm run test:integration`
-  - `npm run test:unit`
-  - `npm run cypress`
 
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
