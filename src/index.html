@@ -29,4 +29,12 @@
     <h1>Lotus</h1>
   </body>
 
+  <script>
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('offline-worker.js');
+    }
+
+  </script>
+
 </html>

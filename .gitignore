@@ -105,3 +105,4 @@ dist
 
 /dist
 nodemon.json
+.eslintrc.js
