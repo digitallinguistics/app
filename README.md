@@ -4,6 +4,7 @@ This repository contains the source code for the Digital Linguistics (DLx) [Lotu
 
 * [Try out Lotus app!][app]
 * [Report a problem or request a feature.][new-issue]
+* [Contribute to the project.](./.github/CONTRIBUTING.md)
 
 <!-- LINKS -->
 [app]:       https://app.digitallinguistics.io
