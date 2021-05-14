@@ -1,0 +1,21 @@
+{
+  "name": "@digitallinguistics/app",
+  "version": "0.1.0",
+  "description": "The Lotus web app for managing linguistic data",
+  "private": true,
+  "homepage": "https://github.com/digitallinguistics/app#readme",
+  "bugs": "https://github.com/digitallinguistics/app/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Daniel W. Hieber",
+    "url": "https://danielhieber.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitallinguistics/app.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16.0"
+  }
+}
