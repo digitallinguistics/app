@@ -1,5 +1,7 @@
 # ESLint v7.23.0
 
+parser: '@babel/eslint-parser'
+
 parserOptions:
   ecmaVersion: 12
   ecmaFeatures:
