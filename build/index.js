@@ -11,8 +11,8 @@ import {
 } from 'path';
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
-const srcDir     = joinPath(currentDir, '../src')
-const distDir    = joinPath(currentDir, '../dist')
+const srcDir     = joinPath(currentDir, '../src');
+const distDir    = joinPath(currentDir, '../dist');
 
 await emptyDir(distDir);
 await copy(joinPath(srcDir, 'index.html'), joinPath(distDir, 'index.html'));
