@@ -1,0 +1,17 @@
+{
+  "description": "The Lotus web app for managing linguistic data",
+  "dir": "ltr",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "images/icon.svg",
+      "sizes": "48x48 192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "lang": "en-us",
+  "name": "Lotus",
+  "short_name": "Lotus",
+  "start_url": "/",
+  "theme_color": "#007AE6"
+}
