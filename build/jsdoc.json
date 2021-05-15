@@ -1,0 +1,22 @@
+{
+  "opts": {
+    "destination": "./docs/",
+    "readme": "./.github/CONTRIBUTING.md",
+    "recurse": true,
+    "template": "./node_modules/ink-docstrap/template"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "source": {
+    "exclude": [
+      "./src/vendor"
+    ],
+    "excludePattern": "\\.test\\.",
+    "include": ["./src/"]
+  },
+  "sourceType": "module",
+  "templates": {
+    "theme": "cosmo"
+  }
+}

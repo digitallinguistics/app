@@ -1,4 +1,4 @@
-# Contributing
+# The DLx Lotus App
 
 🌟Thank you🌟 for contributing to the Lotus app! 🙏🏼
 
@@ -9,6 +9,8 @@ Consider [opening an issue][new-issue] for any of the following:
 * feature requests
 
 Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open Source Guide][gh-contributing] on contributing to open source projects.
+
+[View the complete developer documentation here.][developers]
 
 ## Contents
 
@@ -72,9 +74,21 @@ Folder     | Description
 
 ## App Structure
 
-The Lotus app follows a typical [app shell model][app-shell-model]. A lightweight app skeleton with minimal content is delivered to the browser, and everything else is then loaded dynamically or lazy-loaded. Think of the app shell as your development environment—it makes certain global features and variables available for you to work with, such as predefined HTML regions, global CSS variables, and a global `app` JavaScript object with methods for updating settings, accessing the database, etc. etc. A complete description of the HTML, CSS/SASS, and JavaScript features that are available is found in the [developer documentation][developers].
+The Lotus app follows a typical [app shell model][app-shell-model]. A lightweight app skeleton with minimal content is delivered to the browser, and everything else is then loaded dynamically or lazy-loaded. Think of the app shell as your development environment—it makes certain global features and variables available for you to work with, such as predefined HTML regions, global CSS variables, and a global `app` JavaScript object with methods for updating settings, accessing the database, etc. etc.
 
 The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
+
+### HTML
+
+The app has the following major HTML regions:
+
+```html
+<body id=app class=app>
+
+  <header><!-- The app banner, containing the app logo and high-level app controls --></header>
+
+</body>
+```
 
 ## Directory Structure
 

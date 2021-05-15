@@ -104,5 +104,6 @@ dist
 .tern-port
 
 /dist
-nodemon.json
+/docs
 .eslintrc.js
+nodemon.json
