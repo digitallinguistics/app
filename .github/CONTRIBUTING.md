@@ -21,6 +21,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 - [Directory Structure](#directory-structure)
 - [Pages & Components](#pages--components)
 - [Styleguides](#styleguides)
+- [Inspiration](#inspiration)
 
 <!-- /TOC -->
 
@@ -44,10 +45,12 @@ This project uses the following build and testing tools:
 * [Babel][Babel]: Transpiles the latest JavaScript syntax to earlier versions that are compatible with most browsers.
 * [Cypress][Cypress]: Runs both unit and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
+* [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
 
 The following build scripts are available:
 
 * `npm run build`: Builds the production code for the app and outputs to `/dist`. Build scripts are located in `/build`. Individual build steps can be run with the following commands:
+  - `npm run build:copy`: copies static assets
   - `npm run build:css`
   - `npm run build:html`
   - `npm run build:js`
@@ -128,6 +131,16 @@ JavaScript and CSS / SASS code should be linted before opening a pull request.
 
 JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
 
+## Inspiration
+
+Other single-page apps or tools this project sometimes mimics:
+
+* GitHub (web)
+* GitHub (desktop)
+* Microsoft Todo (web)
+* Slack (desktop)
+* Trello
+
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
 [Babel]:           https://babeljs.io/
@@ -136,6 +149,7 @@ JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
 [ESBuild]:         https://esbuild.github.io/
 [ESLint]:          https://eslint.org/
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
+[Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa

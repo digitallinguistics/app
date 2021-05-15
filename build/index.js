@@ -1,4 +1,7 @@
+import buildHTML         from './buildHTML.js';
+import copyFiles         from './copyFiles.js';
 import { fileURLToPath } from 'url';
+import ora               from 'ora';
 
 import {
   copy,
@@ -16,11 +19,19 @@ const distDir    = joinPath(currentDir, '../dist');
 
 console.info('Building app.');
 
-await emptyDir(distDir);
-await copy(joinPath(srcDir, '/images'), joinPath(distDir, '/images'));
-await copy(joinPath(srcDir, 'favicon.ico'), joinPath(distDir, 'favicon.ico'));
-await copy(joinPath(srcDir, 'index.html'), joinPath(distDir, 'index.html'));
-await copy(joinPath(srcDir, 'manifest.json'), joinPath(distDir, 'manifest.json'));
-await copy(joinPath(srcDir, 'offline-worker.js'), joinPath(distDir, 'offline-worker.js'));
+const emptyDirPromise = emptyDir(distDir);
+ora.promise(emptyDirPromise, 'Empty \dist directory');
+await emptyDirPromise;
 
-console.info('Finished building app.');
+const copyFilesPromise = copyFiles();
+ora.promise(copyFilesPromise, 'Copy static assets');
+
+const buildHTMLPromise = buildHTML();
+ora.promise(buildHTMLPromise, 'Build HTML');
+
+await Promise.all([
+  copyFilesPromise,
+  buildHTMLPromise,
+]);
+
+console.info('App finished building.\n');
