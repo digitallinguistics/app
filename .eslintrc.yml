@@ -1,20 +1,20 @@
 # ESLint v7.23.0
 
-parser: '@babel/eslint-parser'
+parser: babel-eslint
 
 parserOptions:
-  ecmaVersion: 12
   ecmaFeatures:
     impliedStrict: true
+  ecmaVersion: 12
   sourceType: module
+
+extends:
+  - eslint:recommended
 
 env:
   es2021: true
 
 reportUnusedDisableDirectives: true
-
-extends:
-  - eslint:recommended
 
 rules:
   accessor-pairs: warn

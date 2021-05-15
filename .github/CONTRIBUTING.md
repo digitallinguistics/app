@@ -52,12 +52,9 @@ The following build scripts are available:
   - `npm run build:html`
   - `npm run build:js`
 
-* `npm test`: Runs both unit and integration tests. You can also run them separately. By default tests are run on the command line. To run tests manually in the Cypress dashboard, use `npm run cypress`.
-  - `npm run test:integration`
-  - `npm run test:unit`
-  - `npm run cypress`
-
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
+
+* `npm test`: Runs both unit and integration tests. By default tests are run on the command line. To run tests manually in the Cypress dashboard, use `npm run cypress`.
 
 ## Project Structure
 
