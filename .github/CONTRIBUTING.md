@@ -45,9 +45,11 @@ This project is driven by the needs of documentary and descriptive linguists, an
 This project uses the following build and testing tools:
 
 * [Babel][Babel]: Transpiles the latest JavaScript syntax to earlier versions that are compatible with most browsers.
+* [Chai][Chai]: Assertion library.
 * [Cypress][Cypress]: Runs both unit and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
 * [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
+* [Mocha][Mocha]: Runs unit tests.
 
 The following build scripts are available:
 
@@ -59,7 +61,10 @@ The following build scripts are available:
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
 
-* `npm test`: Runs both unit and integration tests. By default tests are run on the command line. To run tests manually in the Cypress dashboard, use `npm run cypress`.
+* `npm test`: Runs both unit and integration tests. By default tests are run on the command line. You can run unit tests and integration tests individually with the following commands:
+  - `npm run test:unit`
+  - `npm run test:integration`
+  - `npm run cypress`: runs integration tests manually in Cypress dashboard
 
 ## Project Structure
 
@@ -158,6 +163,7 @@ Other single-page apps or tools this project sometimes mimics:
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
 [Babel]:           https://babeljs.io/
+[Chai]:            https://www.chaijs.com/
 [Cypress]:         https://www.cypress.io/
 [developers]:      https://developer.digitallinguistics.io/app
 [ESBuild]:         https://esbuild.github.io/
@@ -165,6 +171,7 @@ Other single-page apps or tools this project sometimes mimics:
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
+[Mocha]:           https://mochajs.org/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [Stylelint]:       https://stylelint.io/

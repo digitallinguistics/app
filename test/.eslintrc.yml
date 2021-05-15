@@ -5,11 +5,15 @@ extends:
   - plugin:cypress/recommended
 
 env:
-  shared-node-browser: true
+  mocha: true
+  node: true
 
 overrides:
   - files:
-      - '**/*.test.js'
+      - '**/*.test.*'
+      - '**/*.unit.*'
+    globals:
+      expect: off
     rules:
       func-names:            off
       prefer-arrow-callback: off
