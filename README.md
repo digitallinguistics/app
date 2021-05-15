@@ -4,6 +4,7 @@ This repository contains the source code for the Digital Linguistics (DLx) [Lotu
 
 [![GitHub issues](https://img.shields.io/github/issues/digitallinguistics/app)][issues]
 [![tests](https://github.com/digitallinguistics/app/actions/workflows/test.yml/badge.svg)](https://github.com/digitallinguistics/app/actions/workflows/test.yml)
+[![GitHub license](https://img.shields.io/github/license/digitallinguistics/app)][GitHub]
 [![GitHub stars](https://img.shields.io/github/stars/digitallinguistics/app?style=social)](https://github.com/digitallinguistics/app/stargazers)
 
 * [Try out the Lotus app!][app]
@@ -12,5 +13,6 @@ This repository contains the source code for the Digital Linguistics (DLx) [Lotu
 
 <!-- LINKS -->
 [app]:       https://app.digitallinguistics.io
+[GitHub]:    https://github.com/digitallinguistics/app
 [issues]:    https://github.com/digitallinguistics/app/issues
 [new-issue]: https://github.com/digitallinguistics/app/issues/new
