@@ -4,9 +4,19 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "images/icon.svg",
-      "sizes": "48x48 192x192 512x512",
+      "sizes": "48x48 96x96 128x128 192x192 256x256 512x512",
+      "src": "images/lotus.color.svg",
       "type": "image/svg+xml"
+    },
+    {
+      "sizes": "192x192",
+      "src": "images/lotus.color-192x192.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "images/lotus.color-512x512.png",
+      "type": "image/png"
     }
   ],
   "lang": "en-us",
