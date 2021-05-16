@@ -156,7 +156,8 @@ Other single-page apps or tools this project sometimes mimics:
 
 * GitHub (web)
 * GitHub (desktop)
-* Microsoft Todo (web)
+* [Mandala][Mandala]
+* [Microsoft Todo][MSTodo] (web)
 * Slack (desktop)
 * Trello
 
@@ -171,7 +172,9 @@ Other single-page apps or tools this project sometimes mimics:
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
+[Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
 [Mocha]:           https://mochajs.org/
+[MSTodo]:          https://to-do.live.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [Stylelint]:       https://stylelint.io/
