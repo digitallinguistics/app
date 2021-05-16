@@ -10,7 +10,7 @@ const currentDir = getDirname(fileURLToPath(import.meta.url));
 const srcDir     = joinPath(currentDir, '../src');
 const distDir    = joinPath(currentDir, '../dist');
 
-export default async function copyFiles() {
+export default async function copyAssets() {
   await copy(joinPath(srcDir, '/images'), joinPath(distDir, '/images'));
   await copy(joinPath(srcDir, 'favicon.ico'), joinPath(distDir, 'favicon.ico'));
   await copy(joinPath(srcDir, 'manifest.json'), joinPath(distDir, 'manifest.json'));

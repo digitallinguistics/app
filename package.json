@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "node build",
-    "build:copy": "node build/bin/copyFiles.js",
+    "build:copy": "node build/bin/copyAssets.js",
     "build:docs": "jsdoc -c build/jsdoc.json",
     "build:html": "node build/bin/buildHTML.js",
     "cypress": "start-server-and-test start 3000 cypress-open",
