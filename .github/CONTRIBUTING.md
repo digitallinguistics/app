@@ -31,14 +31,15 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 
 This project is driven by the needs of documentary and descriptive linguists, and so its development should be sensitive to the following principles:
 
-- **accessibility** (e.g. keyboard entry and manipulation)
+- **accessibility** (e.g. keyboard entry and manipulation, inclusive design, progressive enhancement)
 - **broadly applicable** (e.g. only features many linguists are expected to use; no project-specific features)
 - **community-oriented** (e.g. accessible to community members, access controlled by community members)
-- **data freedom** (e.g. import/export in various formats)
-- **ethics and data privacy** (e.g. autonyms, choice of where data are stored)
+- **data freedom** (e.g. import/export in various formats, data longevity)
+- **ethics and data privacy** (e.g. autonyms, choice of where data are stored, user permissions, access rights)
 - **fieldwork-oriented** (e.g. works offline, launches quickly)
 - **linguistically diverse** (e.g. support RTL and LTR writing systems, choice of font, choice of lexical category)
 - **open source** (e.g. free, easy to contribute, rely only on well-supported tools/libraries, well-documented)
+- **scientific transparency** (e.g. ability to recreate data sets, faithfulness to original data, easily citable)
 
 ## Building & Testing the App
 
