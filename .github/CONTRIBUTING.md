@@ -158,6 +158,7 @@ Other single-page apps or tools this project sometimes mimics:
 * GitHub (desktop)
 * [Mandala][Mandala]
 * [Microsoft Todo][MSTodo] (web)
+* [SayMore][SayMore]
 * Slack (desktop)
 * Trello
 
@@ -177,4 +178,5 @@ Other single-page apps or tools this project sometimes mimics:
 [MSTodo]:          https://to-do.live.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
+[SayMore]:         https://software.sil.org/saymore/
 [Stylelint]:       https://stylelint.io/
