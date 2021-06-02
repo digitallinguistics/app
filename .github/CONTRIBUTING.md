@@ -1,4 +1,4 @@
-# The DLx Lotus App
+# Contributor Guidelines
 
 🌟Thank you🌟 for contributing to the Lotus app! 🙏🏼
 
@@ -22,6 +22,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 - [App Structure](#app-structure)
 - [Directory Structure](#directory-structure)
 - [Pages & Components](#pages--components)
+- [Offline Functionality](#offline-functionality)
 - [Styleguides](#styleguides)
 - [Inspiration](#inspiration)
 
