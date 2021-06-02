@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "node build",
+    "build:cache": "node build/bin/buildCache.js",
     "build:copy": "node build/bin/copyAssets.js",
     "build:docs": "jsdoc -c build/jsdoc.json",
     "build:html": "node build/bin/buildHTML.js",

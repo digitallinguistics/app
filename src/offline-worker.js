@@ -2,17 +2,14 @@
 
 const cacheName = 'dlx';
 
-// NOTE: Filenames need to start with an initial slash in order to be matched
-// correctly curing cleanupCache().
-const assets = [
-  '/',
-  '/favicon.ico',
-  '/manifest.json',
-  '/images/icon.svg',
-];
+// NOTE: Filenames in the asset list need to start with an initial slash
+// in order to be matched correctly curing cleanupCache().
+let assets = [];
 
 async function cacheAssets() {
-  const cache = await caches.open(cacheName);
+  const response = await fetch('assets.json');
+  assets         = await response.json();
+  const cache    = await caches.open(cacheName);
   await cache.addAll(assets);
 }
 

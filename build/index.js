@@ -1,3 +1,4 @@
+import buildCache        from './buildCache.js';
 import buildHTML         from './buildHTML.js';
 import copyAssets        from './copyAssets.js';
 import { emptyDir }      from 'fs-extra';
@@ -32,6 +33,10 @@ await Promise.all([
   copyAssetsPromise,
   buildHTMLPromise,
 ]);
+
+const buildCachePromise = buildCache();
+ora.promise(buildCachePromise, 'Create cache list');
+await buildCachePromise;
 
 const emptyDocsPromise = emptyDir(joinPath(currentDir, '../docs'));
 ora.promise(emptyDocsPromise, 'Empty /docs directory');
