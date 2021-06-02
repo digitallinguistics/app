@@ -3,24 +3,24 @@
 
   <head>
 
-    <!-- Critical Metadata -->
+    {{!-- critical metadata --}}
     <meta charset=utf-8>
     <meta name=viewport content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <title>Lotus</title>
 
-    <!-- Metadata -->
+    {{!-- metadata --}}
     <meta name=author content='Daniel W. Hieber'>
     <meta name=description content='The Lotus web app for managing linguistic data'>
     <meta name=keywords content='linguistics, Digital Linguistics, digital humanities, corpus linguistics, corpora, lexicography, language documentation, language, language description, descriptive linguistics, documentary linguistics'>
     <meta name=rating content=general>
     <meta name=robots content='index,follow'>
 
-    <!-- Linked Metadata -->
+    {{!-- linked metadata --}}
     <link rel=author href=https://danielhieber.info>
     <link rel=license href=https://github.com/digitallinguistics/app/blob/master/LICENSE.md>
     <link rel=manifest href=manifest.json>
 
-    <!-- Facebook -->
+    {{!-- Facebook sharing --}}
     <meta property=og:description content='The Lotus web app for managing linguistic data'>
     <meta property=og:image content=https://app.digitallinguistics.io/images/social.png>
     <meta property=og:image:height content=315>
@@ -31,32 +31,30 @@
     <meta property=og:url content=https://app.digitallinguistics.io>
     <meta property=og:site_name content='Lotus'>
 
-    <!-- Twitter -->
+    {{!-- Twitter sharing --}}
     <meta name=twitter:card content=summary>
     <meta name=twitter:creator content=@digitalling>
     <meta name=twitter:site content=@digitalling>
     <meta name=twitter:image:alt content='lotus flower'>
 
-    <!-- Favicon -->
+    {{!-- Favicon --}}
     <link rel=icon href=images/favicon.svg type=image/svg+xml>
-
-    <!-- Wep App Manifest -->
-    <link rel=manifest href=manifest.json>
 
   </head>
 
   <body id=app class=app>
 
-    <!-- The main banner for the app, containing the app logo and high-level app controls -->
+    {{!-- The main banner for the app, containing the app logo and high-level app controls --}}
     {{> Banner}}
 
     <h1>Lotus</h1>
 
   </body>
 
-  <!-- SVG sprites -->
+  {{!-- SVG sprites, which can be reused across the app with the <use> tag --}}
   {{> sprites}}
 
+  {{!-- App-level scripts go here --}}
   <script>
 
     // Register the offline service worker

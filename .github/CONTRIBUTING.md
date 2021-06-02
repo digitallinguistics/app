@@ -24,6 +24,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 - [App Structure](#app-structure)
 - [Directory Structure](#directory-structure)
 - [Pages & Components](#pages--components)
+- [Images](#images)
 - [Offline Functionality](#offline-functionality)
 - [Styleguides](#styleguides)
 - [Inspiration](#inspiration)
@@ -35,12 +36,12 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 This project is driven by the needs of documentary and descriptive linguists, and so its development should be sensitive to the following principles:
 
 - **accessibility** (e.g. keyboard entry and manipulation, inclusive design, progressive enhancement)
-- **broadly applicable** (e.g. only features many linguists are expected to use; no project-specific features)
+- **broad applicability** (e.g. only features many linguists are expected to use; no project-specific features)
 - **community-oriented** (e.g. accessible to community members, access controlled by community members)
 - **data freedom** (e.g. import/export in various formats, data longevity)
 - **ethics and data privacy** (e.g. autonyms, choice of where data are stored, user permissions, access rights)
 - **fieldwork-oriented** (e.g. works offline, launches quickly)
-- **linguistically diverse** (e.g. support RTL and LTR writing systems, choice of font, choice of lexical category)
+- **linguistic diversity** (e.g. support RTL and LTR writing systems, choice of font, choice of lexical category)
 - **open source** (e.g. free, easy to contribute, rely only on well-supported tools/libraries, well-documented)
 - **scientific transparency** (e.g. ability to recreate data sets, faithfulness to original data, easily citable)
 
@@ -52,16 +53,22 @@ This project uses the following build and testing tools:
 * [Chai][Chai]: Assertion library.
 * [Cypress][Cypress]: Runs both unit and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
+* [ESLint][ESLint]: Lints JavaScript
 * [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
+* [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
 * [Mocha][Mocha]: Runs unit tests.
+* [Stylelint][Stylelint]: Lints SASS / CSS.
 
 The following build scripts are available:
 
-* `npm run build`: Builds the production code for the app and outputs to `/dist`. Build scripts are located in `/build`. Individual build steps can be run with the following commands:
-  - `npm run build:copy`: copies static assets
-  - `npm run build:css`
-  - `npm run build:html`
-  - `npm run build:js`
+* `npm run build`: Builds the production code for the app and outputs to `dist/`. Build scripts are located in `build/`. Individual build steps can be run with `build:{step}`.
+  - `npm run build:cache`: builds a list of assets to cache offline
+  - `npm run build:copy`: copies static assets to `dist/`
+  - `npm run build:css`: builds CSS assets from SASS files
+  - `npm run build:docs`: builds the developer documentation
+  - `npm run build:html`: builds HTML for app skeleton and individual pages
+  - `npm run build:js`: builds transpiled JS files
+  - `npm run build:svg`: builds the SVG sprites for app skeleton and individual pages
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
 
@@ -74,12 +81,12 @@ The following build scripts are available:
 
 Folder     | Description
 -----------|--------------------------------------------------------------------------------------------------------------------------------------------------
-`/.github` | Developer documentation.
-`/build`   | Scripts to build the production version of the app.
-`/dist`    | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
-`/docs`    | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
-`/src`     | Source code for the app. Test files should live alongside their source components.
-`/test`    | Configuration code and fixtures for tests. Test specs should _not_ be placed here.
+`.github/` | Developer documentation.
+`build/`   | Scripts to build the production version of the app.
+`dist/`    | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
+`docs/`    | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
+`src/`     | Source code for the app. Test files should live alongside their source components.
+`test/`    | Configuration code and fixtures for tests. Test specs should _not_ be placed here.
 
 ## App Structure
 
@@ -87,34 +94,24 @@ The Lotus app follows a typical [app shell model][app-shell-model]. A lightweigh
 
 The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
 
-### HTML
-
-The app has the following major HTML regions:
-
-```html
-<body id=app class=app>
-
-  <header><!-- The app banner, containing the app logo and high-level app controls --></header>
-
-</body>
-```
+Each section of the app shell's HTML is documented with inline code in `src/index.html`.
 
 ## Directory Structure
 
-The `/src` folder contains the following:
+The `src/` folder contains the following:
 
 Folder          | Description
 ----------------|-------------------------------------------------------------------------------------------------------------------------------------------
-`/app`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
-`/components`   | Components that are shared across pages.
-`/core`         | High-level JavaScript modules whose functionality is shared across components.
-`/images`       | Images and icons used in the app.
-`/sass`         | Global SASS variables and utility classes that are used across pages.
-`/models`       | Data models (e.g. Language, Text, etc.).
-`/pages`        | Each subfolder contains all the code for a single "page".
-`/services`     | JavaScript modules which manage access to services like databases and APIs.
-`/utilities`    | JavaScript utilities that are reused across components.
-`/vendor`       | Third-party scripts. These are self-hosted alongside the app.
+`app/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
+`components/`   | Components that are shared across pages.
+`core/`         | High-level JavaScript modules whose functionality is shared across components.
+`images/`       | Images and icons used in the app.
+`models/`       | Data models (e.g. Language, Text, etc.).
+`pages/`        | Each subfolder contains all the code for a single "page".
+`sass/`         | Global SASS variables and utility classes that are used across pages.
+`services/`     | JavaScript modules which manage access to services like databases and APIs.
+`utilities/`    | JavaScript utilities that are reused across components.
+`vendor/`       | Third-party scripts. These are self-hosted alongside the app.
 `manifest.json` | Web app manifest for installing the site as a web app.
 
 ## Pages & Components
@@ -128,23 +125,27 @@ The code for the app consists of the app shell, plus one bundle of code for each
 Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SASS, and JavaScript for that component, like so:
 
 ```
-/pages
-  /LanguagesPage
-    /LanguagesList
+pages/
+  LanguagesPage/
+    LanguagesList/
       - LanguagesList.html
-      - LanguagesList.sass
       - LanguagesList.js
+      - LanguagesList.sass
 ```
 
-* The app shell is treated as a special top-level component and located in the `/app` folder.
-* Components that are specific to the app shell should be placed in the `/app` folder instead of a page folder.
-* Components that are used across pages should be placed in the `/components` folder instead of a page folder.
+* The app shell is treated as a special top-level component and located in the `app/` folder.
+* Components that are specific to the app shell should be placed in the `app/` folder instead of a page folder.
+* Components that are used across pages should be placed in the `components/` folder instead of a page folder.
 
 The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component should load that template using `document.querySelector('#{component-name}-template')`.
 
 The CSS for each component will be loaded along with the page's CSS.
 
 Each page's JavaScript is responsible for loading its own components, and they in turn are responsible for loading any subcomponents.
+
+## Images
+
+The Lotus app uses [Feather Icons][Feather] for UI purposes by default. The app also has some more decorative icons that are less interactive. These are taken from [Flaticon][Flaticon]. Generally, UI icons should be black and white with rounded edges, while decorative icons should be colorful and flat with sharp edges.
 
 ## Offline Functionality
 
@@ -179,6 +180,8 @@ Other single-page apps or tools this project sometimes mimics:
 [developers]:      https://developer.digitallinguistics.io/app
 [ESBuild]:         https://esbuild.github.io/
 [ESLint]:          https://eslint.org/
+[Feather]:         https://feathericons.com/
+[Flaticon]:        https://www.flaticon.com/
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
