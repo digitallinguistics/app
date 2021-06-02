@@ -15,11 +15,19 @@ const {
   outputFile,
 } = fs;
 
-const currentDir = getDirname(fileURLToPath(import.meta.url));
-const srcDir     = joinPath(currentDir, '../src');
-const distDir    = joinPath(currentDir, '../dist');
+const currentDir  = getDirname(fileURLToPath(import.meta.url));
+const srcDir      = joinPath(currentDir, '../src');
+const distDir     = joinPath(currentDir, '../dist');
+const spritesPath = joinPath(distDir, './sprites.svg');
 
-export default async function buildHTML() { // eslint-disable-line max-statements
+/* eslint-disable max-statements */
+export default async function buildHTML() {
+
+  // register SVG partial
+
+  const sprites = await readFile(spritesPath, 'utf8');
+
+  hbs.registerPartial('sprites', sprites);
 
   // register app shell partials
 
