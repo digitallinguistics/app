@@ -54,8 +54,12 @@
 
   </body>
 
+  <!-- SVG sprites -->
+  {{> sprites}}
+
   <script>
 
+    // Register the offline service worker
     if ('serviceWorker' in navigator && navigator.onLine) {
       navigator.serviceWorker.register('offline-worker.js');
     }

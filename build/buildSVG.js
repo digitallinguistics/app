@@ -21,10 +21,17 @@ const spritePath = joinPath(currentDir, '../dist/sprites.svg');
 
 const disallowList = ['favicon'];
 
+const spriteOptions = {
+  svgAttrs: {
+    'aria-hidden': true,
+    style:         'display: none;',
+  },
+};
+
 /* eslint-disable max-statements */
 export default async function buildSVG() {
 
-  const sprites        = createSpriteCollection();
+  const sprites        = createSpriteCollection(spriteOptions);
   const svgFilesStream = await recurse(imagesPath);
 
   for await (const entry of svgFilesStream) {
@@ -42,6 +49,6 @@ export default async function buildSVG() {
 
   }
 
-  await writeFile(spritePath, sprites);
+  await writeFile(spritePath, sprites.toString({ inline: true }));
 
 }
