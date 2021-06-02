@@ -7,7 +7,7 @@ const cacheName = 'dlx';
 let assets = [];
 
 async function cacheAssets() {
-  const response = await fetch('assets.json');
+  const response = await fetch('cache.json');
   assets         = await response.json();
   const cache    = await caches.open(cacheName);
   await cache.addAll(assets);
@@ -22,6 +22,8 @@ async function cleanupCache() {
     const { pathname } = new URL(key.url);
     if (!assets.includes(pathname)) await cache.delete(key);
   }
+
+  self.skipWaiting();
 
 }
 
