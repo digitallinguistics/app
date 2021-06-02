@@ -19,13 +19,16 @@ const currentDir = getDirname(fileURLToPath(import.meta.url));
 const srcDir     = joinPath(currentDir, '../src');
 const distDir    = joinPath(currentDir, '../dist');
 
-export default async function buildHTML() {
+export default async function buildHTML() { // eslint-disable-line max-statements
 
   // register app shell partials
 
-  for await (const entry of recurse(joinPath(srcDir, 'app'))) {
+  const srcFilesStream = recurse(joinPath(srcDir, 'app'));
+
+  for await (const entry of srcFilesStream) {
 
     const ext = getExt(entry.basename);
+
     if (ext !== '.html') continue;
 
     const componentName = getBasename(entry.basename, ext);

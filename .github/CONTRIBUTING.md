@@ -100,18 +100,19 @@ The app has the following major HTML regions:
 
 The `/src` folder contains the following:
 
-Folder        | Description
---------------|-------------------------------------------------------------------------------------------------------------------------------------------
-`/app`        | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
-`/components` | Components that are shared across pages.
-`/core`       | High-level JavaScript modules whose functionality is shared across components.
-`/images`     | Images and icons used in the app.
-`/sass`       | Global SASS variables and utility classes that are used across pages.
-`/models`     | Data models (e.g. Language, Text, etc.).
-`/pages`      | Each subfolder contains all the code for a single "page".
-`/services`   | JavaScript modules which manage access to services like databases and APIs.
-`/utilities`  | JavaScript utilities that are reused across components.
-`/vendor`     | Third-party scripts. These are self-hosted alongside the app.
+Folder          | Description
+----------------|-------------------------------------------------------------------------------------------------------------------------------------------
+`/app`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
+`/components`   | Components that are shared across pages.
+`/core`         | High-level JavaScript modules whose functionality is shared across components.
+`/images`       | Images and icons used in the app.
+`/sass`         | Global SASS variables and utility classes that are used across pages.
+`/models`       | Data models (e.g. Language, Text, etc.).
+`/pages`        | Each subfolder contains all the code for a single "page".
+`/services`     | JavaScript modules which manage access to services like databases and APIs.
+`/utilities`    | JavaScript utilities that are reused across components.
+`/vendor`       | Third-party scripts. These are self-hosted alongside the app.
+`manifest.json` | Web app manifest for installing the site as a web app.
 
 ## Pages & Components
 
@@ -141,6 +142,10 @@ The HTML build step will insert each component's HTML into a `<template id={comp
 The CSS for each component will be loaded along with the page's CSS.
 
 Each page's JavaScript is responsible for loading its own components, and they in turn are responsible for loading any subcomponents.
+
+## Offline Functionality
+
+The Lotus app is designed to be an offline web app. As such, all assets required to run the app must be available offline. This functionality is achieved via the `src/offline-worker.js` file. This file caches all the required assets for the app. It uses the file `dist/cache.json` to determine which files need to be cached. `cache.json` is generated during the build process (by `buildCache.js`) by creating a list of all files present in the `dist/` folder (except for `offline-worker.js` itself).
 
 ## Styleguides
 
