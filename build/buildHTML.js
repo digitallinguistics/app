@@ -19,7 +19,8 @@ const currentDir = getDirname(fileURLToPath(import.meta.url));
 const srcDir     = joinPath(currentDir, '../src');
 const distDir    = joinPath(currentDir, '../dist');
 
-export default async function buildHTML() { // eslint-disable-line max-statements
+/* eslint-disable max-statements */
+export default async function buildHTML() {
 
   // register app shell partials
 

@@ -1,5 +1,6 @@
 import buildCache        from './buildCache.js';
 import buildHTML         from './buildHTML.js';
+import buildSVG          from './buildSVG.js';
 import copyAssets        from './copyAssets.js';
 import { emptyDir }      from 'fs-extra';
 import { exec }          from 'child_process';
@@ -23,16 +24,17 @@ const emptyDistPromise = emptyDir(distDir);
 ora.promise(emptyDistPromise, 'Empty /dist directory');
 await emptyDistPromise;
 
-const copyAssetsPromise = copyAssets();
-ora.promise(copyAssetsPromise, 'Copy static assets');
+const buildSVGPromise = buildSVG();
+ora.promise(buildSVGPromise, 'Build SVG sprites');
+await buildSVGPromise;
 
 const buildHTMLPromise = buildHTML();
 ora.promise(buildHTMLPromise, 'Build HTML');
+await buildHTMLPromise;
 
-await Promise.all([
-  copyAssetsPromise,
-  buildHTMLPromise,
-]);
+const copyAssetsPromise = copyAssets();
+ora.promise(copyAssetsPromise, 'Copy static assets');
+await copyAssetsPromise;
 
 const buildCachePromise = buildCache();
 ora.promise(buildCachePromise, 'Create cache list');

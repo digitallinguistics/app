@@ -1,9 +1,11 @@
 // Creates the cache.json file used by the offline worker
 // to cache all assets needed for offline functionality
 
-import { fileURLToPath }          from 'url';
-import { promises as fsPromises } from 'fs';
-import recurse                    from 'readdirp';
+import { fileURLToPath } from 'url';
+import fs                from 'fs-extra';
+import recurse           from 'readdirp';
+
+const { writeJSON } = fs;
 
 import {
   basename as getBasename,
@@ -12,8 +14,6 @@ import {
   posix,
   sep,
 } from 'path';
-
-const { writeFile } = fsPromises;
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
 const distDir    = joinPath(currentDir, '../dist');
@@ -43,6 +43,6 @@ export default async function buildCache() {
 
   const json = JSON.stringify(assets, null, 2);
 
-  await writeFile(cachePath, json);
+  await writeJSON(cachePath, json);
 
 }
