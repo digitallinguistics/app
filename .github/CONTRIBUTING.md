@@ -1,4 +1,4 @@
-# The DLx Lotus App
+# Contributor Guidelines
 
 🌟Thank you🌟 for contributing to the Lotus app! 🙏🏼
 
@@ -12,6 +12,8 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 
 [View the complete developer documentation here.][developers]
 
+[View documentation for maintainers.][maintainers]
+
 ## Contents
 
 <!-- TOC -->
@@ -22,6 +24,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 - [App Structure](#app-structure)
 - [Directory Structure](#directory-structure)
 - [Pages & Components](#pages--components)
+- [Offline Functionality](#offline-functionality)
 - [Styleguides](#styleguides)
 - [Inspiration](#inspiration)
 
@@ -179,6 +182,7 @@ Other single-page apps or tools this project sometimes mimics:
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
+[maintainers]:     https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md
 [Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
 [Mocha]:           https://mochajs.org/
 [MSTodo]:          https://to-do.live.com/
