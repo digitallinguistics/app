@@ -7,16 +7,4 @@
  * @memberof app
  * @instance
  */
-export default class App {
-
-  // PROPERTIES
-
-  // METHODS
-
-  /**
-   * Initialize the App view
-   * @return {Promise}
-   */
-  async initialize() {}
-
-  }
+export default class App {}
