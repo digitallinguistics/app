@@ -49,7 +49,6 @@ This project is driven by the needs of documentary and descriptive linguists, an
 
 This project uses the following build and testing tools:
 
-* [Babel][Babel]: Transpiles the latest JavaScript syntax to earlier versions that are compatible with most browsers.
 * [Chai][Chai]: Assertion library.
 * [Cypress][Cypress]: Runs both unit and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
@@ -174,7 +173,6 @@ Other single-page apps or tools this project sometimes mimics:
 
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
-[Babel]:           https://babeljs.io/
 [Chai]:            https://www.chaijs.com/
 [Cypress]:         https://www.cypress.io/
 [developers]:      https://developer.digitallinguistics.io/app
