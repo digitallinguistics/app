@@ -16,15 +16,15 @@ import {
 } from 'path';
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
-const imagesPath = joinPath(currentDir, '../src/images');
-const spritePath = joinPath(currentDir, '../dist/sprites.svg');
+const imagesPath = joinPath(currentDir, `../src/images`);
+const spritePath = joinPath(currentDir, `../dist/sprites.svg`);
 
-const disallowList = ['favicon'];
+const disallowList = [`favicon`];
 
 const spriteOptions = {
   svgAttrs: {
     'aria-hidden': true,
-    style:         'display: none;',
+    style:         `display: none;`,
   },
 };
 
@@ -39,11 +39,11 @@ export default async function buildSVG() {
     const ext      = getExt(entry.basename);
     const filename = getBasename(entry.basename, ext);
 
-    if (ext !== '.svg') continue;
+    if (ext !== `.svg`) continue;
     if (disallowList.includes(filename)) continue;
 
     const filePath = joinPath(imagesPath, entry.path);
-    const svg      = await readFile(filePath, 'utf8');
+    const svg      = await readFile(filePath, `utf8`);
 
     sprites.add(filename, svg);
 
