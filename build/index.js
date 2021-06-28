@@ -22,6 +22,9 @@ const distDir    = joinPath(currentDir, `../dist`);
 
 console.info(`Building app.`);
 
+// NB: Do not pass promises directly to ora.
+// These promises must be completed in order, so you need to await each one in order.
+
 const emptyDistPromise = emptyDir(distDir);
 ora.promise(emptyDistPromise, `Empty /dist directory`);
 await emptyDistPromise;
@@ -37,6 +40,10 @@ await buildHTMLPromise;
 const buildCSSPromise = buildCSS();
 ora.promise(buildCSSPromise, `Build CSS`);
 await buildCSSPromise;
+
+const buildJSPromise = buildJS();
+ora.promise(buildJSPromise, `Build JS`);
+await buildJSPromise;
 
 const copyAssetsPromise = copyAssets();
 ora.promise(copyAssetsPromise, `Copy static assets`);
