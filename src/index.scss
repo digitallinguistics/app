@@ -1,4 +1,4 @@
 // Global styling for the app
 
-// App Shell
-@use 'app/App.scss';
+@use 'node_modules/flexbox-reset/flexbox-reset.css';
+@use 'app/App'; // app shell

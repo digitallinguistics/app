@@ -12,10 +12,11 @@ export default function convertSASS(data) {
       includePaths: [
         `node_modules/bulma/sass`,
         `src`,
+        `src/app`,
       ],
-    }, (err, { css } = {}) => {
+    }, (err, result) => {
       if (err) reject(err);
-      else resolve(css.toString());
+      else resolve(result.css.toString());
     });
   });
 }
