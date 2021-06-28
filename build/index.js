@@ -1,6 +1,7 @@
 import buildCSS          from './buildCSS.js';
 import buildCache        from './buildCache.js';
 import buildHTML         from './buildHTML.js';
+import buildJS           from './buildJS.js';
 import buildSVG          from './buildSVG.js';
 import copyAssets        from './copyAssets.js';
 import { emptyDir }      from 'fs-extra';
