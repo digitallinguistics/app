@@ -1,3 +1,4 @@
+import convertSASS       from './convertSASS.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
 import hbs               from 'handlebars';
@@ -15,19 +16,32 @@ const {
   outputFile,
 } = fs;
 
-const currentDir  = getDirname(fileURLToPath(import.meta.url));
-const srcDir      = joinPath(currentDir, `../src`);
-const distDir     = joinPath(currentDir, `../dist`);
-const spritesPath = joinPath(distDir, `./sprites.svg`);
+const currentDir = getDirname(fileURLToPath(import.meta.url));
+const srcDir     = joinPath(currentDir, `../src`);
+const distDir    = joinPath(currentDir, `../dist`);
+
+async function generateCriticalCSS() {
+  const appShellStylesPath = joinPath(currentDir, `../src/index.scss`);
+  const appShellSASS       = await readFile(appShellStylesPath, `utf8`);
+  const appShellCSS        = await convertSASS(appShellSASS);
+  return appShellCSS.toString();
+}
 
 /* eslint-disable max-statements */
 export default async function buildHTML() {
 
   // register SVG partial
 
-  const sprites = await readFile(spritesPath, `utf8`);
+  const spritesPath = joinPath(distDir, `./sprites.svg`);
+  const sprites     = await readFile(spritesPath, `utf8`);
 
   hbs.registerPartial(`sprites`, sprites);
+
+  // register critical CSS partial
+
+  const criticalCSS = await generateCriticalCSS();
+
+  hbs.registerPartial(`critical-css`, criticalCSS);
 
   // register app shell partials
 
