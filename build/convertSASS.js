@@ -15,7 +15,7 @@ export default function convertSASS(data) {
       ],
     }, (err, { css } = {}) => {
       if (err) reject(err);
-      else resolve(css);
+      else resolve(css.toString());
     });
   });
 }

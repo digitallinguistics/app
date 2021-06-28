@@ -1,3 +1,4 @@
+import CleanCSS          from 'clean-css';
 import convertSASS       from './convertSASS.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
@@ -21,10 +22,12 @@ const srcDir     = joinPath(currentDir, `../src`);
 const distDir    = joinPath(currentDir, `../dist`);
 
 async function generateCriticalCSS() {
-  const appShellStylesPath = joinPath(currentDir, `../src/index.scss`);
-  const appShellSASS       = await readFile(appShellStylesPath, `utf8`);
-  const appShellCSS        = await convertSASS(appShellSASS);
-  return appShellCSS.toString();
+  const appShellStylesPath      = joinPath(currentDir, `../src/index.scss`);
+  const appShellSASS            = await readFile(appShellStylesPath, `utf8`);
+  const appShellCSS             = await convertSASS(appShellSASS);
+  const minifier                = new CleanCSS({});
+  const { styles: minifiedCSS } = minifier.minify(appShellCSS);
+  return minifiedCSS;
 }
 
 /* eslint-disable max-statements */
