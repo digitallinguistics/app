@@ -1,0 +1,15 @@
+@use 'styles/utilities.scss' as *;
+
+.skip-link {
+
+  background-color: white;
+  margin:           var(--space-xxxs);
+  padding:          var(--text-padding);
+  position:         absolute;
+  z-index:          1;
+
+  &:not(:focus) {
+    @include visually-hidden;
+  }
+
+}
