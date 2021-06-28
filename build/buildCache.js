@@ -16,12 +16,12 @@ import {
 } from 'path';
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
-const distDir    = joinPath(currentDir, '../dist');
-const cachePath  = joinPath(currentDir, '../dist/cache.json');
+const distDir    = joinPath(currentDir, `../dist`);
+const cachePath  = joinPath(currentDir, `../dist/cache.json`);
 
 const disallowList = [
-  'index.html',
-  'offline-worker.js',
+  `index.html`,
+  `offline-worker.js`,
 ];
 
 export default async function buildCache() {
