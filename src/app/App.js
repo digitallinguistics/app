@@ -10,6 +10,7 @@
 export default class App {
 
   // PROPERTIES
+
   /**
    * References to DOM elements used by the App View
    * @type {Object}
