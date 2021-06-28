@@ -1,4 +1,4 @@
 // Global styling for the app
 
-// App Shell
-@use 'app/App.scss';
+@use 'utilities/all.sass' as *; // Bulma base
+@use 'app/App.scss';            // app shell
