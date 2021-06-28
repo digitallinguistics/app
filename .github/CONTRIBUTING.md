@@ -49,15 +49,14 @@ This project is driven by the needs of documentary and descriptive linguists, an
 
 This project uses the following build and testing tools:
 
-* [Babel][Babel]: Transpiles the latest JavaScript syntax to earlier versions that are compatible with most browsers.
 * [Chai][Chai]: Assertion library.
 * [Cypress][Cypress]: Runs both unit and integration tests.
+* [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
 * [ESLint][ESLint]: Lints JavaScript
 * [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
 * [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
 * [Mocha][Mocha]: Runs unit tests.
 * [Stylelint][Stylelint]: Lints SASS / CSS.
-* [Webpack][Webpack]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
 
 The following build scripts are available:
 
@@ -174,10 +173,10 @@ Other single-page apps or tools this project sometimes mimics:
 
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
-[Babel]:           https://babeljs.io/
 [Chai]:            https://www.chaijs.com/
 [Cypress]:         https://www.cypress.io/
 [developers]:      https://developer.digitallinguistics.io/app
+[ESBuild]:         https://esbuild.github.io/
 [ESLint]:          https://eslint.org/
 [Feather]:         https://feathericons.com/
 [Flaticon]:        https://www.flaticon.com/
@@ -192,4 +191,3 @@ Other single-page apps or tools this project sometimes mimics:
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [SayMore]:         https://software.sil.org/saymore/
 [Stylelint]:       https://stylelint.io/
-[Webpack]:         https://webpack.js.org/
