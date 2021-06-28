@@ -62,6 +62,9 @@
 
   </body>
 
+  {{!-- an AIRA live region for announcing messages to screen readers --}}
+  <p id=info hidden aria-live=polite></p>
+
   {{!-- SVG sprites, which can be reused across the app with the <use> tag --}}
   {{> sprites}}
 
@@ -75,7 +78,7 @@
 
   </script>
 
-  {{!-- Initialize the App --}}
+  {{!-- initialize the App --}}
   {{!-- NB: This script is inlined so that the browser doesn't have to make a separate request for it --}}
   <script type=module>
 

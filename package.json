@@ -25,7 +25,7 @@
     "build:css": "node build/bin/buildCSS.js",
     "build:docs": "jsdoc -c build/jsdoc.json",
     "build:html": "node build/bin/buildHTML.js",
-    "build:js": "node build/bin/buidJS.js",
+    "build:js": "node build/bin/buildJS.js",
     "build:svg": "node build/bin/buildSVG.js",
     "cypress": "start-server-and-test start 3000 cypress-open",
     "cypress-open": "cypress open --config-file test/cypress.json",
