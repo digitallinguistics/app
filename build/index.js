@@ -38,10 +38,6 @@ const buildCSSPromise = buildCSS();
 ora.promise(buildCSSPromise, `Build CSS`);
 await buildCSSPromise;
 
-const buildCJSPromise = buildJS();
-ora.promise(buildCJSPromise, `Build JS`);
-await buildCJSPromise;
-
 const copyAssetsPromise = copyAssets();
 ora.promise(copyAssetsPromise, `Copy static assets`);
 await copyAssetsPromise;
