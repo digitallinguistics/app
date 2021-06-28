@@ -1,3 +1,4 @@
+import buildCSS          from './buildCSS.js';
 import buildCache        from './buildCache.js';
 import buildHTML         from './buildHTML.js';
 import buildJS           from './buildJS.js';
@@ -33,9 +34,13 @@ const buildHTMLPromise = buildHTML();
 ora.promise(buildHTMLPromise, `Build HTML`);
 await buildHTMLPromise;
 
-const buildJSPromise = buildJS();
-ora.promise(buildJSPromise, `Build JS`);
-await buildJSPromise;
+const buildCSSPromise = buildCSS();
+ora.promise(buildCSSPromise, `Build CSS`);
+await buildCSSPromise;
+
+const buildCJSPromise = buildJS();
+ora.promise(buildCJSPromise, `Build JS`);
+await buildCJSPromise;
 
 const copyAssetsPromise = copyAssets();
 ora.promise(copyAssetsPromise, `Copy static assets`);

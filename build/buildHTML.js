@@ -16,31 +16,31 @@ const {
 } = fs;
 
 const currentDir  = getDirname(fileURLToPath(import.meta.url));
-const srcDir      = joinPath(currentDir, '../src');
-const distDir     = joinPath(currentDir, '../dist');
-const spritesPath = joinPath(distDir, './sprites.svg');
+const srcDir      = joinPath(currentDir, `../src`);
+const distDir     = joinPath(currentDir, `../dist`);
+const spritesPath = joinPath(distDir, `./sprites.svg`);
 
 /* eslint-disable max-statements */
 export default async function buildHTML() {
 
   // register SVG partial
 
-  const sprites = await readFile(spritesPath, 'utf8');
+  const sprites = await readFile(spritesPath, `utf8`);
 
-  hbs.registerPartial('sprites', sprites);
+  hbs.registerPartial(`sprites`, sprites);
 
   // register app shell partials
 
-  const srcFilesStream = recurse(joinPath(srcDir, 'app'));
+  const srcFilesStream = recurse(joinPath(srcDir, `app`));
 
   for await (const entry of srcFilesStream) {
 
     const ext = getExt(entry.basename);
 
-    if (ext !== '.html') continue;
+    if (ext !== `.html`) continue;
 
     const componentName = getBasename(entry.basename, ext);
-    const componentHTML = await readFile(entry.fullPath, 'utf8');
+    const componentHTML = await readFile(entry.fullPath, `utf8`);
 
     hbs.registerPartial(componentName, componentHTML);
 
@@ -48,10 +48,10 @@ export default async function buildHTML() {
 
   // build the app shell
 
-  const appTemplate = await readFile(joinPath(srcDir, 'index.html'), 'utf8');
+  const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
   const app         = buildApp();
 
-  await outputFile(joinPath(distDir, 'index.html'), app);
+  await outputFile(joinPath(distDir, `index.html`), app);
 
 }
