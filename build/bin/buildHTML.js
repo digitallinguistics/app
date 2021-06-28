@@ -1,3 +1,4 @@
 import buildHTML from '../buildHTML.js';
+import ora       from 'ora';
 
-buildHTML();
+ora.promise(buildHTML().catch(console.error), `Build HTML`);

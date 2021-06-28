@@ -1,3 +1,4 @@
 import createAssetList from '../createAssetList.js';
+import ora             from 'ora';
 
-createAssetList();
+ora.promise(createAssetList().catch(console.error), `Create asset list`);
