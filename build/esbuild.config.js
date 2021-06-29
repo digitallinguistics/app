@@ -10,7 +10,7 @@ const env        = process.env.GITHUB_EVENT_NAME === `release` ? `production` : 
 
 export default {
   bundle:      true,
-  entryPoints: [joinPath(currentDir, `../src/app/App.js`)],
+  entryPoints: [joinPath(currentDir, `../src/App/App.js`)],
   format:      `esm`,
   minify:      env === `production`,
   outbase:     joinPath(currentDir, `../src`),

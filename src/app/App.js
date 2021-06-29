@@ -1,10 +1,10 @@
 /**
- * @namespace app
+ * @namespace App
  */
 
 /**
  * The top-level view for the app
- * @memberof app
+ * @memberof App
  * @instance
  */
 export default class App {

@@ -102,7 +102,7 @@ The `src/` folder contains the following:
 
 Folder          | Description
 ----------------|-------------------------------------------------------------------------------------------------------------------------------------------
-`app/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
+`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
 `components/`   | Components that are shared across pages.
 `core/`         | High-level JavaScript modules whose functionality is shared across components.
 `images/`       | Images and icons used in the app.
@@ -133,8 +133,8 @@ pages/
       - LanguagesList.scss
 ```
 
-* The app shell is treated as a special top-level component and located in the `app/` folder.
-* Components that are specific to the app shell should be placed in the `app/` folder instead of a page folder.
+* The app shell is treated as a special top-level component and located in the `App/` folder.
+* Components that are specific to the app shell should be placed in the `App/` folder instead of a page folder.
 * Components that are used across pages should be placed in the `components/` folder instead of a page folder.
 
 The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component should load that template using `document.querySelector('#{component-name}-template')`.
