@@ -1,4 +1,3 @@
-import CleanCSS          from 'clean-css';
 import convertLESS       from './convertLESS.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
@@ -24,10 +23,7 @@ const distDir    = joinPath(currentDir, `../dist`);
 async function generateCriticalCSS() {
   const appShellStylesPath      = joinPath(currentDir, `../src/index.less`);
   const appShellSASS            = await readFile(appShellStylesPath, `utf8`);
-  const appShellCSS             = await convertLESS(appShellSASS);
-  const minifier                = new CleanCSS({});
-  const { styles: minifiedCSS } = minifier.minify(appShellCSS);
-  return `${ minifiedCSS }\n`;
+  return convertLESS(appShellSASS);
 }
 
 /* eslint-disable max-statements */
@@ -44,7 +40,7 @@ export default async function buildHTML() {
 
   const criticalCSS = await generateCriticalCSS();
 
-  hbs.registerPartial(`critical-css`, criticalCSS);
+  hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
 
   // register app shell partials
 
