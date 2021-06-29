@@ -41,9 +41,7 @@
     <link rel=icon href=images/favicon.svg type=image/svg+xml>
 
     {{!-- styling for app shell --}}
-    <style>
-      {{> critical-css}}
-    </style>
+    <style>{{> critical-css}}</style>
 
   </head>
 
@@ -60,8 +58,8 @@
     <h2>Coming soon!</h2>
 
     <p>The Lotus app is a tool for linguists to manage their linguistic data, including lexicons, texts, and cognate sets. Keep checking back for updates!</p>
-    <p><a href="https://digitallinguistics.io" rel="nofollow">Learn more about the Digital Linguistics project here!</a></p>
-    <p><a href="https://twitter.com/digitalling" rel="nofollow">Follow Digital Linguistics on Twitter!</a></p>
+    <p><a href=https://digitallinguistics.io>Learn more about the Digital Linguistics project here!</a></p>
+    <p><a href=https://twitter.com/digitalling>Follow Digital Linguistics on Twitter!</a></p>
 
   </body>
 
@@ -85,7 +83,7 @@
   {{!-- NB: This script is inlined so that the browser doesn't have to make a separate request for it --}}
   <script type=module>
 
-    import App from './app/App.js';
+    import App from './App/App.js';
 
     window.app = new App;
 
