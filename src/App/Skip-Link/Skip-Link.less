@@ -1,4 +1,4 @@
-@use 'styles/utilities.scss' as *;
+@import (reference) 'styles/utilities';
 
 .skip-link {
 
@@ -9,7 +9,7 @@
   z-index:          1;
 
   &:not(:focus) {
-    @include visually-hidden;
+    .visually-hidden;
   }
 
 }

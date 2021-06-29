@@ -55,8 +55,8 @@ This project uses the following build and testing tools:
 * [ESLint][ESLint]: Lints JavaScript
 * [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
 * [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
+* [LESS][LESS]: Enables a superset of CSS syntax, and compiles LESS > CSS.
 * [Mocha][Mocha]: Runs unit tests.
-* [SASS][SASS]: Converts SCSS stylesheets to CSS.
 * [Stylelint][Stylelint]: Lints SCSS / CSS.
 
 The following build scripts are available:
@@ -130,7 +130,7 @@ pages/
     LanguagesList/
       - LanguagesList.html
       - LanguagesList.js
-      - LanguagesList.scss
+      - LanguagesList.less
 ```
 
 * The app shell is treated as a special top-level component and located in the `App/` folder.
@@ -186,12 +186,12 @@ Some older versions of styles for the app are located [here](https://github.com/
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
+[LESS]:            https://lesscss.org/
 [maintainers]:     https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md
 [Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
 [Mocha]:           https://mochajs.org/
 [MSTodo]:          https://to-do.live.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
-[SCSS]:            https://sass-lang.com/
 [SayMore]:         https://software.sil.org/saymore/
 [Stylelint]:       https://stylelint.io/
