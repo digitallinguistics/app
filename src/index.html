@@ -55,7 +55,16 @@
 
     <h1>Lotus</h1>
 
+    <h2>Coming soon!</h2>
+
+    <p>The Lotus app is a tool for linguists to manage their linguistic data, including lexicons, texts, and cognate sets. Keep checking back for updates!</p>
+    <p><a href=https://digitallinguistics.io>Learn more about the Digital Linguistics project here!</a></p>
+    <p><a href=https://twitter.com/digitalling>Follow Digital Linguistics on Twitter!</a></p>
+
   </body>
+
+  {{!-- an AIRA live region for announcing messages to screen readers --}}
+  <p id=info hidden aria-live=polite></p>
 
   {{!-- SVG sprites, which can be reused across the app with the <use> tag --}}
   {{> sprites}}
@@ -70,7 +79,7 @@
 
   </script>
 
-  {{!-- Initialize the App --}}
+  {{!-- initialize the App --}}
   {{!-- NB: This script is inlined so that the browser doesn't have to make a separate request for it --}}
   <script type=module>
 

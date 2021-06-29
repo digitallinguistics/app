@@ -27,7 +27,7 @@ async function generateCriticalCSS() {
   const appShellCSS             = await convertSASS(appShellSASS);
   const minifier                = new CleanCSS({});
   const { styles: minifiedCSS } = minifier.minify(appShellCSS);
-  return minifiedCSS;
+  return `${ minifiedCSS }\n`;
 }
 
 /* eslint-disable max-statements */
