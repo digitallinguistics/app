@@ -48,7 +48,7 @@ export default async function buildHTML() {
 
   // register app shell partials
 
-  const srcFilesStream = recurse(joinPath(srcDir, `app`));
+  const srcFilesStream = recurse(joinPath(srcDir, `App`));
 
   for await (const entry of srcFilesStream) {
 

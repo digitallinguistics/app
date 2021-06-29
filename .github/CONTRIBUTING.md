@@ -56,14 +56,15 @@ This project uses the following build and testing tools:
 * [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
 * [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
 * [Mocha][Mocha]: Runs unit tests.
-* [Stylelint][Stylelint]: Lints SASS / CSS.
+* [SASS][SASS]: Converts SCSS stylesheets to CSS.
+* [Stylelint][Stylelint]: Lints SCSS / CSS.
 
 The following build scripts are available:
 
 * `npm run build`: Builds the production code for the app and outputs to `dist/`. Build scripts are located in `build/`. Individual build steps can be run with `build:{step}`.
   - `npm run build:cache`: builds a list of assets to cache offline
   - `npm run build:copy`: copies static assets to `dist/`
-  - `npm run build:css`: builds CSS assets from SASS files
+  - `npm run build:css`: builds CSS assets from SCSS files
   - `npm run build:docs`: builds the developer documentation
   - `npm run build:html`: builds HTML for app skeleton and individual pages
   - `npm run build:js`: builds transpiled JS files
@@ -101,14 +102,14 @@ The `src/` folder contains the following:
 
 Folder          | Description
 ----------------|-------------------------------------------------------------------------------------------------------------------------------------------
-`app/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
+`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
 `components/`   | Components that are shared across pages.
 `core/`         | High-level JavaScript modules whose functionality is shared across components.
 `images/`       | Images and icons used in the app.
 `models/`       | Data models (e.g. Language, Text, etc.).
 `pages/`        | Each subfolder contains all the code for a single "page".
-`sass/`         | Global SASS variables and utility classes that are used across pages.
 `services/`     | JavaScript modules which manage access to services like databases and APIs.
+`styles/`       | Global classes, variables, and utility classes that are used across pages.
 `utilities/`    | JavaScript utilities that are reused across components.
 `vendor/`       | Third-party scripts. These are self-hosted alongside the app.
 `manifest.json` | Web app manifest for installing the site as a web app.
@@ -121,7 +122,7 @@ The code for the app consists of the app shell, plus one bundle of code for each
 * `Languages.css`
 * `Languages.js`
 
-Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SASS, and JavaScript for that component, like so:
+Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SCSS, and JavaScript for that component, like so:
 
 ```
 pages/
@@ -129,11 +130,11 @@ pages/
     LanguagesList/
       - LanguagesList.html
       - LanguagesList.js
-      - LanguagesList.sass
+      - LanguagesList.scss
 ```
 
-* The app shell is treated as a special top-level component and located in the `app/` folder.
-* Components that are specific to the app shell should be placed in the `app/` folder instead of a page folder.
+* The app shell is treated as a special top-level component and located in the `App/` folder.
+* Components that are specific to the app shell should be placed in the `App/` folder instead of a page folder.
 * Components that are used across pages should be placed in the `components/` folder instead of a page folder.
 
 The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component should load that template using `document.querySelector('#{component-name}-template')`.
@@ -152,10 +153,10 @@ The Lotus app is designed to be an offline web app. As such, all assets required
 
 ## Styleguides
 
-JavaScript and CSS / SASS code should be linted before opening a pull request.
+JavaScript and CSS / SCSS code should be linted before opening a pull request.
 
 * JavaScript code is linted with [ESLint][ESLint]. The ESLint config file for this project is located at `.eslintrc.yml`.
-* SASS / CSS code is linted with [Stylelint][Stylelint]. The Stylelint config file for this project is located at `.stylelintrc.yml`.
+* SCSS / CSS code is linted with [Stylelint][Stylelint]. The Stylelint config file for this project is located at `.stylelintrc.yml`.
 
 JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
 
@@ -170,6 +171,8 @@ Other single-page apps or tools this project sometimes mimics:
 * [SayMore][SayMore]
 * Slack (desktop)
 * Trello
+
+Some older versions of styles for the app are located [here](https://github.com/digitallinguistics/styles/tree/8ec3d9f232e37080531a0b69fa542e66fb49721c).
 
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
@@ -189,5 +192,6 @@ Other single-page apps or tools this project sometimes mimics:
 [MSTodo]:          https://to-do.live.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
+[SCSS]:            https://sass-lang.com/
 [SayMore]:         https://software.sil.org/saymore/
 [Stylelint]:       https://stylelint.io/

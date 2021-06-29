@@ -12,7 +12,7 @@ export default function convertSASS(data) {
       includePaths: [
         `node_modules/bulma/sass`,
         `src`,
-        `src/app`,
+        `src/styles`,
       ],
     }, (err, result) => {
       if (err) reject(err);

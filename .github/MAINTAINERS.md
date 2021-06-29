@@ -33,4 +33,3 @@ Lotus should support desktop versions of the following browsers. The app is not 
 * Edge
 * Firefox
 * Safari
-* Opera
