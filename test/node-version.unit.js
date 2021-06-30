@@ -11,7 +11,7 @@ import {
 const { readFile } = fs;
 const currentDir   = getDirname(fileURLToPath(import.meta.url));
 const packageJSON  = JSON.parse( await readFile(joinPath(currentDir, '../package.json'), 'utf8'));
-const packageVer   = packageJSON.engines.node;
+const packageVer   = semver.minVersion(packageJSON.engines.node);
 
 describe('active Node version', function() {
 
@@ -19,7 +19,7 @@ describe('active Node version', function() {
 
     const localVer = process.version;
 
-    expect(semver.major(semver.minVersion(packageVer))).to.equal(semver.major(localVer));
+    expect(semver.gte(localVer, packageVer)).to.equal(true);
 
   });
 
