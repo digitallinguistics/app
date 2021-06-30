@@ -13,7 +13,7 @@ const currentDir   = getDirname(fileURLToPath(import.meta.url));
 const packageJSON  = JSON.parse( await readFile(joinPath(currentDir, '../package.json'), 'utf8'));
 const packageVer   = semver.minVersion(packageJSON.engines.node);
 
-describe('active Node version', function() {
+describe('Node version', function() {
 
   it('matches Node version in package.json', function() {
 
