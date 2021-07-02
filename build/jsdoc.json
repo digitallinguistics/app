@@ -3,7 +3,7 @@
     "destination": "./docs/",
     "readme": "./.github/CONTRIBUTING.md",
     "recurse": true,
-    "template": "node_modules/minami"
+    "template": "./node_modules/minami"
   },
   "plugins": [
     "plugins/markdown"
