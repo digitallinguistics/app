@@ -26,27 +26,14 @@ async function generateCriticalCSS() {
   return convertLESS(appShellSASS);
 }
 
-/* eslint-disable max-statements */
-export default async function buildHTML() {
+/**
+ * Registers all the partials in a directory.
+ */
+async function registerPartialsDir(dir) {
 
-  // register SVG partial
+  const filesStream = recurse(dir);
 
-  const spritesPath = joinPath(distDir, `./sprites.svg`);
-  const sprites     = await readFile(spritesPath, `utf8`);
-
-  hbs.registerPartial(`sprites`, sprites);
-
-  // register critical CSS partial
-
-  const criticalCSS = await generateCriticalCSS();
-
-  hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
-
-  // register app shell partials
-
-  const srcFilesStream = recurse(joinPath(srcDir, `App`));
-
-  for await (const entry of srcFilesStream) {
+  for await (const entry of filesStream) {
 
     const ext = getExt(entry.basename);
 
@@ -59,8 +46,29 @@ export default async function buildHTML() {
 
   }
 
-  // build the app shell
+}
 
+/* eslint-disable max-statements */
+export default async function buildHTML() {
+
+  // register SVG partial
+  const spritesPath = joinPath(distDir, `./sprites.svg`);
+  const sprites     = await readFile(spritesPath, `utf8`);
+
+  hbs.registerPartial(`sprites`, sprites);
+
+  // register critical CSS partial
+  const criticalCSS = await generateCriticalCSS();
+
+  hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
+
+  // register app shell partials
+  await registerPartialsDir(joinPath(srcDir, `App`));
+
+  // register page partials
+  await registerPartialsDir(joinPath(srcDir, `pages`));
+
+  // build the app shell
   const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
   const app         = buildApp();
