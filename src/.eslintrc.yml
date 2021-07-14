@@ -10,6 +10,7 @@ env:
 overrides:
   - files:
       - '**/*.test.js'
+      - '**/*.unit.js'
     rules:
       func-names:            off
       prefer-arrow-callback: off
