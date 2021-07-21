@@ -52,12 +52,11 @@
     {{!-- skip link --}}
     <a href=#main class=skip-link>Skip to main content</a>
 
-    {{!-- The main banner for the app, containing the app logo and high-level app controls --}}
+    {{!-- the main banner for the app, containing the app logo and high-level app controls --}}
     {{> Banner}}
 
-    <main id=main class=main>
-      {{> Home}}
-    </main>
+    {{!-- the main content of the page (should always be a `<main id={page}>` element --}}
+    {{> Home}}
 
   </body>
 
@@ -67,10 +66,10 @@
   {{!-- SVG sprites, which can be reused across the app with the <use> tag --}}
   {{> sprites}}
 
-  {{!-- App-level scripts go here --}}
+  {{!-- app-level scripts go here --}}
   <script>
 
-    // Register the offline service worker
+    // register the offline service worker
     if ('serviceWorker' in navigator && navigator.onLine) {
       navigator.serviceWorker.register('offline-worker.js');
     }

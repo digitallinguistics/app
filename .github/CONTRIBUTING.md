@@ -116,7 +116,7 @@ Folder          | Description
 
 ## Pages & Components
 
-The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) So all of the various code and components for the Languages page, for example, are compiled into the following three files:
+The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) All of the various code and components for the Languages page, for example, are compiled into the following three files:
 
 * `Languages.html`
 * `Languages.css`
@@ -137,11 +137,19 @@ pages/
 * Components that are specific to the app shell should be placed in the `App/` folder instead of a page folder.
 * Components that are used across pages should be placed in the `components/` folder instead of a page folder.
 
-The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component should load that template using `document.querySelector('#{component-name}-template')`.
+The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component can load that template using `document.querySelector('#{component-name}-template')`.
 
 The CSS for each component will be loaded along with the page's CSS.
 
 Each page's JavaScript is responsible for loading its own components, and they in turn are responsible for loading any subcomponents.
+
+## Rendering Pages & Components
+
+Pages and components should never insert themselves into the DOM; this is the job of their controller. The `render()` method of each View instance should update the `el` property of the instance with the new DOM element, and return that element.
+
+Each page or component should return a single root element. Pages must always return a `<main id={page}>` element.
+
+Pages and controllers _should_ add their own event listeners. This can be done at the end of the `render()` method.
 
 ## Images
 
