@@ -41,8 +41,6 @@ export default async function buildCache() {
 
   }
 
-  const json = JSON.stringify(assets, null, 2);
-
-  await writeJSON(cachePath, json);
+  await writeJSON(cachePath, assets, { spaces: 2 });
 
 }
