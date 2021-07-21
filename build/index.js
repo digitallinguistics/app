@@ -33,13 +33,13 @@ const buildSVGPromise = buildSVG();
 ora.promise(buildSVGPromise, `Build SVG sprites`);
 await buildSVGPromise;
 
+// const buildCSSPromise = buildCSS();
+// ora.promise(buildCSSPromise, `Build CSS`);
+// await buildCSSPromise;
+
 const buildHTMLPromise = buildHTML();
 ora.promise(buildHTMLPromise, `Build HTML`);
 await buildHTMLPromise;
-
-const buildCSSPromise = buildCSS();
-ora.promise(buildCSSPromise, `Build CSS`);
-await buildCSSPromise;
 
 const buildJSPromise = buildJS();
 ora.promise(buildJSPromise, `Build JS`);

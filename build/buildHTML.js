@@ -21,27 +21,33 @@ const srcDir     = joinPath(currentDir, `../src`);
 const distDir    = joinPath(currentDir, `../dist`);
 const pagesDir   = joinPath(srcDir, `pages`);
 
-async function generateCriticalCSS() {
-  const appShellStylesPath = joinPath(currentDir, `../src/index.less`);
-  const appShellLESS       = await readFile(appShellStylesPath, `utf8`);
-  return convertLESS(appShellLESS);
+const mainRegExp = /(?<main><main.+>)/u;
+
+async function generateCSS(lessPath) {
+  const less = await readFile(lessPath, `utf8`);
+  return convertLESS(less);
 }
 
 /**
  * Builds the HTML for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp).
  * @param {Object} entry An entry from the [readdirp](https://www.npmjs.com/package/readdirp) package.
  */
-async function buildPageHTML(entry) {
+async function buildPageContent(entry) {
 
   const ext = getExt(entry.basename);
 
   if (ext !== `.html`) return;
 
-  const pageTemplate = await readFile(entry.fullPath, `utf8`);
-  const buildPage    = hbs.compile(pageTemplate);
-  const pageHTML     = buildPage();
+  const template  = await readFile(entry.fullPath, `utf8`);
+  const buildHTML = hbs.compile(template);
+  let   html      = buildHTML();
+  const lessPath  = entry.fullPath.replace(`.html`, `.less`);
+  const less      = await readFile(lessPath, `utf8`);
+  const css       = await convertLESS(less);
 
-  await outputFile(joinPath(distDir, `pages`, entry.path), pageHTML);
+  html = html.replace(mainRegExp, `$<main>\n\n  <style>    \n    ${ css }\n  </style>`);
+
+  await outputFile(joinPath(distDir, `pages`, entry.path), html);
 
 }
 
@@ -68,7 +74,7 @@ async function registerPartialsDir(dir) {
 }
 
 /* eslint-disable max-statements */
-export default async function buildHTML() {
+export default async function buildPage() {
 
   // register SVG partial
   const spritesPath = joinPath(distDir, `./sprites.svg`);
@@ -77,7 +83,8 @@ export default async function buildHTML() {
   hbs.registerPartial(`sprites`, sprites);
 
   // register critical CSS partial
-  const criticalCSS = await generateCriticalCSS();
+  const appStylesPath = joinPath(currentDir, `../src/index.less`);
+  const criticalCSS   = await generateCSS(appStylesPath);
 
   hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
 
@@ -98,7 +105,7 @@ export default async function buildHTML() {
   const pages = await recurse(pagesDir, { depth: 1 });
 
   for await (const entry of pages) {
-    await buildPageHTML(entry);
+    await buildPageContent(entry);
   }
 
 }
