@@ -150,7 +150,7 @@ Each page and component should be an instance of the `View` class. This class is
 
 Pages and components should never insert themselves into the DOM; this is the job of their controller. The `render()` method of each View instance should update the `el` property of the instance with the new DOM element, and return that element.
 
-Each page or component should return a single root element. Pages must always return a `<main id={page}-page>` element.
+Each page or component should return a single root element. Pages must always return a `<main id=main class=main data-page={page}>` element.
 
 Pages and controllers _should_ add their own event listeners. This can be done at the end of the `render()` method.
 
