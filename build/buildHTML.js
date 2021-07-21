@@ -22,9 +22,9 @@ const distDir    = joinPath(currentDir, `../dist`);
 const pagesDir   = joinPath(srcDir, `pages`);
 
 async function generateCriticalCSS() {
-  const appShellStylesPath      = joinPath(currentDir, `../src/index.less`);
-  const appShellSASS            = await readFile(appShellStylesPath, `utf8`);
-  return convertLESS(appShellSASS);
+  const appShellStylesPath = joinPath(currentDir, `../src/index.less`);
+  const appShellLESS       = await readFile(appShellStylesPath, `utf8`);
+  return convertLESS(appShellLESS);
 }
 
 /**

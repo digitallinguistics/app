@@ -10,7 +10,7 @@
 - [ ] Update tests to reflect the changes.
 - [ ] Add / update inline code comments (using [JSDoc][JSDoc] style for JavaScript).
 - [ ] Lint JavaScript code using [ESLint][ESLint] (see `.eslintrc.yml`).
-- [ ] Lint SASS/CSS code [Stylelint][Stylelint] (see `.stylelintrc.yml`).
+- [ ] Lint LESS/CSS code [Stylelint][Stylelint] (see `.stylelintrc.yml`).
 
 <!-- LINKS -->
 [ESLint]:    https://eslint.org/
