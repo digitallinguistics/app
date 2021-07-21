@@ -18,7 +18,7 @@ export default class App extends View {
   // PROPERTIES
 
   /**
-   * References to DOM elements used by the App View
+   * A table of references to DOM elements used by the App View
    * @type {Object}
    * @prop {HTMLElement} info      - The ARIA live region (`<p id=info hidden aria-live=polite>`) where content is announced to screen readers
    * @prop {HTMLElement} templates - A `<div>` containing any `<template>` tags that have been populated.
