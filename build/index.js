@@ -1,5 +1,5 @@
-import buildCSS          from './buildCSS.js';
 import buildCache        from './buildCache.js';
+import buildCSS          from './buildCSS.js';
 import buildHTML         from './buildHTML.js';
 import buildJS           from './buildJS.js';
 import buildSVG          from './buildSVG.js';
