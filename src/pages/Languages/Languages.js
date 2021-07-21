@@ -1,5 +1,3 @@
-import View from '../../core/View.js';
-
 export default class LanguagesPage extends View {
 
   /**
