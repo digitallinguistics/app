@@ -1,7 +1,6 @@
 import buildCache        from './buildCache.js';
-import buildCSS          from './buildCSS.js';
-import buildHTML         from './buildHTML.js';
 import buildJS           from './buildJS.js';
+import buildPage         from './buildPage.js';
 import buildSVG          from './buildSVG.js';
 import copyAssets        from './copyAssets.js';
 import { emptyDir }      from 'fs-extra';
@@ -33,13 +32,9 @@ const buildSVGPromise = buildSVG();
 ora.promise(buildSVGPromise, `Build SVG sprites`);
 await buildSVGPromise;
 
-// const buildCSSPromise = buildCSS();
-// ora.promise(buildCSSPromise, `Build CSS`);
-// await buildCSSPromise;
-
-const buildHTMLPromise = buildHTML();
-ora.promise(buildHTMLPromise, `Build HTML`);
-await buildHTMLPromise;
+const buildPagePromise = buildPage();
+ora.promise(buildPagePromise, `Build page content`);
+await buildPagePromise;
 
 const buildJSPromise = buildJS();
 ora.promise(buildJSPromise, `Build JS`);

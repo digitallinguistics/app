@@ -29,7 +29,7 @@ async function generateCSS(lessPath) {
 }
 
 /**
- * Builds the HTML for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp).
+ * Builds the HTML and CSS for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp). The CSS is inserted in a `<style>` tag just inside the opening `<main>` tag.
  * @param {Object} entry An entry from the [readdirp](https://www.npmjs.com/package/readdirp) package.
  */
 async function buildPageContent(entry) {
@@ -45,6 +45,7 @@ async function buildPageContent(entry) {
   const less      = await readFile(lessPath, `utf8`);
   const css       = await convertLESS(less);
 
+  // NOTE: The extra spaces here just make the output file more readable.
   html = html.replace(mainRegExp, `$<main>\n\n  <style>    \n    ${ css }\n  </style>`);
 
   await outputFile(joinPath(distDir, `pages`, entry.path), html);
@@ -83,7 +84,7 @@ export default async function buildPage() {
   hbs.registerPartial(`sprites`, sprites);
 
   // register critical CSS partial
-  const appStylesPath = joinPath(currentDir, `../src/index.less`);
+  const appStylesPath = joinPath(srcDir, `index.less`);
   const criticalCSS   = await generateCSS(appStylesPath);
 
   hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
@@ -97,11 +98,16 @@ export default async function buildPage() {
   // build the app shell
   const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
-  const appHTML     = buildApp();
+  let   appHTML     = buildApp();
+  const homeLESS    = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
+  const homeCSS     = await convertLESS(homeLESS);
+
+  // NOTE: The extra spaces here just make the output file more readable.
+  appHTML = appHTML.replace(mainRegExp, `$<main>\n\n      <style>        \n        ${ homeCSS }\n      </style>`);
 
   await outputFile(joinPath(distDir, `index.html`), appHTML);
 
-  // build the HTML for individual pages
+  // build the HTML + CSS for individual pages
   const pages = await recurse(pagesDir, { depth: 1 });
 
   for await (const entry of pages) {
