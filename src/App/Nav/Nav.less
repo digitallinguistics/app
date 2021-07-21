@@ -2,10 +2,46 @@
 
 #nav {
 
+  background-color: white;
+
+  a {
+    align-items:    center;
+    display:        flex;
+    flex-direction: row;
+  }
+
   button {
 
+    align-items:      center;
+    background-color: transparent;
+    cursor:           pointer;
+
+    span { .visually-hidden; }
+
+    &:hover {
+      background-color: var(--transparent-blue);
+    }
+
+  }
+
+  img {
+    --icon-size: 1.5em;
+    height:      var(--icon-size);
+    margin:      var(--space-xxs);
+    width:       var(--icon-size);
+  }
+
+  li span {
+    white-space: nowrap;
+  }
+
+  li:hover {
+
+    background-color: var(--transparent-blue);
+
     span {
-      .visually-hidden;
+      text-decoration:         underline;
+      text-underline-position: under;
     }
 
   }
