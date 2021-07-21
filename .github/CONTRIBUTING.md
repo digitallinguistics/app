@@ -24,6 +24,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 - [App Structure](#app-structure)
 - [Directory Structure](#directory-structure)
 - [Pages & Components](#pages--components)
+- [Rendering Pages & Components](#rendering-pages--components)
 - [Images](#images)
 - [Offline Functionality](#offline-functionality)
 - [Styleguides](#styleguides)
@@ -145,9 +146,11 @@ Each page's JavaScript is responsible for loading its own components, and they i
 
 ## Rendering Pages & Components
 
+Each page and component should be an instance of the `View` class. This class is made available as a global variable (`window.View`) when the `App.js` script loads.
+
 Pages and components should never insert themselves into the DOM; this is the job of their controller. The `render()` method of each View instance should update the `el` property of the instance with the new DOM element, and return that element.
 
-Each page or component should return a single root element. Pages must always return a `<main id={page}>` element.
+Each page or component should return a single root element. Pages must always return a `<main id={page}-page>` element.
 
 Pages and controllers _should_ add their own event listeners. This can be done at the end of the `render()` method.
 

@@ -19,11 +19,30 @@ const {
 const currentDir = getDirname(fileURLToPath(import.meta.url));
 const srcDir     = joinPath(currentDir, `../src`);
 const distDir    = joinPath(currentDir, `../dist`);
+const pagesDir   = joinPath(srcDir, `pages`);
 
 async function generateCriticalCSS() {
   const appShellStylesPath      = joinPath(currentDir, `../src/index.less`);
   const appShellSASS            = await readFile(appShellStylesPath, `utf8`);
   return convertLESS(appShellSASS);
+}
+
+/**
+ * Builds the HTML for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp).
+ * @param {Object} entry An entry from the [readdirp](https://www.npmjs.com/package/readdirp) package.
+ */
+async function buildPageHTML(entry) {
+
+  const ext = getExt(entry.basename);
+
+  if (ext !== `.html`) return;
+
+  const pageTemplate = await readFile(entry.fullPath, `utf8`);
+  const buildPage    = hbs.compile(pageTemplate);
+  const pageHTML     = buildPage();
+
+  await outputFile(joinPath(distDir, `pages`, entry.path), pageHTML);
+
 }
 
 /**
@@ -66,13 +85,20 @@ export default async function buildHTML() {
   await registerPartialsDir(joinPath(srcDir, `App`));
 
   // register page partials
-  await registerPartialsDir(joinPath(srcDir, `pages`));
+  await registerPartialsDir(pagesDir);
 
   // build the app shell
   const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
-  const app         = buildApp();
+  const appHTML     = buildApp();
 
-  await outputFile(joinPath(distDir, `index.html`), app);
+  await outputFile(joinPath(distDir, `index.html`), appHTML);
+
+  // build the HTML for individual pages
+  const pages = await recurse(pagesDir, { depth: 1 });
+
+  for await (const entry of pages) {
+    await buildPageHTML(entry);
+  }
 
 }

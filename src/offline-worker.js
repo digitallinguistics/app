@@ -1,13 +1,13 @@
 /* eslint-env serviceworker */
 
-const cacheName = 'dlx';
+const cacheName = `dlx`;
 
 // NOTE: Filenames in the asset list need to start with an initial slash
 // in order to be matched correctly curing cleanupCache().
 let assets = [];
 
 async function cacheAssets() {
-  const response = await fetch('cache.json');
+  const response = await fetch(`cache.json`);
   assets         = await response.json();
   const cache    = await caches.open(cacheName);
   await cache.addAll(assets);
@@ -30,14 +30,14 @@ async function cleanupCache() {
 async function resolveResponse(ev) {
 
   const { request } = ev;
-  if (request.method !== 'GET') return fetch(request);
+  if (request.method !== `GET`) return fetch(request);
 
   const cache           = await caches.open(cacheName);
   const cacheResponse   = await cache.match(request);
 
   const networkResponse = fetch(request).then(response => {
 
-    if (!response || response.status !== 200 || response.type !== 'basic') {
+    if (!response || response.status !== 200 || response.type !== `basic`) {
       return response;
     }
 
@@ -53,6 +53,6 @@ async function resolveResponse(ev) {
 
 }
 
-self.addEventListener('activate', ev => ev.waitUntil(cleanupCache()));
-self.addEventListener('fetch', ev => ev.respondWith(resolveResponse(ev)));
-self.addEventListener('install', ev => ev.waitUntil(cacheAssets()));
+self.addEventListener(`activate`, ev => ev.waitUntil(cleanupCache()));
+self.addEventListener(`fetch`, ev => ev.respondWith(resolveResponse(ev)));
+self.addEventListener(`install`, ev => ev.waitUntil(cacheAssets()));
