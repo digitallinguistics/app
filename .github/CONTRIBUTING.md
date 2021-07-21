@@ -65,10 +65,9 @@ The following build scripts are available:
 * `npm run build`: Builds the production code for the app and outputs to `dist/`. Build scripts are located in `build/`. Individual build steps can be run with `build:{step}`.
   - `npm run build:cache`: builds a list of assets to cache offline
   - `npm run build:copy`: copies static assets to `dist/`
-  - `npm run build:css`: builds CSS assets from SCSS files
   - `npm run build:docs`: builds the developer documentation
-  - `npm run build:html`: builds HTML for app skeleton and individual pages
   - `npm run build:js`: builds transpiled JS files
+  - `npm run build:page`: builds the HTML + CSS for the app skeleton and individual pages
   - `npm run build:svg`: builds the SVG sprites for app skeleton and individual pages
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
@@ -117,11 +116,10 @@ Folder          | Description
 
 ## Pages & Components
 
-The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) All of the various code and components for the Languages page, for example, are compiled into the following three files:
+The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) All of the various code and components for the Languages page, for example, are compiled into the following two files:
 
-* `Languages.html`
-* `Languages.css`
-* `Languages.js`
+* `Languages.html` (contains both HTML and inlined CSS for the Languages page)
+* `Languages.js` (contains the View for the Languages page)
 
 Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SCSS, and JavaScript for that component, like so:
 
@@ -140,7 +138,7 @@ pages/
 
 The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component can load that template using `document.querySelector('#{component-name}-template')`.
 
-The CSS for each component will be loaded along with the page's CSS.
+The CSS for each component will be loaded along with the page's CSS (or better yet, the CSS should be inlined into the component using Web Components and the shadow DOM).
 
 Each page's JavaScript is responsible for loading its own components, and they in turn are responsible for loading any subcomponents.
 
