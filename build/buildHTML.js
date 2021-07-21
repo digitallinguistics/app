@@ -95,7 +95,7 @@ export default async function buildHTML() {
   await outputFile(joinPath(distDir, `index.html`), appHTML);
 
   // build the HTML for individual pages
-  const pages = await recurse(pagesDir);
+  const pages = await recurse(pagesDir, { depth: 1 });
 
   for await (const entry of pages) {
     await buildPageHTML(entry);
