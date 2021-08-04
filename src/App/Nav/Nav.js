@@ -34,8 +34,15 @@ export default class Nav extends View {
     this.button.addEventListener(`click`, this.toggle.bind(this));
 
     this.pages.addEventListener(`click`, ev => {
-      ev.preventDefault();
-      this.setPage(ev.target.closest(`li`).dataset.page);
+
+      // NOTE: `LI` must be capitalized for `.closest()` to work properly.
+      const { page } = ev.target.closest(`LI`).dataset;
+
+      if (page) {
+        ev.preventDefault();
+        this.setPage(page);
+      }
+
     });
 
   }
