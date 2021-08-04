@@ -52,12 +52,24 @@
 
   // small screens
   @media (max-width: @breakpoint) {
+
     border-block-end: var(--border-width) solid #CCC;
+
+    button[aria-expanded=false] + ul {
+      display: none;
+    }
+
   }
 
   // large screens
   @media (min-width: @breakpoint) {
+
     border-inline-end: var(--border-width) solid #CCC;
+
+    button[aria-expanded=false] + ul span {
+      .visually-hidden;
+    }
+
   }
 
 }
