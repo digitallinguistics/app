@@ -82,8 +82,7 @@ export default class Nav extends View {
       currentItem.classList.add(`current`);
     }
 
-    // TODO: uncomment this when the event bus is added to the app controller
-    // if (emit) app.events.emit(`App:Nav:change`, page);
+    if (emit) app.events.emit(`App:Nav:change`, page);
 
   }
 

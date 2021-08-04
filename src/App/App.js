@@ -56,6 +56,14 @@ export default class App extends View {
 
   // METHODS
 
+  addEventListeners() {
+
+    const on = this.events.on.bind(this.events);
+
+    on(`App:Nav:change`, page => console.log(page));
+
+  }
+
   /**
    * Updates the text of the ARIA live region so that the text will be announced to screen readers
    * @param {String} text The text to announce
@@ -90,6 +98,7 @@ export default class App extends View {
    * Initializes the App view
    */
   render() {
+    this.addEventListeners();
     this.nav.render();
   }
 
