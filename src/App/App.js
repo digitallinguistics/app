@@ -99,7 +99,7 @@ export default class App extends View {
 
     const pageView = new PageView;
     const newPage  = pageView.render();
-    const oldPage  = document.body.querySelector(`.main`);
+    const oldPage  = document.body.getElementById(`main`);
 
     oldPage.replaceWith(newPage);
 
