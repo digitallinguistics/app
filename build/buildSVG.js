@@ -22,6 +22,13 @@ const spritePath = joinPath(currentDir, `../dist/sprites.svg`);
 const disallowList = [`favicon`];
 
 const spriteOptions = {
+  copyAttrs: [
+    `fill`,
+    `stroke`,
+    `stroke-width`,
+    `stroke-linecap`,
+    `stroke-linejoin`,
+  ],
   svgAttrs: {
     'aria-hidden': true,
     style:         `display: none;`,

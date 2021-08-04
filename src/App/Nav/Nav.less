@@ -1,8 +1,21 @@
-@import (reference) 'styles/utilities';
+@import (reference) 'utilities';
+@import (reference) 'variables';
 
 #nav {
 
   background-color: white;
+
+  .current,
+  li:hover {
+
+    background-color: var(--transparent-blue);
+
+    span {
+      text-decoration:         underline;
+      text-underline-position: under;
+    }
+
+  }
 
   a {
     align-items:    center;
@@ -15,6 +28,7 @@
     align-items:      center;
     background-color: transparent;
     cursor:           pointer;
+    display:          flex;
 
     span { .visually-hidden; }
 
@@ -24,26 +38,26 @@
 
   }
 
-  img {
+  span {
+    padding:     var(--text-padding);
+    white-space: nowrap;
+  }
+
+  svg {
     --icon-size: 1.5em;
     height:      var(--icon-size);
     margin:      var(--space-xxs);
     width:       var(--icon-size);
   }
 
-  li span {
-    white-space: nowrap;
+  // small screens
+  @media (max-width: @breakpoint) {
+    border-block-end: var(--border-width) solid #CCC;
   }
 
-  li:hover {
-
-    background-color: var(--transparent-blue);
-
-    span {
-      text-decoration:         underline;
-      text-underline-position: under;
-    }
-
+  // large screens
+  @media (min-width: @breakpoint) {
+    border-inline-end: var(--border-width) solid #CCC;
   }
 
 }
