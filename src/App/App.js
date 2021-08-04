@@ -6,9 +6,6 @@ import EventEmitter from '../core/EventEmitter.js';
 import Nav          from './Nav/Nav.js';
 import View         from '../core/View.js';
 
-// Make View module available globally for pages and components.
-window.View = View;
-
 /**
  * The top-level view for the app
  * @memberof App

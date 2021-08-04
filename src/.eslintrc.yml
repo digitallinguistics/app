@@ -9,7 +9,6 @@ env:
 
 globals:
   app:  true
-  View: true
 
 overrides:
   - files:
