@@ -1,3 +1,5 @@
+import View from '../../core/View.js';
+
 /**
  * A class for the main navigation menu.
  * @memberof app
@@ -7,19 +9,31 @@
 export default class Nav extends View {
 
   /**
+   * A reference to the menu button
+   * @type {HTMLButtonElement}
+   */
+  button = document.querySelector(`#nav button`);
+
+  /**
    * A reference to the main navigation element.
    * @type {HTMLNavElement}
    */
   el = document.getElementById(`nav`);
 
   /**
+   * A reference to the list of pages in the na
+   * @type {HTMLULElement}
+   */
+  pages = document.querySelector(`#nav ul`);
+
+  /**
    * Adds event listeners to the nav
    */
   addEventListeners() {
 
-    this.menuButton.addEventListener(`click`, this.toggle.bind(this));
+    this.button.addEventListener(`click`, this.toggle.bind(this));
 
-    this.pagesList.addEventListener(`click`, ev => {
+    this.pages.addEventListener(`click`, ev => {
       ev.preventDefault();
       this.setPage(ev.target.closest(`li`).dataset.page);
     });
@@ -32,7 +46,7 @@ export default class Nav extends View {
   render() {
     this.setPage(app.settings.page, { emit: false });
     this.addEventListeners();
-    this.menuButton.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
+    this.button.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
     return this.el;
   }
 
@@ -70,8 +84,8 @@ export default class Nav extends View {
    * Toggles the expanded/collapsed state of the nav
    */
   toggle() {
-    const expanded = this.menuButton.getAttribute(`aria-expanded`) === `true`;
-    this.menuButton.setAttribute(`aria-expanded`, !expanded);
+    const expanded = this.button.getAttribute(`aria-expanded`) === `true`;
+    this.button.setAttribute(`aria-expanded`, !expanded);
     app.settings.navOpen = !expanded;
   }
 

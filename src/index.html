@@ -82,6 +82,7 @@
       // initialize the app
       import App from './App/App.js';
       window.app = new App;
+      window.addEventListener(`load`, () => window.app.render());
 
       // register the offline service worker
       if ('serviceWorker' in navigator && navigator.onLine) {
