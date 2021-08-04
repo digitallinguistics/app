@@ -34,6 +34,12 @@ export default class App extends View {
    */
   pages = new Map;
 
+  /**
+   * The settings for the app.
+   * @type {Object}
+   */
+  settings = {};
+
   // METHODS
 
   /**

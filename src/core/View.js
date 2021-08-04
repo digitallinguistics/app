@@ -1,7 +1,3 @@
-/* eslint-disable
-  class-methods-use-this,
-*/
-
 /**
  * A basic View class. The View class does not have much functionality itself. It instead documents certain conventions regarding how the View class should operate.
  * @memberof core
