@@ -1,0 +1,57 @@
+@external-link: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMjQiIGhlaWdodD0iMjQiCnZpZXdCb3g9IjAgMCAyNCAyNCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij4gICAgPHBhdGggc3R5bGU9ImxpbmUtaGVpZ2h0Om5vcm1hbDt0ZXh0LWluZGVudDowO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWxpbmU6bm9uZTt0ZXh0LWRlY29yYXRpb24tc3R5bGU6c29saWQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiMwMDA7dGV4dC10cmFuc2Zvcm06bm9uZTtibG9jay1wcm9ncmVzc2lvbjp0Yjtpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiIGQ9Ik0gMTkuOTgwNDY5IDIuOTkwMjM0NCBBIDEuMDAwMSAxLjAwMDEgMCAwIDAgMTkuODY5MTQxIDMgTCAxNSAzIEEgMS4wMDAxIDEuMDAwMSAwIDEgMCAxNSA1IEwgMTcuNTg1OTM4IDUgTCA4LjI5Mjk2ODggMTQuMjkyOTY5IEEgMS4wMDAxIDEuMDAwMSAwIDEgMCA5LjcwNzAzMTIgMTUuNzA3MDMxIEwgMTkgNi40MTQwNjI1IEwgMTkgOSBBIDEuMDAwMSAxLjAwMDEgMCAxIDAgMjEgOSBMIDIxIDQuMTI2OTUzMSBBIDEuMDAwMSAxLjAwMDEgMCAwIDAgMTkuOTgwNDY5IDIuOTkwMjM0NCB6IE0gNSAzIEMgMy45MDY5MzcyIDMgMyAzLjkwNjkzNzIgMyA1IEwgMyAxOSBDIDMgMjAuMDkzMDYzIDMuOTA2OTM3MiAyMSA1IDIxIEwgMTkgMjEgQyAyMC4wOTMwNjMgMjEgMjEgMjAuMDkzMDYzIDIxIDE5IEwgMjEgMTMgQSAxLjAwMDEgMS4wMDAxIDAgMSAwIDE5IDEzIEwgMTkgMTkgTCA1IDE5IEwgNSA1IEwgMTEgNSBBIDEuMDAwMSAxLjAwMDEgMCAxIDAgMTEgMyBMIDUgMyB6IiBmb250LXdlaWdodD0iNDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgd2hpdGUtc3BhY2U9Im5vcm1hbCIgb3ZlcmZsb3c9InZpc2libGUiPjwvcGF0aD48L3N2Zz4=';
+
+.link {
+
+  text-underline-position: under;
+
+  &:link {
+    color:           var(--blue);
+    text-decoration: none;
+  }
+
+  &:visited {
+    color: var(--purple);
+  }
+
+  &:hover {
+    cursor:          pointer;
+    text-decoration: underline;
+  }
+
+  &:active {
+    font-weight:               bold;
+    text-decoration-thickness: 0.15em;
+  }
+
+  // use default :focus and :focus-visible styles
+
+  &:not([href*='digitallinguistics.io']) {
+
+    --icon-width: 0.75em;
+
+    margin-inline-end: var(--icon-width);
+
+    &::after {
+      background-color: transparent;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
+        url('@{external-link}');
+      background-repeat:   no-repeat;
+      background-position: center;
+      background-size:     contain;
+      content:             '(external link)';
+      margin-inline-start: 0.1em;
+      overflow:            hidden;
+      position:            absolute;
+      text-indent:         var(--icon-width);
+      white-space:         nowrap;
+      width:               var(--icon-width);
+    }
+
+    &:hover::after {
+      background-image: url('@{external-link}');
+    }
+
+  }
+
+}

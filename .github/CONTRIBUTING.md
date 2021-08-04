@@ -101,10 +101,11 @@ Each section of the app shell's HTML is documented with inline code in `src/inde
 The `src/` folder contains the following:
 
 Folder          | Description
-----------------|-------------------------------------------------------------------------------------------------------------------------------------------
-`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components specific to the app shell.
-`components/`   | Components that are shared across pages.
+----------------|-------------------------------------------------------
+`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are part of the app shell.
+`components/`   | Components that are shared across pages (but not part of the app shell).
 `core/`         | High-level JavaScript modules whose functionality is shared across components.
+`fonts/`        | Font files.
 `images/`       | Images and icons used in the app.
 `models/`       | Data models (e.g. Language, Text, etc.).
 `pages/`        | Each subfolder contains all the code for a single "page".

@@ -58,7 +58,7 @@ export default class Nav extends View {
   }
 
   /**
-   * Adds the aria-describedby attribute to the indicated page
+   * Sets the current page
    * @param {String}  [page=`home`]       The page route to set as current.
    * @param {Object}  [options={}]
    * @param {Boolean} [options.emit=true] Whether to emit an event when the page is set.
@@ -69,7 +69,7 @@ export default class Nav extends View {
 
     Array.from(this.el.querySelectorAll(`a`))
     .forEach(item => {
-      item.removeAttribute(`aria-describedby`);
+      item.removeAttribute(`aria-current`);
       item.classList.remove(`current`);
     });
 
@@ -78,7 +78,7 @@ export default class Nav extends View {
     const currentItem = this.el.querySelector(`li[data-page="${ page }"] a`);
 
     if (currentItem) {
-      currentItem.setAttribute(`aria-describedby`, `current-page`);
+      currentItem.setAttribute(`aria-current`, `page`);
       currentItem.classList.add(`current`);
     }
 
