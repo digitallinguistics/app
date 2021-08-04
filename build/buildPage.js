@@ -1,4 +1,5 @@
 import convertLESS       from './convertLESS.js';
+import createSprites     from './createSprites.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
 import hbs               from 'handlebars';
@@ -78,8 +79,7 @@ async function registerPartialsDir(dir) {
 export default async function buildPage() {
 
   // register SVG partial
-  const spritesPath = joinPath(distDir, `./sprites.svg`);
-  const sprites     = await readFile(spritesPath, `utf8`);
+  const sprites = await createSprites();
 
   hbs.registerPartial(`sprites`, sprites);
 
