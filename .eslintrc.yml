@@ -138,7 +138,7 @@ rules:
   no-tabs: warn
   no-template-curly-in-string: warn
   no-throw-literal: error
-  no-trailing-spaces: error
+  no-trailing-spaces: off
   no-undef:
     - error
     - typeof: true

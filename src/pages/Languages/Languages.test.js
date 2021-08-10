@@ -1,4 +1,4 @@
-describe(`Languages`, function() {
+describe.only(`Languages`, function() {
 
   it(`renders`, function() {
 
@@ -8,6 +8,10 @@ describe(`Languages`, function() {
     .click();
 
     cy.get(`#main[data-page=Languages]`);
+
+    cy.get(`.languages-list .languages`)
+    .children()
+    .then(console.log);
 
   });
 

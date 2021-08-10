@@ -12,6 +12,7 @@ globals:
 
 overrides:
   - files:
+      - '**/*.component.js'
       - '**/*.test.js'
       - '**/*.unit.js'
     rules:

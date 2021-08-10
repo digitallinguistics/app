@@ -23,6 +23,14 @@ export default class View {
   addEventListeners() { /* no-op */ }
 
   /**
+   * Clones the content of the `<template>` tag stored in the `template` property and returns it.
+   * @returns {HTMLElement}
+   */
+  cloneTemplate() {
+    return this.template.content.cloneNode(true);
+  }
+
+  /**
    * The `render()` method of the base View class is a no-op. View subclasses should overwrite this method with one that returns the rendered DOM element or a document fragment, and sets the `el` property on the View. Views should not insert themselves into the DOM—that is the responsibility of their controller. Views should however attach event listeners to their elements.
    * @return {HTMLElement|DocumentFragment}
    */
