@@ -76,7 +76,7 @@ async function registerPartialsDir(dir) {
 }
 
 /* eslint-disable max-statements */
-export default async function buildPage() {
+export default async function buildPages() {
 
   // register SVG partial
   const sprites = await createSprites();
@@ -92,18 +92,19 @@ export default async function buildPage() {
   // register app shell partials
   await registerPartialsDir(joinPath(srcDir, `App`));
 
+  // register Home page CSS partial
+  const homeLESS = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
+  const homeCSS  = await convertLESS(homeLESS);
+  
+  hbs.registerPartial(`home-css`, homeCSS);
+
   // register page partials
   await registerPartialsDir(pagesDir);
 
   // build the app shell
   const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
-  let   appHTML     = buildApp();
-  const homeLESS    = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
-  const homeCSS     = await convertLESS(homeLESS);
-
-  // NOTE: The extra spaces here just make the output file more readable.
-  appHTML = appHTML.replace(mainRegExp, `$<main>\n\n      <style>        \n        ${ homeCSS }\n      </style>`);
+  const appHTML     = buildApp();
 
   await outputFile(joinPath(distDir, `index.html`), appHTML);
 

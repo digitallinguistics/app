@@ -42,13 +42,12 @@ export default class LanguagesList extends View {
    */
   render() {
 
-    this.el = this.cloneTemplate();
-
+    this.el        = this.cloneTemplate();
     const listView = new ListView(this.languages, { template: LanguagesList.itemTemplate });
-    this.list = listView.render();
+    this.list      = listView.render();
+    const oldList  = this.el.querySelector(`.languages`);
 
-    const oldList = this.el.querySelector(`.languages`);
-    oldList.replaceWidth(this.list);
+    oldList.replaceWith(this.list);
 
     // TODO: add listeners
     // TODO: set current language

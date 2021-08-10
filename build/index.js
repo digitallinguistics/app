@@ -1,6 +1,6 @@
 import buildCache        from './buildCache.js';
 import buildJS           from './buildJS.js';
-import buildPage         from './buildPage.js';
+import buildPages        from './buildPages.js';
 import copyAssets        from './copyAssets.js';
 import { emptyDir }      from 'fs-extra';
 import { exec }          from 'child_process';
@@ -27,9 +27,9 @@ const emptyDistPromise = emptyDir(distDir);
 ora.promise(emptyDistPromise, `Empty /dist directory`);
 await emptyDistPromise;
 
-const buildPagePromise = buildPage();
-ora.promise(buildPagePromise, `Build page content`);
-await buildPagePromise;
+const buildPagesPromise = buildPages();
+ora.promise(buildPagesPromise, `Build page content`);
+await buildPagesPromise;
 
 const buildJSPromise = buildJS();
 ora.promise(buildJSPromise, `Build JS`);

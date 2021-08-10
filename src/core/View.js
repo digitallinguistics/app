@@ -15,7 +15,7 @@ export default class View {
    * A reference to the `<template>` tag or templating function for this View.
    * @type {HTMLTemplateElement}
    */
-  template;
+  template = `<template></template>`;
 
   /**
    * Use an `addEventListeners()` method to attach listeners to an element. The `addEventListeners()` method of the base View class is a no-op. View subclasses should overwrite this method.

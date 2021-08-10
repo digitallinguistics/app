@@ -9,7 +9,10 @@
   "pluginsFile":           "test/plugins/index.cjs",
   "screenshotsFolder":     "test/screenshots",
   "supportFile":           "test/support/index.js",
-  "testFiles":             "**/*.test.js",
+  "testFiles":             [
+    "**/*.test.js",
+    "**/*.component.js"
+  ],
   "video":                 false,
   "videosFolder":          "test/videos",
   "projectId":             "t8vr8w",
