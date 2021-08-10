@@ -1,3 +1,3 @@
-import startServer from '../../server.cjs';
+import startServer from '../../server.js';
 
 startServer();
