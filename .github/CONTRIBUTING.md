@@ -20,6 +20,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 
 - [Project Principles](#project-principles)
 - [Building & Testing the App](#building--testing-the-app)
+  - [Component Testing](#component-testing)
 - [Project Structure](#project-structure)
 - [App Structure](#app-structure)
 - [Directory Structure](#directory-structure)
@@ -101,18 +102,18 @@ import ListView from './ListView.js';
 import mount    from '{relative path}/test/mount.js';
 
 describe(`component`, function() {
-  
+
   // This could also be in a beforeEach() hook instead.
   before(function() {
 
-    // load the component testing page 
+    // load the component testing page
     cy.visit(`/test`);
 
     cy.document()
     .then(doc => {
 
       const listView = new ListView;
-  
+
       // set the template for the component
       listView.template = doc.getElementById(`templates`);
 
@@ -123,19 +124,21 @@ describe(`component`, function() {
       main.appendChild(el);
 
     });
-    
+
   });
-  
+
   it(`runs the first test ...`, function() {
     // code for first test here
   });
-  
+
   it(`runs the second test ...`, function() {
     // code for second test here
   });
-  
+
 });
 ```
+
+The test page also makes the `app` global available for use.
 
 ## Project Structure
 
