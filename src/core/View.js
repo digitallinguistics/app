@@ -18,9 +18,9 @@ export default class View {
   template;
 
   /**
-   * Use an `addListeners()` method to attach listeners to an element. The `addListeners()` method of the base View class is a no-op. View subclasses should overwrite this method.
+   * Use an `addEventListeners()` method to attach listeners to an element. The `addEventListeners()` method of the base View class is a no-op. View subclasses should overwrite this method.
    */
-  addListeners() { /* no-op */ }
+  addEventListeners() { /* no-op */ }
 
   /**
    * The `render()` method of the base View class is a no-op. View subclasses should overwrite this method with one that returns the rendered DOM element or a document fragment, and sets the `el` property on the View. Views should not insert themselves into the DOM—that is the responsibility of their controller. Views should however attach event listeners to their elements.

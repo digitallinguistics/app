@@ -2,8 +2,9 @@
  * @namespace App
  */
 
-import Nav  from './Nav/Nav.js';
-import View from '../core/View.js';
+import EventEmitter from '../core/EventEmitter.js';
+import Nav          from './Nav/Nav.js';
+import View         from '../core/View.js';
 
 // Make View module available globally for pages and components.
 window.View = View;
@@ -17,6 +18,12 @@ window.View = View;
 export default class App extends View {
 
   // PROPERTIES
+
+  /**
+   * The event manager for the app (uses a pubsub model)
+   * @type {EventEmitter}
+   */
+  events = new EventEmitter;
 
   /**
    * A reference to the Nav view
@@ -48,6 +55,14 @@ export default class App extends View {
   settings = {};
 
   // METHODS
+
+  addEventListeners() {
+
+    const on = this.events.on.bind(this.events);
+
+    on(`App:Nav:change`, page => console.log(page));
+
+  }
 
   /**
    * Updates the text of the ARIA live region so that the text will be announced to screen readers
@@ -83,6 +98,7 @@ export default class App extends View {
    * Initializes the App view
    */
   render() {
+    this.addEventListeners();
     this.nav.render();
   }
 
