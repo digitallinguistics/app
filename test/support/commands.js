@@ -1,6 +1,7 @@
-Cypress.Commands.add(`clearPage`, () => {
-  cy.document()
-  .then(doc => {
-    doc.querySelector(`main`).innerHTML = ``;
-  });
-});
+Cypress.Commands.add(`mount`, node => cy.document()
+.then(doc => {
+  const main = doc.getElementById(`main`);
+  console.log(main);
+  main.innerHTML = ``;
+  main.appendChild(node);
+}));

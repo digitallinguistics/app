@@ -6,6 +6,10 @@ import ListView from './ListView.js';
 
 describe(`List View`, function() {
 
+  before(function() {
+    cy.visit(`/test`);
+  });
+
   describe(`Options`, function() {
 
     it(`template`, function() {
@@ -14,7 +18,7 @@ describe(`List View`, function() {
       const collection = [1, 2, 3];
       const list       = new ListView(collection, { template });
 
-      expect(() => list.render()).not.to.throw();
+      cy.mount(list.render());
 
     });
 
@@ -81,6 +85,8 @@ describe(`List View`, function() {
         expect(ul.children).to.have.lengthOf(3);
         Array.from(ul.children).forEach(li => expect(li.children).to.have.lengthOf(0));
 
+        cy.mount(ul);
+
       });
 
       it(`renders the template once for each item`, function() {
@@ -102,6 +108,8 @@ describe(`List View`, function() {
           expect(li).to.be.an.instanceOf(HTMLLIElement);
           expect(li.textContent).to.equal(`Item: ${ i + 1 }`);
         });
+
+        cy.mount(ul);
 
       });
 
