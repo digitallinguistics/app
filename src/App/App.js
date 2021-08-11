@@ -60,7 +60,7 @@ export default class App extends View {
 
     const on = this.events.on.bind(this.events);
 
-    on(`App:Nav:change`, page => console.log(page));
+    on(`App:Nav:change`, page => this.renderPage(page));
 
   }
 
@@ -115,7 +115,7 @@ export default class App extends View {
 
     const pageView = new PageView;
     const newPage  = pageView.render();
-    const oldPage  = document.body.getElementById(`main`);
+    const oldPage  = document.getElementById(`main`);
 
     oldPage.replaceWith(newPage);
 

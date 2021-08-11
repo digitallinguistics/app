@@ -7,7 +7,7 @@ describe(`Nav`, function() {
     cy.get(`#nav button`)
     .click();
 
-    cy.get(`#nav li[data-page=languages] span`)
+    cy.get(`#nav li[data-page=Languages] span`)
     .then(text => {
       Cypress.dom.isHidden(text);
     });
