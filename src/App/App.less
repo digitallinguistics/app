@@ -1,14 +1,16 @@
+// Styling for specific elements of the app shell
+
 @import 'Banner/Banner';
 @import 'Nav/Nav';
 @import 'Skip-Link/Skip-Link';
-@import 'utilities';
-@import 'variables';
+@import (reference) 'variables';
 
 .app {
-  font-family: var(--font);
-  font-size:   100%;
-  line-height: 1.5;
-  min-height:  100vh;
+  font-family:     var(--font);
+  font-size:       100%;
+  line-height:     1.5;
+  min-height:      100vh;
+  scroll-behavior: smooth;
 }
 
 .wrapper {
