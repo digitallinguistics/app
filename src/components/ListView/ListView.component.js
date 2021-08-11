@@ -3,8 +3,16 @@
  */
 
 import ListView from './ListView.js';
+import mount    from '../../../test/mount.js';
 
 describe(`List View`, function() {
+
+  it(`runs tests properly`, function() {
+    const listView = new ListView;
+    const el       = listView.render();
+    mount(el);
+    expect(el.tagName).to.equal(`ul`);
+  });
 
   describe(`Options`, function() {
 

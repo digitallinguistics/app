@@ -6,14 +6,15 @@
   "fixturesFolder":        "test/fixtures",
   "integrationFolder":     "src",
   "nodeVersion":           "system",
-  "pluginsFile":           false,
+  "pluginsFile":           "test/plugins/index.cjs",
   "screenshotsFolder":     "test/screenshots",
   "supportFile":           "test/support/index.js",
-  "testFiles":             [
-    "**/*.test.js",
-    "**/*.component.js"
-  ],
+  "testFiles":             "**/*.test.js",
   "video":                 false,
   "videosFolder":          "test/videos",
-  "projectId":             "t8vr8w"
+  "projectId":             "t8vr8w",
+  "component": {
+    "componentFolder": "src",
+    "testFiles":       "**/*.component.js"
+  }
 }
