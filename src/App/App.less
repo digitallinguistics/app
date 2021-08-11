@@ -1,5 +1,8 @@
 @import 'Banner/Banner';
+@import 'Nav/Nav';
 @import 'Skip-Link/Skip-Link';
+@import 'utilities';
+@import 'variables';
 
 .app {
   font-size:   100%;
@@ -7,6 +10,12 @@
   min-height:  100vh;
 }
 
-.main {
+.wrapper {
+
   flex-grow: 1;
+
+  @media (min-width: @breakpoint) {
+    flex-flow: row nowrap;
+  }
+
 }

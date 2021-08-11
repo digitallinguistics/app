@@ -1,0 +1,37 @@
+<nav id=nav class=nav>
+
+  <button aria-expanded=true type=button>
+    <svg><use xlink:href=#menu></use></svg>
+    <span>Menu</span>
+  </button>
+
+  <!-- NOTE: The `alt` attribute is blank on these images because they are decorative. -->
+  <ul>
+
+    <li data-page=home>
+      <a href=#main>
+        <svg><use xlink:href=#home></use></svg>
+        <span>Home</span>
+      </a>
+    </li>
+
+    <li data-page=languages>
+      <a href=#main>
+        <svg><use xlink:href=#language></use></svg>
+        <span>Languages</span>
+      </a>
+    </li>
+
+    <li data-page=website>
+      <a href=https://digitallinguistics.io>
+        <svg><use xlink:href=#digitalis></use></svg>
+        <span>DLx Website</span>
+      </a>
+    </li>
+
+  </ul>
+
+  <!-- Provided for screen readers to announce the current page. -->
+  <div hidden id=current-page>Current Page</div>
+
+</nav>

@@ -1,7 +1,7 @@
-describe('App', function() {
+describe(`App`, function() {
 
-  it('loads the page', function() {
-    cy.visit('/');
+  it(`loads the page`, function() {
+    cy.visit(`/`);
   });
 
 });

@@ -7,6 +7,10 @@ extends:
 env:
   shared-node-browser: true
 
+globals:
+  app:  true
+  View: true
+
 overrides:
   - files:
       - '**/*.test.js'

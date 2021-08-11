@@ -55,8 +55,15 @@
     {{!-- the main banner for the app, containing the app logo and high-level app controls --}}
     {{> Banner}}
 
-    {{!-- the main content of the page (should always be a `<main id={page}>` element --}}
-    {{> Home}}
+    <div id=wrapper class=wrapper>
+
+      {{!-- main navigation --}}
+      {{> Nav}}
+
+      {{!-- the main content of the page (should always be a `<main id={page}>` element --}}
+      {{> Home}}
+
+    </div>
 
     {{!-- an AIRA live region for announcing messages to screen readers --}}
     <p id=info hidden aria-live=polite></p>
@@ -73,6 +80,7 @@
       // initialize the app
       import App from './App/App.js';
       window.app = new App;
+      window.addEventListener(`load`, () => window.app.render());
 
       // register the offline service worker
       if ('serviceWorker' in navigator && navigator.onLine) {

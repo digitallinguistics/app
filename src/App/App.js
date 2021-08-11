@@ -2,6 +2,7 @@
  * @namespace App
  */
 
+import Nav  from './Nav/Nav.js';
 import View from '../core/View.js';
 
 // Make View module available globally for pages and components.
@@ -16,6 +17,12 @@ window.View = View;
 export default class App extends View {
 
   // PROPERTIES
+
+  /**
+   * A reference to the Nav view
+   * @type {app#Nav}
+   */
+  nav = new Nav;
 
   /**
    * A table of references to DOM elements used by the App View
@@ -33,6 +40,12 @@ export default class App extends View {
    * @type {Map}
    */
   pages = new Map;
+
+  /**
+   * The settings for the app.
+   * @type {Object}
+   */
+  settings = {};
 
   // METHODS
 
@@ -64,6 +77,13 @@ export default class App extends View {
     template.innerHTML = html;
     this.nodes.templates.appendChild(template);
 
+  }
+
+  /**
+   * Initializes the App view
+   */
+  render() {
+    this.nav.render();
   }
 
   /**
