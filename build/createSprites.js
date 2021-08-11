@@ -3,10 +3,7 @@ import { fileURLToPath }      from 'url';
 import fs                     from 'fs-extra';
 import recurse                from 'readdirp';
 
-const {
-  readFile,
-  writeFile,
-} = fs;
+const { readFile } = fs;
 
 import {
   basename as getBasename,
@@ -17,7 +14,6 @@ import {
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
 const imagesPath = joinPath(currentDir, `../src/images`);
-const spritePath = joinPath(currentDir, `../dist/sprites.svg`);
 
 const disallowList = [`favicon`];
 
@@ -36,7 +32,7 @@ const spriteOptions = {
 };
 
 /* eslint-disable max-statements */
-export default async function buildSVG() {
+export default async function createSprites() {
 
   const sprites        = createSpriteCollection(spriteOptions);
   const svgFilesStream = await recurse(imagesPath);
@@ -56,6 +52,6 @@ export default async function buildSVG() {
 
   }
 
-  await writeFile(spritePath, sprites.toString({ inline: true }));
+  return sprites.toString({ inline: true });
 
 }
