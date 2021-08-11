@@ -5,6 +5,7 @@ const lessOptions = {
   paths: [
     `src`,
     `src/components`,
+    `src/pages`,
     `src/styles`,
   ],
 };

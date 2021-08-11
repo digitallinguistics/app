@@ -137,7 +137,7 @@ pages/
 * Components that are specific to the app shell should be placed in the `App/` folder instead of a page folder.
 * Components that are used across pages should be placed in the `components/` folder instead of a page folder.
 
-The HTML build step will insert each component's HTML into a `<template id={component-name}-template>` tag in that page's HTML (or the app shell, if the component is shared across pages). Your JavaScript component can load that template using `document.querySelector('#{component-name}-template')`.
+The HTML template for each component should be inserted into a `<template id={component-name}-template>` tag in that page's HTML, typically using a partial: `<template id=component-name-template>{{> component-name}}</template>`. Your JavaScript component can load that template using `document.querySelector('#{component-name}-template')`.
 
 The CSS for each component will be loaded along with the page's CSS (or better yet, the CSS should be inlined into the component using Web Components and the shadow DOM).
 

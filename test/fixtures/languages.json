@@ -1,0 +1,21 @@
+[
+  {
+    "type":         "Language",
+    "cid":          "1",
+    "name":         "Nuuchahnulth",
+    "abbreviation": "nuu",
+    "iso":          "nuk",
+    "glottocode":   "nuuc1236"
+  },
+  {
+    "type": "Language",
+    "cid":  "2",
+    "name": {
+      "eng": "Chitimacha",
+      "ctm": "Sitimaxa"
+    },
+    "abbreviation": "chiti",
+    "iso":          "ctm",
+    "glottocode":   "chit1248"
+  }
+]

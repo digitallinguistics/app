@@ -28,6 +28,8 @@ export default class App extends View {
    */
   nav = new Nav;
 
+  testTemplate = document.getElementById(`test-template`);
+
   /**
    * A table of references to DOM elements used by the App View
    * @type {Object}

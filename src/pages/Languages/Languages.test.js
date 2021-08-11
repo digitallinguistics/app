@@ -1,6 +1,6 @@
-describe(`Languages`, function() {
+describe(`Languages`, () => {
 
-  it(`renders`, function() {
+  it(`renders`, () => {
 
     cy.visit(`/`);
 
