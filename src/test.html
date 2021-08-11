@@ -5,9 +5,19 @@
   <title>Lotus Component Testing Page</title>
 </head>
 <body>
-  <main id=main></main>
-  <div id=templates>
 
+  <main id=main></main>
+
+  <div id=templates>
+    <template id=languages-list-template>
+      {{> LanguagesList }}
+    </template>
   </div>
+
+  <script type=module>
+    import App from './App/App.js';
+    window.app = new App;
+  </script>
+
 </body>
 </html>
