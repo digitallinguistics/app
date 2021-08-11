@@ -1,3 +1,5 @@
+import View from '../../core/View.js';
+
 export default class HomePage extends View {
 
   /**

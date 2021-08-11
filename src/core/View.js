@@ -12,7 +12,7 @@ export default class View {
   el;
 
   /**
-   * A reference to the `<template>` tag for this View.
+   * A reference to the `<template>` tag or templating function for this View.
    * @type {HTMLTemplateElement}
    */
   template;

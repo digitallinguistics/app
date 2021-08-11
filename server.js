@@ -8,10 +8,14 @@ import {
 } from 'path';
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
-const distDir    = joinPath(currentDir, './dist');
+const distDir    = joinPath(currentDir, `./dist`);
 
-const port   = 3000 || process.env.PORT;
-const server = http.createServer((req, res) => handler(req, res, { public: distDir }));
+export default function startServer() {
 
-server.listen(port, () => console.info(`Server started on port ${port}. Press Ctrl+C to terminate.`));
-server.on('error', console.error);
+  const port   = 3000 || process.env.PORT;
+  const server = http.createServer((req, res) => handler(req, res, { public: distDir }));
+
+  server.listen(port, () => console.info(`Server started on port ${ port }. Press Ctrl+C to terminate.`));
+  server.on(`error`, console.error);
+
+}
