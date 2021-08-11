@@ -115,4 +115,11 @@ export default async function buildPages() {
     await buildPageContent(entry);
   }
 
+  // build the component testing page
+  const testPageTemplate = await readFile(joinPath(srcDir, `test.html`), `utf8`);
+  const buildTestPage    = hbs.compile(testPageTemplate);
+  const testPageHTML     = buildTestPage();
+
+  await outputFile(joinPath(distDir, `test.html`), testPageHTML);
+
 }

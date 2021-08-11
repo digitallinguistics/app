@@ -51,7 +51,7 @@ This project is driven by the needs of documentary and descriptive linguists, an
 This project uses the following build and testing tools:
 
 * [Chai][Chai]: Assertion library.
-* [Cypress][Cypress]: Runs both unit and integration tests.
+* [Cypress][Cypress]: Runs component and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
 * [ESLint][ESLint]: Lints JavaScript
 * [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
@@ -72,10 +72,70 @@ The following build scripts are available:
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
 
-* `npm test`: Runs both unit and integration tests. By default tests are run on the command line. You can run unit tests and integration tests individually with the following commands:
-  - `npm run test:unit`
-  - `npm run test:integration`
-  - `npm run cypress`: runs integration tests manually in Cypress dashboard
+* `npm test`: Runs all tests. By default tests are run on the command line. You can run unit, component, or integration tests individually with the following commands:
+  - `npm run test:integration`: component + integration tests
+  - `npm run test:unit`: unit tests
+  - `npm run cypress`: runs component + integration tests manually in Cypress dashboard
+
+### Component Testing
+
+Component testing will eventually use [Cypress' component testing framework][cypress-ct]. Right now however this is too buggy to use. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, this project uses a custom component testing page. Component tests should have a `*.component.js` extension.
+
+If the component you're testing relies on a `<template>` tag being present in the HTML, that template must be included in `src/test.html` like so:
+
+```html
+<!-- test.html -->
+<div id=templates>
+  <!-- add any new templates here inside the div#templates tag -->
+  <template id=component-name-template>
+    {{> component-name }}
+  </template>
+</div>
+```
+
+Then the component test fill will need to retrieve that template and set it as the template for the component, similar to the following:
+
+```js
+/* component-name.component.js */
+import ListView from './ListView.js';
+import mount    from '{relative path}/test/mount.js';
+
+describe(`component`, function() {
+  
+  // This could also be in a beforeEach() hook instead.
+  before(function() {
+
+    // load the component testing page 
+    cy.visit(`/test`);
+
+    cy.document()
+    .then(doc => {
+
+      const listView = new ListView;
+  
+      // set the template for the component
+      listView.template = doc.getElementById(`templates`);
+
+      // insert the component instance into the test page
+      const el   = listView.render();
+      const main = doc.getElementById(`main`);
+
+      main.appendChild(el);
+
+    });
+    
+  });
+  
+  it(`runs the first test ...`, function() {
+    // code for first test here
+  });
+  
+  it(`runs the second test ...`, function() {
+    // code for second test here
+  });
+  
+});
+```
 
 ## Project Structure
 
@@ -188,6 +248,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
 [Chai]:            https://www.chaijs.com/
 [Cypress]:         https://www.cypress.io/
+[cypress-ct]:      https://docs.cypress.io/guides/component-testing/introduction
 [developers]:      https://developer.digitallinguistics.io/app
 [ESBuild]:         https://esbuild.github.io/
 [ESLint]:          https://eslint.org/
