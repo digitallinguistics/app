@@ -35,7 +35,7 @@
     "test":             "npm run test:unit & npm run test:integration",
     "test:component":   "cypress run-ct --config-file test/cypress.json",
     "test:integration": "start-server-and-test start 3000 cypress-run",
-    "test:unit":        "mocha **/*.unit.*"
+    "test:unit": "mocha **/*.unit.*"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
