@@ -149,7 +149,7 @@ Folder     | Description
 `dist/`    | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
 `docs/`    | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
 `src/`     | Source code for the app. Test files should live alongside their source components.
-`test/`    | Configuration code and fixtures for tests. Test specs should _not_ be placed here.
+`test/`    | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment.
 
 ## App Structure
 
@@ -165,7 +165,7 @@ The `src/` folder contains the following:
 
 Folder          | Description
 ----------------|-------------------------------------------------------
-`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are part of the app shell.
+`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell.
 `components/`   | Components that are shared across pages (but not part of the app shell).
 `core/`         | High-level JavaScript modules whose functionality is shared across components.
 `fonts/`        | Font files.
