@@ -37,12 +37,12 @@ async function buildPageContent(entry) {
 
   const ext = getExt(entry.basename);
 
-  if (ext !== `.html`) return;
+  if (ext !== `.hbs`) return;
 
   const template  = await readFile(entry.fullPath, `utf8`);
   const buildHTML = hbs.compile(template);
   let   html      = buildHTML();
-  const lessPath  = entry.fullPath.replace(`.html`, `.less`);
+  const lessPath  = entry.fullPath.replace(`.hbs`, `.less`);
   const less      = await readFile(lessPath, `utf8`);
   const css       = await convertLESS(less);
 
@@ -64,7 +64,7 @@ async function registerPartialsDir(dir) {
 
     const ext = getExt(entry.basename);
 
-    if (ext !== `.html`) continue;
+    if (ext !== `.hbs`) continue;
 
     const componentName = getBasename(entry.basename, ext);
     const componentHTML = await readFile(entry.fullPath, `utf8`);
@@ -95,14 +95,14 @@ export default async function buildPages() {
   // register Home page CSS partial
   const homeLESS = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
   const homeCSS  = await convertLESS(homeLESS);
-  
+
   hbs.registerPartial(`home-css`, homeCSS);
 
   // register page partials
   await registerPartialsDir(pagesDir);
 
   // build the app shell
-  const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
+  const appTemplate = await readFile(joinPath(srcDir, `index.hbs`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
   const appHTML     = buildApp();
 
@@ -116,7 +116,7 @@ export default async function buildPages() {
   }
 
   // build the component testing page
-  const testPageTemplate = await readFile(joinPath(srcDir, `test.html`), `utf8`);
+  const testPageTemplate = await readFile(joinPath(srcDir, `test.hbs`), `utf8`);
   const buildTestPage    = hbs.compile(testPageTemplate);
   const testPageHTML     = buildTestPage();
 

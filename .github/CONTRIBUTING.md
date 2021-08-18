@@ -55,7 +55,7 @@ This project uses the following build and testing tools:
 * [Cypress][Cypress]: Runs component and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
 * [ESLint][ESLint]: Lints JavaScript
-* [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
+* [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars with the `.hbs` extension.
 * [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
 * [LESS][LESS]: Enables a superset of CSS syntax, and compiles LESS > CSS.
 * [Mocha][Mocha]: Runs unit tests.
@@ -82,10 +82,10 @@ The following build scripts are available:
 
 Component testing will eventually use [Cypress' component testing framework][cypress-ct]. Right now however this is too buggy to use. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, this project uses a custom component testing page. Component tests should have a `*.component.js` extension.
 
-If the component you're testing relies on a `<template>` tag being present in the HTML, that template must be included in `src/test.html` like so:
+If the component you're testing relies on a `<template>` tag being present in the HTML, that template must be included in `src/test.hbs` like so:
 
 ```html
-<!-- test.html -->
+<!-- test.hbs -->
 <div id=templates>
   <!-- add any new templates here inside the div#templates tag -->
   <template id=component-name-template>
@@ -157,7 +157,7 @@ The Lotus app follows a typical [app shell model][app-shell-model]. A lightweigh
 
 The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
 
-Each section of the app shell's HTML is documented with inline code in `src/index.html`.
+Each section of the app shell's HTML is documented with inline code in `src/index.hbs`.
 
 ## Directory Structure
 
@@ -182,7 +182,7 @@ Folder          | Description
 
 The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) All of the various code and components for the Languages page, for example, are compiled into the following two files:
 
-* `Languages.html` (contains both HTML and inlined CSS for the Languages page)
+* `Languages.hbs` (contains both HTML and inlined CSS for the Languages page)
 * `Languages.js` (contains the View for the Languages page)
 
 Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SCSS, and JavaScript for that component, like so:
@@ -191,7 +191,7 @@ Each component should have its own folder within the page it is used, and contai
 pages/
   LanguagesPage/
     LanguagesList/
-      - LanguagesList.html
+      - LanguagesList.hbs
       - LanguagesList.js
       - LanguagesList.less
 ```
