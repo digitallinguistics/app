@@ -45,11 +45,12 @@ async function buildPageContent(entry) {
   const lessPath  = entry.fullPath.replace(`.hbs`, `.less`);
   const less      = await readFile(lessPath, `utf8`);
   const css       = await convertLESS(less);
+  const htmlPath  = entry.path.replace(`.hbs`, `.html`);
 
   // NOTE: The extra spaces here just make the output file more readable.
   html = html.replace(mainRegExp, `$<main>\n\n  <style>    \n    ${ css }\n  </style>`);
 
-  await outputFile(joinPath(distDir, `pages`, entry.path), html);
+  await outputFile(joinPath(distDir, `pages`, htmlPath), html);
 
 }
 
