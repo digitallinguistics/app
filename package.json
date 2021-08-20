@@ -19,21 +19,21 @@
     "node": ">=16.0"
   },
   "scripts": {
-    "build":            "node build",
-    "build:cache":      "node build/bin/buildCache.js",
-    "build:copy":       "node build/bin/copyAssets.js",
-    "build:docs":       "jsdoc -c build/jsdoc.json",
-    "build:page":       "node build/bin/buildPage.js",
-    "build:js":         "node build/bin/buildJS.js",
-    "build:svg":        "node build/bin/buildSVG.js",
-    "cypress":          "start-server-and-test start 3000 cypress-open",
-    "cypress-ct":       "cypress open-ct --config-file test/cypress.json",
-    "cypress-open":     "cypress open --config-file test/cypress.json",
-    "cypress-run":      "cypress run --config-file test/cypress.json",
-    "start":            "node build/bin/startServer.js",
-    "stop-only":        "stop-only -f test,src",
-    "test":             "npm run test:unit & npm run test:integration",
-    "test:component":   "cypress run-ct --config-file test/cypress.json",
+    "build": "node build",
+    "build:cache": "node build/bin/buildCache.js",
+    "build:copy": "node build/bin/copyAssets.js",
+    "build:docs": "jsdoc -c build/jsdoc.json",
+    "build:page": "node build/bin/buildPage.js",
+    "build:js": "node build/bin/buildJS.js",
+    "build:svg": "node build/bin/buildSVG.js",
+    "cypress": "start-server-and-test start 3000 cypress-open",
+    "cypress-ct": "cypress open-ct --config-file test/cypress.json",
+    "cypress-open": "cypress open --config-file test/cypress.json",
+    "cypress-run": "cypress run --config-file test/cypress.json",
+    "start": "node build/bin/startServer.js",
+    "stop-only": "stop-only -f test,src",
+    "test": "npm run test:unit & npm run test:integration",
+    "test:component": "cypress run-ct --config-file test/cypress.json",
     "test:integration": "start-server-and-test start 3000 cypress-run",
     "test:unit": "mocha **/*.unit.*"
   },
@@ -65,6 +65,7 @@
     "start-server-and-test": "^1.12.5",
     "stop-only": "^3.1.0",
     "stylelint": "^13.13.1",
-    "svgstore": "^3.0.0-2"
+    "svgstore": "^3.0.0-2",
+    "uuid": "^8.3.2"
   }
 }

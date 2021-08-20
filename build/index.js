@@ -2,6 +2,7 @@ import buildCache        from './buildCache.js';
 import buildJS           from './buildJS.js';
 import buildPages        from './buildPages.js';
 import copyAssets        from './copyAssets.js';
+import copyDependencies  from './copyDependencies.js';
 import { emptyDir }      from 'fs-extra';
 import { exec }          from 'child_process';
 import { fileURLToPath } from 'url';
@@ -22,6 +23,10 @@ console.info(`Building app.`);
 
 // NB: Do not pass promises directly to ora.
 // These promises must be completed in order, so you need to await each one in order.
+
+const copyDependenciesPromise = copyDependencies();
+ora.promise(copyDependenciesPromise, `Copy 3rd-party dependencies`);
+await copyDependenciesPromise;
 
 const emptyDistPromise = emptyDir(distDir);
 ora.promise(emptyDistPromise, `Empty /dist directory`);
