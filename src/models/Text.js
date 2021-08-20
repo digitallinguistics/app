@@ -11,7 +11,7 @@ export default class Text extends Model {
    * The model type (Text)
    * @type {String}
    */
-  get Text() {
+  get type() {
     return `Text`;
   }
 
