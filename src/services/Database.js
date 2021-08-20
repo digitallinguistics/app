@@ -204,6 +204,11 @@ export default class Database {
   // PROPERTIES
 
   /**
+   * A reference to the IndexedDB instance.
+   */
+  idb;
+
+  /**
    * The name of the database.
    * @type {String}
    */
@@ -460,5 +465,5 @@ export default class Database {
  * @event Database#onexportupdate
  * @type {Object}
  * @property {Integer} count - The current total number of items that have been exported so far.
- * @propery  {Integer} total - The total number of items to export.
+ * @property {Integer} total - The total number of items to export.
  */
