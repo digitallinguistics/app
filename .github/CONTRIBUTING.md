@@ -80,7 +80,7 @@ The following build scripts are available:
 
 ### Component Testing
 
-Component testing will eventually use [Cypress' component testing framework][cypress-ct]. Right now however this is too buggy to use. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, this project uses a custom component testing page. Component tests should have a `*.component.js` extension.
+Component testing will eventually use [Cypress' component testing framework][cypress-ct]. Right now however this is too buggy to use. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, this project uses a custom component testing page. Component tests should have a `*.test.js` extension.
 
 If the component you're testing relies on a `<template>` tag being present in the HTML, that template must be included in `src/test.html` like so:
 
@@ -97,7 +97,7 @@ If the component you're testing relies on a `<template>` tag being present in th
 Then the component test fill will need to retrieve that template and set it as the template for the component, similar to the following:
 
 ```js
-/* component-name.component.js */
+/* component-name.test.js */
 import ListView from './ListView.js';
 import mount    from '{relative path}/test/mount.js';
 
@@ -194,6 +194,7 @@ pages/
       - LanguagesList.html
       - LanguagesList.js
       - LanguagesList.less
+      - LanguagesList.test.js
 ```
 
 * The app shell is treated as a special top-level component and located in the `App/` folder.
