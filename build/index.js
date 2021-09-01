@@ -2,6 +2,7 @@ import buildCache        from './buildCache.js';
 import buildJS           from './buildJS.js';
 import buildPages        from './buildPages.js';
 import copyAssets        from './copyAssets.js';
+import copyDependencies  from './copyDependencies.js';
 import { emptyDir }      from 'fs-extra';
 import { exec }          from 'child_process';
 import { fileURLToPath } from 'url';
