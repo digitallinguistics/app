@@ -3,6 +3,7 @@
  */
 
 import EventEmitter from '../core/EventEmitter.js';
+import Language     from '../models/Language.js';
 import Nav          from './Nav/Nav.js';
 import View         from '../core/View.js';
 
@@ -51,7 +52,9 @@ export default class App extends View {
    * The settings for the app.
    * @type {Object}
    */
-  settings = {};
+  settings = {
+    debug: false,
+  };
 
   // METHODS
 
@@ -60,6 +63,7 @@ export default class App extends View {
     const on = this.events.on.bind(this.events);
 
     on(`App:Nav:change`, page => this.renderPage(page));
+    on(`Languages:LanguagesList:add`, () => this.addLanguage());
 
   }
 
@@ -72,7 +76,7 @@ export default class App extends View {
   }
 
   /**
-   * Asychronously loads the HTML + CSS for a page and inserts it as a `<template>` tag in the app shell for repeated use. Also loads the View for the requested page, and stores it in the `pages` map for repeated use.
+   * Asynchronously loads the HTML + CSS for a page and inserts it as a `<template>` tag in the app shell for repeated use. Also loads the View for the requested page, and stores it in the `pages` map for repeated use.
    * @param  {String}  page The page to load
    * @return {Promise}
    */
@@ -109,14 +113,35 @@ export default class App extends View {
   async renderPage(page) {
 
     let PageView = this.pages.get(page);
-    if (!PageView) await this.loadPage(page);
-    PageView = this.pages.get(page);
+
+    if (!PageView) {
+      await this.loadPage(page);
+      PageView = this.pages.get(page);
+    }
 
     const pageView = new PageView;
     const newPage  = pageView.render();
     const oldPage  = document.getElementById(`main`);
 
     oldPage.replaceWith(newPage);
+
+  }
+
+  // Languages
+
+  async addLanguage() {
+
+    const language = new Language;
+
+    // language.name.set(`eng`, `{ new language }`);
+
+    // await this.db.languages.add(language);
+
+    // this.settings.language = language.cid;
+
+    // await this.getLanguages();
+    // await this.renderLanguageDropdown();
+    // await this.renderPage(`languages`, language.cid);
 
   }
 

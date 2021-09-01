@@ -18,7 +18,7 @@ export default class View {
   template = `<template></template>`;
 
   /**
-   * Use an `addEventListeners()` method to attach listeners to an element. The `addEventListeners()` method of the base View class is a no-op. View subclasses should overwrite this method.
+   * Use an `addEventListeners()` method to attach listeners to an element. The `addEventListeners()` method of the base View class is a no-op. View subclasses should overwrite this method. This method is typically called at the end of the `render()` method.
    */
   addEventListeners() { /* no-op */ }
 
@@ -27,7 +27,7 @@ export default class View {
    * @returns {HTMLElement}
    */
   cloneTemplate() {
-    return this.template.content.cloneNode(true);
+    return this.template.content.cloneNode(true).firstElementChild;
   }
 
   /**

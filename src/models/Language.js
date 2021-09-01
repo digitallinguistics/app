@@ -1,4 +1,5 @@
-import Model from '../core/Model.js';
+import Model           from '../core/Model.js';
+import MultiLangString from './MultiLangString.js';
 
 /**
  * A class representing a language
@@ -13,6 +14,15 @@ export default class Language extends Model {
    */
   get type() {
     return `Language`;
+  }
+
+  /**
+   * Create a new Language.
+   * @param {Object} [data={}]
+   */
+  constructor(data = {}) {
+    super(data);
+    this.name = new MultiLangString(this.name);
   }
 
 }
