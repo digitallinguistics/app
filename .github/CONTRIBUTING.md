@@ -55,7 +55,7 @@ This project uses the following build and testing tools:
 * [Cypress][Cypress]: Runs component and integration tests.
 * [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
 * [ESLint][ESLint]: Lints JavaScript
-* [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars with the `.hbs` extension.
+* [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
 * [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
 * [LESS][LESS]: Enables a superset of CSS syntax, and compiles LESS > CSS.
 * [Mocha][Mocha]: Runs unit tests.
@@ -73,72 +73,14 @@ The following build scripts are available:
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
 
-* `npm test`: Runs all tests. By default tests are run on the command line. You can run unit, component, or integration tests individually with the following commands:
+* `npm test`: Runs all tests. By default tests are run on the command line. You can run unit or integration tests individually with the following commands:
   - `npm run test:integration`: component + integration tests
   - `npm run test:unit`: unit tests
   - `npm run cypress`: runs component + integration tests manually in Cypress dashboard
 
 ### Component Testing
 
-Component testing will eventually use [Cypress' component testing framework][cypress-ct]. Right now however this is too buggy to use. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, this project uses a custom component testing page. Component tests should have a `*.component.js` extension.
-
-If the component you're testing relies on a `<template>` tag being present in the HTML, that template must be included in `src/test.hbs` like so:
-
-```html
-<!-- test.hbs -->
-<div id=templates>
-  <!-- add any new templates here inside the div#templates tag -->
-  <template id=component-name-template>
-    {{> component-name }}
-  </template>
-</div>
-```
-
-Then the component test fill will need to retrieve that template and set it as the template for the component, similar to the following:
-
-```js
-/* component-name.component.js */
-import ListView from './ListView.js';
-import mount    from '{relative path}/test/mount.js';
-
-describe(`component`, function() {
-
-  // This could also be in a beforeEach() hook instead.
-  before(function() {
-
-    // load the component testing page
-    cy.visit(`/test`);
-
-    cy.document()
-    .then(doc => {
-
-      const listView = new ListView;
-
-      // set the template for the component
-      listView.template = doc.getElementById(`templates`);
-
-      // insert the component instance into the test page
-      const el   = listView.render();
-      const main = doc.getElementById(`main`);
-
-      main.appendChild(el);
-
-    });
-
-  });
-
-  it(`runs the first test ...`, function() {
-    // code for first test here
-  });
-
-  it(`runs the second test ...`, function() {
-    // code for second test here
-  });
-
-});
-```
-
-The test page also makes the `app` global available for use.
+Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
 
 ## Project Structure
 
@@ -157,7 +99,7 @@ The Lotus app follows a typical [app shell model][app-shell-model]. A lightweigh
 
 The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
 
-Each section of the app shell's HTML is documented with inline code in `src/index.hbs`.
+Each section of the app shell's HTML is documented with inline code in `src/index.html`.
 
 ## Directory Structure
 
@@ -182,7 +124,7 @@ Folder          | Description
 
 The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) All of the various code and components for the Languages page, for example, are compiled into the following two files:
 
-* `Languages.hbs` (contains both HTML and inlined CSS for the Languages page)
+* `Languages.html` (contains both HTML and inlined CSS for the Languages page)
 * `Languages.js` (contains the View for the Languages page)
 
 Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SCSS, and JavaScript for that component, like so:
@@ -191,7 +133,7 @@ Each component should have its own folder within the page it is used, and contai
 pages/
   LanguagesPage/
     LanguagesList/
-      - LanguagesList.hbs
+      - LanguagesList.html
       - LanguagesList.js
       - LanguagesList.less
 ```
