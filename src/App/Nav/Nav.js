@@ -41,6 +41,7 @@ export default class Nav extends View {
       if (page) {
         ev.preventDefault();
         this.setPage(page);
+        app.events.emit(`App:Nav:change`, page);
       }
 
     });
@@ -49,21 +50,20 @@ export default class Nav extends View {
 
   /**
    * Initialize the nav view
+   * @param {String} [page] The page to set as selected.
    */
-  render() {
-    this.setPage(app.settings.page, { emit: false });
+  render(page) {
     this.addEventListeners();
     this.button.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
+    if (page) this.setPage(page);
     return this.el;
   }
 
   /**
    * Sets the current page
-   * @param {String}  [page=`home`]       The page route to set as current.
-   * @param {Object}  [options={}]
-   * @param {Boolean} [options.emit=true] Whether to emit an event when the page is set.
+   * @param {String}  page The page route to set as current.
    */
-  setPage(page = `home`, { emit = true } = {}) {
+  setPage(page) {
 
     // clear currently selected page from all items
 
@@ -81,8 +81,6 @@ export default class Nav extends View {
       currentItem.setAttribute(`aria-current`, `page`);
       currentItem.classList.add(`current`);
     }
-
-    if (emit) app.events.emit(`App:Nav:change`, page);
 
   }
 

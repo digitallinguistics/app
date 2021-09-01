@@ -9,12 +9,11 @@ import MultiLangString from './MultiLangString.js';
 export default class Language extends Model {
 
   /**
-   * The model type (Language)
+   * The model type (Language).
    * @type {String}
+   * @readonly
    */
-  get type() {
-    return `Language`;
-  }
+  type = `Language`;
 
   /**
    * Create a new Language.

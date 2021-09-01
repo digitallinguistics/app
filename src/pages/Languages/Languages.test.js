@@ -6,11 +6,9 @@ describe(`Languages`, () => {
     .click();
   });
 
-  it(`renders the Add a Language button when there are no languages`, function() {
-    cy.get(`#main[data-page=Languages] .language-editor .add-language-button`);
-  });
+  it(`adds a language from the Language Editor`);
 
-  it(`adds a language`, function() {
+  it(`adds a language from the Languages List`, function() {
 
     cy.get(`#main[data-page=Languages`)
     .within(() => {

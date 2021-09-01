@@ -176,6 +176,10 @@ JavaScript and CSS / SCSS code should be linted before opening a pull request.
 
 JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
 
+## Design Guidelines
+
+* Constructors and methods should be handed their data whenever possible, so as to lesson dependencies and decreasing coupling between components and/or methods, making them closer to pure functions.
+
 ## Inspiration
 
 Other single-page apps or tools this project sometimes mimics:

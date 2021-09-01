@@ -2,9 +2,11 @@
  * @namespace App
  */
 
+import Database     from '../services/Database.js';
 import EventEmitter from '../core/EventEmitter.js';
 import Language     from '../models/Language.js';
 import Nav          from './Nav/Nav.js';
+import Settings     from '../core/Settings.js';
 import View         from '../core/View.js';
 
 /**
@@ -18,6 +20,12 @@ export default class App extends View {
   // PROPERTIES
 
   /**
+   * A reference to the local database controller.
+   * @type {services#Database}
+   */
+  db = new Database;
+
+  /**
    * The event manager for the app (uses a pubsub model)
    * @type {EventEmitter}
    */
@@ -28,8 +36,6 @@ export default class App extends View {
    * @type {app#Nav}
    */
   nav = new Nav;
-
-  testTemplate = document.getElementById(`test-template`);
 
   /**
    * A table of references to DOM elements used by the App View
@@ -50,13 +56,11 @@ export default class App extends View {
 
   /**
    * The settings for the app.
-   * @type {Object}
+   * @type {core#Settings}
    */
-  settings = {
-    debug: false,
-  };
+  settings = new Settings(localStorage.getItem(`settings`));
 
-  // METHODS
+  // APP METHODS
 
   addEventListeners() {
 
@@ -100,17 +104,19 @@ export default class App extends View {
   /**
    * Initializes the App view
    */
-  render() {
+  async render() {
     this.addEventListeners();
-    this.nav.render();
+    await this.db.initialize();
+    this.nav.render(this.settings.page);
   }
 
   /**
    * Renders a page.
-   * @param  {String} page The page to render.
+   * @param  {String}  page   The page to render.
+   * @param  {Any}     [args] Any additional arguments to pass to the page constructor.
    * @return {Promise}
    */
-  async renderPage(page) {
+  async renderPage(page, ...args) {
 
     let PageView = this.pages.get(page);
 
@@ -119,7 +125,7 @@ export default class App extends View {
       PageView = this.pages.get(page);
     }
 
-    const pageView = new PageView;
+    const pageView = new PageView(...args);
     const newPage  = pageView.render();
     const oldPage  = document.getElementById(`main`);
 
@@ -127,22 +133,20 @@ export default class App extends View {
 
   }
 
-  // Languages
+  // LANGUAGES
 
   async addLanguage() {
-
     const language = new Language;
+    language.name.set(`eng`, `{ new language }`);
+    await this.db.languages.add(language);
+    const languages = await this.db.languages.getAll();
+    await this.renderPage(`languages`, languages, language.cid);
+  }
 
-    // language.name.set(`eng`, `{ new language }`);
+  // STATIC
 
-    // await this.db.languages.add(language);
-
-    // this.settings.language = language.cid;
-
-    // await this.getLanguages();
-    // await this.renderLanguageDropdown();
-    // await this.renderPage(`languages`, language.cid);
-
+  static defaultSettings = {
+    page: `Home`,
   }
 
 }
