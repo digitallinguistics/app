@@ -2,26 +2,18 @@ describe(`Languages`, () => {
 
   before(function() {
     cy.visit(`/`);
-    cy.get(`#nav li[data-page=Languages]`)
-    .click();
+    cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
   });
 
-  it(`adds a language from the Language Editor`);
+  it.only(`adds a language from the Language Editor`, function() {
+    cy.get(`.language-editor .add-language-button`).click();
+    cy.contains(`.languages-list`, `{ new language }`);
+  });
 
   it(`adds a language from the Languages List`, function() {
-
-    cy.get(`#main[data-page=Languages`)
-    .within(() => {
-
-      cy.get(`.languages-list .add-language-button`)
-      .click();
-
-      cy.get(`.languages-list li`).contains(`{ new language }`);
-
-      // TODO: Check that Language Editor renders with an empty form.
-
-    });
-
+    cy.get(`.languages-list .add-language-button`).click();
+    cy.contains(`.languages-list`, `{ new language }`);
+    // TODO: Check that Language Editor renders with an empty form.
   });
 
 });

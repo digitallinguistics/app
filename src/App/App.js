@@ -26,6 +26,12 @@ export default class App extends View {
   db = new Database;
 
   /**
+   * A reference to the app body.
+   * @type {HTMLBodyElement}
+   */
+  el = document.getElementById(`app`);
+
+  /**
    * The event manager for the app (uses a pubsub model)
    * @type {EventEmitter}
    */
@@ -58,7 +64,7 @@ export default class App extends View {
    * The settings for the app.
    * @type {core#Settings}
    */
-  settings = new Settings(localStorage.getItem(`settings`));
+  settings = new Settings(JSON.parse(localStorage.getItem(`settings`) ?? `{}`));
 
   // APP METHODS
 
@@ -67,7 +73,7 @@ export default class App extends View {
     const on = this.events.on.bind(this.events);
 
     on(`App:Nav:change`, page => this.renderPage(page));
-    on(`Languages:LanguagesList:add`, () => this.addLanguage());
+    on(`Languages:add`, () => this.addLanguage());
 
   }
 
@@ -166,7 +172,7 @@ export default class App extends View {
     language.name.set(`eng`, `{ new language }`);
     await this.db.languages.add(language);
     this.settings.language = language.cid;
-    await this.renderPage(`languages`);
+    await this.renderPage(`Languages`);
   }
 
   /**

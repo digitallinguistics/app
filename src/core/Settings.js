@@ -4,7 +4,8 @@
 export default class Settings {
 
   #defaults = {
-    page: `Home`,
+    navOpen: true,
+    page:    `Home`,
   }
 
   constructor(initialSettings = {}) {

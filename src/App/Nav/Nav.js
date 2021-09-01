@@ -56,6 +56,7 @@ export default class Nav extends View {
     this.addEventListeners();
     this.button.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
     if (page) this.setPage(page);
+    this.el.dataset.loaded = true;
     return this.el;
   }
 

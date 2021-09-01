@@ -1,4 +1,4 @@
-// import LanguageEditor from './LanguageEditor/LanguageEditor.js';
+import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import LanguagesList  from './LanguagesList/LanguagesList.js';
 import View           from '../../core/View.js';
 
@@ -38,21 +38,37 @@ export default class LanguagesPage extends View {
   render(languageCID) {
     this.el = this.cloneTemplate();
     this.renderLanguagesList(languageCID);
-    // TODO: if (languageCID) this.renderLanguageEditor(languageCID);
+    this.renderLanguageEditor(languageCID);
     return this.el;
+  }
+
+  renderAddLanguageButton() {
+    const button = this.el.querySelector(`.language-editor .add-language-button`);
+    button.addEventListener(`click`, () => app.events.emit(`Languages:add`));
   }
 
   /**
    * Render the Language Editor.
-   * @param {Language} languageCID
+   * @param {String} languageCID
    */
-  // renderLanguageEditor(languageCID) {
-  //   const language = this.languages.find(lang => lang.cid === languageCID);
-  //   const editor   = new LanguageEditor(language);
-  //   editor.render();
-  //   this.el.querySelector(`.language-editor`)
-  //   .replaceWith(editor.el);
-  // }
+  renderLanguageEditor(languageCID) {
+
+    if (!this.languages.length) return this.renderAddLanguageButton();
+
+    const language = this.languages.find(lang => lang.cid === languageCID);
+
+    if (!language) {
+      app.settings.language = null;
+      return;
+    }
+
+    const languageEditor = new LanguageEditor(language);
+    const newEditor      = languageEditor.render();
+    const oldEditor      = this.el.querySelector(`.language-editor`);
+
+    oldEditor.replaceWith(newEditor);
+
+  }
 
   /**
    * Render the Languages List.

@@ -46,7 +46,7 @@ export default class LanguagesList extends View {
 
     this.el.querySelector(`.add-language-button`)
     .addEventListener(`click`, () => {
-      app.events.emit(`Languages:LanguagesList:add`);
+      app.events.emit(`Languages:add`);
     });
 
     this.list.addEventListener(`click`, ({ target }) => {
@@ -56,7 +56,7 @@ export default class LanguagesList extends View {
 
       if (languageCID) {
         this.setCurrentLanguage(languageCID);
-        app.events.emit(`Languages:LanguagesList:change`, languageCID);
+        app.events.emit(`Languages:change`, languageCID);
       }
 
     });
@@ -118,7 +118,7 @@ export default class LanguagesList extends View {
   static itemTemplate({ cid, name }) {
     const li            = document.createElement(`li`);
     li.dataset.language = cid;
-    li.textContent      = typeof name === `string` ? name : Object.values(name)[0];
+    li.textContent      = name.default;
     return li;
   }
 
