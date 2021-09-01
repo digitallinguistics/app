@@ -80,7 +80,7 @@ export default class App extends View {
   }
 
   /**
-   * Asynchronously loads the HTML + CSS for a page and inserts it as a `<template>` tag in the app shell for repeated use. Also loads the View for the requested page, and stores it in the `pages` map for repeated use.
+   * Asynchronously loads the HTML for a page and inserts it as a `<template>` tag in the app shell for repeated use. Also loads the View for the requested page, and stores it in the `pages` map for repeated use. Page HTML should already include its CSS inline.
    * @param  {String}  page The page to load
    * @return {Promise}
    */
@@ -108,41 +108,74 @@ export default class App extends View {
     this.addEventListeners();
     await this.db.initialize();
     this.nav.render(this.settings.page);
+    await this.renderPage(this.settings.page);
   }
 
   /**
    * Renders a page.
-   * @param  {String}  page   The page to render.
-   * @param  {Any}     [args] Any additional arguments to pass to the page constructor.
+   * @param  {String}  page The page to render.
    * @return {Promise}
    */
-  async renderPage(page, ...args) {
+  async renderPage(page) {
 
-    let PageView = this.pages.get(page);
+    this.settings.page = page;
+    this.nav.setPage(this.settings.page);
 
-    if (!PageView) {
+    if (!this.pages.has(page)) {
       await this.loadPage(page);
-      PageView = this.pages.get(page);
     }
 
-    const pageView = new PageView(...args);
-    const newPage  = pageView.render();
-    const oldPage  = document.getElementById(`main`);
+    let newPage;
+
+    switch (this.settings.page) {
+        case `Home`: newPage = this.renderHomePage(); break;
+        case `Languages`: newPage = await this.renderLanguagesPage(); break;
+        default: break;
+    }
+
+    const oldPage = document.getElementById(`main`);
 
     oldPage.replaceWith(newPage);
-
     this.announce(`${ page } page`);
 
   }
 
+  // PAGES
+
+  renderHomePage() {
+    const HomePage = this.pages.get(`Home`);
+    const homePage = new HomePage;
+    return homePage.render();
+  }
+
+  async renderLanguagesPage() {
+    const LanguagesPage = this.pages.get(`Languages`);
+    const languages     = await this.getLanguages();
+    const languagesPage = new LanguagesPage(languages);
+    return languagesPage.render(this.settings.language);
+  }
+
   // LANGUAGES
 
+  /**
+   * Add a language and rerender the app.
+   * @returns {Promise}
+   */
   async addLanguage() {
     const language = new Language;
     language.name.set(`eng`, `{ new language }`);
     await this.db.languages.add(language);
-    const languages = await this.db.languages.getAll();
-    await this.renderPage(`languages`, languages, language.cid);
+    this.settings.language = language.cid;
+    await this.renderPage(`languages`);
+  }
+
+  /**
+   * Get all languages from the database.
+   * @param options
+   * @returns {Promise}
+   */
+  getLanguages(options) {
+    return this.db.languages.getAll(options);
   }
 
   // STATIC

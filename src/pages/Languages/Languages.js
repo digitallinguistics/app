@@ -11,12 +11,6 @@ export default class LanguagesPage extends View {
   el = document.querySelector(`main[data-page=Languages]`);
 
   /**
-   * The CID of the current language.
-   * @type {String}
-   */
-  language;
-
-  /**
    * An Array of the languages on this page.
    * @type {Array}
    */
@@ -31,11 +25,9 @@ export default class LanguagesPage extends View {
   /**
    * Create a new Languages Page view.
    * @param {Array<models#Language>} languages
-   * @param {String}                 [languageCID] The client ID of the language to render the page with.
    */
-  constructor(languages, languageCID) {
+  constructor(languages) {
     super();
-    this.language  = languageCID;
     this.languages = languages;
   }
 
@@ -43,10 +35,10 @@ export default class LanguagesPage extends View {
    * Render the Languages Page.
    * @return {HTMLMainElement}
    */
-  render() {
+  render(languageCID) {
     this.el = this.cloneTemplate();
-    this.renderLanguagesList(this.language);
-    // TODO: if (this.language) this.renderLanguageEditor(this.language);
+    this.renderLanguagesList(languageCID);
+    // TODO: if (languageCID) this.renderLanguageEditor(languageCID);
     return this.el;
   }
 
