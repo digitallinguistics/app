@@ -131,6 +131,8 @@ export default class App extends View {
 
     oldPage.replaceWith(newPage);
 
+    this.announce(`${ page } page`);
+
   }
 
   // LANGUAGES
