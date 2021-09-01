@@ -37,19 +37,20 @@ async function buildPageContent(entry) {
 
   const ext = getExt(entry.basename);
 
-  if (ext !== `.html`) return;
+  if (ext !== `.hbs`) return;
 
   const template  = await readFile(entry.fullPath, `utf8`);
   const buildHTML = hbs.compile(template);
   let   html      = buildHTML();
-  const lessPath  = entry.fullPath.replace(`.html`, `.less`);
+  const lessPath  = entry.fullPath.replace(`.hbs`, `.less`);
   const less      = await readFile(lessPath, `utf8`);
   const css       = await convertLESS(less);
+  const htmlPath  = entry.path.replace(`.hbs`, `.html`);
 
   // NOTE: The extra spaces here just make the output file more readable.
   html = html.replace(mainRegExp, `$<main>\n\n  <style>    \n    ${ css }\n  </style>`);
 
-  await outputFile(joinPath(distDir, `pages`, entry.path), html);
+  await outputFile(joinPath(distDir, `pages`, htmlPath), html);
 
 }
 
@@ -64,7 +65,7 @@ async function registerPartialsDir(dir) {
 
     const ext = getExt(entry.basename);
 
-    if (ext !== `.html`) continue;
+    if (ext !== `.hbs`) continue;
 
     const componentName = getBasename(entry.basename, ext);
     const componentHTML = await readFile(entry.fullPath, `utf8`);
@@ -95,14 +96,14 @@ export default async function buildPages() {
   // register Home page CSS partial
   const homeLESS = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
   const homeCSS  = await convertLESS(homeLESS);
-  
+
   hbs.registerPartial(`home-css`, homeCSS);
 
   // register page partials
   await registerPartialsDir(pagesDir);
 
   // build the app shell
-  const appTemplate = await readFile(joinPath(srcDir, `index.html`), `utf8`);
+  const appTemplate = await readFile(joinPath(srcDir, `index.hbs`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
   const appHTML     = buildApp();
 
@@ -114,12 +115,5 @@ export default async function buildPages() {
   for await (const entry of pages) {
     await buildPageContent(entry);
   }
-
-  // build the component testing page
-  const testPageTemplate = await readFile(joinPath(srcDir, `test.html`), `utf8`);
-  const buildTestPage    = hbs.compile(testPageTemplate);
-  const testPageHTML     = buildTestPage();
-
-  await outputFile(joinPath(distDir, `test.html`), testPageHTML);
 
 }

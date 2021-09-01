@@ -6,7 +6,7 @@ import copyDependencies  from './copyDependencies.js';
 import { emptyDir }      from 'fs-extra';
 import { exec }          from 'child_process';
 import { fileURLToPath } from 'url';
-import ora               from 'ora';
+import { oraPromise }    from 'ora';
 import { promisify }     from 'util';
 
 import {
@@ -24,37 +24,15 @@ console.info(`Building app.`);
 // NB: Do not pass promises directly to ora.
 // These promises must be completed in order, so you need to await each one in order.
 
-const copyDependenciesPromise = copyDependencies();
-ora.promise(copyDependenciesPromise, `Copy 3rd-party dependencies`);
-await copyDependenciesPromise;
-
-const emptyDistPromise = emptyDir(distDir);
-ora.promise(emptyDistPromise, `Empty /dist directory`);
-await emptyDistPromise;
-
-const buildPagesPromise = buildPages();
-ora.promise(buildPagesPromise, `Build page content`);
-await buildPagesPromise;
-
-const buildJSPromise = buildJS();
-ora.promise(buildJSPromise, `Build JS`);
-await buildJSPromise;
-
-const copyAssetsPromise = copyAssets();
-ora.promise(copyAssetsPromise, `Copy static assets`);
-await copyAssetsPromise;
-
-const buildCachePromise = buildCache();
-ora.promise(buildCachePromise, `Create cache list`);
-await buildCachePromise;
-
-const emptyDocsPromise = emptyDir(joinPath(currentDir, `../docs`));
-ora.promise(emptyDocsPromise, `Empty /docs directory`);
-await emptyDocsPromise;
+await oraPromise(emptyDir(distDir), `Empty /dist directory`);
+await oraPromise(buildPages(), `Build page content`);
+await oraPromise(buildJS(), `Build JS`);
+await oraPromise(copyAssets(), `Copy static assets`);
+await oraPromise(buildCache(), `Create cache list`);
+await oraPromise(emptyDir(joinPath(currentDir, `../docs`)), `Empty /docs directory`);
 
 const jsdocDir         = joinPath(currentDir, `../node_modules/.bin/jsdoc`);
 const buildDocsPromise = execute(`${ jsdocDir } -c build/jsdoc.json`);
-ora.promise(buildDocsPromise, `Build developer documentation`);
-await buildDocsPromise;
+await oraPromise(buildDocsPromise, `Build developer documentation`);
 
 console.info(`App finished building.\n`);

@@ -73,72 +73,14 @@ The following build scripts are available:
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
 
-* `npm test`: Runs all tests. By default tests are run on the command line. You can run unit, component, or integration tests individually with the following commands:
+* `npm test`: Runs all tests. By default tests are run on the command line. You can run unit or integration tests individually with the following commands:
   - `npm run test:integration`: component + integration tests
   - `npm run test:unit`: unit tests
   - `npm run cypress`: runs component + integration tests manually in Cypress dashboard
 
 ### Component Testing
 
-Component testing will eventually use [Cypress' component testing framework][cypress-ct]. Right now however this is too buggy to use. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, this project uses a custom component testing page. Component tests should have a `*.test.js` extension.
-
-If the component you're testing relies on a `<template>` tag being present in the HTML, that template must be included in `src/test.html` like so:
-
-```html
-<!-- test.html -->
-<div id=templates>
-  <!-- add any new templates here inside the div#templates tag -->
-  <template id=component-name-template>
-    {{> component-name }}
-  </template>
-</div>
-```
-
-Then the component test fill will need to retrieve that template and set it as the template for the component, similar to the following:
-
-```js
-/* component-name.test.js */
-import ListView from './ListView.js';
-import mount    from '{relative path}/test/mount.js';
-
-describe(`component`, function() {
-
-  // This could also be in a beforeEach() hook instead.
-  before(function() {
-
-    // load the component testing page
-    cy.visit(`/test`);
-
-    cy.document()
-    .then(doc => {
-
-      const listView = new ListView;
-
-      // set the template for the component
-      listView.template = doc.getElementById(`templates`);
-
-      // insert the component instance into the test page
-      const el   = listView.render();
-      const main = doc.getElementById(`main`);
-
-      main.appendChild(el);
-
-    });
-
-  });
-
-  it(`runs the first test ...`, function() {
-    // code for first test here
-  });
-
-  it(`runs the second test ...`, function() {
-    // code for second test here
-  });
-
-});
-```
-
-The test page also makes the `app` global available for use.
+Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
 
 ## Project Structure
 

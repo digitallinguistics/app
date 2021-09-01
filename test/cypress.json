@@ -6,7 +6,7 @@
   "fixturesFolder":        "test/fixtures",
   "integrationFolder":     "src",
   "nodeVersion":           "system",
-  "pluginsFile":           "test/plugins/index.cjs",
+  "pluginsFile":           false,
   "screenshotsFolder":     "test/screenshots",
   "supportFile":           "test/support/index.js",
   "testFiles":             [
@@ -15,9 +15,5 @@
   ],
   "video":                 false,
   "videosFolder":          "test/videos",
-  "projectId":             "t8vr8w",
-  "component": {
-    "componentFolder": "src",
-    "testFiles":       "**/*.component.js"
-  }
+  "projectId":             "t8vr8w"
 }
