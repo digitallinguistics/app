@@ -1,4 +1,4 @@
-import { v4 as createUUID } from '../vendor/UUID/index.js';
+import { v4 as createUUID } from '../../node_modules/uuid/dist/esm-browser/index.js';
 
 /**
  * A base model that each of the other models extends from.

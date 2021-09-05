@@ -1,5 +1,5 @@
-import ListView from '../../../components/ListView/ListView.js';
-import View     from '../../../core/View.js';
+import List from '../../../components/List/List.js';
+import View from '../../../core/View.js';
 
 /**
  * A class representing a list of languages, as a menu.
@@ -71,7 +71,7 @@ export default class LanguagesList extends View {
 
     this.el        = this.cloneTemplate();
     const oldList  = this.el.querySelector(`.languages`);
-    const listView = new ListView(this.languages, { template: LanguagesList.itemTemplate });
+    const listView = new List(this.languages, { template: LanguagesList.itemTemplate });
     this.list      = listView.render();
 
     oldList.replaceWith(this.list);

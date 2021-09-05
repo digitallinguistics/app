@@ -2,7 +2,7 @@
  * Unit tests for the List View
  */
 
-import ListView from './ListView.js';
+import List from './List.js';
 
 describe(`List View`, function() {
 
@@ -12,7 +12,7 @@ describe(`List View`, function() {
 
       const template   = () => document.createElement(`li`);
       const collection = [1, 2, 3];
-      const list       = new ListView(collection, { template });
+      const list       = new List(collection, { template });
 
       expect(() => list.render()).not.to.throw();
 
@@ -26,7 +26,7 @@ describe(`List View`, function() {
 
       it(`defaults to an empty array`, function() {
 
-        const list = new ListView;
+        const list = new List;
 
         expect(Array.isArray(list.collection)).to.be.true;
         expect(list.collection).to.have.lengthOf(0);
@@ -36,7 +36,7 @@ describe(`List View`, function() {
       it(`is set to the provided collection`, function() {
 
         const collection = [];
-        const list       = new ListView(collection);
+        const list       = new List(collection);
 
         expect(list.collection).to.equal(collection);
 
@@ -49,7 +49,7 @@ describe(`List View`, function() {
       it(`is set to the provided template`, function() {
 
         const template = () => cy.stub();
-        const list     = new ListView([], { template });
+        const list     = new List([], { template });
 
         expect(list.template).to.equal(template);
 
@@ -65,7 +65,7 @@ describe(`List View`, function() {
 
       it(`defaults to an empty list`, function() {
 
-        const list = new ListView;
+        const list = new List;
         const ul   = list.render();
 
         expect(ul.children).to.have.lengthOf(0);
@@ -75,7 +75,7 @@ describe(`List View`, function() {
       it(`defaults to empty <li>s`, function() {
 
         const collection = [1, 2, 3];
-        const list       = new ListView(collection);
+        const list       = new List(collection);
         const ul         = list.render();
 
         expect(ul.children).to.have.lengthOf(3);
@@ -93,7 +93,7 @@ describe(`List View`, function() {
           return li;
         }
 
-        const list = new ListView(collection, { template });
+        const list = new List(collection, { template });
         const ul   = list.render();
 
         expect(ul.children).to.have.lengthOf(3);

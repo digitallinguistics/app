@@ -1,8 +1,8 @@
 import buildCache        from './buildCache.js';
 import buildJS           from './buildJS.js';
 import buildPages        from './buildPages.js';
+import buildStories      from './buildStories.js';
 import copyAssets        from './copyAssets.js';
-import copyDependencies  from './copyDependencies.js';
 import { emptyDir }      from 'fs-extra';
 import { exec }          from 'child_process';
 import { fileURLToPath } from 'url';
@@ -29,6 +29,7 @@ await oraPromise(buildPages(), `Build page content`);
 await oraPromise(buildJS(), `Build JS`);
 await oraPromise(copyAssets(), `Copy static assets`);
 await oraPromise(buildCache(), `Create cache list`);
+await oraPromise(buildStories(), `Build stories`);
 await oraPromise(emptyDir(joinPath(currentDir, `../docs`)), `Empty /docs directory`);
 
 const jsdocDir         = joinPath(currentDir, `../node_modules/.bin/jsdoc`);
