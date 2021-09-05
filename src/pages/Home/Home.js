@@ -6,13 +6,14 @@ export default class HomePage extends View {
    * A reference to the Home page `<template>` tag.
    * @type {HTMLTemplateElement}
    */
-  template = document.getElementById(`home-page-template`);
+  template;
 
   /**
    * Render the Home Page.
    * @return {HTMLMainElement}
    */
   render() {
+    this.template = document.getElementById(`home-page-template`);
     return this.cloneTemplate();
   }
 
