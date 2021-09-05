@@ -74,6 +74,7 @@ export default class LanguagesList extends View {
     const listView = new List(this.languages, { template: LanguagesList.itemTemplate });
     this.list      = listView.render();
 
+    this.list.classList.add(`languages`);
     oldList.replaceWith(this.list);
     this.addEventListeners();
     if (languageCID) this.setCurrentLanguage(languageCID);
