@@ -115,6 +115,7 @@ export default class App extends View {
     await this.db.initialize();
     this.nav.render(this.settings.page);
     await this.renderPage(this.settings.page);
+    // prevents Cypress from loading a new page too early
     this.nav.el.dataset.loaded = true;
   }
 
