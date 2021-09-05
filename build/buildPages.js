@@ -24,11 +24,6 @@ const pagesDir   = joinPath(srcDir, `pages`);
 
 const mainRegExp = /(?<main><main.+>)/u;
 
-async function generateCSS(lessPath) {
-  const less = await readFile(lessPath, `utf8`);
-  return convertLESS(less);
-}
-
 /**
  * Builds the HTML and CSS for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp). The CSS is inserted in a `<style>` tag just inside the opening `<main>` tag.
  * @param {Object} entry An entry from the [readdirp](https://www.npmjs.com/package/readdirp) package.
@@ -52,6 +47,11 @@ async function buildPageContent(entry) {
 
   await outputFile(joinPath(distDir, `pages`, htmlPath), html);
 
+}
+
+async function generateCSS(lessPath) {
+  const less = await readFile(lessPath, `utf8`);
+  return convertLESS(less);
 }
 
 /**

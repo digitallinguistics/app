@@ -106,5 +106,6 @@ dist
 /dist
 /docs
 .eslintrc.js
-nodemon.json
 .idea
+*.css
+nodemon.json

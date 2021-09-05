@@ -4,6 +4,7 @@ import less     from 'less';
 const lessOptions = {
   paths: [
     `src`,
+    `src/App`,
     `src/components`,
     `src/pages`,
     `src/styles`,
