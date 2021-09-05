@@ -144,11 +144,17 @@ class Collection {
 
   /**
    * Retrieves all the items from the collection.
-   * @param  {String|IDBKeyRange} query The client ID (cid) or an IDBKeyRange to limit the results to.
-   * @param  {Integer}            count The number of items to return if more than 1 is found.
-   * @return {Promise}                  Returns a Promise that resolves to an Array of items in the collection.
+   * @param  {Object}             [options={}]
+   * @param  {Integer}            [options.count]         The number of items to return if more than 1 is found.
+   * @param  {Boolean}            [options.deleted=false] Whether to include deleted items in the results.
+   * @param  {String|IDBKeyRange} [options.query]         The client ID (cid) or an IDBKeyRange to limit the results to.
+   * @return {Promise}                                    Returns a Promise that resolves to an Array of items in the collection.
    */
-  getAll(query, count) {
+  getAll({
+    query,
+    count,
+    deleted = false,
+  } = {}) {
     return new Promise((resolve, reject) => {
 
       const txn = this.idb.transaction(this.storeName);
@@ -162,6 +168,7 @@ class Collection {
       .getAll(query, count)
       .onsuccess = ev => {
         result = ev.target.result.map(item => new this.Model(item));
+        if (!deleted) result = result.filter(item => !item.deleted);
       };
 
     });

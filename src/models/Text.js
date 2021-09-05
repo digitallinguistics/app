@@ -10,9 +10,8 @@ export default class Text extends Model {
   /**
    * The model type (Text)
    * @type {String}
+   * @readonly
    */
-  get type() {
-    return `Text`;
-  }
+  type = `Text`;
 
 }

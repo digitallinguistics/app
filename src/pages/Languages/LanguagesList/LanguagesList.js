@@ -10,18 +10,14 @@ import View     from '../../../core/View.js';
 export default class LanguagesList extends View {
 
   /**
-   * A reference to the Add a Language button in the view (populated during rendering).
-   */
-  button;
-
-  /**
    * The languages included in this view.
    * @type {Array<models#Language>}
    */
   languages = [];
 
   /**
-   * A reference to the `<ul>` in the view (populated during rendering).
+   * A reference to the list of languages contained in this view (the `<ul>` element).
+   * @type {HTMLUListElement}
    */
   list;
 
@@ -29,13 +25,16 @@ export default class LanguagesList extends View {
    * A reference to the `<template>` tag for this view.
    * @type {HTMLTemplateElement}
    */
-  template = document.getElementById(`languages-list-template`);
+  template = document
+  .getElementById(`languages-page-template`)
+  .content
+  .querySelector(`#languages-list-template`);
 
   /**
    * Create a new Languages List
-   * @param {Array} [languages=[]] An Array of Languages to display in the list.
+   * @param {Array} languages An Array of Languages to display in the list.
    */
-  constructor(languages = []) {
+  constructor(languages) {
     super();
     this.languages = languages;
   }
@@ -45,8 +44,9 @@ export default class LanguagesList extends View {
    */
   addEventListeners() {
 
-    this.button.addEventListener(`click`, () => {
-      app.events.emit(`Languages:LanguagesList:add`);
+    this.el.querySelector(`.add-language-button`)
+    .addEventListener(`click`, () => {
+      app.events.emit(`Languages:add`);
     });
 
     this.list.addEventListener(`click`, ({ target }) => {
@@ -56,7 +56,7 @@ export default class LanguagesList extends View {
 
       if (languageCID) {
         this.setCurrentLanguage(languageCID);
-        app.events.emit(`Languages:LanguagesList:change`, languageCID);
+        app.events.emit(`Languages:change`, languageCID);
       }
 
     });
@@ -70,15 +70,12 @@ export default class LanguagesList extends View {
   render(languageCID) {
 
     this.el        = this.cloneTemplate();
+    const oldList  = this.el.querySelector(`.languages`);
     const listView = new ListView(this.languages, { template: LanguagesList.itemTemplate });
     this.list      = listView.render();
-    this.button    = this.el.querySelector(`#add-language-button`);
-    const oldList  = this.el.querySelector(`.languages`);
 
     oldList.replaceWith(this.list);
-
     this.addEventListeners();
-
     if (languageCID) this.setCurrentLanguage(languageCID);
 
     return this.el;
@@ -121,7 +118,7 @@ export default class LanguagesList extends View {
   static itemTemplate({ cid, name }) {
     const li            = document.createElement(`li`);
     li.dataset.language = cid;
-    li.textContent      = typeof name === `string` ? name : Object.values(name)[0];
+    li.textContent      = name.default;
     return li;
   }
 
