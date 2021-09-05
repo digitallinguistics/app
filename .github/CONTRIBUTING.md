@@ -80,7 +80,7 @@ The following build scripts are available:
 
 ### Component Testing
 
-Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test an individual component such as a `ListView` or `Button` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
+Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test an individual component such as a `List` or `Button` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
 
 ## Project Structure
 

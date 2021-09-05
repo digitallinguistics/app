@@ -5,4 +5,4 @@ export default {
   title: `Link`,
 };
 
-export const Link = () => html2element(`<a class=link href=#>This is a link.</a>`);
+export const Link = () => html2element(`<p>This is a paragraph that <a class=link href=#>contains a link</a>.</p>`);
