@@ -1,3 +1,4 @@
+import html2element   from '../../utilities/html2element.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import LanguagesList  from './LanguagesList/LanguagesList.js';
 import View           from '../../core/View.js';
@@ -43,8 +44,10 @@ export default class LanguagesPage extends View {
   }
 
   renderAddLanguageButton() {
-    const button = this.el.querySelector(`.language-editor .add-language-button`);
+    const button = html2element(`<button type=button class=add-language-button>Add a Language</button>`);
     button.addEventListener(`click`, () => app.events.emit(`Languages:add`));
+    const editor = this.el.querySelector(`.language-editor`);
+    editor.appendChild(button);
   }
 
   /**
