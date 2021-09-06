@@ -1,25 +1,187 @@
 // Specifies the color palette for the app.
 //
-// This color palette is shamelessly borrowed from Boostrap:
+// This color palette is shamelessly adapted from Boostrap:
 // https://getbootstrap.com/docs/5.0/customize/color/#all-colors
 
 :root {
 
-  --black:  hsl(0, 0%, 0%);
-  --white:  hsl(0, 0%, 100%);
-  --gray:   hsl(210, 11%, 71%);
-  --blue:   hsl(216, 98%, 52%); // primary
-  --purple: hsl(261, 51%, 51%); // secondary
-  --green:  hsl(152, 69%, 31%); // success
-  --yellow: hsl(45, 100%, 51%); // warning
-  --red:    hsl(354, 70%, 54%); // alert
-  --cyan:   hsl(190, 90%, 50%); // info
-  --indigo: hsl(263, 90%, 51%);
-  --pink:   hsl(330, 67%, 52%);
-  --orange: hsl(27, 98%, 54%);
-  --teal:   hsl(162, 73%, 46%);
+  // primary
+  --blue-hue:        216;
+  --blue-saturation: 100%;
 
-  --transparent-blue: hsla(216, 98%, 52%, 0.15);
-  --transparent-gray: hsla(210, 11%, 71%, 0.15);
+  // secondary
+  --purple-hue:        261;
+  --purple-saturation: 50%;
+
+  // success
+  --green-hue:        153;
+  --green-saturation: 30%;
+
+  // warning
+  --yellow-hue:        46;
+  --yellow-saturation: 100%;
+
+  // alert
+  --red-hue:        355;
+  --red-saturation: 70%;
+
+  // info
+  --cyan-hue:        191;
+  --cyan-saturation: 90%;
+
+  // default
+  --gray-hue:        210;
+  --gray-saturation: 15%;
+
+  // indigo
+  --indigo-hue:        263;
+  --indigo-saturation: 90%;
+
+  // pink
+  --pink-hue:        330;
+  --pink-saturation: 70%;
+
+  // orange
+  --orange-hue:        27;
+  --orange-saturation: 100%;
+
+  // teal
+  --teal-hue:        162;
+  --teal-saturation: 70%;
+
+  // variations (alphabetical order)
+
+  --blue-1: hsl(var(--blue-hue), var(--blue-saturation), 90%);
+  --blue-2: hsl(var(--blue-hue), var(--blue-saturation), 80%);
+  --blue-3: hsl(var(--blue-hue), var(--blue-saturation), 70%);
+  --blue-4: hsl(var(--blue-hue), var(--blue-saturation), 60%);
+  --blue-5: hsl(var(--blue-hue), var(--blue-saturation), 50%);
+  --blue-6: hsl(var(--blue-hue), var(--blue-saturation), 40%);
+  --blue-7: hsl(var(--blue-hue), var(--blue-saturation), 30%);
+  --blue-8: hsl(var(--blue-hue), var(--blue-saturation), 20%);
+  --blue-9: hsl(var(--blue-hue), var(--blue-saturation), 10%);
+
+  --cyan-1: hsl(var(--cyan-hue), var(--cyan-saturation), 90%);
+  --cyan-2: hsl(var(--cyan-hue), var(--cyan-saturation), 80%);
+  --cyan-3: hsl(var(--cyan-hue), var(--cyan-saturation), 70%);
+  --cyan-4: hsl(var(--cyan-hue), var(--cyan-saturation), 60%);
+  --cyan-5: hsl(var(--cyan-hue), var(--cyan-saturation), 50%);
+  --cyan-6: hsl(var(--cyan-hue), var(--cyan-saturation), 40%);
+  --cyan-7: hsl(var(--cyan-hue), var(--cyan-saturation), 30%);
+  --cyan-8: hsl(var(--cyan-hue), var(--cyan-saturation), 20%);
+  --cyan-9: hsl(var(--cyan-hue), var(--cyan-saturation), 10%);
+
+  --gray-1: hsl(var(--gray-hue), var(--gray-saturation), 90%);
+  --gray-2: hsl(var(--gray-hue), var(--gray-saturation), 80%);
+  --gray-3: hsl(var(--gray-hue), var(--gray-saturation), 70%);
+  --gray-4: hsl(var(--gray-hue), var(--gray-saturation), 60%);
+  --gray-5: hsl(var(--gray-hue), var(--gray-saturation), 50%);
+  --gray-6: hsl(var(--gray-hue), var(--gray-saturation), 40%);
+  --gray-7: hsl(var(--gray-hue), var(--gray-saturation), 30%);
+  --gray-8: hsl(var(--gray-hue), var(--gray-saturation), 20%);
+  --gray-9: hsl(var(--gray-hue), var(--gray-saturation), 10%);
+
+  --green-1: hsl(var(--green-hue), var(--green-saturation), 90%);
+  --green-2: hsl(var(--green-hue), var(--green-saturation), 80%);
+  --green-3: hsl(var(--green-hue), var(--green-saturation), 70%);
+  --green-4: hsl(var(--green-hue), var(--green-saturation), 60%);
+  --green-5: hsl(var(--green-hue), var(--green-saturation), 50%);
+  --green-6: hsl(var(--green-hue), var(--green-saturation), 40%);
+  --green-7: hsl(var(--green-hue), var(--green-saturation), 30%);
+  --green-8: hsl(var(--green-hue), var(--green-saturation), 20%);
+  --green-9: hsl(var(--green-hue), var(--green-saturation), 10%);
+
+  --indigo-1: hsl(var(--indigo-hue), var(--indigo-saturation), 90%);
+  --indigo-2: hsl(var(--indigo-hue), var(--indigo-saturation), 80%);
+  --indigo-3: hsl(var(--indigo-hue), var(--indigo-saturation), 70%);
+  --indigo-4: hsl(var(--indigo-hue), var(--indigo-saturation), 60%);
+  --indigo-5: hsl(var(--indigo-hue), var(--indigo-saturation), 50%);
+  --indigo-6: hsl(var(--indigo-hue), var(--indigo-saturation), 40%);
+  --indigo-7: hsl(var(--indigo-hue), var(--indigo-saturation), 30%);
+  --indigo-8: hsl(var(--indigo-hue), var(--indigo-saturation), 20%);
+  --indigo-9: hsl(var(--indigo-hue), var(--indigo-saturation), 10%);
+
+  --orange-1: hsl(var(--orange-hue), var(--orange-saturation), 90%);
+  --orange-2: hsl(var(--orange-hue), var(--orange-saturation), 80%);
+  --orange-3: hsl(var(--orange-hue), var(--orange-saturation), 70%);
+  --orange-4: hsl(var(--orange-hue), var(--orange-saturation), 60%);
+  --orange-5: hsl(var(--orange-hue), var(--orange-saturation), 50%);
+  --orange-6: hsl(var(--orange-hue), var(--orange-saturation), 40%);
+  --orange-7: hsl(var(--orange-hue), var(--orange-saturation), 30%);
+  --orange-8: hsl(var(--orange-hue), var(--orange-saturation), 20%);
+  --orange-9: hsl(var(--orange-hue), var(--orange-saturation), 10%);
+
+  --pink-1: hsl(var(--pink-hue), var(--pink-saturation), 90%);
+  --pink-2: hsl(var(--pink-hue), var(--pink-saturation), 80%);
+  --pink-3: hsl(var(--pink-hue), var(--pink-saturation), 70%);
+  --pink-4: hsl(var(--pink-hue), var(--pink-saturation), 60%);
+  --pink-5: hsl(var(--pink-hue), var(--pink-saturation), 50%);
+  --pink-6: hsl(var(--pink-hue), var(--pink-saturation), 40%);
+  --pink-7: hsl(var(--pink-hue), var(--pink-saturation), 30%);
+  --pink-8: hsl(var(--pink-hue), var(--pink-saturation), 20%);
+  --pink-9: hsl(var(--pink-hue), var(--pink-saturation), 10%);
+
+  --purple-1: hsl(var(--purple-hue), var(--purple-saturation), 90%);
+  --purple-2: hsl(var(--purple-hue), var(--purple-saturation), 80%);
+  --purple-3: hsl(var(--purple-hue), var(--purple-saturation), 70%);
+  --purple-4: hsl(var(--purple-hue), var(--purple-saturation), 60%);
+  --purple-5: hsl(var(--purple-hue), var(--purple-saturation), 50%);
+  --purple-6: hsl(var(--purple-hue), var(--purple-saturation), 40%);
+  --purple-7: hsl(var(--purple-hue), var(--purple-saturation), 30%);
+  --purple-8: hsl(var(--purple-hue), var(--purple-saturation), 20%);
+  --purple-9: hsl(var(--purple-hue), var(--purple-saturation), 10%);
+
+  --red-1: hsl(var(--red-hue), var(--red-saturation), 90%);
+  --red-2: hsl(var(--red-hue), var(--red-saturation), 80%);
+  --red-3: hsl(var(--red-hue), var(--red-saturation), 70%);
+  --red-4: hsl(var(--red-hue), var(--red-saturation), 60%);
+  --red-5: hsl(var(--red-hue), var(--red-saturation), 50%);
+  --red-6: hsl(var(--red-hue), var(--red-saturation), 40%);
+  --red-7: hsl(var(--red-hue), var(--red-saturation), 30%);
+  --red-8: hsl(var(--red-hue), var(--red-saturation), 20%);
+  --red-9: hsl(var(--red-hue), var(--red-saturation), 10%);
+
+  --teal-1: hsl(var(--teal-hue), var(--teal-saturation), 90%);
+  --teal-2: hsl(var(--teal-hue), var(--teal-saturation), 80%);
+  --teal-3: hsl(var(--teal-hue), var(--teal-saturation), 70%);
+  --teal-4: hsl(var(--teal-hue), var(--teal-saturation), 60%);
+  --teal-5: hsl(var(--teal-hue), var(--teal-saturation), 50%);
+  --teal-6: hsl(var(--teal-hue), var(--teal-saturation), 40%);
+  --teal-7: hsl(var(--teal-hue), var(--teal-saturation), 30%);
+  --teal-8: hsl(var(--teal-hue), var(--teal-saturation), 20%);
+  --teal-9: hsl(var(--teal-hue), var(--teal-saturation), 10%);
+
+  --yellow-1: hsl(var(--yellow-hue), var(--yellow-saturation), 90%);
+  --yellow-2: hsl(var(--yellow-hue), var(--yellow-saturation), 80%);
+  --yellow-3: hsl(var(--yellow-hue), var(--yellow-saturation), 70%);
+  --yellow-4: hsl(var(--yellow-hue), var(--yellow-saturation), 60%);
+  --yellow-5: hsl(var(--yellow-hue), var(--yellow-saturation), 50%);
+  --yellow-6: hsl(var(--yellow-hue), var(--yellow-saturation), 40%);
+  --yellow-7: hsl(var(--yellow-hue), var(--yellow-saturation), 30%);
+  --yellow-8: hsl(var(--yellow-hue), var(--yellow-saturation), 20%);
+  --yellow-9: hsl(var(--yellow-hue), var(--yellow-saturation), 10%);
+
+  // defaults
+
+  --blue:   var(--blue-5);
+  --cyan:   var(--cyan-5);
+  --gray:   var(--gray-5);
+  --green:  var(--green-5);
+  --indigo: var(--indigo-5);
+  --orange: var(--orange-5);
+  --pink:   var(--pink-5);
+  --purple: var(--purple-5);
+  --red:    var(--red-5);
+  --teal:   var(--teal-5);
+  --yellow: var(--yellow-5);
+
+  // functions
+
+  --primary:   var(--blue-5);
+  --secondary: var(--purple-5);
+  --success:   var(--green-5);
+  --warning:   var(--yellow-5);
+  --alert:     var(--red-5);
+  --info:      var(--cyan-5);
 
 }
