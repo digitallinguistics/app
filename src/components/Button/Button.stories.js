@@ -17,9 +17,9 @@ const html = `<div class=buttons>
   </style>
   
   <button class='button'>Default</button>
-  <button class='button primary'>Primary</button>
-  <button class='button success'>Success</button>
-  <button class='button alert'>Alert</button>
+  <button class='button blue'>Primary</button>
+  <button class='button green'>Success</button>
+  <button class='button red'>Alert</button>
 
 </div>`;
 
