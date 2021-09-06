@@ -5,4 +5,4 @@ export default {
   title: `Button`,
 };
 
-export const Button = () => html2element(`<button class=button>Click me!</button>`);
+export const Button = () => html2element(`<button class='button'>Click me!</button>`);
