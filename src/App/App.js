@@ -74,6 +74,7 @@ export default class App extends View {
 
     on(`App:Nav:change`, page => this.renderPage(page));
     on(`Languages:add`, () => this.addLanguage());
+    on(`Languages:delete`, languageCID => this.deleteLanguage(languageCID));
 
   }
 
@@ -158,7 +159,7 @@ export default class App extends View {
 
   async renderLanguagesPage() {
     const LanguagesPage = this.pages.get(`Languages`);
-    const languages     = await this.getLanguages();
+    const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
     return languagesPage.render(this.settings.language);
   }
@@ -178,12 +179,16 @@ export default class App extends View {
   }
 
   /**
-   * Get all languages from the database.
-   * @param options
+   * Deletes the given language and rerenders the app.
+   * @param   {String}  languageCID
    * @returns {Promise}
    */
-  getLanguages(options) {
-    return this.db.languages.getAll(options);
+  async deleteLanguage(languageCID) {
+    const confirmed = prompt(`Are you sure you want to delete this Language? The data can be recovered at any time by opening the Application tab in Developer Tools, finding this language in IndexedDB, and removing the "deleted" property. Type "YES" to delete.`);
+    if (confirmed !== `YES`) return;
+    this.settings.language = null;
+    await this.db.languages.delete(languageCID);
+    await this.renderPage(`Languages`);
   }
 
   // STATIC
