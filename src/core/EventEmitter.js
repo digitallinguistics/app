@@ -9,7 +9,7 @@ export default class EventEmitter {
    * The events hash for this EventEmitter
    * @type {Object}
    */
-  #events = new Map;
+  events = new Map;
 
   /**
    * Emit an event with data
@@ -18,7 +18,7 @@ export default class EventEmitter {
    * @return {Promise}
    */
   emit(eventName, data) {
-    const listeners = this.#events.get(eventName) ?? new Set;
+    const listeners = this.events.get(eventName) ?? new Set;
     return Promise.all(Array.from(listeners).map(func => func(data)));
   }
 
@@ -28,7 +28,7 @@ export default class EventEmitter {
    * @param  {Function} function  The function to unsubscribe from the event
    */
   off(eventName, func) {
-    const listeners = this.#events.get(eventName) ?? new Set;
+    const listeners = this.events.get(eventName) ?? new Set;
     listeners.delete(func);
   }
 
@@ -40,13 +40,13 @@ export default class EventEmitter {
    */
   on(eventName, func) {
 
-    if (!this.#events.has(eventName)) {
-      this.#events.set(eventName, new Set);
+    if (!this.events.has(eventName)) {
+      this.events.set(eventName, new Set);
     }
 
-    this.#events.get(eventName).add(func);
+    this.events.get(eventName).add(func);
 
-    return () => this.#events.get(eventName).delete(func);
+    return () => this.events.get(eventName).delete(func);
 
   }
 
