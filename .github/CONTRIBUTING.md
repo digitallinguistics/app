@@ -51,15 +51,16 @@ This project is driven by the needs of documentary and descriptive linguists, an
 
 This project uses the following build and testing tools:
 
-* [Chai][Chai]: Assertion library.
-* [Cypress][Cypress]: Runs component and integration tests.
-* [ESBuild][ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
-* [ESLint][ESLint]: Lints JavaScript
-* [Handlebars][Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
-* [JSDoc][JSDoc]: Builds developer documentation from inline JS comments.
-* [LESS][LESS]: Enables a superset of CSS syntax, and compiles LESS > CSS.
-* [Mocha][Mocha]: Runs unit tests.
-* [Stylelint][Stylelint]: Lints SCSS / CSS.
+* [Chai]: Assertion library.
+* [Cypress]: Runs component and integration tests.
+* [ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
+* [ESLint]: Lints JavaScript
+* [Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
+* [JSDoc]: Builds developer documentation from inline JS comments.
+* [LESS]: Enables a superset of CSS syntax, and compiles LESS > CSS.
+* [Mocha]: Runs unit tests.
+* [Storybook]: Tool for developing individual components in isolation.
+* [Stylelint]: Lints SCSS / CSS.
 
 The following build scripts are available:
 
@@ -73,6 +74,8 @@ The following build scripts are available:
 
 * `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
 
+* `npm run storybook`: Builds and runs the Storybook component interface.
+
 * `npm test`: Runs all tests. By default tests are run on the command line. You can run unit or integration tests individually with the following commands:
   - `npm run test:integration`: component + integration tests
   - `npm run test:unit`: unit tests
@@ -80,18 +83,21 @@ The following build scripts are available:
 
 ### Component Testing
 
-Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test an individual component such as a `List` or `Button` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
+Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test the functionality of an individual component such as a `ListView` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
+
+You can also work on designing individual components using [Storybook]. The Storybook documentation pages explain how to add components to the Storybook interface for visual testing. To run Storybook locally, use `npm run storybook`.
 
 ## Project Structure
 
-Folder     | Description
------------|--------------------------------------------------------------------------------------------------------------------------------------------------
-`.github/` | Developer documentation.
-`build/`   | Scripts to build the production version of the app.
-`dist/`    | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
-`docs/`    | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
-`src/`     | Source code for the app. Test files should live alongside their source components.
-`test/`    | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment.
+Folder        | Description
+--------------|---------------
+`.github/`    | Developer documentation.
+`.storybook/` | Configuration for [Storybook].
+`build/`      | Scripts to build the production version of the app.
+`dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
+`docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
+`src/`        | Source code for the app. Test files should live alongside their source components.
+`test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment.
 
 ## App Structure
 
@@ -105,20 +111,20 @@ Each section of the app shell's HTML is documented with inline code in `src/inde
 
 The `src/` folder contains the following:
 
-Folder          | Description
-----------------|-------------------------------------------------------
-`App/`          | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell.
-`components/`   | Components that are shared across pages (but not part of the app shell).
-`core/`         | High-level JavaScript modules whose functionality is shared across components.
-`fonts/`        | Font files.
-`images/`       | Images and icons used in the app.
-`models/`       | Data models (e.g. Language, Text, etc.).
-`pages/`        | Each subfolder contains all the code for a single "page".
-`services/`     | JavaScript modules which manage access to services like databases and APIs.
-`styles/`       | Global classes, variables, and utility classes that are used across pages.
-`utilities/`    | JavaScript utilities that are reused across components.
-`vendor/`       | Third-party scripts. These are self-hosted alongside the app.
-`manifest.json` | Web app manifest for installing the site as a web app.
+Folder              | Description
+--------------------|-------------
+`App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell.
+`components/`       | Components that are shared across pages (but not part of the app shell).
+`core/`             | High-level JavaScript modules whose functionality is shared across components.
+`fonts/`            | Font files.
+`images/`           | Images and icons used in the app.
+`models/`           | Data models (e.g. Language, Text, etc.).
+`pages/`            | Each subfolder contains all the code for a single "page".
+`services/`         | JavaScript modules which manage access to services like databases and APIs.
+`styles/`           | Global classes, variables, and utility classes that are used across pages.
+`utilities/`        | JavaScript utilities that are reused across components.
+`manifest.json`     | Web app manifest for installing the site as a web app.
+`offline-worker.js` | A service worker which makes the app work offline.
 
 ## Pages & Components
 
@@ -133,9 +139,11 @@ Each component should have its own folder within the page it is used, and contai
 pages/
   LanguagesPage/
     LanguagesList/
-      - LanguagesList.html
+      - LanguagesList.css // not checked into git; just used for development in Storybook
+      - LanguagesList.hbs
       - LanguagesList.js
       - LanguagesList.less
+      - LanguagesList.stories.js
       - LanguagesList.test.js
 ```
 
@@ -186,11 +194,12 @@ JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
 
 Other single-page apps or tools this project sometimes mimics:
 
+* [FLEx]
 * GitHub (web)
 * GitHub (desktop)
-* [Mandala][Mandala]
+* [Mandala]
 * [Microsoft Todo][MSTodo] (web)
-* [SayMore][SayMore]
+* [SayMore]
 * Slack (desktop)
 * Trello
 
@@ -206,6 +215,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 [ESLint]:          https://eslint.org/
 [Feather]:         https://feathericons.com/
 [Flaticon]:        https://www.flaticon.com/
+[FLEx]:            https://software.sil.org/fieldworks/
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
@@ -217,4 +227,5 @@ Some older versions of styles for the app are located [here](https://github.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [SayMore]:         https://software.sil.org/saymore/
+[Storybook]:       https://storybook.js.org/
 [Stylelint]:       https://stylelint.io/
