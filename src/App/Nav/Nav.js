@@ -15,12 +15,6 @@ export default class Nav extends View {
   button = document.querySelector(`#nav button`);
 
   /**
-   * A reference to the main navigation element.
-   * @type {HTMLNavElement}
-   */
-  el = document.getElementById(`nav`);
-
-  /**
    * A reference to the list of pages in the na
    * @type {HTMLULElement}
    */
@@ -53,6 +47,7 @@ export default class Nav extends View {
    * @param {String} [page] The page to set as selected.
    */
   render(page) {
+    this.el = document.getElementById(`nav`);
     this.addEventListeners();
     this.button.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
     if (page) this.setPage(page);

@@ -2,7 +2,7 @@ import './List.css';
 import html2element from '../../utilities/html2element.js';
 
 export default {
-  title: `List`,
+  title: `Components/List`,
 };
 
 export const List = () => html2element(`

@@ -37,7 +37,7 @@ export default class LanguagesPage extends View {
    * @return {HTMLMainElement}
    */
   render(languageCID) {
-    this.template = document.getElementById(`languages-page-template`);
+    this.template = document.getElementById(`languages-template`);
     this.el       = this.cloneTemplate();
     this.renderLanguagesList(languageCID);
     this.renderLanguageEditor(languageCID);

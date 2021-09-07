@@ -6,15 +6,6 @@ import View from '../../../core/View.js';
 export default class LanguageEditor extends View {
 
   /**
-   * A reference to the `<template>` tag for this view.
-   * @type {HTMLTemplateElement}
-   */
-  template = document
-  .getElementById(`languages-page-template`)
-  .content
-  .querySelector(`#language-editor-template`);
-
-  /**
    * Create a new Language Editor
    * @param {models#Language} language
    */
@@ -34,7 +25,8 @@ export default class LanguageEditor extends View {
   }
 
   render() {
-    this.el = this.cloneTemplate();
+    this.template = document.getElementById(`language-editor-template`);
+    this.el       = this.cloneTemplate();
     this.addEventListeners();
     return this.el;
   }
