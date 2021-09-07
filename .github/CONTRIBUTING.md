@@ -161,7 +161,7 @@ Each page's JavaScript is responsible for loading its own components, and they i
 
 * Each page and component should be an instance of the `View` class.
 
-* Pages and components should never insert themselves into the DOM; this is the job of their controller. The `render()` method of each View instance should update the `el` property of the instance with the new DOM element, and return that element.
+* Pages and components should never insert themselves into the DOM; this is the job of their controller. The `render()` method of each View instance should update the `el` property of the instance with the new DOM element, and return that element. It should also store a reference to the view on `el.view`.
 
 * Each page or component should return a single root element. Pages must always return a `<main id=main class=main data-page={page}>` element.
 

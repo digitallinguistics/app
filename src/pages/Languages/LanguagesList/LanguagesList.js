@@ -36,9 +36,7 @@ export default class LanguagesList extends View {
   addEventListeners() {
 
     this.el.querySelector(`.add-language-button`)
-    .addEventListener(`click`, () => {
-      app.events.emit(`Languages:add`);
-    });
+    .addEventListener(`click`, () => this.events.emit(`add`));
 
     this.list.addEventListener(`click`, ({ target }) => {
 
@@ -47,7 +45,7 @@ export default class LanguagesList extends View {
 
       if (languageCID) {
         this.setCurrentLanguage(languageCID);
-        app.events.emit(`Languages:change`, languageCID);
+        this.events.emit(`change`, languageCID);
       }
 
     });
@@ -62,6 +60,7 @@ export default class LanguagesList extends View {
 
     this.template  = document.getElementById(`languages-list-template`);
     this.el        = this.cloneTemplate();
+    this.el.view   = this;
     const oldList  = this.el.querySelector(`.languages`);
     const listView = new List(this.languages, { template: LanguagesList.itemTemplate });
     this.list      = listView.render();
@@ -69,6 +68,7 @@ export default class LanguagesList extends View {
     this.list.classList.add(`languages`);
     oldList.replaceWith(this.list);
     this.addEventListeners();
+    if (!this.languages.length) this.list.style.border = `none`;
     if (languageCID) this.setCurrentLanguage(languageCID);
 
     return this.el;

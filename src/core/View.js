@@ -1,3 +1,5 @@
+import EventEmitter from './EventEmitter.js';
+
 /**
  * A basic View class. The View class does not have much functionality itself. It instead documents certain conventions regarding how the View class should operate.
  * @memberof core
@@ -10,6 +12,12 @@ export default class View {
    * @type {HTMLElement}
    */
   el;
+
+  /**
+   * The event emitter for this view.
+   * @type {EventEmitter}
+   */
+  events = new EventEmitter;
 
   /**
    * A reference to the `<template>` tag or templating function for this View.

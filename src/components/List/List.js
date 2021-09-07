@@ -47,7 +47,8 @@ export default class List extends View {
    */
   render() {
 
-    this.el = document.createElement(`ul`);
+    this.el      = document.createElement(`ul`);
+    this.el.view = this;
 
     this.el.classList.add(`list`);
 

@@ -25,7 +25,7 @@ export default class EventEmitter {
   /**
    * Unsubscribe a function from an event
    * @param  {String}   eventName The name of the event to unsubscribe from
-   * @param  {Function} function  The function to unsubscribe from the event
+   * @param  {Function} func      The function to unsubscribe from the event
    */
   off(eventName, func) {
     const listeners = this.events.get(eventName) ?? new Set;
@@ -35,7 +35,7 @@ export default class EventEmitter {
   /**
    * Add an event listener to this emitter
    * @param  {String}   eventName The name of the event to subscribe to
-   * @param  {Function} function  The function to trigger when the event is emitted
+   * @param  {Function} func      The function to trigger when the event is emitted
    * @return {Function}           Returns a function that can be called to remove the subscription
    */
   on(eventName, func) {
@@ -48,6 +48,29 @@ export default class EventEmitter {
 
     return () => this.events.get(eventName).delete(func);
 
+  }
+
+  /**
+   * Add an event listener to this emitter that will only fire once.
+   * @param {String}   eventName
+   * @param {Function} func
+   */
+  once(eventName, func) {
+
+    const wrappedFunc = data => {
+      this.off(eventName, wrappedFunc);
+      return func(data);
+    };
+
+    this.on(eventName, wrappedFunc);
+
+  }
+
+  /**
+   * Removes all event listeners.
+   */
+  stop() {
+    this.events = new Map;
   }
 
 }
