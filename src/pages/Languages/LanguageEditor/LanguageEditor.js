@@ -1,14 +1,7 @@
-/**
- * A class representing a Language Editor.
- */
 import View from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
-  /**
-   * Create a new Language Editor
-   * @param {models#Language} language
-   */
   constructor(language) {
     super();
     this.language = language;
@@ -25,8 +18,9 @@ export default class LanguageEditor extends View {
   }
 
   render() {
-    this.template = document.getElementById(`language-editor-template`);
-    this.el       = this.cloneTemplate();
+    this.template            = document.getElementById(`language-editor-template`);
+    this.el                  = this.cloneTemplate();
+    this.el.dataset.language = this.language.cid;
     this.addEventListeners();
     return this.el;
   }

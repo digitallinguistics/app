@@ -7,14 +7,14 @@ describe(`Languages List`, function() {
     cy.contains(`.languages-list li`, `{ new language }`);
   });
 
-  it.only(`changes languages`, function() {
+  it(`changes languages`, function() {
     cy.visit(`/`);
     cy.setupStore(`languages`);
     cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
     cy.contains(`.languages-list li`, `Nuuchahnulth`).click();
     cy.get(`.language-editor[data-language=1]`);
     cy.contains(`.languages-list li`, `Chitimacha`).click();
-    cy.get(`.language-editor[data-language=2`);
+    cy.get(`.language-editor[data-language=2]`);
   });
 
 });

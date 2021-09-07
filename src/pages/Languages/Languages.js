@@ -32,6 +32,10 @@ export default class LanguagesPage extends View {
     this.languages = languages;
   }
 
+  addEventListeners() {
+    app.events.on(`Languages:change`, languageCID => this.renderLanguageEditor(languageCID));
+  }
+
   /**
    * Render the Languages Page.
    * @return {HTMLMainElement}
@@ -41,6 +45,7 @@ export default class LanguagesPage extends View {
     this.el       = this.cloneTemplate();
     this.renderLanguagesList(languageCID);
     this.renderLanguageEditor(languageCID);
+    this.addEventListeners();
     return this.el;
   }
 
