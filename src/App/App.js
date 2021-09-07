@@ -62,16 +62,6 @@ export default class App extends View {
 
   // APP METHODS
 
-  addEventListeners() {
-
-    const on = this.events.on.bind(this.events);
-
-    on(`App:Nav:change`, page => this.renderPage(page));
-    on(`Languages:add`, () => this.addLanguage());
-    on(`Languages:delete`, languageCID => this.deleteLanguage(languageCID));
-
-  }
-
   /**
    * Updates the text of the ARIA live region so that the text will be announced to screen readers
    * @param {String} text The text to announce
@@ -107,14 +97,17 @@ export default class App extends View {
    * @returns {HTMLElement}
    */
   async render() {
-    this.el = document.getElementById(`app`);
-    this.addEventListeners();
+    this.el      = document.getElementById(`app`);
+    this.el.view = this;
     await this.db.initialize();
-    this.nav.render(this.settings.page);
+    this.renderNav();
     await this.renderPage(this.settings.page);
-    // prevents Cypress from loading a new page too early
-    this.nav.el.dataset.loaded = true;
     return this.el;
+  }
+
+  renderNav() {
+    this.nav.render(this.settings.page);
+    this.nav.events.on(`change`, this.renderPage.bind(this));
   }
 
   /**
@@ -141,6 +134,7 @@ export default class App extends View {
 
     const oldPage = document.getElementById(`main`);
 
+    oldPage.view?.events.stop();
     oldPage.replaceWith(newPage);
     this.announce(`${ page } page`);
 
@@ -159,33 +153,6 @@ export default class App extends View {
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
     return languagesPage.render(this.settings.language);
-  }
-
-  // LANGUAGES
-
-  /**
-   * Add a language and rerender the app.
-   * @returns {Promise}
-   */
-  async addLanguage() {
-    const language = new Language;
-    language.name.set(`eng`, `{ new language }`);
-    await this.db.languages.add(language);
-    this.settings.language = language.cid;
-    await this.renderPage(`Languages`);
-  }
-
-  /**
-   * Deletes the given language and rerenders the app.
-   * @param   {String}  languageCID
-   * @returns {Promise}
-   */
-  async deleteLanguage(languageCID) {
-    const confirmed = prompt(`Are you sure you want to delete this Language? The data can be recovered at any time by opening the Application tab in Developer Tools, finding this language in IndexedDB, and removing the "deleted" property. Type "YES" to delete.`);
-    if (confirmed !== `YES`) return;
-    this.settings.language = null;
-    await this.db.languages.delete(languageCID);
-    await this.renderPage(`Languages`);
   }
 
   // STATIC

@@ -35,7 +35,7 @@ export default class Nav extends View {
       if (page) {
         ev.preventDefault();
         this.setPage(page);
-        app.events.emit(`App:Nav:change`, page);
+        this.events.emit(`change`, page);
       }
 
     });
@@ -51,6 +51,8 @@ export default class Nav extends View {
     this.addEventListeners();
     this.button.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
     if (page) this.setPage(page);
+    this.el.view           = this;
+    this.el.dataset.loaded = true;
     return this.el;
   }
 

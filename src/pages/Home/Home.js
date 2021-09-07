@@ -14,7 +14,9 @@ export default class HomePage extends View {
    */
   render() {
     this.template = document.getElementById(`home-template`);
-    return this.cloneTemplate();
+    this.el       = this.cloneTemplate();
+    this.el.view  = this;
+    return this.el;
   }
 
 }

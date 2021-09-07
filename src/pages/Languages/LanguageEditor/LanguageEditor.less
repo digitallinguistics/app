@@ -2,12 +2,24 @@
 
 .language-editor {
 
+  flex-grow: 1;
+
+  button {
+    margin: var(--space);
+  }
+
   max-width: var(--measure);
+
+  .add-language-button {
+    .button;
+    .green;
+    margin: auto;
+  }
 
   .delete-language-button {
     .button;
+    .red;
     align-self: flex-end;
-    margin:     var(--space);
   }
 
 }
