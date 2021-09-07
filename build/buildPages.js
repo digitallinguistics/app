@@ -3,49 +3,53 @@ import createSprites     from './createSprites.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
 import hbs               from 'handlebars';
+import { paramCase }     from 'param-case';
 import recurse           from 'readdirp';
 import registerPartials  from './registerPartials.js';
 
-import {
-  dirname  as getDirname,
-  extname  as getExt,
-  join     as joinPath,
-} from 'path';
-
 const {
+  readdir: readDir,
   readFile,
-  outputFile,
+  outputFile: writeFile,
 } = fs;
+
+import {
+  basename as getBasename,
+  dirname  as getDirname,
+  join     as joinPath,
+}                    from 'path';
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
 const srcDir     = joinPath(currentDir, `../src`);
 const distDir    = joinPath(currentDir, `../dist`);
 const pagesDir   = joinPath(srcDir, `pages`);
 
-const mainRegExp = /(?<main><main.+>)/u;
-
 /**
  * Builds the HTML and CSS for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp). The CSS is inserted in a `<style>` tag just inside the opening `<main>` tag.
- * @param {Object} entry An entry from the [readdirp](https://www.npmjs.com/package/readdirp) package.
+ * @param {String} page
  */
-async function buildPageContent(entry) {
+async function buildPageContent(page) {
 
-  const ext = getExt(entry.basename);
+  const lessPath = joinPath(pagesDir, page, `${ page }.less`);
+  const less     = await readFile(lessPath, `utf8`);
+  const css      = await convertLESS(less);
 
-  if (ext !== `.hbs`) return;
+  hbs.registerPartial(`${ page.toLowerCase() }-css`, `<style>${ css }</style>`);
 
-  const template  = await readFile(entry.fullPath, `utf8`);
-  const buildHTML = hbs.compile(template);
-  let   html      = buildHTML();
-  const lessPath  = entry.fullPath.replace(`.hbs`, `.less`);
-  const less      = await readFile(lessPath, `utf8`);
-  const css       = await convertLESS(less);
-  const htmlPath  = entry.path.replace(`.hbs`, `.html`);
+  const templates = await recurse(joinPath(pagesDir, page), { fileFilter: `*.hbs` });
 
-  // NOTE: The extra spaces here just make the output file more readable.
-  html = html.replace(mainRegExp, `$<main>\n\n  <style>    \n    ${ css }\n  </style>`);
+  let html = ``;
 
-  await outputFile(joinPath(distDir, `pages`, htmlPath), html);
+  for await (const entry of templates) {
+    const template      = await readFile(entry.fullPath, `utf8`);
+    const buildHTML     = hbs.compile(template);
+    const templateHTML  = buildHTML();
+    const componentName = getBasename(entry.basename, `.hbs`);
+    const templateID    = `${ paramCase(componentName) }-template`;
+    html               += `<template id=${ templateID }>${ templateHTML }</template>\n`;
+  }
+
+  await writeFile(joinPath(distDir, `pages`, `${ page }/${ page }.html`), html, `utf8`);
 
 }
 
@@ -63,30 +67,21 @@ export default async function buildPages() {
 
   hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
 
-  // register app shell partials
-  await registerPartials(hbs, joinPath(srcDir, `App`));
-
-  // register Home page CSS partial
-  const homeLESS = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
-  const homeCSS  = await convertLESS(homeLESS);
-
-  hbs.registerPartial(`home-css`, homeCSS);
-
-  // register page partials
-  await registerPartials(hbs, pagesDir);
+  // register HTML partials
+  await registerPartials(hbs, srcDir);
 
   // build the app shell
   const appTemplate = await readFile(joinPath(srcDir, `index.hbs`), `utf8`);
   const buildApp    = hbs.compile(appTemplate);
   const appHTML     = buildApp();
 
-  await outputFile(joinPath(distDir, `index.html`), appHTML);
+  await writeFile(joinPath(distDir, `index.html`), appHTML, `utf8`);
 
   // build the HTML + CSS for individual pages
-  const pages = await recurse(pagesDir, { depth: 1 });
+  const pages = await readDir(pagesDir);
 
-  for await (const entry of pages) {
-    await buildPageContent(entry);
+  for (const page of pages) {
+    await buildPageContent(page);
   }
 
 }

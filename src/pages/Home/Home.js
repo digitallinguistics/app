@@ -13,7 +13,7 @@ export default class HomePage extends View {
    * @return {HTMLMainElement}
    */
   render() {
-    this.template = document.getElementById(`home-page-template`);
+    this.template = document.getElementById(`home-template`);
     return this.cloneTemplate();
   }
 

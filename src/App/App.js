@@ -26,12 +26,6 @@ export default class App extends View {
   db = new Database;
 
   /**
-   * A reference to the app body.
-   * @type {HTMLBodyElement}
-   */
-  el = document.getElementById(`app`);
-
-  /**
    * The event manager for the app (uses a pubsub model)
    * @type {EventEmitter}
    */
@@ -110,14 +104,17 @@ export default class App extends View {
 
   /**
    * Initializes the App view
+   * @returns {HTMLElement}
    */
   async render() {
+    this.el = document.getElementById(`app`);
     this.addEventListeners();
     await this.db.initialize();
     this.nav.render(this.settings.page);
     await this.renderPage(this.settings.page);
     // prevents Cypress from loading a new page too early
     this.nav.el.dataset.loaded = true;
+    return this.el;
   }
 
   /**

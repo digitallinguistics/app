@@ -1,19 +1,9 @@
-<template id=languages-page-template>
+<main id=main class='main languages-page' data-page=Languages>
 
-  <main id=main class='main languages-page' data-page=Languages>
+  {{> languages-css }}
 
-    {{> LanguagesList }}
-
-    <section class=language-editor></section>
-
-  </main>
-
-</template>
-
-<template id=languages-list-template>
   {{> LanguagesList }}
-</template>
 
-<template id=language-editor-template>
-  {{> LanguageEditor }}
-</template>
+  <section class=language-editor></section>
+
+</main>
