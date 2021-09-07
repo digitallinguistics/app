@@ -19,15 +19,23 @@ describe(`Languages`, () => {
   });
 
   it(`adds / edits a language from the Languages List`, function() {
-    const [, chiti] = languages;
+
     cy.visit(`/`);
     cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
     cy.get(`.languages-list .add-language-button`).click();
-    cy.contains(`.languages-list`, `{ new language }`);
-    cy.get(`.language-editor .name`).within(() => {
-      cy.get(`input[name=name-eng]`)
-      .should(`have.value`, chiti.name.eng);
+    cy.contains(`.languages-list li`, `{ new language }`)
+    .then(([li]) => {
+      const languageID = li.dataset.language;
+      cy.get(`.language-editor[data-language=${ languageID }`);
     });
+
+    // const [, chiti] = languages;
+
+    // cy.get(`.language-editor .name`).within(() => {
+    //   cy.get(`input[name=name-eng]`)
+    //   .should(`have.value`, chiti.name.eng);
+    // });
+
   });
 
 });
