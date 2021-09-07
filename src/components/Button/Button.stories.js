@@ -25,7 +25,7 @@ const html = `<div class=buttons>
 
 export default {
   layout: `centered`,
-  title:  `Button`,
+  title:  `Components/Button`,
 };
 
 export const Button = () => html2element(html);

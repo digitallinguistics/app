@@ -4,9 +4,9 @@ import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
 import hbs               from 'handlebars';
 import recurse           from 'readdirp';
+import registerPartials  from './registerPartials.js';
 
 import {
-  basename as getBasename,
   dirname  as getDirname,
   extname  as getExt,
   join     as joinPath,
@@ -49,34 +49,6 @@ async function buildPageContent(entry) {
 
 }
 
-async function generateCSS(lessPath) {
-  const less = await readFile(lessPath, `utf8`);
-  return convertLESS(less);
-}
-
-/**
- * Registers all the partials in a directory.
- */
-async function registerPartialsDir(dir) {
-
-  const filesStream = recurse(dir);
-
-  for await (const entry of filesStream) {
-
-    const ext = getExt(entry.basename);
-
-    if (ext !== `.hbs`) continue;
-
-    const componentName = getBasename(entry.basename, ext);
-    const componentHTML = await readFile(entry.fullPath, `utf8`);
-
-    hbs.registerPartial(componentName, componentHTML);
-
-  }
-
-}
-
-/* eslint-disable max-statements */
 export default async function buildPages() {
 
   // register SVG partial
@@ -86,12 +58,13 @@ export default async function buildPages() {
 
   // register critical CSS partial
   const appStylesPath = joinPath(srcDir, `index.less`);
-  const criticalCSS   = await generateCSS(appStylesPath);
+  const criticalLESS  = await readFile(appStylesPath, `utf8`);
+  const criticalCSS   = await convertLESS(criticalLESS);
 
   hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
 
   // register app shell partials
-  await registerPartialsDir(joinPath(srcDir, `App`));
+  await registerPartials(hbs, joinPath(srcDir, `App`));
 
   // register Home page CSS partial
   const homeLESS = await readFile(joinPath(pagesDir, `Home/Home.less`), `utf8`);
@@ -100,7 +73,7 @@ export default async function buildPages() {
   hbs.registerPartial(`home-css`, homeCSS);
 
   // register page partials
-  await registerPartialsDir(pagesDir);
+  await registerPartials(hbs, pagesDir);
 
   // build the app shell
   const appTemplate = await readFile(joinPath(srcDir, `index.hbs`), `utf8`);

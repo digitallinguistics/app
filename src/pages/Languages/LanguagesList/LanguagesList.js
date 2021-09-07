@@ -22,15 +22,6 @@ export default class LanguagesList extends View {
   list;
 
   /**
-   * A reference to the `<template>` tag for this view.
-   * @type {HTMLTemplateElement}
-   */
-  template = document
-  .getElementById(`languages-page-template`)
-  .content
-  .querySelector(`#languages-list-template`);
-
-  /**
    * Create a new Languages List
    * @param {Array} languages An Array of Languages to display in the list.
    */
@@ -69,6 +60,7 @@ export default class LanguagesList extends View {
    */
   render(languageCID) {
 
+    this.template  = document.getElementById(`languages-list-template`);
     this.el        = this.cloneTemplate();
     const oldList  = this.el.querySelector(`.languages`);
     const listView = new List(this.languages, { template: LanguagesList.itemTemplate });
