@@ -25,9 +25,9 @@ export default class LanguagesPage extends View {
 
   /**
    * Create a new Languages Page view.
-   * @param {Array<models#Language>} languages
+   * @param {Array<models#Language>} [languages=[]]
    */
-  constructor(languages) {
+  constructor(languages = []) {
     super();
     this.languages = languages;
   }

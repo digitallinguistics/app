@@ -1,20 +1,41 @@
+@import (reference) 'variables';
 @import (reference) 'Button/Button';
 @import (reference) 'Header/Header';
 @import (reference) 'List/List';
 
-.add-language-button {
+.languages-list {
 
-  .button;
-  .green;
 
-  align-self: center;
-  margin:     var(--space);
+  .add-language-button {
 
-}
+    .button;
+    .green;
 
-.header { .header; }
+    margin: var(--space);
 
-.list {
-  .list;
-  margin-inline: var(--space);
+  }
+
+  .header { .header; }
+
+  .list {
+    .list;
+    margin-inline: var(--space);
+  }
+
+  // small screens
+  @media (max-width: @breakpoint) {
+
+    align-items: stretch;
+
+    .add-language-button {
+      align-self: center;
+    }
+
+  }
+
+  // large screens
+  @media (min-width: @breakpoint) {
+    align-items: center;
+  }
+
 }

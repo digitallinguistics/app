@@ -7,7 +7,8 @@ describe(`Languages`, () => {
     cy.contains(`.languages-list`, `{ new language }`);
     cy.window().then(win => {
       cy.stub(win, `prompt`).returns(`YES`);
-      cy.contains(`.language-editor`, `Delete this Language`).click();
+      cy.contains(`Delete this Language`).click();
+      cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
       cy.get(`.languages-list .languages`).children()
       .should(`have.length`, 0);
       // should render a blank Language Editor

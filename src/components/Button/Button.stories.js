@@ -4,16 +4,10 @@ import html2element from '../../utilities/html2element.js';
 const html = `<div class=buttons>
 
   <style>
-  
-    .buttons {
-      align-items: flex-start;
-    }
-    
     .button {
       margin: 1em;
       width:  5em;
     }
-  
   </style>
   
   <button class='button'>Default</button>

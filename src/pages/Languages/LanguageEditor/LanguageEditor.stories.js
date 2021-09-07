@@ -7,6 +7,5 @@ export default {
 
 export const LanguageEditor = () => {
   const editor = new Editor;
-  const el     = editor.render();
-  return el;
+  return editor.render();
 };
