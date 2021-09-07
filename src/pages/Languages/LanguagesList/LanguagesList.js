@@ -23,9 +23,9 @@ export default class LanguagesList extends View {
 
   /**
    * Create a new Languages List
-   * @param {Array} languages An Array of Languages to display in the list.
+   * @param {Array} [languages=[]] An Array of Languages to display in the list.
    */
-  constructor(languages) {
+  constructor(languages = []) {
     super();
     this.languages = languages;
   }
