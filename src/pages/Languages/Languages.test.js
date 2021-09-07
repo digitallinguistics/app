@@ -1,3 +1,5 @@
+import languages from '../../../test/fixtures/languages.json';
+
 describe(`Languages`, () => {
 
   it(`adds / deletes a language from the Language Editor`, function() {
@@ -11,17 +13,21 @@ describe(`Languages`, () => {
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
       cy.get(`.languages-list .languages`).children()
       .should(`have.length`, 0);
-      // should render a blank Language Editor
+      // should render the "Add a Language" button instead of the Language Editor
       cy.get(`.language-editor .add-language-button`);
     });
   });
 
   it(`adds / edits a language from the Languages List`, function() {
+    const [, chiti] = languages;
     cy.visit(`/`);
     cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
     cy.get(`.languages-list .add-language-button`).click();
     cy.contains(`.languages-list`, `{ new language }`);
-    // TODO: Check that Language Editor renders with an empty form.
+    cy.get(`.language-editor .name`).within(() => {
+      cy.get(`input[name=name-eng]`)
+      .should(`have.value`, chiti.name.eng);
+    });
   });
 
 });
