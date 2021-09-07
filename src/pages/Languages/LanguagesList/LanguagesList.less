@@ -1,10 +1,10 @@
+@import (reference) 'variables';
 @import (reference) 'Button/Button';
 @import (reference) 'Header/Header';
 @import (reference) 'List/List';
 
 .languages-list {
 
-  align-items: center;
 
   .add-language-button {
 
@@ -20,6 +20,22 @@
   .list {
     .list;
     margin-inline: var(--space);
+  }
+
+  // small screens
+  @media (max-width: @breakpoint) {
+
+    align-items: stretch;
+
+    .add-language-button {
+      align-self: center;
+    }
+
+  }
+
+  // large screens
+  @media (min-width: @breakpoint) {
+    align-items: center;
   }
 
 }

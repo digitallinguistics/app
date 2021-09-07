@@ -1,2 +1,18 @@
+@import (reference) 'variables';
 @import 'Languages/LanguageEditor/LanguageEditor';
 @import 'Languages/LanguagesList/LanguagesList';
+
+.languages-page {
+
+  // small screens
+  @media (max-width: @breakpoint) {
+    flex-direction: column;
+  }
+
+  // large screens
+  @media (min-width: @breakpoint) {
+    flex-direction: row;
+  }
+
+}
+
