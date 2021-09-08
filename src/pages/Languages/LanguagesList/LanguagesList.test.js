@@ -14,9 +14,11 @@ describe(`Languages List`, function() {
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.languages-list li`, `Nuuchahnulth`).click();
-    cy.get(`.language-editor[data-language=1]`); // TODO: Check for language name instead
+    cy.get(`.language-editor[data-language=1] .name input[name=name-eng]`)
+    .should(`have.value`, `Nuuchahnulth`);
     cy.contains(`.languages-list li`, `Chitimacha`).click();
-    cy.get(`.language-editor[data-language=2]`); // TODO: Check for language name instead
+    cy.get(`.language-editor[data-language=2] .name input[name=name-eng]`)
+    .should(`have.value`, `Chitimacha`);
   });
 
 });
