@@ -1,25 +1,12 @@
 import './Button.css';
 import html2element from '../../utilities/html2element.js';
 
-const html = `<div class=buttons>
-
-  <style>
-    .button {
-      margin: 1em;
-      width:  5em;
-    }
-  </style>
-  
-  <button class='button'>Default</button>
-  <button class='button blue'>Primary</button>
-  <button class='button green'>Success</button>
-  <button class='button red'>Alert</button>
-
-</div>`;
-
 export default {
   layout: `centered`,
   title:  `Components/Button`,
 };
 
-export const Button = () => html2element(html);
+export const Default = () => html2element(`<button class='button'>Default</button>`);
+export const Primary = () => html2element(`<button class='button blue'>Primary</button>`);
+export const Success = () => html2element(`<button class='button green'>Success / Add</button>`);
+export const Alert   = () => html2element(`<button class='button red'>Alert / Delete</button>`);

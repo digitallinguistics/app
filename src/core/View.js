@@ -1,4 +1,5 @@
 import EventEmitter from './EventEmitter.js';
+import html2element from '../utilities/html2element.js';
 
 /**
  * A basic View class. The View class does not have much functionality itself. It instead documents certain conventions regarding how the View class should operate.
@@ -43,5 +44,9 @@ export default class View {
    * @return {HTMLElement|DocumentFragment}
    */
   render() { /* no-op */ }
+
+  // UTILITY METHODS
+
+  static fromHTML = html2element;
 
 }

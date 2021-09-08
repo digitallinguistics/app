@@ -1,5 +1,4 @@
 import compare        from '../../utilities/compare.js';
-import html2element   from '../../utilities/html2element.js';
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import LanguagesList  from './LanguagesList/LanguagesList.js';
@@ -58,7 +57,7 @@ export default class LanguagesPage extends View {
 
   renderBlankEditor() {
     const oldEditor = this.el.querySelector(`.language-editor`);
-    const newEditor = html2element(`<section class=language-editor>
+    const newEditor = View.fromHTML(`<section class=language-editor>
       <button type=button class='add-language-button red'>Add a Language</button>
     </section>`);
     oldEditor.view?.events.stop();
