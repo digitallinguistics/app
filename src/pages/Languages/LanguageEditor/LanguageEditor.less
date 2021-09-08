@@ -1,13 +1,9 @@
 @import (reference) 'Button/Button';
+@import (reference) 'Fieldset/Fieldset';
 
 .language-editor {
 
   flex-grow: 1;
-
-  button {
-    margin: var(--space);
-  }
-
   max-width: var(--measure);
 
   .add-language-button {
@@ -16,10 +12,16 @@
     margin: auto;
   }
 
+  button {
+    margin: var(--space);
+  }
+
   .delete-language-button {
     .button;
     .red;
     align-self: flex-end;
   }
+
+  fieldset { .fieldset; }
 
 }

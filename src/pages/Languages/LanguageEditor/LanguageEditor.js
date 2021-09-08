@@ -1,4 +1,5 @@
-import View from '../../../core/View.js';
+import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
@@ -17,6 +18,7 @@ export default class LanguageEditor extends View {
     this.el                  = this.cloneTemplate();
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
+    this.renderName();
     this.addEventListeners();
     return this.el;
   }
@@ -27,6 +29,20 @@ export default class LanguageEditor extends View {
     this.el.querySelector(`.add-language-button`)
     .addEventListener(`click`, () => this.events.emit(`add`));
     return this.el;
+  }
+
+  renderName() {
+
+    const nameField = this.el.querySelector(`.name`);
+
+    const mlsEditor = new MultiLangStringEditor(this.language.name, {
+      fieldName:   `name`,
+      id:          `name`,
+      placeholder: `e.g. Spanish`,
+    });
+
+    nameField.appendChild(mlsEditor.render());
+
   }
 
   static blankTemplate = `<section class=language-editor>

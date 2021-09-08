@@ -14,7 +14,7 @@ export default class EventEmitter {
   /**
    * Emit an event with data
    * @param  {String}  eventName The name of the event being emitted
-   * @param  {Any}     data      Data accompanying the event
+   * @param  {Any}     [data]    Data accompanying the event
    * @return {Promise}
    */
   emit(eventName, data) {
