@@ -1,4 +1,3 @@
-import '../TranscriptionGroup/TranscriptionGroup.css';
 import View from '../../core/View.js';
 
 /**
