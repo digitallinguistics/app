@@ -1,10 +1,12 @@
 @import (reference) 'Button/Button';
 @import (reference) 'Fieldset/Fieldset';
+@import (reference) 'TranscriptionGroup/TranscriptionGroup';
 
 .language-editor {
 
   flex-grow: 1;
   max-width: var(--measure);
+  padding:   var(--space);
 
   .add-language-button {
     .button;
@@ -22,6 +24,8 @@
     align-self: flex-end;
   }
 
-  fieldset { .fieldset; }
+  .fieldset { .fieldset; }
+
+  .txn-group { .txn-group; }
 
 }

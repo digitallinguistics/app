@@ -8,7 +8,8 @@ export default {
 };
 
 export const Blank = () => {
-  const language = new Language;
+  const data     = { name: `` };
+  const language = new Language(data);
   const editor   = new Editor(language);
   return editor.render();
 };
