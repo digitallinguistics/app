@@ -8,7 +8,6 @@ const languagesData = [
   { name: `Plains Cree` },
 ];
 
-const languages = languagesData.map(data => new Language(data));
 
 export default {
   layout: `centered`,
@@ -16,6 +15,7 @@ export default {
 };
 
 export const LanguagesList = () => {
-  const list = new List(languages);
+  const languages = languagesData.map(data => new Language(data));
+  const list      = new List(languages);
   return list.render(languages[1].cid);
 };

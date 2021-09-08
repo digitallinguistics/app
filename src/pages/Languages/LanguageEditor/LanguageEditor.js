@@ -1,5 +1,4 @@
-import View         from '../../../core/View.js';
-import html2element from '../../../utilities/html2element.js';
+import View from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
@@ -23,7 +22,8 @@ export default class LanguageEditor extends View {
   }
 
   renderBlank() {
-    this.el = html2element(LanguageEditor.blankTemplate);
+    this.el      = View.fromHTML(LanguageEditor.blankTemplate);
+    this.el.view = this;
     this.el.querySelector(`.add-language-button`)
     .addEventListener(`click`, () => this.events.emit(`add`));
     return this.el;
