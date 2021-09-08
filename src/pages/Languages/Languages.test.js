@@ -24,12 +24,19 @@ describe(`Languages`, () => {
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.languages-list button`, `Add a Language`).click();
     cy.clock();
+    // edit the language name
     cy.get(`.language-editor .name input[name=name-eng]`)
     .clear()
     .type(`Chitimacha`);
-    cy.tick(delay);
+    cy.tick(delay); // wait for debounce
     cy.contains(`.languages-list li`, `Chitimacha`);
-    // TODO: switch languages and back, and check that the change saved
+    // switch page and back to check that the change was saved
+    cy.contains(`#nav li`, `Home`).click();
+    cy.get(`#main[data-page=Home]`);
+    cy.contains(`#nav li`, `Languages`).click();
+    cy.contains(`.languages-list li`, `Chitimacha`).click();
+    cy.get(`.language-editor .name input[name=name-eng]`)
+    .should(`have.value`, `Chitimacha`);
   });
 
 });

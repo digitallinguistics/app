@@ -22,6 +22,7 @@ describe(`Language Editor`, function() {
       .should(`have.value`, this.lang.name.ctm);
 
     });
+    cy.contains(`.language-editor button`, `Delete this Language`);
   });
 
 });
