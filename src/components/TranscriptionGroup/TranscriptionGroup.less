@@ -1,9 +1,31 @@
+@import (reference) 'LineInput/LineInput';
 @import (reference) 'Transcription/Transcription';
+
+// NOTE: These styles break when applied directly to a `<fieldset>` element.
+// Use a wrapper inside the `<fieldset>`, or replace it with a `<div>` instead.
 
 .txn-group {
 
+  align-items:           baseline;
+  column-gap:            var(--space-xs);
+  display:               grid;
+  grid-template-columns: [label] auto [input] auto;
+  justify-content:       start;
+  padding-block-end:     var(--space-xs);
+  row-gap:               var(--space-xxxs);
+
   input {
+    .line-input;
     .txn;
+    grid-column: input;
+    min-width:   10em;
+  }
+
+  label {
+    color:        var(--gray);
+    font-size:    smaller;
+    grid-column:  label;
+    justify-self: end;
   }
 
 }

@@ -35,7 +35,7 @@ export default class MultiLangStringEditor extends View {
    */
   render() {
 
-    this.el       = View.fromHTML(`<fieldset class='mls-editor txn-group'></fieldset>`);
+    this.el       = View.fromHTML(`<fieldset class=mls-editor><div class=txn-group></div></fieldset>`);
     this.el.view  = this;
     const strings = Array.from(this.data.entries());
 
@@ -52,8 +52,10 @@ export default class MultiLangStringEditor extends View {
         value='${ text }'
       ></input>`);
 
-      this.el.appendChild(label);
-      this.el.appendChild(input);
+      const div = this.el.querySelector(`div`);
+
+      div.appendChild(label);
+      div.appendChild(input);
 
     }
 
