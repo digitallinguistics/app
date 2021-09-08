@@ -52,6 +52,7 @@ export default class LanguagesPage extends View {
     this.el.view  = this;
     this.renderList(languageCID);
     this.renderEditor(languageCID);
+    // NOTE: Event listeners are added in individual rendering methods.
     return this.el;
   }
 
@@ -62,7 +63,8 @@ export default class LanguagesPage extends View {
     </section>`);
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
-    newEditor.querySelector(`button`).addEventListener(`click`, this.addLanguage.bind(this));
+    newEditor.querySelector(`button`)
+    .addEventListener(`click`, this.addLanguage.bind(this));
   }
 
   /**
@@ -83,6 +85,7 @@ export default class LanguagesPage extends View {
     oldEditor.replaceWith(newEditor);
     editor.events.once(`add`, this.addLanguage.bind(this));
     editor.events.once(`delete`, this.deleteLanguage.bind(this));
+    editor.events.on(`update:name`, this.renderList.bind(this));
 
   }
 

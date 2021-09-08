@@ -1,3 +1,5 @@
+const delay = 500;
+
 describe(`Languages`, () => {
 
   it(`adds / deletes a language from the Language Editor`, function() {
@@ -21,9 +23,20 @@ describe(`Languages`, () => {
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.languages-list button`, `Add a Language`).click();
-    // TODO: edit the name field
-    // TODO: check that the languages list is updated
-    // TODO: switch languages and back, and check that the change saved
+    cy.clock();
+    // edit the language name
+    cy.get(`.language-editor .name input[name=name-eng]`)
+    .clear()
+    .type(`Chitimacha`);
+    cy.tick(delay); // wait for debounce
+    cy.contains(`.languages-list li`, `Chitimacha`);
+    // switch page and back to check that the change was saved
+    cy.contains(`#nav li`, `Home`).click();
+    cy.get(`#main[data-page=Home]`);
+    cy.contains(`#nav li`, `Languages`).click();
+    cy.contains(`.languages-list li`, `Chitimacha`).click();
+    cy.get(`.language-editor .name input[name=name-eng]`)
+    .should(`have.value`, `Chitimacha`);
   });
 
 });
