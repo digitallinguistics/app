@@ -1,6 +1,7 @@
-import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
-import View                  from '../../../core/View.js';
 import debounce              from '../../../utilities/debounce.js';
+import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
+import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
@@ -56,8 +57,23 @@ export default class LanguageEditor extends View {
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
     this.renderName();
+    this.renderAutonym();
     this.addEventListeners();
     return this.el;
+  }
+
+  renderAutonym() {
+
+    const autonymField = this.el.querySelector(`.autonym`);
+
+    const txnEditor = new TranscriptionEditor(this.language.autonym, {
+      lang:        this.language.iso,
+      placeholder: `e.g. español`,
+      prefix:      `autonym`,
+    });
+
+    autonymField.appendChild(txnEditor.render());
+
   }
 
   renderBlank() {

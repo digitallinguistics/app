@@ -1,5 +1,6 @@
 import Model           from '../core/Model.js';
 import MultiLangString from './MultiLangString.js';
+import Transcription   from './Transcription.js';
 
 /**
  * A class representing a language
@@ -21,7 +22,8 @@ export default class Language extends Model {
    */
   constructor(data = {}) {
     super(data);
-    this.name = new MultiLangString(this.name);
+    this.autonym = new Transcription(this.autonym);
+    this.name    = new MultiLangString(this.name);
   }
 
 }
