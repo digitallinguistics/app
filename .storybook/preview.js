@@ -1,7 +1,5 @@
-import '../src/index.css';
 import './storybook.css';
-import App     from '../src/App/App.js';
-import compare from '../src/utilities/compare.js';
+import App from '../src/App/App.js';
 
 window.app = new App;
 

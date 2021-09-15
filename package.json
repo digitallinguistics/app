@@ -36,8 +36,7 @@
     "test:component": "cypress run-ct --config-file test/cypress.json",
     "test:integration": "start-server-and-test start 3000 cypress-run",
     "test:unit": "mocha **/*.unit.*",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -48,7 +47,6 @@
     "@storybook/addon-links": "^6.3.6",
     "@storybook/cli": "^6.3.6",
     "@storybook/html": "^6.3.6",
-    "babel-loader": "^8.2.2",
     "chai": "^4.3.4",
     "clean-css": "^5.1.3",
     "cypress": "^8.4.0",
