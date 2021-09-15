@@ -116,7 +116,7 @@ export default class LanguagesPage extends View {
     if (!this.languages.length) newList.style.border = `none`;
     oldList.replaceWith(newList);
 
-    listView.on(`change`, this.renderEditor.bind(this));
+    listView.events.on(`change`, this.renderEditor.bind(this));
 
   }
 

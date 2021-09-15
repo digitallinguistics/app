@@ -1,5 +1,3 @@
-import AdditionalNamesList   from '../AdditionalNamesList/AdditionalNamesList.js';
-import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
@@ -71,18 +69,7 @@ export default class LanguageEditor extends View {
 
   }
 
-  renderAdditionalNames() {
-
-    const list    = new AdditionalNamesList(this.language.additionalNames);
-    const newList = list.render();
-    const oldList = this.el.querySelector(`.additional-names .names-list`);
-
-    oldList.view?.events.stop();
-    oldList.replaceWith(newList);
-
-    list.events.on(`update`, this.save.bind(this));
-
-  }
+  renderAdditionalNames() {}
 
   renderAutonym() {
 
