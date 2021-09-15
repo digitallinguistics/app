@@ -1,6 +1,7 @@
-import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
-import View                  from '../../../core/View.js';
 import debounce              from '../../../utilities/debounce.js';
+import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
+import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
@@ -40,8 +41,10 @@ export default class LanguageEditor extends View {
     ev.preventDefault(); // prevent form from submitting data to the server
 
     const { name, value } = ev.target;
+    const isAutonymUpdate = name.startsWith(`autonym`);
     const isNameUpdate    = name.startsWith(`name`);
 
+    if (isAutonymUpdate) return this.updateAutonym(name, value);
     if (isNameUpdate) return this.updateName(name, value);
 
     switch (name) {
@@ -56,8 +59,23 @@ export default class LanguageEditor extends View {
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
     this.renderName();
+    this.renderAutonym();
     this.addEventListeners();
     return this.el;
+  }
+
+  renderAutonym() {
+
+    const autonymField = this.el.querySelector(`.autonym`);
+
+    const txnEditor = new TranscriptionEditor(this.language.autonym, {
+      lang:        this.language.iso,
+      placeholder: `e.g. español`,
+      prefix:      `autonym`,
+    });
+
+    autonymField.appendChild(txnEditor.render());
+
   }
 
   renderBlank() {
@@ -92,16 +110,20 @@ export default class LanguageEditor extends View {
     const isValid = form.checkValidity();
     form.reportValidity();
     if (!isValid) return;
-    const langAbbr = LanguageEditor.langAbbrRegExp.exec(name)?.groups?.langAbbr;
-    this.language.name.set(langAbbr, value);
+    const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
+    this.language.name.set(abbr, value);
     await this.save();
     await this.events.emit(`update:name`, this.language.cid);
+  }
+
+  async updateAutonym(name, value) {
+    const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
+    this.language.autonym.set(abbr, value);
+    await this.save();
   }
 
   static blankTemplate = `<section class=language-editor>
     <button class=add-language-button type=button>Add a Language</button>
   </section>`;
-
-  static langAbbrRegExp = /name-(?<langAbbr>\w+)$/u;
 
 }

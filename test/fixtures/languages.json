@@ -1,21 +1,26 @@
 [
   {
-    "type":         "Language",
-    "cid":          "1",
-    "name":         "Nuuchahnulth",
     "abbreviation": "nuu",
+    "autonym":      "Nuučaan̓uɫ",
+    "cid":          "1",
+    "glottocode":   "nuuc1236",
     "iso":          "nuk",
-    "glottocode":   "nuuc1236"
+    "name":         "Nuuchahnulth",
+    "type":         "Language"
   },
   {
-    "type": "Language",
-    "cid":  "2",
+    "abbreviation": "chiti",
+    "autonym": {
+      "mod": "Sitimaxa",
+      "swd": "Sitimaša"
+    },
+    "cid":          "2",
+    "glottocode":   "chit1248",
+    "iso":          "ctm",
     "name": {
       "eng": "Chitimacha",
       "ctm": "Sitimaxa"
     },
-    "abbreviation": "chiti",
-    "iso":          "ctm",
-    "glottocode":   "chit1248"
+    "type": "Language"
   }
 ]

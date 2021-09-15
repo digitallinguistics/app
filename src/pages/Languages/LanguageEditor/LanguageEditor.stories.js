@@ -8,10 +8,16 @@ export default {
 };
 
 export const Blank = () => {
-  const data     = { name: `` };
+
+  const data = {
+    autonym: ``,
+    name:    ``,
+  };
+
   const language = new Language(data);
   const editor   = new Editor(language);
   return editor.render();
+
 };
 
 export const Populated = () => {

@@ -23,6 +23,7 @@ export default class LanguagesPage extends View {
 
   async addLanguage() {
     let language = new Language;
+    language.autonym.set(`default`, ``);
     language.name.set(`eng`, `{ new language }`);
     language = await app.db.languages.add(language);
     this.languages.push(language);
