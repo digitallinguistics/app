@@ -21,4 +21,18 @@ describe(`Languages List`, function() {
     .should(`have.value`, `Chitimacha`);
   });
 
+  it(`preserves language selection`, function() {
+    cy.visit(`/`);
+    cy.setupStore(`languages`);
+    cy.get(`#main[data-page=Home]`);
+    cy.contains(`#nav li`, `Languages`).click();
+    cy.contains(`.languages-list li`, `Nuuchahnulth`).click();
+
+    cy.contains(`#nav li`, `Home`).click();
+    cy.get(`#main[data-page=Home]`);
+    cy.contains(`#nav li`, `Languages`).click();
+    cy.get(`.language-editor[data-language=1] .name input[name=name-eng]`)
+    .should(`have.value`, `Nuuchahnulth`);
+  });
+
 });
