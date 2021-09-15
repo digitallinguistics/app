@@ -11,6 +11,24 @@
       <p class=help-text>The name of this language in the language itself.</p>
     </fieldset>
 
+    <div class='abbreviation text-field'>
+      <label class=label for=abbreviation>Abbreviation</label>
+      <div>
+        <input
+          autocomplete=off
+          class=line-input
+          id=abbreviation
+          inputmode=text
+          name=abbreviation
+          pattern=[(a-z)|(A-Z)|(0-9)]+
+          placeholder='e.g. spa'
+          spellcheck=false
+          type=text
+        >
+        <p class=help-text>An abbreviation for this language variety. May only contain letters and numbers.</p>
+      </div>
+    </div>
+
     <button class=delete-language-button type=button>Delete this Language</button>
 
   </form>

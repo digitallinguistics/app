@@ -36,11 +36,19 @@ describe(`Languages`, () => {
     // check that Languages List was updated
     cy.contains(`.languages-list li`, `Chitimacha`);
 
-    // edit the autonym
-    cy.get(`.language-editor .autonym input[name=autonym-default]`)
-    .type(`Sitimaxa`);
+    // edit the remaining data
+    cy.get(`.language-editor`)
+    .within(() => {
 
-    cy.tick(delay); // wait for debounce
+      cy.get(`.autonym input[name=autonym-default]`)
+      .type(`Sitimaxa`);
+
+      cy.get(`input[name=abbreviation]`)
+      .type(`chiti`);
+
+      cy.tick(delay); // wait for debounce
+
+    });
 
     // switch page and back to check that the changes were saved
     cy.contains(`#nav li`, `Home`).click();
@@ -56,6 +64,9 @@ describe(`Languages`, () => {
 
       cy.get(`.autonym input[name=autonym-default]`)
       .should(`have.value`, `Sitimaxa`);
+
+      cy.get(`input[name=abbreviation]`)
+      .should(`have.value`, `chiti`);
 
     });
 

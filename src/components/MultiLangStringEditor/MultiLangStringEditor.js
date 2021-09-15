@@ -48,6 +48,7 @@ export default class MultiLangStringEditor extends View {
         lang='${ lang }'
         name='${ this.fieldName }-${ lang }'
         placeholder='${ this.placeholder }'
+        spellcheck=false
         type=text
         value='${ text }'
       ></input>`);
