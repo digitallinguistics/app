@@ -55,6 +55,7 @@ export default class TranscriptionEditor extends View {
         lang='${ this.lang }'
         name='${ id }'
         placeholder='${ this.placeholder }'
+        spellcheck=false
         type=text
         value='${ text }'
       >`);

@@ -46,22 +46,26 @@ export default class LanguageEditor extends View {
 
     if (isAutonymUpdate) return this.updateAutonym(name, value);
     if (isNameUpdate) return this.updateName(name, value);
-
-    switch (name) {
-        default: break;
-    }
+    return this.updateProperty(name, value);
 
   }
 
   render() {
+
     this.template            = document.getElementById(`language-editor-template`);
     this.el                  = this.cloneTemplate();
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
+
     this.renderName();
     this.renderAutonym();
+
+    this.el.querySelector(`input[name=abbreviation]`).value = this.language.abbreviation ?? ``;
+
     this.addEventListeners();
+
     return this.el;
+
   }
 
   renderAutonym() {
@@ -104,21 +108,29 @@ export default class LanguageEditor extends View {
     return app.db.languages.put(this.language);
   }
 
+  async updateAutonym(name, value) {
+    const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
+    this.language.autonym.set(abbr, value);
+    await this.save();
+  }
+
   async updateName(name, value) {
+
     const form = this.el.querySelector(`form`);
     this.checkNameValidity();
     const isValid = form.checkValidity();
     form.reportValidity();
     if (!isValid) return;
+
     const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
     this.language.name.set(abbr, value);
     await this.save();
     await this.events.emit(`update:name`, this.language.cid);
+
   }
 
-  async updateAutonym(name, value) {
-    const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
-    this.language.autonym.set(abbr, value);
+  async updateProperty(name, value) {
+    this.language[name] = value;
     await this.save();
   }
 

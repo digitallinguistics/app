@@ -1,5 +1,6 @@
 @import (reference) 'Button/Button';
 @import (reference) 'Fieldset/Fieldset';
+@import (reference) 'TextField/TextField';
 @import (reference) 'TranscriptionGroup/TranscriptionGroup';
 
 .language-editor {
@@ -27,6 +28,11 @@
   .fieldset {
     .fieldset;
     margin-block: var(--space-xs);
+  }
+
+  .text-field {
+    .text-field;
+    .label { width: 7.5em; }
   }
 
   .txn-group { .txn-group; }
