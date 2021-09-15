@@ -48,6 +48,7 @@ export default class TranscriptionEditor extends View {
       const label = View.fromHTML(`<label for='${ id }'>${ ortho }</label>`);
 
       const input = View.fromHTML(`<input
+        autocomplete=off
         data-ortho='${ ortho }'
         id='${ id }'
         inputmode=text
