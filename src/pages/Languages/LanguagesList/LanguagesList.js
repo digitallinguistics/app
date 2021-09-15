@@ -45,6 +45,7 @@ export default class LanguagesList extends View {
 
       if (languageCID) {
         this.setCurrentLanguage(languageCID);
+        app.settings.language = languageCID;
         this.events.emit(`change`, languageCID);
       }
 
