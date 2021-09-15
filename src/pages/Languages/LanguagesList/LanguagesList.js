@@ -112,6 +112,7 @@ export default class LanguagesList extends View {
     const li            = document.createElement(`li`);
     li.dataset.language = cid;
     li.textContent      = name.default;
+    li.tabIndex         = 0;
     return li;
   }
 
