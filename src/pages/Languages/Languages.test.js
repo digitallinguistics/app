@@ -18,7 +18,7 @@ describe(`Languages`, () => {
     });
   });
 
-  it(`edits a language`, function() {
+  it(`adds / switches / edits a language`, function() {
 
     // setup
     cy.visit(`/`);
@@ -29,6 +29,7 @@ describe(`Languages`, () => {
 
     // edit the language name
     cy.get(`.language-editor .name input[name=name-eng]`)
+    .should(`have.value`, `{ new language }`)
     .clear()
     .type(`Chitimacha`);
     cy.tick(delay); // wait for debounce

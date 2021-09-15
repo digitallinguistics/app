@@ -22,8 +22,9 @@ export default class Language extends Model {
    */
   constructor(data = {}) {
     super(data);
-    this.autonym = new Transcription(this.autonym);
-    this.name    = new MultiLangString(this.name);
+    this.additionalNames ??= [];
+    this.autonym           = new Transcription(this.autonym);
+    this.name              = new MultiLangString(this.name);
   }
 
 }
