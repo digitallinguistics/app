@@ -1,7 +1,10 @@
+import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
+import html2element          from '../../../utilities/html2element.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
+import List                  from '../../../components/List/List.js';
 
 export default class LanguageEditor extends View {
 
@@ -69,7 +72,23 @@ export default class LanguageEditor extends View {
 
   }
 
-  renderAdditionalNames() {}
+  renderAdditionalNames() {
+
+    this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
+
+    const listView = new List(this.language.additionalNames, {
+      classes:  [`names-list`],
+      template: LanguageEditor.#nameTemplate,
+    });
+
+    const oldList = this.el.querySelector(`.additional-names .names-list`);
+    const newList = listView.render();
+
+    oldList.view?.events.stop();
+    if (!this.language.additionalNames.length) newList.style.border = `none`;
+    oldList.replaceWith(newList);
+
+  }
 
   renderAutonym() {
 
@@ -86,7 +105,7 @@ export default class LanguageEditor extends View {
   }
 
   renderBlank() {
-    this.el      = View.fromHTML(LanguageEditor.blankTemplate);
+    this.el      = View.fromHTML(LanguageEditor.#blankTemplate);
     this.el.view = this;
     this.el.querySelector(`.add-language-button`)
     .addEventListener(`click`, () => this.events.emit(`add`));
@@ -137,8 +156,17 @@ export default class LanguageEditor extends View {
     await this.save();
   }
 
-  static blankTemplate = `<section class=language-editor>
+  static #blankTemplate = `<section class=language-editor>
     <button class=add-language-button type=button>Add a Language</button>
   </section>`;
+
+  static #nameTemplate({ language, name }) {
+    return html2element(`<li>
+      <p>
+        <span class=txn>${ name }</span>
+        (${ language })
+      </p>
+    </li>`);
+  }
 
 }
