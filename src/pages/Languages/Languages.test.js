@@ -19,24 +19,46 @@ describe(`Languages`, () => {
   });
 
   it(`edits a language`, function() {
+
+    // setup
     cy.visit(`/`);
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.languages-list button`, `Add a Language`).click();
     cy.clock();
+
     // edit the language name
     cy.get(`.language-editor .name input[name=name-eng]`)
     .clear()
     .type(`Chitimacha`);
     cy.tick(delay); // wait for debounce
+
+    // check that Languages List was updated
     cy.contains(`.languages-list li`, `Chitimacha`);
-    // switch page and back to check that the change was saved
+
+    // edit the autonym
+    cy.get(`.language-editor .autonym input[name=autonym-default]`)
+    .type(`Sitimaxa`);
+
+    cy.tick(delay); // wait for debounce
+
+    // switch page and back to check that the changes were saved
     cy.contains(`#nav li`, `Home`).click();
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.languages-list li`, `Chitimacha`).click();
-    cy.get(`.language-editor .name input[name=name-eng]`)
-    .should(`have.value`, `Chitimacha`);
+
+    cy.get(`.language-editor`)
+    .within(() => {
+
+      cy.get(`.name input[name=name-eng]`)
+      .should(`have.value`, `Chitimacha`);
+
+      cy.get(`.autonym input[name=autonym-default]`)
+      .should(`have.value`, `Sitimaxa`);
+
+    });
+
   });
 
 });

@@ -7,12 +7,12 @@ export default class TranscriptionEditor extends View {
 
   /**
    * Create a new Transcription Editor.
-   * @param {Transcription} data                 The Transcription data to render. Must be a Transcription (Map) object.
-   * @param {Object}        options              A required options object.
-   * @param {Array<String>} [options.classes=[]] An Array of CSS classes to add to the Transcription Editor element.
-   * @param {String}        options.lang         The value to use for the HTML `lang` attribute. Must be a valid IETF language tag.
-   * @param {String}        [placeholder=``]     The placeholder text for the inputs in this Transcription Editor.
-   * @param {String}        [prefix=``]          The prefix to use for the `for` attribute on the `<label>` element, as well as the `id` attribute of the `<input>` element. The orthography abbreviation will be appended to this prefix.
+   * @param {Transcription} data                     The Transcription data to render. Must be a Transcription (Map) object.
+   * @param {Object}        options                  A required options object.
+   * @param {Array<String>} [options.classes=[]]     An Array of CSS classes to add to the Transcription Editor element.
+   * @param {String}        options.lang             The value to use for the HTML `lang` attribute. Must be a valid IETF language tag.
+   * @param {String}        [options.placeholder=``] The placeholder text for the inputs in this Transcription Editor.
+   * @param {String}        [options.prefix=``]      The prefix to use for the `for` attribute on the `<label>` element, as well as the `id` and `name` attributes of the `<input>` element. The orthography abbreviation will be appended to this prefix.
    */
   constructor(data, {
     classes = [],
@@ -52,6 +52,7 @@ export default class TranscriptionEditor extends View {
         id='${ id }'
         inputmode=text
         lang='${ this.lang }'
+        name='${ id }'
         placeholder='${ this.placeholder }'
         type=text
         value='${ text }'

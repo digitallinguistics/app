@@ -41,8 +41,10 @@ export default class LanguageEditor extends View {
     ev.preventDefault(); // prevent form from submitting data to the server
 
     const { name, value } = ev.target;
+    const isAutonymUpdate = name.startsWith(`autonym`);
     const isNameUpdate    = name.startsWith(`name`);
 
+    if (isAutonymUpdate) return this.updateAutonym(name, value);
     if (isNameUpdate) return this.updateName(name, value);
 
     switch (name) {
@@ -108,16 +110,20 @@ export default class LanguageEditor extends View {
     const isValid = form.checkValidity();
     form.reportValidity();
     if (!isValid) return;
-    const langAbbr = LanguageEditor.langAbbrRegExp.exec(name)?.groups?.langAbbr;
-    this.language.name.set(langAbbr, value);
+    const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
+    this.language.name.set(abbr, value);
     await this.save();
     await this.events.emit(`update:name`, this.language.cid);
+  }
+
+  async updateAutonym(name, value) {
+    const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
+    this.language.autonym.set(abbr, value);
+    await this.save();
   }
 
   static blankTemplate = `<section class=language-editor>
     <button class=add-language-button type=button>Add a Language</button>
   </section>`;
-
-  static langAbbrRegExp = /name-(?<langAbbr>\w+)$/u;
 
 }
