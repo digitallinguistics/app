@@ -157,7 +157,7 @@ export default class LanguageEditor extends View {
   }
 
   static #blankTemplate = `<section class=language-editor>
-    <button class=add-language-button type=button>Add a Language</button>
+    <button class='add-language-button button green' type=button>Add a Language</button>
   </section>`;
 
   static #nameTemplate({ language, name }) {

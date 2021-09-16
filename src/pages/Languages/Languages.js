@@ -65,7 +65,7 @@ export default class LanguagesPage extends View {
   renderBlankEditor() {
     const oldEditor = this.el.querySelector(`.language-editor`);
     const newEditor = View.fromHTML(`<section class=language-editor>
-      <button type=button class='add-language-button red'>Add a Language</button>
+      <button class='add-language-button button green' type=button>Add a Language</button>
     </section>`);
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
