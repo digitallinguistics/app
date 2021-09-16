@@ -44,6 +44,7 @@ export default class MultiLangStringEditor extends View {
 
       const input = View.fromHTML(`<input
         autocomplete=off
+        class='line-input txn'
         inputmode=text
         lang='${ lang }'
         name='${ this.fieldName }-${ lang }'

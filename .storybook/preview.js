@@ -1,3 +1,4 @@
+import '../src/index.css';
 import './storybook.css';
 import App from '../src/App/App.js';
 

@@ -1,5 +1,3 @@
-import '../HelpText/HelpText.css';
-import '../LineInput/LineInput.css';
 import './TextField.css';
 
 export default {
