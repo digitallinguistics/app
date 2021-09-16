@@ -178,6 +178,10 @@ export default class LanguageEditor extends View {
         <span class=txn>${ name }</span>
         (${ language })
       </p>
+        <button class='button transparent' type=button>
+          <svg><use xlink:href=#trash></use></svg>
+          <span class=visually-hidden>Delete this Language Name</span>
+        </button>
     </li>`);
   }
 
