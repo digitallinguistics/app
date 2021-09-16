@@ -4,6 +4,8 @@ import App from '../src/App/App.js';
 
 window.app = new App;
 
+window.app.db.initialize();
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {

@@ -13,12 +13,24 @@ export default class LanguageEditor extends View {
     this.language = language;
   }
 
+  async addName() {
+    this.language.additionalNames.push({
+      language: ``,
+      name:     ``,
+    });
+    await this.save();
+    this.renderAdditionalNames();
+  }
+
   addEventListeners() {
 
     const delay = 500;
 
     this.el.addEventListener(`change`, debounce(this.handleUpdate.bind(this), delay));
     this.el.addEventListener(`input`, debounce(this.handleUpdate.bind(this), delay));
+
+    this.el.querySelector(`.add-name-button`)
+    .addEventListener(`click`, this.addName.bind(this));
 
     this.el.querySelector(`.delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
