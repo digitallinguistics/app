@@ -1,10 +1,10 @@
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import html2element          from '../../../utilities/html2element.js';
+import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
-import List                  from '../../../components/List/List.js';
 
 export default class LanguageEditor extends View {
 
@@ -13,21 +13,12 @@ export default class LanguageEditor extends View {
     this.language = language;
   }
 
-  async addName() {
-    this.language.additionalNames.push({
-      language: ``,
-      name:     ``,
-    });
-    await this.save();
-    this.renderAdditionalNames();
-  }
-
   addEventListeners() {
 
     const delay = 500;
 
-    this.el.addEventListener(`change`, debounce(this.handleUpdate.bind(this), delay));
-    this.el.addEventListener(`input`, debounce(this.handleUpdate.bind(this), delay));
+    this.el.addEventListener(`change`, debounce(this.handleFormUpdate.bind(this), delay));
+    this.el.addEventListener(`input`, debounce(this.handleFormUpdate.bind(this), delay));
 
     this.el.querySelector(`.add-name-button`)
     .addEventListener(`click`, this.addName.bind(this));
@@ -51,7 +42,13 @@ export default class LanguageEditor extends View {
 
   }
 
-  handleUpdate(ev) {
+  save() {
+    return app.db.languages.put(this.language);
+  }
+
+  // Handlers
+
+  handleFormUpdate(ev) {
 
     ev.preventDefault(); // prevent form from submitting data to the server
 
@@ -64,6 +61,14 @@ export default class LanguageEditor extends View {
     return this.updateProperty(name, value);
 
   }
+
+  handleNamesUpdate(ev) {
+    if (!ev.target.matches(`button`)) return;
+    const i = Number(ev.target.closest(`li`).dataset.id);
+    return this.deleteName(i);
+  }
+
+  // Rendering Methods
 
   render() {
 
@@ -89,16 +94,18 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
     const listView = new List(this.language.additionalNames, {
-      classes:  [`names-list`],
-      template: LanguageEditor.#nameTemplate,
+      classes:    [`names-list`],
+      setCurrent: false,
+      template:   LanguageEditor.#nameTemplate,
     });
 
     const oldList = this.el.querySelector(`.additional-names .names-list`);
     const newList = listView.render();
 
-    oldList.view?.events.stop();
     if (!this.language.additionalNames.length) newList.style.border = `none`;
     oldList.replaceWith(newList);
+
+    newList.addEventListener(`click`, this.handleNamesUpdate.bind(this));
 
   }
 
@@ -138,9 +145,7 @@ export default class LanguageEditor extends View {
 
   }
 
-  save() {
-    return app.db.languages.put(this.language);
-  }
+  // Update Methods
 
   async updateAutonym(name, value) {
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
@@ -168,12 +173,31 @@ export default class LanguageEditor extends View {
     await this.save();
   }
 
+  // Additional Names
+
+  async addName() {
+    this.language.additionalNames.push({
+      language: ``,
+      name:     ``,
+    });
+    await this.save();
+    this.renderAdditionalNames();
+  }
+
+  async deleteName(i) {
+    this.language.additionalNames.splice(i, 1);
+    await this.save();
+    this.renderAdditionalNames();
+  }
+
+  // Static Properties
+
   static #blankTemplate = `<section class=language-editor>
     <button class='add-language-button button green' type=button>Add a Language</button>
   </section>`;
 
-  static #nameTemplate({ language, name }) {
-    return html2element(`<li>
+  static #nameTemplate({ language, name }, i) {
+    return html2element(`<li data-id=${ i }>
       <p>
         <span class=txn>${ name }</span>
         (${ language })

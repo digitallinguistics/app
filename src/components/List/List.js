@@ -28,15 +28,17 @@ export default class List extends View {
 
   /**
    * Create a new List View
-   * @param {Array}    [collection=[]]       The collection of models to render in the list. Defaults to an empty array.
-   * @param {Object}   [options={}]          An optional options hash
-   * @param {Array}    [options.classes=[]]  An Array of classes to add to the list.
-   * @param {String}   [options.name=`item`] The name of each item
-   * @param {Function} [options.template]    A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
+   * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
+   * @param {Object}   [options={}]              An optional options hash
+   * @param {Array}    [options.classes=[]]      An Array of classes to add to the list.
+   * @param {String}   [options.name=`item`]     The name of each item
+   * @param {Boolean}  [options.setCurrent=true] Whether to add the `.current` class to items when clicked.
+   * @param {Function} [options.template]        A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
    */
   constructor(collection = [], {
     classes = [],
     name = `item`,
+    setCurrent = true,
     template = List.#defaultTemplate,
   } = {}) {
 
@@ -45,6 +47,7 @@ export default class List extends View {
     this.classes    = classes;
     this.collection = collection;
     this.name       = name;
+    this.setCurrent = setCurrent;
     this.template   = template;
 
   }
@@ -52,11 +55,11 @@ export default class List extends View {
   addEventListeners() {
     this.el.addEventListener(`click`, ({ target }) => {
 
-      const li = target.closest(`LI`);
+      const li = target.closest(`li`);
       const id = li?.dataset?.id;
 
       if (id) {
-        this.setCurrentItem(id);
+        if (this.setCurrent) this.setCurrentItem(id);
         this.events.emit(`change`, id);
       }
 
