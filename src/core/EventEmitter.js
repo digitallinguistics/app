@@ -46,7 +46,7 @@ export default class EventEmitter {
 
     this.events.get(eventName).add(func);
 
-    return () => this.events.get(eventName).delete(func);
+    return () => this.off(eventName, func);
 
   }
 
