@@ -50,7 +50,7 @@ describe(`EventEmitter`, function() {
 
   });
 
-  it(`once`, async function(){
+  it(`once`, async function() {
 
 
   });
