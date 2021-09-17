@@ -109,3 +109,4 @@ dist
 .idea
 *.css
 nodemon.json
+.project

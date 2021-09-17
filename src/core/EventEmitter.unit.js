@@ -11,9 +11,9 @@ chai.use(sinonChai);
 
 const { expect } = chai;
 
-describe(`EventEmitter`, () => {
+describe(`EventEmitter`, function() {
 
-  it(`emit`, async () => {
+  it(`emit`, async function() {
 
     const emitter = new EventEmitter;
     const stub    = sinon.stub();
@@ -25,7 +25,7 @@ describe(`EventEmitter`, () => {
 
   });
 
-  it(`off`, async () => {
+  it(`off`, async function() {
 
     const emitter = new EventEmitter;
     const stub    = sinon.stub();
@@ -38,7 +38,7 @@ describe(`EventEmitter`, () => {
 
   });
 
-  it(`on`, async () => {
+  it(`on`, async function() {
 
     const emitter = new EventEmitter;
     const stub = sinon.stub();
@@ -50,7 +50,12 @@ describe(`EventEmitter`, () => {
 
   });
 
-  it(`remove`, async () => {
+  it(`once`, async function(){
+
+
+  });
+
+  it(`remove`, async function() {
 
     const emitter = new EventEmitter;
     const stub    = sinon.stub();
