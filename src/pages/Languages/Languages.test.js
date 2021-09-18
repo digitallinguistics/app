@@ -7,12 +7,12 @@ describe(`Languages`, () => {
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.language-editor button`, `Add a Language`).click();
-    cy.contains(`.languages-list li`, `{ new language }`);
+    cy.contains(`.languages-nav li`, `{ new language }`);
     cy.window().then(win => {
       cy.stub(win, `prompt`).returns(`YES`);
       cy.contains(`Delete this Language`).click();
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
-      cy.get(`.languages-list .languages`).children()
+      cy.get(`.languages-nav .languages-list`).children()
       .should(`have.length`, 0);
       cy.get(`.language-editor .add-language-button`);
     });
@@ -24,7 +24,7 @@ describe(`Languages`, () => {
     cy.visit(`/`);
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
-    cy.contains(`.languages-list button`, `Add a Language`).click();
+    cy.contains(`.languages-nav button`, `Add a Language`).click();
     cy.clock();
 
     // edit the language name
@@ -35,7 +35,14 @@ describe(`Languages`, () => {
     cy.tick(delay); // wait for debounce
 
     // check that Languages List was updated
-    cy.contains(`.languages-list li`, `Chitimacha`);
+    cy.contains(`.languages-nav li`, `Chitimacha`);
+
+    // add / delete language names
+    cy.contains(`.language-editor button`, `Add a Language Name`)
+    .click()
+    .click();
+
+    cy.get(`.additional-names li:first-child button`).click();
 
     // edit the remaining data
     cy.get(`.language-editor`)
@@ -55,7 +62,7 @@ describe(`Languages`, () => {
     cy.contains(`#nav li`, `Home`).click();
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
-    cy.contains(`.languages-list li`, `Chitimacha`).click();
+    cy.contains(`.languages-nav li`, `Chitimacha`).click();
 
     cy.get(`.language-editor`)
     .within(() => {
