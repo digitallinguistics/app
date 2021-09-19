@@ -21,25 +21,17 @@ export default class List extends View {
   el;
 
   /**
-   * The templating function for rendering each item in the list. Should return a `<li>` as either an HTML string or an HTML element. Make sure the template function is bound to its original context to retain any encapsulated variables.
-   * @type {Function}
-   */
-  template = List.#defaultTemplate;
-
-  /**
    * Create a new List View
    * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
    * @param {Object}   [options={}]              An optional options hash
    * @param {Array}    [options.classes=[]]      An Array of classes to add to the list.
    * @param {String}   [options.name=`item`]     The name of each item
-   * @param {Boolean}  [options.setCurrent=true] Whether to add the `.current` class to items when clicked.
    * @param {Function} [options.template]        A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
    */
   constructor(collection = [], {
     classes = [],
     name = `item`,
-    setCurrent = true,
-    template = List.#defaultTemplate,
+    template,
   } = {}) {
 
     super();
@@ -47,30 +39,11 @@ export default class List extends View {
     this.classes    = classes;
     this.collection = collection;
     this.name       = name;
-    this.setCurrent = setCurrent;
-    this.template   = template;
+    this.template   = template ?? this.template;
 
   }
 
-  addEventListeners() {
-    this.el.addEventListener(`click`, ({ target }) => {
-
-      const li = target.closest(`li`);
-      const id = li?.dataset?.id;
-
-      if (id) {
-        if (this.setCurrent) this.setCurrentItem(id);
-        this.events.emit(`change`, id);
-      }
-
-    });
-  }
-
-  /**
-   * Renders the list and saves it to List.el
-   * @return {HTMLUListElement}
-   */
-  render(id) {
+  render() {
 
     this.el      = document.createElement(`ul`);
     this.el.view = this;
@@ -85,46 +58,12 @@ export default class List extends View {
     .map(this.template.bind(this))
     .forEach(item => this.el.appendChild(item));
 
-    if (id) this.setCurrentItem(id);
-
-    this.addEventListeners();
-
     return this.el;
 
   }
 
-  setCurrentItem(id) {
-
-    const items = Array.from(this.el.children);
-
-    if (items.length) {
-
-      //  clear the current item
-
-      for (const item of items) {
-        item.removeAttribute(`aria-current`);
-        item.classList.remove(`current`);
-      }
-
-      // set the current item
-
-      const currentItem = items.find(item => item.dataset.id === id);
-
-      currentItem.setAttribute(`aria-current`, this.name);
-      currentItem.classList.add(`current`);
-
-    }
-
+  template() {
+    return document.createElement(`li`);
   }
-
-  /**
-   * The default template to use for each item in the list
-   * @name defaultTemplate
-   * @type {Function}
-   * @memberof core#List
-   * @static
-   * @return {String}
-   */
-  static #defaultTemplate = () => document.createElement(`li`);
 
 }
