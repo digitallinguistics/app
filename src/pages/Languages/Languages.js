@@ -103,31 +103,10 @@ export default class LanguagesPage extends View {
    * @param {String} [languageCID] The client ID of the language to show as selected when the nav list renders.
    */
   renderNav(languageCID) {
+    
 
-    this.languages.sort((a, b) => compare(a.name.default, b.name.default));
+    // listView.events.on(`change`, this.renderEditor.bind(this));
 
-    const listView = new List(this.languages, {
-      classes:  [`languages-list`],
-      name:     `language`,
-      template: LanguagesPage.#navItemTemplate,
-    });
-
-    const oldList = this.el.querySelector(`.languages-nav .languages-list`);
-    const newList = listView.render(languageCID);
-
-    oldList.view?.events.stop();
-    if (!this.languages.length) newList.style.border = `none`;
-    oldList.replaceWith(newList);
-
-    listView.events.on(`change`, this.renderEditor.bind(this));
-
-  }
-
-  static #navItemTemplate({ cid, name }) {
-    const li       = document.createElement(`li`);
-    li.dataset.id  = cid;
-    li.textContent = name.default;
-    return li;
   }
 
 }
