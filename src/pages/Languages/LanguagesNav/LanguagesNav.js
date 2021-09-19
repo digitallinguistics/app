@@ -4,6 +4,8 @@ import View    from '../../../core/View.js';
 
 export default class LanguagesNav extends View {
 
+  template = document.getElementById(`languages-nav-template`);
+
   constructor(languages) {
     super();
     this.languages = languages;
@@ -16,10 +18,11 @@ export default class LanguagesNav extends View {
     const listView = new List(this.languages, {
       classes:  [`languages-list`],
       name:     `language`,
-      template: this.template,
+      template: this.itemTemplate,
     });
 
-    this.el       = document.querySelector(`.languages-nav`);
+    this.el       = this.cloneTemplate();
+    this.el.view  = this;
     const oldList = this.el.querySelector(`.languages-list`);
     const newList = listView.render(languageCID);
 
@@ -37,7 +40,7 @@ export default class LanguagesNav extends View {
   }
 
   // NOTE: Must use assignment here to override `template` property on List class.
-  template = ({ cid, name }) => {
+  itemTemplate({ cid, name }) {
     const li       = document.createElement(`li`);
     li.dataset.id  = cid;
     li.textContent = name.default;
