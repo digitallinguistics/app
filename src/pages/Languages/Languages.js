@@ -108,7 +108,13 @@ export default class LanguagesPage extends View {
     nav.events.on(`add`, this.addLanguage.bind(this));
     nav.events.on(`change`, this.renderEditor.bind(this));
 
-    return nav.render(languageCID);
+    const oldNav = this.el.querySelector(`.languages-nav`);
+    const newNav = nav.render(languageCID);
+
+    oldNav.view?.events.stop();
+    oldNav.replaceWith(newNav);
+
+    return newNav;
 
   }
 
