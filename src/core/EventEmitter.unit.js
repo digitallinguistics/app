@@ -51,7 +51,15 @@ describe(`EventEmitter`, function() {
   });
 
   it(`once`, async function() {
+    const emitter = new EventEmitter;
+    const stub = sinon.stub();
 
+    emitter.once(`test`, stub);
+    await emitter.emit(`test`);
+    expect(stub).to.have.been.calledOnce;
+
+    await emitter.emit(`test`);
+    expect(stub).to.have.been.calledOnce;
 
   });
 
