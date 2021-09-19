@@ -209,38 +209,44 @@ export default class LanguageEditor extends View {
         <span class=txn>${ name }</span>
         (${ language })
       </p>
-      <div class=text-field>
-        <label for='additional-name-name-${ i }'>Name</label>
-        <input
-          autocomplete=off
-          class=line-input
-          id='additional-name-name-${ i }'
-          inputmode=text
-          name='additional-name-name-${ i }'
-          placeholder='e.g. espagnol'
-          spellcheck=false
-          type=text
-        >
-      </div>
-      <div class=text-field>
-        <label for='additional-name-lang-${ i }'>Language</label>
-        <input
-          autocomplete=off
-          class=line-input
-          id='additional-name-lang-${ i }'
-          inputmode=text
-          name='additional-name-lang-${ i }'
-          placeholder='e.g. French'
-          spellcheck=false
-          type=text
-        >
-      </div>
       <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
         <svg><use href=#edit-line></use></svg>
       </button>
       <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
         <svg><use href=#trash ></use></svg>
       </button>
+      <fieldset>
+        <div class=text-field>
+          <label for='additional-name-name-${ i }'>Name</label>
+          <input
+            autocomplete=off
+            class='line-input txn'
+            id='additional-name-name-${ i }'
+            inputmode=text
+            name='additional-name-name-${ i }'
+            placeholder='e.g. espagnol'
+            spellcheck=false
+            type=text
+          >
+        </div>
+        <div class=text-field>
+          <label for='additional-name-lang-${ i }'>Language</label>
+          <input
+            autocomplete=off
+            class=line-input
+            id='additional-name-lang-${ i }'
+            inputmode=text
+            name='additional-name-lang-${ i }'
+            placeholder='e.g. French'
+            spellcheck=false
+            type=text
+          >
+        </div>
+        <div class=buttons>
+          <button class='button' type=button>Cancel</button>
+          <button class='button blue' type=button>Save</button>
+        </div>
+      </fieldset>
     </li>`);
   }
 

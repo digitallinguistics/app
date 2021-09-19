@@ -14,14 +14,31 @@
 
   .additional-names {
 
+    fieldset {
+      flex-flow:       row nowrap;
+      inline-size:     100%;
+      justify-content: space-between;
+    }
+
     li {
       align-items:     center;
-      flex-direction:  row;
+      flex-flow:       row wrap;
       justify-content: space-between;
     }
 
     p {
       margin-inline-end: auto;
+    }
+
+  }
+
+  .buttons {
+
+    align-items: center;
+    flex-flow:   row nowrap;
+
+    button {
+      margin: var(--space-xxxs);
     }
 
   }
