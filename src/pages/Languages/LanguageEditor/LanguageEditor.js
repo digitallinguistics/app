@@ -62,10 +62,17 @@ export default class LanguageEditor extends View {
 
   }
 
-  handleNamesUpdate(ev) {
-    if (!ev.target.matches(`button`)) return;
-    const i = Number(ev.target.closest(`li`).dataset.id);
-    return this.deleteName(i);
+  handleNamesUpdate({ target }) {
+
+    if (!target.matches(`button`)) return;
+
+    if (target.classList.contains(`js-delete-button`)) {
+      const i = Number(target.closest(`li`).dataset.id);
+      return this.deleteName(i);
+    }
+
+    if (target.classList.contains(`js-edit-button`)) {}
+
   }
 
   // Rendering Methods
@@ -202,10 +209,10 @@ export default class LanguageEditor extends View {
         <span class=txn>${ name }</span>
         (${ language })
       </p>
-        <button aria-label='Edit this Language Name' class='button transparent' type=button>
+        <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
           <svg><use href=#edit-line></use></svg>
         </button>
-        <button aria-label='Delete this Language Name' class='button transparent' type=button>
+        <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
           <svg><use href=#trash ></use></svg>
         </button>
     </li>`);
