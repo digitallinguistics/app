@@ -10,7 +10,8 @@ export default class LanguageEditor extends View {
 
   constructor(language) {
     super();
-    this.language = language;
+    this.language     = language;
+    this.abbreviation = this.language.abbreviation;
   }
 
   addEventListeners() {
@@ -88,8 +89,7 @@ export default class LanguageEditor extends View {
     this.renderAutonym();
     this.renderAdditionalNames();
 
-    this.el.querySelector(`input[name=abbreviation]`).value = this.language.abbreviation ?? ``;
-
+    this.bind();
     this.addEventListeners();
 
     return this.el;
@@ -99,6 +99,8 @@ export default class LanguageEditor extends View {
   renderAdditionalNames() {
 
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
+
+    const itemTemplate = document.getElementById(`additional-name-template`);
 
     const listView = new List(this.language.additionalNames, {
       classes:    [`names-list`],
@@ -204,7 +206,7 @@ export default class LanguageEditor extends View {
   </section>`;
 
   static #nameTemplate({ language, name }, i) {
-    return html2element(`<li data-id=${ i }>
+    return html2element(`<li class=additional-name data-id=${ i }>
       <p>
         <span class=txn>${ name }</span>
         (${ language })
