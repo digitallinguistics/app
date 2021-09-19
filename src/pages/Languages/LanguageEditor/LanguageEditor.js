@@ -89,7 +89,7 @@ export default class LanguageEditor extends View {
     this.renderAutonym();
     this.renderAdditionalNames();
 
-    this.bind();
+    this.hydrate();
     this.addEventListeners();
 
     return this.el;

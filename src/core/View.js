@@ -34,7 +34,7 @@ export default class View {
   /**
    * Within the DOM tree for this view, sets the attributes for any elements with a `data-bind` attribute on them. The value of the `data-bind` attribute should be `{attr}:{prop}`, where `attr` is the name of the attribute to set on the element, and `prop` is the property on the view that contains the value to use for the attribute. Multiple `data-bind` directives may be separated by semicolons.
    */
-  bind() {
+  hydrate() {
     for (const el of this.el.querySelectorAll(`[data-bind]`)) {
       const attributes = el.dataset.bind.split(/\s*;\s*/u).filter(Boolean);
       for (const attribute of attributes) {

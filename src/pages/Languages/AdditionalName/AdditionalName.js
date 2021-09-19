@@ -26,7 +26,7 @@ export default class AdditionalName extends View {
     this.el.querySelector(`.js-preview`)
     .innerHTML = `<span class=txn>${ this.name }</span> (${ this.language })`;
 
-    this.bind();
+    this.hydrate();
 
     return this.el;
 
