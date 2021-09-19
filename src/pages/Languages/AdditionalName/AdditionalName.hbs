@@ -6,7 +6,7 @@
   <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
     <svg><use href=#trash></use></svg>
   </button>
-  <fieldset>
+  <fieldset class='js-editor' hidden>
     <div class=text-field>
       <label data-bind=for:nameID>Name</label>
       <input
@@ -32,8 +32,8 @@
       >
     </div>
     <div class=buttons>
-      <button class='button' type=button>Cancel</button>
-      <button class='button blue' type=button>Save</button>
+      <button class='button js-cancel-button' type=button>Cancel</button>
+      <button class='button blue js-save-button' type=button>Save</button>
     </div>
   </fieldset>
 </li>

@@ -1,4 +1,5 @@
 import './AdditionalName.css';
+import html2element from '../../../utilities/html2element';
 import Name from './AdditionalName.js';
 
 export default {
@@ -7,11 +8,16 @@ export default {
 
 export const AdditionalName = () => {
 
+  const ul = html2element(`<ul class=list></ul>`);
+
   const nameView = new Name({
     language: `French`,
     name:     `espagnol`,
   }, 1);
 
-  return nameView.render();
+  const el = nameView.render();
+  
+  ul.appendChild(el);
+  return ul;
 
 };

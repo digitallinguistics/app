@@ -17,6 +17,19 @@ export default class AdditionalName extends View {
 
   }
 
+  addEventListeners() {
+    this.el.addEventListener(`click`, ({ target }) => {
+
+      if (target.classList.contains(`js-edit-button`)) return this.showEditor();
+      if (target.classList.contains(`js-cancel-button`)) return this.hideEditor();
+
+    });
+  }
+
+  hideEditor() {
+    this.el.querySelector(`.js-editor`).hidden = true;
+  }
+
   render() {
 
     this.el            = this.cloneTemplate();
@@ -27,9 +40,14 @@ export default class AdditionalName extends View {
     .innerHTML = `<span class=txn>${ this.name }</span> (${ this.language })`;
 
     this.hydrate();
+    this.addEventListeners();
 
     return this.el;
 
+  }
+
+  showEditor() {
+    this.el.querySelector(`.js-editor`).hidden = false;
   }
 
 }
