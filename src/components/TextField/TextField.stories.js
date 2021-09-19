@@ -5,7 +5,7 @@ export default {
 };
 
 export const Valid = () => `<div class=text-field>
-  <label class=label for=abbreviation>Abbreviation</label>
+  <label for=abbreviation>Abbreviation</label>
   <div>
     <input
       autocomplete=off
@@ -22,7 +22,7 @@ export const Valid = () => `<div class=text-field>
 </div>`;
 
 export const Invalid = () => `<div class=text-field>
-  <label class=label for=abbreviation>Abbreviation</label>
+  <label for=abbreviation>Abbreviation</label>
   <div>
     <input
       autocomplete=off

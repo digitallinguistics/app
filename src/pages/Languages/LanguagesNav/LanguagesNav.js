@@ -1,5 +1,5 @@
 import compare from '../../../utilities/compare.js';
-import List    from '../../../components/List/List.js';
+import NavList from '../../../components/NavList/NavList.js';
 import View    from '../../../core/View.js';
 
 export default class LanguagesNav extends View {
@@ -15,7 +15,7 @@ export default class LanguagesNav extends View {
 
     this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
-    const listView = new List(this.languages, {
+    const listView = new NavList(this.languages, {
       classes:  [`languages-list`],
       name:     `language`,
       template: this.itemTemplate,
