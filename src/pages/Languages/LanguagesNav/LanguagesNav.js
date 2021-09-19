@@ -27,7 +27,10 @@ export default class LanguagesNav extends View {
     if (!this.languages.length) newList.style.border = `none`;
     oldList.replaceWith(newList);
 
-    listView.events.on(`change`, languageCID => this.events.emit(`change`, languageCID));
+    listView.events.on(`change`, cid => this.events.emit(`change`, cid));
+
+    this.el.querySelector(`.add-language-button`)
+    .addEventListener(`click`, () => this.events.emit(`add`));
 
     return this.el;
 

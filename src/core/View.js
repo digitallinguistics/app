@@ -32,6 +32,14 @@ export default class View {
   addEventListeners() { /* no-op */ }
 
   /**
+   * Clones the content of the `<template>` tag stored in the `template` property and returns it.
+   * @returns {HTMLElement}
+   */
+  cloneTemplate() {
+    return this.template.content.cloneNode(true).firstElementChild;
+  }
+
+  /**
    * Within the DOM tree for this view, sets the attributes for any elements with a `data-bind` attribute on them. The value of the `data-bind` attribute should be `{attr}:{prop}`, where `attr` is the name of the attribute to set on the element, and `prop` is the property on the view that contains the value to use for the attribute. Multiple `data-bind` directives may be separated by semicolons.
    */
   hydrate() {
@@ -42,14 +50,6 @@ export default class View {
         if (typeof this[prop] !== `undefined`) el.setAttribute(attr, this[prop]);
       }
     }
-  }
-
-  /**
-   * Clones the content of the `<template>` tag stored in the `template` property and returns it.
-   * @returns {HTMLElement}
-   */
-  cloneTemplate() {
-    return this.template.content.cloneNode(true).firstElementChild;
   }
 
   /**

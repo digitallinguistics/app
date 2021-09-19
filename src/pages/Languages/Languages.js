@@ -1,7 +1,6 @@
-import compare        from '../../utilities/compare.js';
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
-import List           from '../../components/List/List.js';
+import LanguagesNav   from './LanguagesNav/LanguagesNav.js';
 import View           from '../../core/View.js';
 
 export default class LanguagesPage extends View {
@@ -103,9 +102,13 @@ export default class LanguagesPage extends View {
    * @param {String} [languageCID] The client ID of the language to show as selected when the nav list renders.
    */
   renderNav(languageCID) {
-    
 
-    // listView.events.on(`change`, this.renderEditor.bind(this));
+    const nav = new LanguagesNav(this.languages);
+
+    nav.events.on(`add`, this.addLanguage.bind(this));
+    nav.events.on(`change`, this.renderEditor.bind(this));
+
+    return nav.render(languageCID);
 
   }
 
