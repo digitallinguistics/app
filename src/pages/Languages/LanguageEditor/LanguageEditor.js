@@ -1,6 +1,6 @@
+import AdditionalName        from '../AdditionalName/AdditionalName.js';
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
-import html2element          from '../../../utilities/html2element.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
@@ -64,16 +64,10 @@ export default class LanguageEditor extends View {
   }
 
   handleNamesUpdate({ target }) {
-
-    if (!target.matches(`button`)) return;
-
     if (target.classList.contains(`js-delete-button`)) {
       const i = Number(target.closest(`li`).dataset.id);
       return this.deleteName(i);
     }
-
-    if (target.classList.contains(`js-edit-button`)) {}
-
   }
 
   // Rendering Methods
@@ -84,28 +78,32 @@ export default class LanguageEditor extends View {
     this.el                  = this.cloneTemplate();
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
+    
+    this.hydrate(); // must precede other rendering methods
 
     this.renderName();
     this.renderAutonym();
     this.renderAdditionalNames();
 
-    this.hydrate();
     this.addEventListeners();
 
     return this.el;
 
   }
 
+  renderAdditionalName(name, index) {
+    const nameView = new AdditionalName(name, index);
+    return nameView.render();
+  }
+
   renderAdditionalNames() {
 
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
-    const itemTemplate = document.getElementById(`additional-name-template`);
-
     const listView = new List(this.language.additionalNames, {
       classes:    [`names-list`],
       setCurrent: false,
-      template:   LanguageEditor.#nameTemplate,
+      template:   this.renderAdditionalName,
     });
 
     const oldList = this.el.querySelector(`.additional-names .names-list`);
@@ -130,14 +128,6 @@ export default class LanguageEditor extends View {
 
     autonymField.appendChild(txnEditor.render());
 
-  }
-
-  renderBlank() {
-    this.el      = View.fromHTML(LanguageEditor.#blankTemplate);
-    this.el.view = this;
-    this.el.querySelector(`.add-language-button`)
-    .addEventListener(`click`, () => this.events.emit(`add`));
-    return this.el;
   }
 
   renderName() {
@@ -197,59 +187,6 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.splice(i, 1);
     await this.save();
     this.renderAdditionalNames();
-  }
-
-  // Static Properties
-
-  static #blankTemplate = `<section class=language-editor>
-    <button class='add-language-button button green' type=button>Add a Language</button>
-  </section>`;
-
-  static #nameTemplate({ language, name }, i) {
-    return html2element(`<li class=additional-name data-id=${ i }>
-      <p>
-        <span class=txn>${ name }</span>
-        (${ language })
-      </p>
-      <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
-        <svg><use href=#edit-line></use></svg>
-      </button>
-      <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
-        <svg><use href=#trash ></use></svg>
-      </button>
-      <fieldset>
-        <div class=text-field>
-          <label for='additional-name-name-${ i }'>Name</label>
-          <input
-            autocomplete=off
-            class='line-input txn'
-            id='additional-name-name-${ i }'
-            inputmode=text
-            name='additional-name-name-${ i }'
-            placeholder='e.g. espagnol'
-            spellcheck=false
-            type=text
-          >
-        </div>
-        <div class=text-field>
-          <label for='additional-name-lang-${ i }'>Language</label>
-          <input
-            autocomplete=off
-            class=line-input
-            id='additional-name-lang-${ i }'
-            inputmode=text
-            name='additional-name-lang-${ i }'
-            placeholder='e.g. French'
-            spellcheck=false
-            type=text
-          >
-        </div>
-        <div class=buttons>
-          <button class='button' type=button>Cancel</button>
-          <button class='button blue' type=button>Save</button>
-        </div>
-      </fieldset>
-    </li>`);
   }
 
 }

@@ -33,8 +33,8 @@ export default class LanguagesPage extends View {
     language = await app.db.languages.add(language);
     this.languages.push(language);
     app.settings.language = language.cid;
-    await this.renderNav(language.cid);
-    await this.renderEditor(language.cid);
+    this.renderNav(language.cid);
+    this.renderEditor(language.cid);
   }
 
   async deleteLanguage(languageCID) {
@@ -81,17 +81,20 @@ export default class LanguagesPage extends View {
 
     const language = this.languages.find(lang => lang.cid === languageCID);
 
-    if (!language) app.settings.language = null;
+    if (!language) {
+      app.settings.language = null;
+      return this.renderBlankEditor();
+    }
 
-    const editor    = new LanguageEditor(language);
-    const newEditor = language ? editor.render() : editor.renderBlank();
-    const oldEditor = this.el.querySelector(`.language-editor`);
+    const editorView = new LanguageEditor(language);
+    const newEditor  = editorView.render();
+    const oldEditor  = this.el.querySelector(`.language-editor`);
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
-    editor.events.once(`add`, this.addLanguage.bind(this));
-    editor.events.once(`delete`, this.deleteLanguage.bind(this));
-    editor.events.on(`update:name`, this.renderNav.bind(this));
+    editorView.events.once(`add`, this.addLanguage.bind(this));
+    editorView.events.once(`delete`, this.deleteLanguage.bind(this));
+    editorView.events.on(`update:name`, this.renderNav.bind(this));
 
   }
 
