@@ -4,4 +4,4 @@ export default {
   title: `Components/Required`,
 };
 
-export const Required = () => `<legend class=legend><required>Required legend</required></legend>`;
+export const Required = () => `<label><required>Required legend</required></label>`;
