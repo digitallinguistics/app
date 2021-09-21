@@ -19,15 +19,15 @@ export default class AdditionalName extends View {
 
   addEventListeners() {
     this.el.addEventListener(`click`, ({ target }) => {
-
-      if (target.classList.contains(`js-edit-button`)) return this.showEditor();
       if (target.classList.contains(`js-cancel-button`)) return this.hideEditor();
-
+      if (target.classList.contains(`js-edit-button`)) return this.showEditor();
+      if (target.classList.contains(`js-save-button`)) return this.hideEditor();
     });
   }
 
   hideEditor() {
-    this.el.querySelector(`.js-editor`).hidden = true;
+    this.el.querySelector(`.js-editor`).hidden      = true;
+    this.el.querySelector(`.js-edit-button`).hidden = false;
   }
 
   render() {
@@ -47,7 +47,8 @@ export default class AdditionalName extends View {
   }
 
   showEditor() {
-    this.el.querySelector(`.js-editor`).hidden = false;
+    this.el.querySelector(`.js-editor`).hidden      = false;
+    this.el.querySelector(`.js-edit-button`).hidden = true;
   }
 
 }
