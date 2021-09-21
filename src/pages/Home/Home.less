@@ -1,6 +1,7 @@
-@import 'Link/Link.less';
-
-.link { .link; }
+// Shared Components
+@import 'Header/Header';
+@import 'Link/Link';
+@import 'PageTitle/PageTitle';
 
 .home-page {
 
@@ -8,20 +9,8 @@
   margin-inline-end:   auto;
   max-width:           var(--measure);
 
-  h1 {
-    font-size:  xx-large;
-    padding:    var(--text-padding);
-    text-align: center;
-  }
-
   p {
     padding: var(--text-padding);
-  }
-
-  p:first-of-type {
-    font-size:  large;
-    padding:    var(--text-padding);
-    text-align: center;
   }
 
 }

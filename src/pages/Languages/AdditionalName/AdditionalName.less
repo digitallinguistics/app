@@ -1,0 +1,59 @@
+@import (reference) 'variables';
+
+@component-breakpoint: 75em;
+
+.additional-name {
+
+  align-items:     center;
+  flex-flow:       row wrap;
+  justify-content: space-between;
+
+  .buttons {
+
+    align-items: center;
+    flex-flow:   row nowrap;
+
+    button {
+      margin: var(--space-xxxs);
+    }
+
+  }
+
+  fieldset {
+
+    flex-wrap:       nowrap;
+    inline-size:     100%;
+    justify-content: space-between;
+
+    // small screens
+    @media (max-width: @component-breakpoint) {
+      flex-direction: column;
+    }
+
+    // large screens
+    @media (min-width: @component-breakpoint) {
+      flex-direction: row;
+    }
+  
+  }
+
+  label {
+    // small screens
+    @media (max-width: @component-breakpoint) {
+      inline-size: 4.5em;
+    }
+  }
+
+  .line-input {
+    inline-size: 15rem;
+  }
+
+  p {
+    margin-inline-end: auto;
+  }
+
+  p + button {
+    margin-inline-start: var(--space);
+  }
+
+}

@@ -2,21 +2,22 @@
   <form>
 
     <fieldset class='fieldset name'>
-      <legend>Language Name</legend>
+      <legend class=legend>Language Name</legend>
       <p class=help-text>The canonical / scientific name for this language variety.</p>
     </fieldset>
 
-    <fieldset class='fieldset autonym'>
-      <legend>Autonym (Endonym)</legend>
+    <fieldset class='autonym fieldset'>
+      <legend class=legend>Autonym (Endonym)</legend>
       <p class=help-text>The name of this language in the language itself.</p>
     </fieldset>
 
     <div class='abbreviation text-field'>
-      <label class=label for=abbreviation>Abbreviation</label>
+      <label class=legend for=abbreviation>Abbreviation</label>
       <div>
         <input
           autocomplete=off
           class=line-input
+          data-bind=value:abbreviation
           id=abbreviation
           inputmode=text
           name=abbreviation
@@ -29,7 +30,16 @@
       </div>
     </div>
 
-    <button class=delete-language-button type=button>Delete this Language</button>
+    <fieldset class='additional-names fieldset'>
+      <legend class=legend>Additional Names</legend>
+      <header>
+        <p class=help-text>Additional names for this language.</p>
+        <button class='button add-name-button green' type=button>Add a Language Name</button>
+      </header>
+      <ul class=names-list></ul>
+    </fieldset>
+
+    <button class='button delete-language-button red' type=button>Delete this Language</button>
 
   </form>
 </section>

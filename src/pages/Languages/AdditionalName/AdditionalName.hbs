@@ -1,0 +1,39 @@
+<li class=additional-name>
+  <p class=js-preview></p>
+  <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
+    <svg><use href=#edit-line></use></svg>
+  </button>
+  <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
+    <svg><use href=#trash></use></svg>
+  </button>
+  <fieldset class='js-editor' hidden>
+    <div class=text-field>
+      <label data-bind=for:nameID>Name</label>
+      <input
+          autocomplete=off
+          class='js-name-input line-input txn'
+          data-bind=id:nameID;value:name
+          inputmode=text
+          placeholder='e.g. espagnol'
+          spellcheck=false
+          type=text
+      >
+    </div>
+    <div class=text-field>
+      <label data-bind=for:langID>Language</label>
+      <input
+          autocomplete=off
+          class='js-lang-input line-input'
+          data-bind=id:langID;value:language
+          inputmode=text
+          placeholder='e.g. French'
+          spellcheck=false
+          type=text
+      >
+    </div>
+    <div class=buttons>
+      <button class='button js-cancel-button' type=button>Cancel</button>
+      <button class='button blue js-save-button' type=button>Save</button>
+    </div>
+  </fieldset>
+</li>

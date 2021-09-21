@@ -1,13 +1,12 @@
-@import (reference) 'HelpText/HelpText';
-@import (reference) 'LineInput/LineInput';
-
 .text-field {
 
   --display-color: var(--blue);
 
-  align-items: baseline;
-  display:     flex;
-  flex-flow:   row wrap;
+  align-content:     flex-end;
+  align-items:       baseline;
+  display:           flex;
+  flex-flow:         row wrap;
+  padding-block-end: var(--space-xs);
 
   div {
     align-items:    flex-start;
@@ -16,14 +15,11 @@
   }
 
   .help-text {
-    .help-text;
     padding:       var(--text-padding);
     margin-inline: var(--space-xxxs);
   }
 
   input {
-
-    .line-input;
 
     margin: 0 var(--space-xs);
 

@@ -29,6 +29,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 - [Images](#images)
 - [Offline Functionality](#offline-functionality)
 - [Styleguides](#styleguides)
+- [Design Guidelines](#design-guidelines)
 - [Inspiration](#inspiration)
 
 <!-- /TOC -->
@@ -186,9 +187,12 @@ JavaScript and CSS / SCSS code should be linted before opening a pull request.
 
 JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
 
-## Design Guidelines
+## Accessibility
 
-* Constructors and methods should be handed their data whenever possible, so as to lesson dependencies and decreasing coupling between components and/or methods, making them closer to pure functions.
+Some great resources on creating accessible components:
+
+* [Inclusive Components](https://inclusive-components.design/)
+* [A complete guide to accessible front-end components](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/)
 
 ## Inspiration
 
@@ -197,7 +201,6 @@ Other single-page apps or tools this project sometimes mimics:
 * [FLEx]
 * GitHub (web)
 * GitHub (desktop)
-* [Mandala]
 * [Microsoft Todo][MSTodo] (web)
 * [SayMore]
 * Slack (desktop)

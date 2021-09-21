@@ -1,4 +1,7 @@
+import AdditionalName        from '../AdditionalName/AdditionalName.js';
+import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
+import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
@@ -7,15 +10,19 @@ export default class LanguageEditor extends View {
 
   constructor(language) {
     super();
-    this.language = language;
+    this.language     = language;
+    this.abbreviation = this.language.abbreviation;
   }
 
   addEventListeners() {
 
     const delay = 500;
 
-    this.el.addEventListener(`change`, debounce(this.handleUpdate.bind(this), delay));
-    this.el.addEventListener(`input`, debounce(this.handleUpdate.bind(this), delay));
+    this.el.addEventListener(`change`, debounce(this.handleFormUpdate.bind(this), delay));
+    this.el.addEventListener(`input`, debounce(this.handleFormUpdate.bind(this), delay));
+
+    this.el.querySelector(`.add-name-button`)
+    .addEventListener(`click`, this.addName.bind(this));
 
     this.el.querySelector(`.delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
@@ -36,7 +43,13 @@ export default class LanguageEditor extends View {
 
   }
 
-  handleUpdate(ev) {
+  save() {
+    return app.db.languages.put(this.language);
+  }
+
+  // Handlers
+
+  handleFormUpdate(ev) {
 
     ev.preventDefault(); // prevent form from submitting data to the server
 
@@ -50,21 +63,61 @@ export default class LanguageEditor extends View {
 
   }
 
+  handleNamesUpdate({ target }) {
+
+    if (target.classList.contains(`js-delete-button`)) {
+      const i = Number(target.closest(`li`).dataset.id);
+      return this.deleteName(i);
+    }
+
+    if (target.classList.contains(`js-save-button`)) {
+      return this.updateAdditionalNames();
+    }
+  
+  }
+
+  // Rendering Methods
+
   render() {
 
     this.template            = document.getElementById(`language-editor-template`);
     this.el                  = this.cloneTemplate();
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
+    
+    this.hydrate(); // must precede other rendering methods
 
     this.renderName();
     this.renderAutonym();
-
-    this.el.querySelector(`input[name=abbreviation]`).value = this.language.abbreviation ?? ``;
+    this.renderAdditionalNames();
 
     this.addEventListeners();
 
     return this.el;
+
+  }
+
+  renderAdditionalName(name, index) {
+    const nameView = new AdditionalName(name, index);
+    return nameView.render();
+  }
+
+  renderAdditionalNames() {
+
+    this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
+
+    const listView = new List(this.language.additionalNames, {
+      classes:  [`names-list`],
+      template: this.renderAdditionalName,
+    });
+
+    const oldList = this.el.querySelector(`.additional-names .names-list`);
+    const newList = listView.render();
+
+    if (!this.language.additionalNames.length) newList.style.border = `none`;
+    oldList.replaceWith(newList);
+
+    newList.addEventListener(`click`, this.handleNamesUpdate.bind(this));
 
   }
 
@@ -82,14 +135,6 @@ export default class LanguageEditor extends View {
 
   }
 
-  renderBlank() {
-    this.el      = View.fromHTML(LanguageEditor.blankTemplate);
-    this.el.view = this;
-    this.el.querySelector(`.add-language-button`)
-    .addEventListener(`click`, () => this.events.emit(`add`));
-    return this.el;
-  }
-
   renderName() {
 
     const nameField = this.el.querySelector(`.name`);
@@ -104,14 +149,31 @@ export default class LanguageEditor extends View {
 
   }
 
-  save() {
-    return app.db.languages.put(this.language);
+  // Update Methods
+
+  updateAdditionalNames() {
+
+    const listItems = this.el.querySelectorAll(`.additional-names li`);
+    const names     = [];
+
+    for (const li of listItems) {
+      
+      const name     = li.querySelector(`.js-name-input`).value;
+      const language = li.querySelector(`.js-lang-input`).value;
+
+      names.push({ language, name });
+
+    }
+
+    this.language.additionalNames = names;
+    return this.save();
+
   }
 
-  async updateAutonym(name, value) {
+  updateAutonym(name, value) {
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
     this.language.autonym.set(abbr, value);
-    await this.save();
+    return this.save();
   }
 
   async updateName(name, value) {
@@ -129,13 +191,33 @@ export default class LanguageEditor extends View {
 
   }
 
-  async updateProperty(name, value) {
+  updateProperty(name, value) {
     this.language[name] = value;
-    await this.save();
+    return this.save();
   }
 
-  static blankTemplate = `<section class=language-editor>
-    <button class=add-language-button type=button>Add a Language</button>
-  </section>`;
+  // Additional Names
+
+  async addName() {
+
+    this.language.additionalNames.push({
+      language: ``,
+      name:     ``,
+    });
+    
+    await this.save();
+    this.renderAdditionalNames();
+    
+    const nameView = this.el.querySelector(`.additional-names .names-list li:first-child`).view;
+
+    nameView.showEditor();
+
+  }
+
+  async deleteName(i) {
+    this.language.additionalNames.splice(i, 1);
+    await this.save();
+    this.renderAdditionalNames();
+  }
 
 }

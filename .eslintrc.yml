@@ -20,7 +20,7 @@ rules:
   accessor-pairs: warn
   array-callback-return: warn
   block-scoped-var: warn
-  class-methods-use-this: warn
+  class-methods-use-this: off
   default-case: warn
   default-case-last: warn
   default-param-last: warn
@@ -31,7 +31,7 @@ rules:
     - warn
     - 3
   max-params: warn
-  max-statements: warn
+  max-statements: off
   max-statements-per-line:
     - warn
     - max: 2
