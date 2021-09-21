@@ -74,7 +74,7 @@ describe(`Languages`, () => {
       .click();
 
       cy.get(`.js-name-input`)
-      .type(`espagnol`);
+      .type(`Shetimachas`);
 
       cy.get(`.js-lang-input`)
       .type(`French`);
@@ -83,8 +83,6 @@ describe(`Languages`, () => {
       .click();
     
     });
-
-    cy.pause();
 
     // edit the remaining data
     cy.get(`.language-editor`)
@@ -117,6 +115,8 @@ describe(`Languages`, () => {
 
       cy.get(`input[name=abbreviation]`)
       .should(`have.value`, `chiti`);
+
+      cy.contains(`.additional-names`, `Shetimachas (French)`);
 
     });
 
