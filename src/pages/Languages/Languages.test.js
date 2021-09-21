@@ -64,15 +64,6 @@ describe(`Languages`, () => {
     cy.get(`.additional-names`)
     .within(() => {
 
-      cy.contains(`button`, `Cancel`)
-      .click();
-
-      cy.get(`.js-name-input`)
-      .should(`not.be.visible`);
-
-      cy.get(`.js-edit-button`)
-      .click();
-
       cy.get(`.js-name-input`)
       .type(`Shetimachas`);
 
@@ -93,10 +84,10 @@ describe(`Languages`, () => {
 
       cy.get(`input[name=abbreviation]`)
       .type(`chiti`);
-
-      cy.tick(delay); // wait for debounce
-
+      
     });
+    
+    cy.tick(delay); // wait for debounce
 
     // switch page and back to check that the changes were saved
     cy.contains(`#nav li`, `Home`).click();
