@@ -1,10 +1,26 @@
+// Globals
 @import (reference) 'variables';
+
+// Shared Components
+@import 'Button/Button';
+@import 'Fieldset/Fieldset';
+@import 'Header/Header';
+@import 'HelpText/HelpText';
+@import 'Label/Label';
+@import 'Legend/Legend';
+@import 'LineInput/LineInput';
+@import 'List/List';
+@import 'NavList/NavList';
+@import 'TextField/TextField';
+@import 'Transcription/Transcription';
+@import 'TranscriptionGroup/TranscriptionGroup';
+
+// Page Components
+@import 'Languages/AdditionalName/AdditionalName';
 @import 'Languages/LanguageEditor/LanguageEditor';
-@import 'Languages/LanguagesList/LanguagesList';
+@import 'Languages/LanguagesNav/LanguagesNav';
 
 .languages-page {
-
-  justify-content: center;
 
   // small screens
   @media (max-width: @breakpoint) {

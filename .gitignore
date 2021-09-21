@@ -103,9 +103,11 @@ dist
 # TernJS port file
 .tern-port
 
-/dist
-/docs
+
 .eslintrc.js
 .idea
+.vscode
 *.css
+/dist
+/docs
 nodemon.json

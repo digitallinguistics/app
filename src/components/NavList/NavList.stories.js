@@ -1,8 +1,8 @@
-import './List.css';
-import ListView from './List.js';
+import './NavList.css';
+import NavListView from './NavList.js';
 
 export default {
-  title: `Components/List`,
+  title: `Components/Nav List`,
 };
 
 const items = [
@@ -18,7 +18,7 @@ const template = (item, i) => {
   return li;
 };
 
-export const List = () => {
-  const listView = new ListView(items, { template });
-  return listView.render();
+export const NavList = () => {
+  const listView = new NavListView(items, { template });
+  return listView.render(`1`);
 };

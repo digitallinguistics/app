@@ -5,6 +5,7 @@ export default {
 };
 
 export const LineInput = () => `<input
+  autocomplete=off
   class=line-input
   id=abbreviation
   inputmode=text

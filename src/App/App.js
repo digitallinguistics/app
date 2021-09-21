@@ -4,7 +4,6 @@
 
 import Database     from '../services/Database.js';
 import EventEmitter from '../core/EventEmitter.js';
-import Language     from '../models/Language.js';
 import Nav          from './Nav/Nav.js';
 import Settings     from '../core/Settings.js';
 import View         from '../core/View.js';

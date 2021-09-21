@@ -1,5 +1,4 @@
 import './HelpText.css';
-import '../Link/Link.css';
 
 export default {
   title: `Components/Help Text`,

@@ -33,7 +33,7 @@ export default class TranscriptionEditor extends View {
 
   render() {
 
-    this.el      = View.fromHTML(`<div class = 'txn-editor txn-group'></div>`);
+    this.el      = View.fromHTML(`<fieldset class=txn-editor><div class=txn-group></div></fieldset>`);
     this.el.view = this;
 
     for (const cssClass of this.classes) {
@@ -45,10 +45,11 @@ export default class TranscriptionEditor extends View {
     for (const [ortho, text] of transcriptions) {
 
       const id    = `${ this.prefix }-${ ortho }`;
-      const label = View.fromHTML(`<label for='${ id }'>${ ortho }</label>`);
+      const label = View.fromHTML(`<label class=label for='${ id }'>${ ortho }</label>`);
 
       const input = View.fromHTML(`<input
         autocomplete=off
+        class='line-input txn'
         data-ortho='${ ortho }'
         id='${ id }'
         inputmode=text
@@ -60,8 +61,10 @@ export default class TranscriptionEditor extends View {
         value='${ text }'
       >`);
 
-      this.el.appendChild(label);
-      this.el.appendChild(input);
+      const div = this.el.querySelector(`div`);
+
+      div.appendChild(label);
+      div.appendChild(input);
 
     }
 
