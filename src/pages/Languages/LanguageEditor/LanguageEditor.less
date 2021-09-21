@@ -1,40 +1,44 @@
-@import (reference) 'Button/Button';
-@import (reference) 'Fieldset/Fieldset';
-@import (reference) 'TextField/TextField';
-@import (reference) 'TranscriptionGroup/TranscriptionGroup';
-
 .language-editor {
 
-  flex-grow: 1;
-  max-width: var(--measure);
-  padding:   var(--space);
+  flex-grow:     1;
+  margin-inline: auto;
+  max-width:     var(--measure);
+  padding:       var(--space);
 
   .add-language-button {
-    .button;
-    .green;
     margin: auto;
   }
 
-  button {
-    margin-block: var(--space);
+  .add-name-button {
+    margin-block:        var(--space-sm);
+    margin-inline-start: var(--space);
+  }
+
+  .additional-names {
+
+    align-items: stretch;
+
+    header {
+      flex-direction:  row;
+      flex-wrap:       nowrap;
+      justify-content: space-between;
+    }
+
   }
 
   .delete-language-button {
-    .button;
-    .red;
-    align-self: flex-end;
+    align-self:   flex-end;
+    margin-block: var(--space);
   }
 
   .fieldset {
-    .fieldset;
     margin-block: var(--space-xs);
   }
 
   .text-field {
-    .text-field;
-    .label { width: 7.5em; }
+    .label {
+      width: 7.5em;
+    }
   }
-
-  .txn-group { .txn-group; }
 
 }

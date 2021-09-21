@@ -65,4 +65,28 @@
 
   }
 
+  &.transparent {
+
+    background-color: transparent;
+    color:            currentColor;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      box-shadow:       0px 0px 2px black;
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.2);
+      box-shadow:       inset 0px 1px 2px black;
+    }
+
+  }
+
+  svg {
+    height:         1em;
+    pointer-events: none;
+    vertical-align: middle;
+    width:          1em;
+  }
+
 }

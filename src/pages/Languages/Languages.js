@@ -1,7 +1,6 @@
-import compare        from '../../utilities/compare.js';
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
-import LanguagesList  from './LanguagesList/LanguagesList.js';
+import LanguagesNav   from './LanguagesNav/LanguagesNav.js';
 import View           from '../../core/View.js';
 
 export default class LanguagesPage extends View {
@@ -21,6 +20,11 @@ export default class LanguagesPage extends View {
     this.languages = languages;
   }
 
+  addEventListeners() {
+    this.el.querySelector(`.languages-nav .add-language-button`)
+    .addEventListener(`click`, this.addLanguage.bind(this));
+  }
+
   async addLanguage() {
     let language = new Language;
     language.autonym.set(`default`, ``);
@@ -28,8 +32,8 @@ export default class LanguagesPage extends View {
     language = await app.db.languages.add(language);
     this.languages.push(language);
     app.settings.language = language.cid;
-    await this.renderList(language.cid);
-    await this.renderEditor(language.cid);
+    this.renderNav(language.cid);
+    this.renderEditor(language.cid);
   }
 
   async deleteLanguage(languageCID) {
@@ -39,7 +43,7 @@ export default class LanguagesPage extends View {
     app.settings.language = null;
     const i = this.languages.findIndex(lang => lang.cid === languageCID);
     this.languages.splice(i, 1);
-    this.renderList();
+    this.renderNav();
     this.renderEditor();
   }
 
@@ -51,16 +55,16 @@ export default class LanguagesPage extends View {
     this.template = document.getElementById(`languages-template`);
     this.el       = this.cloneTemplate();
     this.el.view  = this;
-    this.renderList(languageCID);
+    this.renderNav(languageCID);
     this.renderEditor(languageCID);
-    // NOTE: Event listeners are added in individual rendering methods.
+    this.addEventListeners();
     return this.el;
   }
 
   renderBlankEditor() {
     const oldEditor = this.el.querySelector(`.language-editor`);
     const newEditor = View.fromHTML(`<section class=language-editor>
-      <button type=button class='add-language-button red'>Add a Language</button>
+      <button class='add-language-button button green' type=button>Add a Language</button>
     </section>`);
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
@@ -76,37 +80,41 @@ export default class LanguagesPage extends View {
 
     const language = this.languages.find(lang => lang.cid === languageCID);
 
-    if (!language) app.settings.language = null;
+    if (!language) {
+      app.settings.language = null;
+      return this.renderBlankEditor();
+    }
 
-    const editor    = new LanguageEditor(language);
-    const newEditor = language ? editor.render() : editor.renderBlank();
-    const oldEditor = this.el.querySelector(`.language-editor`);
+    const editorView = new LanguageEditor(language);
+    const newEditor  = editorView.render();
+    const oldEditor  = this.el.querySelector(`.language-editor`);
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
-    editor.events.once(`add`, this.addLanguage.bind(this));
-    editor.events.once(`delete`, this.deleteLanguage.bind(this));
-    editor.events.on(`update:name`, this.renderList.bind(this));
+    editorView.events.once(`add`, this.addLanguage.bind(this));
+    editorView.events.once(`delete`, this.deleteLanguage.bind(this));
+    editorView.events.on(`update:name`, this.renderNav.bind(this));
 
   }
 
   /**
-   * Render the Languages List.
-   * @param {String} [languageCID] The client ID of the language to show as selected when the list renders.
+   * Render the Languages Nav.
+   * @param {String} [languageCID] The client ID of the language to show as selected when the nav list renders.
    */
-  renderList(languageCID) {
+  renderNav(languageCID) {
 
-    this.languages.sort((a, b) => compare(a.name.default, b.name.default));
+    const nav = new LanguagesNav(this.languages);
 
-    const list    = new LanguagesList(this.languages);
-    const newList = list.render(languageCID);
-    const oldList = this.el.querySelector(`.languages-list`);
+    nav.events.on(`add`, this.addLanguage.bind(this));
+    nav.events.on(`change`, this.renderEditor.bind(this));
 
-    oldList.view?.events.stop();
-    oldList.replaceWith(newList);
+    const oldNav = this.el.querySelector(`.languages-nav`);
+    const newNav = nav.render(languageCID);
 
-    list.events.on(`add`, this.addLanguage.bind(this));
-    list.events.on(`change`, this.renderEditor.bind(this));
+    oldNav.view?.events.stop();
+    oldNav.replaceWith(newNav);
+
+    return newNav;
 
   }
 
