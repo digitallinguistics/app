@@ -2,28 +2,26 @@
 
 .languages-nav {
 
+  align-items: stretch;
+  
   .add-language-button {
     margin: var(--space);
   }
-
+  
   .list {
     margin-inline: var(--space);
   }
-
+  
   // small screens
   @media (max-width: @breakpoint) {
-
-    align-items: stretch;
-
     .add-language-button {
       align-self: center;
     }
-
   }
-
+  
   // large screens
   @media (min-width: @breakpoint) {
-    align-items: center;
+    width: 20em;
   }
 
 }

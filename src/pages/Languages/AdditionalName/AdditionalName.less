@@ -1,5 +1,7 @@
 @import (reference) 'variables';
 
+@component-breakpoint: 75em;
+
 .additional-name {
 
   align-items:     center;
@@ -24,12 +26,12 @@
     justify-content: space-between;
 
     // small screens
-    @media (max-width: @breakpoint) {
+    @media (max-width: @component-breakpoint) {
       flex-direction: column;
     }
 
     // large screens
-    @media (min-width: @breakpoint) {
+    @media (min-width: @component-breakpoint) {
       flex-direction: row;
     }
   
@@ -37,7 +39,7 @@
 
   label {
     // small screens
-    @media (max-width: @breakpoint) {
+    @media (max-width: @component-breakpoint) {
       inline-size: 4.5em;
     }
   }

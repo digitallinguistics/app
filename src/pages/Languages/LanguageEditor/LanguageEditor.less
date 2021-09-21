@@ -1,15 +1,29 @@
 .language-editor {
 
-  flex-grow: 1;
-  max-width: var(--measure);
-  padding:   var(--space);
+  flex-grow:     1;
+  margin-inline: auto;
+  max-width:     var(--measure);
+  padding:       var(--space);
 
   .add-language-button {
     margin: auto;
   }
 
   .add-name-button {
-    margin-block: var(--space);
+    margin-block:        var(--space-sm);
+    margin-inline-start: var(--space);
+  }
+
+  .additional-names {
+
+    align-items: stretch;
+
+    header {
+      flex-direction:  row;
+      flex-wrap:       nowrap;
+      justify-content: space-between;
+    }
+
   }
 
   .delete-language-button {
@@ -22,7 +36,9 @@
   }
 
   .text-field {
-    .label { width: 7.5em; }
+    .label {
+      width: 7.5em;
+    }
   }
 
 }
