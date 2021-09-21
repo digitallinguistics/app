@@ -46,6 +46,7 @@ export default class LanguagesNav extends View {
   itemTemplate({ cid, name }) {
     const li       = document.createElement(`li`);
     li.dataset.id  = cid;
+    li.tabIndex    = 0;
     li.textContent = name.default;
     return li;
   }
