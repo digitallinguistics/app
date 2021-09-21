@@ -111,3 +111,4 @@ dist
 /dist
 /docs
 nodemon.json
+.project
