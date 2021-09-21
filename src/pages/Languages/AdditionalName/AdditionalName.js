@@ -4,7 +4,7 @@ export default class AdditionalName extends View {
 
   template = document.getElementById(`additional-name-template`);
 
-  constructor({ language, name }, index) {
+  constructor({ language = ``, name = `` } = {}, index) {
 
     super();
 
