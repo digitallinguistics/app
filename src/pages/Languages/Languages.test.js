@@ -39,10 +39,52 @@ describe(`Languages`, () => {
 
     // add / delete language names
     cy.contains(`.language-editor button`, `Add a Language Name`)
-    .click()
     .click();
 
-    cy.get(`.additional-names li:first-child button`).click();
+    cy.get(`.additional-names`)
+    .within(() => {
+      
+      cy.get(`.names-list`)
+      .children()
+      .should(`have.lengthOf`, 1);
+
+      cy.get(`.js-delete-button`)
+      .click();
+
+      cy.get(`.names-list`)
+      .children()
+      .should(`have.lengthOf`, 0);
+    
+    });
+
+    // edit language name
+    cy.contains(`.language-editor button`, `Add a Language Name`)
+    .click();
+
+    cy.get(`.additional-names`)
+    .within(() => {
+
+      cy.contains(`button`, `Cancel`)
+      .click();
+
+      cy.get(`.js-name-input`)
+      .should(`not.be.visible`);
+
+      cy.get(`.js-edit-button`)
+      .click();
+
+      cy.get(`.js-name-input`)
+      .type(`espagnol`);
+
+      cy.get(`.js-lang-input`)
+      .type(`French`);
+
+      cy.get(`.js-save-button`)
+      .click();
+    
+    });
+
+    cy.pause();
 
     // edit the remaining data
     cy.get(`.language-editor`)

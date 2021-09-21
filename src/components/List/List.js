@@ -62,8 +62,7 @@ export default class List extends View {
 
   }
 
-  template() {
-    return document.createElement(`li`);
-  }
+  // NOTE: Must use property assignment here to overwrite `template` property.
+  template = () => document.createElement(`li`);
 
 }

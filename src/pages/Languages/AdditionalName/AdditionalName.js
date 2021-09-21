@@ -49,6 +49,7 @@ export default class AdditionalName extends View {
   showEditor() {
     this.el.querySelector(`.js-editor`).hidden      = false;
     this.el.querySelector(`.js-edit-button`).hidden = true;
+    this.el.querySelector(`.js-name-input`).focus();
   }
 
 }

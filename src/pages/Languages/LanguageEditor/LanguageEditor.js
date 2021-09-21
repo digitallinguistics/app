@@ -64,10 +64,16 @@ export default class LanguageEditor extends View {
   }
 
   handleNamesUpdate({ target }) {
+
     if (target.classList.contains(`js-delete-button`)) {
       const i = Number(target.closest(`li`).dataset.id);
       return this.deleteName(i);
     }
+
+    if (target.classList.contains(`js-save-button`)) {
+      return this.updateAdditionalNames();
+    }
+  
   }
 
   // Rendering Methods
@@ -145,10 +151,29 @@ export default class LanguageEditor extends View {
 
   // Update Methods
 
-  async updateAutonym(name, value) {
+  updateAdditionalNames() {
+
+    const listItems = this.el.querySelectorAll(`.additional-names li`);
+    const names     = [];
+
+    for (const li of listItems) {
+      
+      const name     = li.querySelector(`.js-name-input`).value;
+      const language = li.querySelector(`.js-lang-input`).value;
+
+      names.push({ language, name });
+
+    }
+
+    this.language.additionalNames = names;
+    return this.save();
+
+  }
+
+  updateAutonym(name, value) {
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
     this.language.autonym.set(abbr, value);
-    await this.save();
+    return this.save();
   }
 
   async updateName(name, value) {
@@ -166,20 +191,27 @@ export default class LanguageEditor extends View {
 
   }
 
-  async updateProperty(name, value) {
+  updateProperty(name, value) {
     this.language[name] = value;
-    await this.save();
+    return this.save();
   }
 
   // Additional Names
 
   async addName() {
+
     this.language.additionalNames.push({
       language: ``,
       name:     ``,
     });
+    
     await this.save();
     this.renderAdditionalNames();
+    
+    const nameView = this.el.querySelector(`.additional-names .names-list li:first-child`).view;
+
+    nameView.showEditor();
+
   }
 
   async deleteName(i) {
