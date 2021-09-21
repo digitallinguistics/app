@@ -93,8 +93,8 @@ describe(`Languages`, () => {
     cy.contains(`#nav li`, `Home`).click();
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
-    cy.contains(`.languages-nav li`, `Chitimacha`).click();
 
+    // NOTE: The previous language should be loaded automatically.
     cy.get(`.language-editor`)
     .within(() => {
 
