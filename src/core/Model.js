@@ -16,10 +16,12 @@ export default class Model {
     
     Object.defineProperties(this, {
       cid: {
-        value: data.cid ?? createUUID(),
+        enumerable: true,
+        value:      data.cid ?? createUUID(),
       },
       dateCreated: {
-        value: this.dateCreated ? new Date(this.dateCreated) : new Date,
+        enumerable: true,
+        value:      this.dateCreated ? new Date(this.dateCreated) : new Date,
       },
     });
 
