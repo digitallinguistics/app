@@ -19,6 +19,9 @@ describe(`Database`, function() {
 
     expect(lang).to.be.an.instanceof(Language);
     expect(lang.cid).to.be.a(`string`);
+    expect(lang.dateCreated).to.be.an.instanceOf(Date);
+    // sets `dateModified` on save
+    expect(lang.dateModified).to.be.an.instanceOf(Date);
 
   });
 

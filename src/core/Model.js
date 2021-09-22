@@ -13,7 +13,7 @@ export default class Model {
   ) {
     
     Object.assign(this, data);
-    
+
     Object.defineProperties(this, {
       cid: {
         enumerable: true,
@@ -24,6 +24,8 @@ export default class Model {
         value:      this.dateCreated ? new Date(this.dateCreated) : new Date,
       },
     });
+
+    this.dateModified = this.dateModified ? new Date(this.dateModified) : new Date;
 
     if (type) {
       Object.defineProperty(this, `type`, {
