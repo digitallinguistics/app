@@ -107,5 +107,5 @@ dist
 /docs
 .eslintrc.js
 .idea
-*.css
+src/**/*.css
 nodemon.json
