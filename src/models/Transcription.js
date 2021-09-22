@@ -19,7 +19,8 @@ export default class Transcription extends Map {
     super(entries);
 
     Object.defineProperty(this, `type`, {
-      value: `Transcription`,
+      enumerable: true,
+      value:      `Transcription`,
     });
 
   }

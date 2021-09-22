@@ -27,7 +27,8 @@ export default class Model {
 
     if (type) {
       Object.defineProperty(this, `type`, {
-        value: type,
+        enumerable: true,
+        value:      type,
       });
     }
   

@@ -20,7 +20,8 @@ export default class MultiLangString extends Map {
     super(entries);
 
     Object.defineProperty(this, `type`, {
-      value: `MultiLangString`,
+      enumerable: true,
+      value:      `MultiLangString`,
     });
 
   }
