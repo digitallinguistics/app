@@ -14,8 +14,13 @@ export default class Model {
     
     Object.assign(this, data);
     
-    Object.defineProperty(this, `cid`, {
-      value: data.cid ?? createUUID(),
+    Object.defineProperties(this, {
+      cid: {
+        value: data.cid ?? createUUID(),
+      },
+      dateCreated: {
+        value: this.dateCreated ? new Date(this.dateCreated) : new Date,
+      },
     });
 
     if (type) {
