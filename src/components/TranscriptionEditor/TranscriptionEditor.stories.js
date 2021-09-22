@@ -1,6 +1,5 @@
-import '../TranscriptionGroup/TranscriptionGroup.css';
-import TxnEditor     from './TranscriptionEditor.js';
 import Transcription from '../../models/Transcription.js';
+import TxnEditor     from './TranscriptionEditor.js';
 
 export default {
   title: `Components/Transcription Editor`,

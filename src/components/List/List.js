@@ -21,30 +21,28 @@ export default class List extends View {
   el;
 
   /**
-   * The templating function for rendering each item in the list. Should return a `<li>` as either an HTML string or an HTML element. Make sure the template function is bound to its original context to retain any encapsulated variables.
-   * @type {Function}
-   */
-  template = List.defaultTemplate;
-
-  /**
    * Create a new List View
-   * @param {Array}    [collection=[]]    The collection of models to render in the list. Defaults to an empty array.
-   * @param {Object}   [options={}]       An optional options hash
-   * @param {Function} [options.template] A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
+   * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
+   * @param {Object}   [options={}]              An optional options hash
+   * @param {Array}    [options.classes=[]]      An Array of classes to add to the list.
+   * @param {String}   [options.name=`item`]     The name of each item
+   * @param {Function} [options.template]        A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
    */
-  constructor(collection = [], { template = List.defaultTemplate } = {}) {
+  constructor(collection = [], {
+    classes = [],
+    name = `item`,
+    template,
+  } = {}) {
 
     super();
 
+    this.classes    = classes;
     this.collection = collection;
-    this.template   = template;
+    this.name       = name;
+    this.template   = template ?? this.template;
 
   }
 
-  /**
-   * Renders the list and saves it to List.el
-   * @return {HTMLUListElement}
-   */
   render() {
 
     this.el      = document.createElement(`ul`);
@@ -52,22 +50,19 @@ export default class List extends View {
 
     this.el.classList.add(`list`);
 
+    for (const className of this.classes) {
+      this.el.classList.add(className);
+    }
+
     this.collection
-    .map(item => this.template(item))
+    .map(this.template.bind(this))
     .forEach(item => this.el.appendChild(item));
 
     return this.el;
 
   }
 
-  /**
-   * The default template to use for each item in the list
-   * @name defaultTemplate
-   * @type {Function}
-   * @memberof core#List
-   * @static
-   * @return {String}
-   */
-  static defaultTemplate = () => document.createElement(`li`);
+  // NOTE: Must use property assignment here to overwrite `template` property.
+  template = () => document.createElement(`li`);
 
 }

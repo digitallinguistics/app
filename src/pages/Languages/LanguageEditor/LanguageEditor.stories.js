@@ -10,8 +10,9 @@ export default {
 export const Blank = () => {
 
   const data = {
-    autonym: ``,
-    name:    ``,
+    additionalNames: [],
+    autonym:         ``,
+    name:            ``,
   };
 
   const language = new Language(data);
@@ -21,8 +22,8 @@ export const Blank = () => {
 };
 
 export const Populated = () => {
-  const [nuu]    = languages;
-  const language = new Language(nuu);
+  const [, chiti]    = languages;
+  const language = new Language(chiti);
   const editor   = new Editor(language);
   return editor.render();
 };

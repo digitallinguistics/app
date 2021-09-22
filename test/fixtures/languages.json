@@ -10,6 +10,16 @@
   },
   {
     "abbreviation": "chiti",
+    "additionalNames": [
+      {
+        "language": "French",
+        "name":     "Chetimachas"
+      },
+      {
+        "language": "English",
+        "name":     "Shetimasha"
+      }
+    ],
     "autonym": {
       "mod": "Sitimaxa",
       "swd": "Sitimaša"

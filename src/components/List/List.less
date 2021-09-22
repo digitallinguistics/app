@@ -3,36 +3,9 @@
   border:        var(--border);
   border-radius: var(--border-radius);
   box-shadow:    var(--box-shadow);
-  cursor:        pointer;
-
-  .current {
-    position: relative;
-  }
-
-  .current::before {
-    background-color:   var(--blue-4);
-    inset-block-end:    calc(-0.5 * var(--border-width));
-    content:            '';
-    inset-inline-start: 0;
-    position:           absolute;
-    inset-block-start:  0;
-    width:              0.25em;
-  }
-
-  .current:first-child::before {
-    border-start-start-radius: var(--border-radius);
-  }
-
-  .current:last-child::before {
-    border-end-start-radius: var(--border-radius);
-  }
 
   li {
     padding: var(--text-padding);
-  }
-
-  li:hover {
-    background-color: var(--gray-1);
   }
 
   li:not(:last-child) {

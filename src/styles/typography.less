@@ -27,8 +27,17 @@
 
   --measure: 60em; // the maximum width of readable text
 
-  --text-padding-sm: 0.125em 0.25em;
-  --text-padding:    0.25em 0.5em;
-  --text-padding-lg: 0.5em 1em;
+  --text-inline-padding-sm: 0.25em;
+  --text-inline-padding:    0.5em;
+  --text-inline-padding-lg: 1em;
+
+  --text-block-padding-sm: 0.125em;
+  --text-block-padding:    0.25em;
+  --text-block-padding-lg: 0.5em;
+
+  // vertical + horizontal
+  --text-padding-sm: var(--text-block-padding-sm) var(--text-inline-padding-sm);
+  --text-padding:    var(--text-block-padding)    var(--text-inline-padding);
+  --text-padding-lg: var(--text-block-padding-lg) var(--text-inline-padding-lg);
 
 }
