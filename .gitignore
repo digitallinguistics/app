@@ -107,7 +107,7 @@ dist
 .eslintrc.js
 .idea
 .vscode
-*.css
+src/**/*.css
 /dist
 /docs
 screenshots
