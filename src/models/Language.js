@@ -10,21 +10,17 @@ import Transcription   from './Transcription.js';
 export default class Language extends Model {
 
   /**
-   * The model type (Language).
-   * @type {String}
-   * @readonly
-   */
-  type = `Language`;
-
-  /**
    * Create a new Language.
    * @param {Object} [data={}]
    */
   constructor(data = {}) {
-    super(data);
+    
+    super(data, { type: `Language` });
+    
     this.additionalNames ??= [];
     this.autonym           = new Transcription(this.autonym);
     this.name              = new MultiLangString(this.name);
+
   }
 
 }
