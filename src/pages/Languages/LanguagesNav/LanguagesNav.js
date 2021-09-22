@@ -44,11 +44,7 @@ export default class LanguagesNav extends View {
 
   // NOTE: Must use assignment here to override `template` property on List class.
   itemTemplate({ cid, name }) {
-    const li       = document.createElement(`li`);
-    li.dataset.id  = cid;
-    li.tabIndex    = 0;
-    li.textContent = name.default;
-    return li;
+    return View.fromHTML(`<li data-id=${cid}><a href=#language-editor>${name.default}</a></li>`);
   }
 
 }
