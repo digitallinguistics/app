@@ -4,4 +4,4 @@ export default {
   title: `Components/Required`,
 };
 
-export const Required = () => `<label class=required>Required label</label>`;
+export const Required = () => `<label class='label required'>Required label</label>`;
