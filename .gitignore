@@ -108,7 +108,7 @@ dist
 .idea
 .vscode
 .project
-*.css
+src/**/*.css
 /dist
 /docs
 screenshots
