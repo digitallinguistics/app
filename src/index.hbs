@@ -77,6 +77,17 @@
     {{!-- app-level scripts go here --}}
     <script type=module>
 
+      // save the beforeinstallprompt event
+      window.addEventListener(`beforeinstallprompt`, e => {
+        window.installEvent = e;
+      });
+
+      // hide the install prompt after app is installed
+      window.addEventListener(`appinstalled`, () => {
+        const el = document.querySelector(`#install-prompt`);
+        if (el) el.hidden = true;
+      })
+
       // initialize the app
       import App from './App/App.js';
       window.app = new App;

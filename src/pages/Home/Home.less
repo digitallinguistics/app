@@ -1,16 +1,28 @@
 // Shared Components
-@import 'Header/Header';
+@import 'BlockHeader/BlockHeader';
+@import 'Button/Button';
 @import 'Link/Link';
 @import 'PageTitle/PageTitle';
+@import 'SectionHeader/SectionHeader';
 
 .home-page {
 
   margin-inline-start: auto;
   margin-inline-end:   auto;
   max-width:           var(--measure);
+  padding:             var(--space);
+
+  button {
+    align-self:   center;
+    margin-block: var(--space);
+  }
 
   p {
-    padding: var(--text-padding);
+    padding-block: var(--text-block-padding);
+  }
+
+  .section-header {
+    padding-block: var(--text-block-padding);
   }
 
 }
