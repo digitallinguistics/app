@@ -82,6 +82,12 @@
         window.installEvent = e;
       });
 
+      // hide the install prompt after app is installed
+      window.addEventListener(`appinstalled`, () => {
+        const el = document.querySelector(`#install-prompt`);
+        if (el) el.hidden = true;
+      })
+
       // initialize the app
       import App from './App/App.js';
       window.app = new App;
