@@ -7,15 +7,31 @@ import { v4 as createUUID } from '../../node_modules/uuid/dist/esm-browser/index
  */
 export default class Model {
 
-  /**
-   * The client ID (CID) of this model. This property is set automatically when a new model is created.
-   * @type {String}
-   */
-  cid;
-
-  constructor(data = {}) {
+  constructor(
+    data = {},
+    { type } = {},
+  ) {
+    
     Object.assign(this, data);
-    this.cid = data.cid ?? createUUID();
+    
+    Object.defineProperties(this, {
+      cid: {
+        enumerable: true,
+        value:      data.cid ?? createUUID(),
+      },
+      dateCreated: {
+        enumerable: true,
+        value:      this.dateCreated ? new Date(this.dateCreated) : new Date,
+      },
+    });
+
+    if (type) {
+      Object.defineProperty(this, `type`, {
+        enumerable: true,
+        value:      type,
+      });
+    }
+  
   }
 
 }

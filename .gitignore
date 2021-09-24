@@ -107,9 +107,9 @@ dist
 .eslintrc.js
 .idea
 .vscode
+.project
 src/**/*.css
 /dist
 /docs
 screenshots
 nodemon.json
-.project

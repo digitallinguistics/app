@@ -6,13 +6,6 @@
 export default class MultiLangString extends Map {
 
   /**
-   * The Model type (MultiLangString).
-   * @type {String}
-   * @readonly
-   */
-  type = `MultiLangString`;
-
-  /**
    * Create a new MultiLangString
    * @param {Object} [data={}]
    */
@@ -25,6 +18,11 @@ export default class MultiLangString extends Map {
     else entries = Object.entries(data);
 
     super(entries);
+
+    Object.defineProperty(this, `type`, {
+      enumerable: true,
+      value:      `MultiLangString`,
+    });
 
   }
 

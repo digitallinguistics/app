@@ -5,13 +5,6 @@
 export default class Transcription extends Map {
 
   /**
-   * The model type (Transcription)
-   * @type {string}
-   * @readonly
-   */
-  type = `Transcription`;
-
-  /**
    * Create a new Transcription.
    * @param {Object} [data={}]
    */
@@ -24,6 +17,11 @@ export default class Transcription extends Map {
     else entries = Object.entries(data);
 
     super(entries);
+
+    Object.defineProperty(this, `type`, {
+      enumerable: true,
+      value:      `Transcription`,
+    });
 
   }
 

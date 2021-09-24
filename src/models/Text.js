@@ -7,11 +7,8 @@ import Model from '../core/Model.js';
  */
 export default class Text extends Model {
 
-  /**
-   * The model type (Text)
-   * @type {String}
-   * @readonly
-   */
-  type = `Text`;
+  constructor() {
+    super({}, { type: `Text` });
+  }
 
 }
