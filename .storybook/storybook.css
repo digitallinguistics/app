@@ -1,0 +1,6 @@
+#root {
+  align-items: flex-start;
+  font-family: var(--font);
+  font-size:   100%;
+  line-height: 1.5;
+}
