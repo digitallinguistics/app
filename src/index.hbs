@@ -77,6 +77,11 @@
     {{!-- app-level scripts go here --}}
     <script type=module>
 
+      // save the beforeinstallprompt event
+      window.addEventListener(`beforeinstallprompt`, e => {
+        window.installEvent = e;
+      });
+
       // initialize the app
       import App from './App/App.js';
       window.app = new App;
