@@ -16,7 +16,7 @@ export default class HomePage extends View {
     this.template = document.getElementById(`home-template`);
     this.el       = this.cloneTemplate();
     this.el.view  = this;
-    if (app.installEvent) this.showInstallPrompt();
+    if (window.installEvent) this.showInstallPrompt();
     return this.el;
   }
 

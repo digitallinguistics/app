@@ -100,7 +100,6 @@ export default class App extends View {
     this.el.view = this;
     await this.db.initialize();
     this.renderNav();
-    this.installEvent = window.installEvent;
     await this.renderPage(this.settings.page);
     return this.el;
   }
