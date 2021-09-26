@@ -177,15 +177,17 @@ There are several types of tests in this project:
 
 - **performance tests:** These tests check the app's performance in terms of speed and other metrics.
 
-Tests which require a browser or the Lotus app are run using [Cypress]. Tests which can be executed in Node are run using [Mocha]. All Mocha tests are unit tests, but Cypress tests can be of any type.
+Tests which require a browser or the Lotus app are run using [Cypress]. Tests which can be executed in Node are run using [Mocha]. All Mocha tests are unit tests, but Cypress tests can be of any type. Performance tests are run using [Lighthouse].
 
 You can run each type of test with the following commands.
 
-- **Mocha tests (Node):** `npm run test:unit`
-- **Cypress tests (browser):** `npm run cypress-run`
+- **Mocha tests:** `npm run test:unit`
+- **Cypress tests (command line):** `npm run cypress-run`
+- **Cypress tests (browser):** `npm run cypress`
+- **performance tests:** `npm run lighthouse`
 - **all tests:** `npm test`
 
-Cypress tests may also be run manually with `npm run cypress`. This will open the tests in a browser, where you can watch the tests interact with the app, and rerun and debug those tests. This is the recommended way of running Cypress tests during development.
+Running `npm run cypress` will open the Cypress tests in a browser, where you can watch the tests interact with the app, and rerun and debug those tests. This is the recommended way of running Cypress tests during development.
 
 Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
 
@@ -428,6 +430,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
 [LESS]:            https://lesscss.org/
+[Lighthouse]:      https://developers.google.com/web/tools/lighthouse/
 [maintainers]:     https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md
 [Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
 [Mocha]:           https://mochajs.org/
