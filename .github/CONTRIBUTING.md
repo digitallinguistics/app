@@ -26,16 +26,22 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
     - [nodemon](#nodemon)
     - [ESLint & Stylelint](#eslint--stylelint)
     - [Storybook](#storybook)
-  - [Testing the App](#testing-the-app)
   - [Organization](#organization)
     - [Project Structure](#project-structure)
     - [Directory Structure](#directory-structure)
     - [App Structure](#app-structure)
   - [Components](#components)
-  - [Writing Components](#writing-components)
-    - [HTML / Handlebars](#html--handlebars)
-    - [CSS / LESS](#css--less)
-    - [JavaScript](#javascript)
+    - [Writing Components](#writing-components)
+      - [HTML / Handlebars](#html--handlebars)
+      - [CSS / LESS](#css--less)
+      - [JavaScript](#javascript)
+  - [Testing the App](#testing-the-app)
+    - [Types of Tests](#types-of-tests)
+    - [Writing Tests](#writing-tests)
+      - [Unit Tests](#unit-tests)
+      - [Component Tests](#component-tests)
+      - [Integration Tests](#integration-tests)
+      - [End-to-End Tests (E2E)](#end-to-end-tests-e2e)
   - [Build Process](#build-process)
     - [Offline Functionality](#offline-functionality)
   - [Resources](#resources)
@@ -159,53 +165,6 @@ To use Storybook:
 
 The [Storybook documentation][Storybook] explains how to write stories for components.
 
-## Testing the App
-
-The Lotus project includes a collection of tests that you can run to ensure that everything in the app is functioning correctly. Before you make a pull request, you should run the tests for the app to check that your changes did not break any existing functionality. (Instructions for how to run the tests are below.) If the tests fail, you should either fix the code or update the tests to reflect the new functionality.
-
-Whenever possible, write a test for the changes you are making. This ensures that future changes will not break your code.
-
-There are several types of tests in this project:
-
-- **unit tests:** These tests cover small, isolated parts of the code such as individual classes, methods, or modules. These tests are run with [Mocha] and have a `.unit.js` extension.
-
-- **component tests:** These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc. These tests are run with a combination of [Storybook] + [Cypress] and have a `.component.js` extension.
-
-- **integration tests:** These tests check that different components interact properly with each other when used together in the app. For example, clicking a button in one component should open a menu in another. These tests should not generally depend on databases or servers. These tests are run with a combination of [Storybook] + [Cypress] and have an `.integration.js` extension.
-
-- **end-to-end (E2E) tests:** These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks, and depend on databases, servers, etc. These typically only test the "happy path", rather than various errors. These tests are run with [Cypress] and have a `.e2e.js` extension.
-
-- **performance tests:** These tests check the app's performance in terms of speed and other metrics. These tests are run with [Lighthouse].
-
-The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.
-
-```
-fast / cheap <----------------------------> slow / expensive
-
-unit <--- component --- integration --- E2E ---> performance
-```
-
-Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the "testing pyramid", with many tiny unit / component tests, fewer integration tests, and a small number of E2E / performance tests.
-
-Cypress tests can either be run programmatically (from the command line), or by using an interactive interface which allows you to watch the tests interact with the app, rerun, and debug those tests.
-
-You can run the various types of tests with the following commands:
-
-| Test Type   | Extension         | Interface    | Command (with `npm run`)          |
-| ----------- | ----------------- | ------------ | --------------------------------- |
-| unit        | `.unit.js`        | manual       | —                                 |
-| unit        | `.unit.js`        | programmatic | `test:unit`                       |
-| component   | `.component.js`   | manual       | `cypress-ct`                      |
-| component   | `.component.js`   | programmatic | `test:component`                  |
-| integration | `.integration.js` | manual       | `cypress-it`                      |
-| integration | `.integration.js` | programmatic | `test:integration`                |
-| E2E         | `.e2e.js`         | manual       | `cypress-e2e`                     |
-| E2E         | `.e2e.js`         | programmatic | `test:e2e`                        |
-| performance | —                 | manual       | [Chromium dev tools][lh-devtools] |
-| performance | —                 | programmatic | `lighthouse`                      |
-
-Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
-
 ## Organization
 
 This section explains the organization of the project and the app code.
@@ -259,28 +218,29 @@ The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works 
 
 Each interactive section of the app is called a **component**. Components may contain other, smaller components. For example, the top-level `App` component contains a `LanguagesPage` component, the `LanguagesPage` component contains a `LanguageEditor` component, and the `LanguageEditor` component uses the `TranscriptionGroup` component.
 
-Each component can have several types of files associated with it:
+Each component can have several types of files associated with it. Not all components will have all of these types of files. Many components consist of just a CSS class, and so consist of a single LESS file. Most components only need 1 type of test file as well.
 
+- `.component.js`: Component tests for this component.
+- `.e2e.js`: End-to-end tests for this component.
+- `.integration.js`: Integration tests for this component.
 - `.hbs`: The HTML template for the component, written in [Handlebars].
 - `.less`: The styling for the component, written in [LESS].
 - `.js`: The JavaScript controller that manages this view's functionality.
 - `.stories.js`: The code for rendering this component in Storybook.
-- `.test.js`: Cypress tests for this component.
-- `.unit.js`: Mocha tests for this component.
+- `.unit.js`: Unit tests for this component.
 
 All of these files should be located together in the same directory. For example, the `LanguagesNav` directory looks like this:
 
 ```
 LanguagesNav/
+  - LanguagesNav.component.js
   - LanguagesNav.hbs
-  - LanguagesNav.less
   - LanguagesNav.js
+  - LanguagesNav.less
   - LanguagesNav.stories.js
-  - LanguagesNav.test.js
-  - LanguagesNav.unit.js
 ```
 
-Not all components will have all of these types of files. Many components consist of just a CSS class, and so consist of a single LESS file.
+### Types of Components
 
 There are four types of components in the app:
 
@@ -289,15 +249,15 @@ There are four types of components in the app:
 * components that are specific to a certain page (`src/pages/{Page}/{ComponentName}/`), ex. `LanguagesNav`
 * components that are shared across pages (`src/components/{ComponentName}/`), ex. `List`
 
-## Writing Components
+### Writing Components
 
-### HTML / Handlebars
+#### HTML / Handlebars
 
 The HTML for each component is written in [Handlebars], an HTML templating language. This allows you to embed components within components using `{{> ComponentName }}`.
 
 The compiled HTML for each component is also injected into the page inside a `<template id={component-name}-template>` tag, which allows the JavaScript controller to copy and reuse that template as many times as needed. [See the MDN documentation on using `<template>` tags][templates].
 
-### CSS / LESS
+#### CSS / LESS
 
 The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS. 
 
@@ -359,7 +319,7 @@ If you only want to use specific styles/declarations from a stylesheet, use `@im
 
 * Styles for individual components should be imported into any page that uses those components. For example, the `LineInput` class is used by the Languages page and the Lexicon page, but not the Home page, so `Languages.less` and `Home.less` import `LineInput.less`, but `Home.less` does not.
 
-### JavaScript
+#### JavaScript
 
 Each component with functionality has a JavaScript *controller* which controls that functionality. The main tasks of the controller are to render the component, respond to user interactions with the component, and alert other components when certain events happen.
 
@@ -384,6 +344,65 @@ Sometimes components will need to listen for events on other components. For exa
 Views should only listen for events on their children / subcomponents.
 
 Be sure to document your JavaScript code using [JSDoc][JSDoc] code comments.
+
+## Testing the App
+
+The Lotus project includes a collection of tests that you can run to ensure that everything in the app is functioning correctly. Before you make a pull request, you should run the tests for the app to check that your changes did not break any existing functionality. (Instructions for how to run the tests are below.) If the tests fail, you should either fix the code or update the tests to reflect the new functionality.
+
+Whenever possible, write a test for the changes you are making. This ensures that future changes will not break your code.
+
+### Types of Tests
+
+There are several types of tests in this project:
+
+- **unit tests:** These tests cover small, isolated parts of the code such as individual classes, methods, or modules. These tests are run with [Mocha] and have a `.unit.js` extension.
+
+- **component tests:** These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc. These tests are run with a combination of [Storybook] + [Cypress] and have a `.component.js` extension.
+
+- **integration tests:** These tests check that different components interact properly with each other when used together in the app. For example, clicking a button in one component should open a menu in another. These tests should not generally depend on databases or servers. These tests are run with a combination of [Storybook] + [Cypress] and have an `.integration.js` extension.
+
+- **end-to-end (E2E) tests:** These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks, and depend on databases, servers, etc. These typically only test the "happy path", rather than various errors. These tests are run with [Cypress] and have a `.e2e.js` extension.
+
+- **performance tests:** These tests check the app's performance in terms of speed and other metrics. These tests are run with [Lighthouse].
+
+The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.
+
+```
+fast / cheap <----------------------------> slow / expensive
+
+unit <--- component --- integration --- E2E ---> performance
+```
+
+Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the "testing pyramid", with many tiny unit / component tests, fewer integration tests, and a small number of E2E / performance tests.
+
+Cypress tests can either be run programmatically (from the command line), or by using an interactive interface which allows you to watch the tests interact with the app, rerun, and debug those tests.
+
+You can run the various types of tests with the following commands:
+
+| Test Type   | Extension         | Interface    | Command (with `npm run`)          |
+| ----------- | ----------------- | ------------ | --------------------------------- |
+| unit        | `.unit.js`        | interactive  | —                                 |
+| unit        | `.unit.js`        | programmatic | `test:unit`                       |
+| component   | `.component.js`   | interactive  | `cypress-ct`                      |
+| component   | `.component.js`   | programmatic | `test:component`                  |
+| integration | `.integration.js` | interactive  | `cypress-it`                      |
+| integration | `.integration.js` | programmatic | `test:integration`                |
+| E2E         | `.e2e.js`         | interactive  | `cypress-e2e`                     |
+| E2E         | `.e2e.js`         | programmatic | `test:e2e`                        |
+| performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
+| performance | —                 | programmatic | `test:perf`                       |
+
+Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
+
+### Writing Tests
+
+#### Unit Tests
+
+#### Component Tests
+
+#### Integration Tests
+
+#### End-to-End Tests (E2E)
 
 ## Build Process
 
