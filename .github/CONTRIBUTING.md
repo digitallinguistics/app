@@ -31,6 +31,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
     - [Directory Structure](#directory-structure)
     - [App Structure](#app-structure)
   - [Components](#components)
+    - [Types of Components](#types-of-components)
     - [Writing Components](#writing-components)
       - [HTML / Handlebars](#html--handlebars)
       - [CSS / LESS](#css--less)
@@ -123,6 +124,8 @@ An easier solution is to use a tool like [nodemon], which watches the project fo
 2. Add a `nodemon.json` config file to the root of the project. Below is a recommended configuration. It will watch for changes to any files which have an extension in the `ext` field, but ignore any files which match the glob patterns in the `ignore` field. Any time a change is detected, it will run `npm run build`.
 
     ```json
+    <!-- nodemon.json -->
+
     {
       "exec": "npm run build",
       "ext": "hbs,js,less,md",
@@ -251,6 +254,8 @@ There are four types of components in the app:
 
 ### Writing Components
 
+This section provides guidelines for writing components.
+
 #### HTML / Handlebars
 
 The HTML for each component is written in [Handlebars], an HTML templating language. This allows you to embed components within components using `{{> ComponentName }}`.
@@ -326,6 +331,8 @@ Each component with functionality has a JavaScript *controller* which controls t
 Each controller should be an instance of the `View` class (`src/core/View.js`). Each JavaScript file for a component should export a single view as its default export. For example, the `List` component looks like this:
 
 ```js
+// List.js
+
 import View from '../../core/View.js';
 
 export default class List extends View { /* ... */ }
@@ -396,13 +403,106 @@ Both Mocha and Cypress use the [Chai] assertion framework to make assertions abo
 
 ### Writing Tests
 
+This section explains how to structure the different kinds of tests.
+
 #### Unit Tests
+
+Unit tests typically test pure JavaScript modules that don't require a browser to run. Each test within a unit test suite should work in isolation, independently of any of the other tests. You should even be able to run them out of order.
+
+In this project, items that have unit tests are modules in `core/`, `models/`, or `utilities/`, plus a few tests of the development environment in `test/`.
+
+To write a unit test, import the module you are testing as well as the [Chai] assertion library, then write tests for each of the properties / methods that the module exposes. Here is a small example:
+
+```js
+// EventEmitter.unit.js
+
+import chai         from 'chai';
+import EventEmitter from './EventEmitter.js'
+
+const { expect } = chai;
+
+describe(`EventEmitter`, function() {
+
+  it(`has an events Map`, function() {
+    const emitter = new EventEmitter;
+    expect(emitter.events).to.be.a(Map);
+  });
+
+});
+```
+
+You may occasionally also want to import other testing utilities such as [Sinon] for stubs, mocks, and spies:
+
+```js
+// EventEmitter.unit.js
+
+import chai         from 'chai';
+import EventEmitter from './EventEmitter.js';
+import sinon        from 'sinon';
+import sinonChai    from 'sinon-chai';
+
+chai.use(sinonChai);
+
+const { expect } = chai;
+
+describe(`EventEmitter`, function() {
+
+  it(`emit`, async function() {
+
+    const emitter = new EventEmitter;
+    const stub    = sinon.stub();
+
+    emitter.on(`test`, stub);
+    await emitter.emit(`test`);
+
+    expect(stub).to.have.been.calledOnce;
+
+  });
+
+});
+```
 
 #### Component Tests
 
+Component tests check the functionality of a single component in isolation. Any items in the `components/` folder that have functionality, or any page-specific components in `pages/{ComponentName}` that have functionality, should have a component test.
+
+Component tests are run using [Cypress] tests on a single [Storybook] story. To load the component, call `cy.visit()` on the URL for that particular story. You can find the URL by opening that story in Storybook,clicking the "Open canvas in new tab" icon in the upper right (the external link icon), and copying the URL from that tab. Now you can write your component tests using Cypress' API. Note that you do *not* need to import Chai or Sinon—these are included in Cypress. Here is a small example test:
+
+```js
+// List.component.js
+
+describe(`List`, function() {
+
+  // load the Storybook story
+  before(function() {
+    cy.visit(`http://localhost:6006/iframe.html?id=components-list`);
+  });
+
+  // run tests on the component
+  it(`renders`, function() {
+    cy.get(`.list`)
+    .children()
+    .should(`have.lengthOf`, 3);
+  });
+
+});
+```
+
 #### Integration Tests
 
+Integration tests check that different components interact as expected. For example, clicking an item in a list might render the view for that item.
+
+Integration tests are written exactly like component tests, except that they have the `.integration.js` extension instead. Integration tests should not generally involve interactions with a database or calls to a server. Whenever possible, they should work in insolation, without needing the rest of the app framework in place.
+
+Integration tests are generally only written for pages, to check that the various components within the page interact as expected. Tests that need to switch pages or interact with the app shell should be part of end-to-end tests instead.
+
 #### End-to-End Tests (E2E)
+
+End-to-end (E2E) tests are tests on the entire composed app that imitate how a user would interact with the app to perform various tasks. E2E tests should generally only test the "happy path" (that the required functionality works as expected); they should not test every possible error and edge case.
+
+E2E tests do not use Storybook components. Instead they run directly on the app itself. E2E tests often involve long chains of commands, where the result of one test depends on the outcome of previous tests. [Read the Cypress docs about tiny tests for more information.](https://docs.cypress.io/guides/references/best-practices#Creating-tiny-tests-with-a-single-assertion)
+
+To write an E2E test, first visit the app page using `cy.visit('/')`, and then use Cypress to interact with the app like a user would. For example, you could use `cy.get()` to look for text on a page rather than IDs or class names. See the `Languages.e2e.js` file for a good example of what this looks like.
 
 ## Build Process
 
@@ -422,6 +522,8 @@ You can skip building the docs and Storybook stories by running `npm run quick-b
 The Lotus app is designed to be an offline web app. As such, all assets required to run the app must be available offline. This functionality is achieved via the `src/offline-worker.js` file. This file caches all the required assets for the app. It uses the file `dist/cache.json` to determine which files need to be cached. `cache.json` is generated during the build process (by `buildCache.js`) by creating a list of all files present in the `dist/` folder (except for `offline-worker.js` itself).
 
 ## Resources
+
+This section contains various resources that may be useful during development.
 
 ### Images
 
@@ -477,6 +579,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 [nvm-windows]:     https://github.com/coreybutler/nvm-windows
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [SayMore]:         https://software.sil.org/saymore/
+[Sinon]:           https://sinonjs.org/
 [Storybook]:       https://storybook.js.org/
 [Stylelint]:       https://stylelint.io/
 [templates]:       https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots
