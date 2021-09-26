@@ -36,7 +36,7 @@
     "test:component": "cypress run-ct --config-file test/cypress.json",
     "test:integration": "start-server-and-test start 3000 cypress-run",
     "test:unit": "mocha **/*.unit.*",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 3000"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
