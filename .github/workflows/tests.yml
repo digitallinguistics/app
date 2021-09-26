@@ -51,7 +51,7 @@ jobs:
       - name: run Cypress tests
         uses: cypress-io/github-action@v2
         with:
-          config-file:     test/cypress.json
+          config-file:     test/cypress.e2e.json
           headless:        true
           parallel:        true
           record:          true
