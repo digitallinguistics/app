@@ -33,7 +33,7 @@
     "lighthouse": "lhci autorun & rimraf .lighthouseci",
     "start": "node build/bin/startServer.js",
     "stop-only": "stop-only -f test,src",
-    "test": "npm run test:unit & npm run test:integration",
+    "test": "npm run test:unit & npm run test:integration & npm run lighthouse",
     "test:component": "cypress run-ct --config-file test/cypress.json",
     "test:integration": "start-server-and-test start 3000 cypress-run",
     "test:unit": "mocha **/*.unit.*",
