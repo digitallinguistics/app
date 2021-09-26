@@ -34,7 +34,4 @@ jobs:
         run:  npm run build
 
       - name: run Lighthouse audit
-        uses: treosh/lighthouse-ci-action@v8
-        with:
-          budgetPath: ./test/budget.json
-          configPath: ./test/lighthouserc.json
+        run:  lhci autorun
