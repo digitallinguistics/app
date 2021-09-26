@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "startServerCommand": "npm start",
-      "url"               : "https://localhost:3000/"
+      "url"               : ["https://localhost:3000/"]
     }
   }
 }
