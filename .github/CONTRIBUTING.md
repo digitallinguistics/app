@@ -372,6 +372,8 @@ There are several types of tests in this project:
 
 - **performance tests:** These tests check the app's performance in terms of speed and other metrics. These tests are run with [Lighthouse].
 
+**NOTE:** Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
+
 The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.
 
 ```
@@ -399,7 +401,7 @@ You can run the various types of tests with the following commands:
 | performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
 | performance | —                 | programmatic | `test:perf`                       |
 
-Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
+Alternatively, you can open Storybook + Cypress manually. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively.
 
 ### Writing Tests
 
