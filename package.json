@@ -34,7 +34,7 @@
     "cypress-e2e-run" : "cypress run --config-file test/cypress.e2e.json",
     "cypress-it"      : "start-server-and-test start:storybook 6006 cypress-it-open",
     "cypress-it-open" : "cypress open --config-file test/cypress.integration.json",
-    "cypress-it-run"  : "cypress run --config-file test/cypres.integration.json",
+    "cypress-it-run"  : "cypress run --config-file test/cypress.integration.json",
     "start"           : "node build/bin/startServer.js",
     "start:storybook" : "start-storybook -p 6006 -s dist --ci",
     "stop-only"       : "stop-only -f test,src",
