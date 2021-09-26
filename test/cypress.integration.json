@@ -1,0 +1,20 @@
+{
+  "baseUrl":               "http://localhost:3000",
+  "component": {
+    "componentFolder": "src",
+    "testFiles"      : "**/*.component.js"
+  },
+  "defaultCommandTimeout": 5000,
+  "downloadsFolder"      : "test/downloads",
+  "fileServerFolder"     : "dist",
+  "fixturesFolder"       : "test/fixtures",
+  "integrationFolder"    : "src",
+  "nodeVersion"          : "system",
+  "pluginsFile"          : "test/plugins/index.cjs",
+  "screenshotsFolder"    : "test/screenshots",
+  "supportFile"          : "test/support/index.js",
+  "testFiles"            : "**/*.test.js",
+  "video"                : false,
+  "videosFolder"         : "test/videos",
+  "projectId"            : "t8vr8w"
+}
