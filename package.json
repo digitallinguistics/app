@@ -25,6 +25,7 @@
     "build:docs"      : "jsdoc -c build/jsdoc.json",
     "build:page"      : "node build/bin/buildPage.js",
     "build:js"        : "node build/bin/buildJS.js",
+    "build:stories"   : "node build/bin/buildStories.js",
     "build:svg"       : "node build/bin/buildSVG.js",
     "cypress-ct"      : "start-server-and-test start:storybook 6006 cypress-ct-open",
     "cypress-ct-open" : "cypress open --config-file test/cypress.component.json",
@@ -35,6 +36,7 @@
     "cypress-it"      : "start-server-and-test start:storybook 6006 cypress-it-open",
     "cypress-it-open" : "cypress open --config-file test/cypress.integration.json",
     "cypress-it-run"  : "cypress run --config-file test/cypress.integration.json",
+    "quick-build"     : "node build/quickBuild.js",
     "start"           : "node build/bin/startServer.js",
     "start:storybook" : "start-storybook -p 6006 -s dist --ci",
     "stop-only"       : "stop-only -f test,src",
@@ -43,7 +45,7 @@
     "test:component"  : "start-server-and-test start:storybook 6006 cypress-ct-run",
     "test:e2e"        : "start-server-and-test start 3000 cypress-e2e-run",
     "test:integration": "start-server-and-test start:storybook 6006 cypress-it-run",
-    "test:unit"       : "mocha src/models/*.unit.js src/core/*.unit.js test/*.unit.js"
+    "test:unit"       : "mocha src/**/*.unit.js test/*.unit.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
