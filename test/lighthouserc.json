@@ -1,7 +1,8 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist"
+      "startServerCommand": "npm start",
+      "url"               : "https://localhost:3000/"
     }
   }
 }
