@@ -464,6 +464,8 @@ describe(`EventEmitter`, function() {
 });
 ```
 
+**NOTE:** Some unit tests have to be run in the browser because they rely on specific browser APIs (for example, the tests for `Model.js`). These should be given the `.component.js` extension so that they run in the browser, but otherwise can be written as normal unit tests.
+
 #### Component Tests
 
 Component tests check the functionality of a single component in isolation. Any items in the `components/` folder that have functionality, or any page-specific components in `pages/{ComponentName}` that have functionality, should have a component test.
