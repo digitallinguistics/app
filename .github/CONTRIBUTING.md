@@ -167,27 +167,42 @@ Whenever possible, write a test for the changes you are making. This ensures tha
 
 There are several types of tests in this project:
 
-- **unit tests:** These tests cover small, isolated parts of the code such as individual classes, methods, or modules.
+- **unit tests:** These tests cover small, isolated parts of the code such as individual classes, methods, or modules. These tests are run with [Mocha] and have a `.unit.js` extension.
 
-- **component tests:** These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc.
+- **component tests:** These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc. These tests are run with a combination of [Storybook] + [Cypress] and have a `.component.js` extension.
 
-- **integration tests:** These tests check that different components interact properly with each other when used together in the app. For example, clicking a button in one component should open a menu in another.
+- **integration tests:** These tests check that different components interact properly with each other when used together in the app. For example, clicking a button in one component should open a menu in another. These tests should not generally depend on databases or servers. These tests are run with a combination of [Storybook] + [Cypress] and have an `.integration.js` extension.
 
-- **end-to-end (E2E) tests:** These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks.
+- **end-to-end (E2E) tests:** These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks, and depend on databases, servers, etc. These typically only test the "happy path", rather than various errors. These tests are run with [Cypress] and have a `.e2e.js` extension.
 
-- **performance tests:** These tests check the app's performance in terms of speed and other metrics.
+- **performance tests:** These tests check the app's performance in terms of speed and other metrics. These tests are run with [Lighthouse].
 
-Tests which require a browser or the Lotus app are run using [Cypress]. Tests which can be executed in Node are run using [Mocha]. All Mocha tests are unit tests, but Cypress tests can be of any type. Performance tests are run using [Lighthouse].
+The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.
 
-You can run each type of test with the following commands.
+```
+fast / cheap <----------------------------> slow / expensive
 
-- **Mocha tests:** `npm run test:unit`
-- **Cypress tests (command line):** `npm run cypress-run`
-- **Cypress tests (browser):** `npm run cypress`
-- **performance tests:** `npm run lighthouse`
-- **all tests:** `npm test`
+unit <--- component --- integration --- E2E ---> performance
+```
 
-Running `npm run cypress` will open the Cypress tests in a browser, where you can watch the tests interact with the app, and rerun and debug those tests. This is the recommended way of running Cypress tests during development.
+Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the "testing pyramid", with many tiny unit / component tests, fewer integration tests, and a small number of E2E / performance tests.
+
+Cypress tests can either be run programmatically (from the command line), or by using an interactive interface which allows you to watch the tests interact with the app, rerun, and debug those tests.
+
+You can run the various types of tests with the following commands:
+
+| Test Type   | Extension         | Interface    | Command (with `npm run`)          |
+| ----------- | ----------------- | ------------ | --------------------------------- |
+| unit        | `.unit.js`        | manual       | —                                 |
+| unit        | `.unit.js`        | programmatic | `test:unit`                       |
+| component   | `.component.js`   | manual       | `cypress-ct`                      |
+| component   | `.component.js`   | programmatic | `test:component`                  |
+| integration | `.integration.js` | manual       | `cypress-it`                      |
+| integration | `.integration.js` | programmatic | `test:integration`                |
+| E2E         | `.e2e.js`         | manual       | `cypress-e2e`                     |
+| E2E         | `.e2e.js`         | programmatic | `test:e2e`                        |
+| performance | —                 | manual       | [Chromium dev tools][lh-devtools] |
+| performance | —                 | programmatic | `lighthouse`                      |
 
 Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
 
@@ -197,36 +212,36 @@ This section explains the organization of the project and the app code.
 
 ### Project Structure
 
-Folder        | Description
---------------|---------------
-`.github/`    | Developer documentation.
-`.storybook/` | Configuration for [Storybook].
-`build/`      | Scripts to build the production version of the app from the `src/` files.
-`dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
-`docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
-`src/`        | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.
-`test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment.
+| Folder        | Description                                                                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `.github/`    | Developer documentation.                                                                                                                               |
+| `.storybook/` | Configuration for [Storybook].                                                                                                                         |
+| `build/`      | Scripts to build the production version of the app from the `src/` files.                                                                              |
+| `dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.      |
+| `docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.                                         |
+| `src/`        | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.              |
+| `test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment. |
 
 ### Directory Structure
 
 The `src/` folder contains the following:
 
-Folder              | Description
---------------------|-------------
-`App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell.
-`components/`       | Components that are shared across pages (but not part of the app shell).
-`core/`             | High-level JavaScript modules whose functionality is shared across components.
-`fonts/`            | Font files.
-`images/`           | Images and icons used in the app.
-`models/`           | Data models (e.g. Language, Text, etc.).
-`pages/`            | Each subfolder contains all the code for a single "page".
-`services/`         | JavaScript modules which manage access to services like databases and APIs.
-`styles/`           | Global classes, variables, and utility classes that are used across pages.
-`utilities/`        | JavaScript utilities that are reused across components.
-`index.hbs`         | The HTML shell for the app.
-`index.less`        | Global styles that apply across the app.
-`manifest.json`     | Web app manifest for installing the site as a web app.
-`offline-worker.js` | A service worker which makes the app work offline.
+| Folder              | Description                                                                                                                                         |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell. |
+| `components/`       | Components that are shared across pages (but not part of the app shell).                                                                            |
+| `core/`             | High-level JavaScript modules whose functionality is shared across components.                                                                      |
+| `fonts/`            | Font files.                                                                                                                                         |
+| `images/`           | Images and icons used in the app.                                                                                                                   |
+| `models/`           | Data models (e.g. Language, Text, etc.).                                                                                                            |
+| `pages/`            | Each subfolder contains all the code for a single "page".                                                                                           |
+| `services/`         | JavaScript modules which manage access to services like databases and APIs.                                                                         |
+| `styles/`           | Global classes, variables, and utility classes that are used across pages.                                                                          |
+| `utilities/`        | JavaScript utilities that are reused across components.                                                                                             |
+| `index.hbs`         | The HTML shell for the app.                                                                                                                         |
+| `index.less`        | Global styles that apply across the app.                                                                                                            |
+| `manifest.json`     | Web app manifest for installing the site as a web app.                                                                                              |
+| `offline-worker.js` | A service worker which makes the app work offline.                                                                                                  |
 
 ### App Structure
 
@@ -430,6 +445,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
 [LESS]:            https://lesscss.org/
+[lh-devtools]:     https://developers.google.com/web/tools/lighthouse/#devtools
 [Lighthouse]:      https://developers.google.com/web/tools/lighthouse/
 [maintainers]:     https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md
 [Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
