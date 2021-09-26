@@ -43,7 +43,7 @@
     "test:component"  : "start-server-and-test start:storybook 6006 cypress-ct-run",
     "test:e2e"        : "start-server-and-test start 3000 cypress-e2e-run",
     "test:integration": "start-server-and-test start:storybook 6006 cypress-it-run",
-    "test:unit"       : "mocha **/*.unit.*"
+    "test:unit"       : "mocha src/models/*.unit.js src/core/*.unit.js test/*.unit.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
