@@ -401,7 +401,7 @@ You can run the various types of tests with the following commands:
 | performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
 | performance | —                 | programmatic | `test:perf`                       |
 
-Alternatively, you can open Storybook + Cypress manually. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively.
+Alternatively, you can open both Storybook + Cypress manually, which is sometimes easier for development. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively.
 
 ### Writing Tests
 
