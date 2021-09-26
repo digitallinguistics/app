@@ -15,6 +15,7 @@ overrides:
       - '**/*.component.js'
       - '**/*.e2e.js'
       - '**/*.integration.js'
+      - '**/*.model.js'
       - '**/*.test.js'
       - '**/*.unit.js'
     rules:
