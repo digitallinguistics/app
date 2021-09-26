@@ -13,6 +13,8 @@ globals:
 overrides:
   - files:
       - '**/*.component.js'
+      - '**/*.e2e.js'
+      - '**/*.integration.js'
       - '**/*.test.js'
       - '**/*.unit.js'
     rules:
