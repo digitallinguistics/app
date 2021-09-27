@@ -113,5 +113,6 @@ dist
 src/**/*.css
 /dist
 /docs
+preview-body.html
 screenshots
 nodemon.json
