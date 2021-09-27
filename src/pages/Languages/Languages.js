@@ -92,7 +92,7 @@ export default class LanguagesPage extends View {
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
     editorView.events.once(`add`, this.addLanguage.bind(this));
-    editorView.events.once(`delete`, this.deleteLanguage.bind(this));
+    editorView.events.on(`delete`, this.deleteLanguage.bind(this));
     editorView.events.on(`update:name`, this.renderNav.bind(this));
 
   }
