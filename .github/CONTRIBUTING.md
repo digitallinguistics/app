@@ -470,7 +470,7 @@ describe(`EventEmitter`, function() {
 
 Component tests check the functionality of a single component in isolation. Any items in the `components/` folder that have functionality, or any page-specific components in `pages/{ComponentName}` that have functionality, should have a component test.
 
-Component tests are run using [Cypress] tests on a single [Storybook] story. To load the component, call `cy.visit()` on the URL for that particular story. You can find the URL by opening that story in Storybook,clicking the "Open canvas in new tab" icon in the upper right (the external link icon), and copying the URL from that tab. Now you can write your component tests using Cypress' API. Note that you do *not* need to import Chai or Sinon—these are included in Cypress. Here is a small example test:
+Component tests are run using [Cypress] tests on a single [Storybook] story. To load the component, call `cy.visit()` on the URL for that particular story. You can find the URL by opening that story in Storybook, clicking the "Open canvas in new tab" icon in the upper right (the external link icon), and copying the URL from that tab. Now you can write your component tests using Cypress' API. Note that you do *not* need to import Chai or Sinon—these are included in Cypress. Here is a small example test:
 
 ```js
 // List.component.js
