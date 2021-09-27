@@ -69,7 +69,7 @@ rules:
   declaration-block-trailing-semicolon: always
   declaration-colon-newline-after: always-multi-line
   declaration-colon-space-after: null
-  declaration-colon-space-before: never
+  declaration-colon-space-before: null
   declaration-empty-line-before: null
   font-family-no-duplicate-names: true
   declaration-no-important:

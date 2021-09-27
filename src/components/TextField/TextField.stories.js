@@ -1,10 +1,10 @@
-import './InputGroup.css';
+import './TextField.css';
 
 export default {
-  title: `Components/Input Group`,
+  title: `Components/Text Field`,
 };
 
-export const Valid = () => `<div class=input-group>
+export const Valid = () => `<div class=text-field>
   <label for=abbreviation>Abbreviation</label>
   <div>
     <input
@@ -21,7 +21,7 @@ export const Valid = () => `<div class=input-group>
   </div>
 </div>`;
 
-export const Invalid = () => `<div class=input-group>
+export const Invalid = () => `<div class=text-field>
   <label for=abbreviation>Abbreviation</label>
   <div>
     <input
