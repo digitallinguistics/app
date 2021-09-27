@@ -29,12 +29,19 @@
 
   <fieldset>
     <div>
-      <label data-bind=for:textID>Note Text</label>
+      <label class=legend data-bind=for:textID>Note Text</label>
       <p class=help-text>The text of the note.</p>
-      <textarea class=text-input data-bind=id:textID rows=4></textarea>
+      <textarea
+        autocomplete=off
+        class=text-input
+        data-bind=id:textID
+        inputmode=text
+        placeholder='Type your note here.'
+        rows=4
+      ></textarea>
     </div>
     <div>
-      <label data-bind=for:sourceID>Source</label>
+      <label class=legend data-bind=for:sourceID>Source</label>
       <p class=help-text>The source of this note (person, bibliographic item, etc.).</p>
       <input
         autocomplete=off
