@@ -66,6 +66,8 @@ export default class LanguageEditor extends View {
   handleNamesUpdate({ target }) {
 
     if (target.classList.contains(`js-delete-button`)) {
+      const confirmDelete = confirm(`Are you sure you want to delete this Additional Language Name? This action cannot be undone. Click 'OK' to confirm deletion.`);
+      if (!confirmDelete) return;
       const i = Number(target.closest(`li`).dataset.id);
       return this.deleteName(i);
     }
@@ -73,7 +75,7 @@ export default class LanguageEditor extends View {
     if (target.classList.contains(`js-save-button`)) {
       return this.updateAdditionalNames();
     }
-  
+
   }
 
   // Rendering Methods
@@ -84,7 +86,7 @@ export default class LanguageEditor extends View {
     this.el                  = this.cloneTemplate();
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
-    
+
     this.hydrate(); // must precede other rendering methods
 
     this.renderName();
@@ -157,7 +159,7 @@ export default class LanguageEditor extends View {
     const names     = [];
 
     for (const li of listItems) {
-      
+
       const name     = li.querySelector(`.js-name-input`).value;
       const language = li.querySelector(`.js-lang-input`).value;
 
@@ -204,10 +206,10 @@ export default class LanguageEditor extends View {
       language: ``,
       name:     ``,
     });
-    
+
     await this.save();
     this.renderAdditionalNames();
-    
+
     const nameView = this.el.querySelector(`.additional-names .names-list li:first-child`).view;
 
     nameView.showEditor();
