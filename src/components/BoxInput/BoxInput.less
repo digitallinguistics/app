@@ -1,0 +1,24 @@
+.box-input {
+
+  background-color: var(--gray-1);
+  border          : var(--border);
+  border-radius   : var(--border-radius);
+  padding         : var(--text-padding);
+
+  &::placeholder {
+    font-style: italic;
+  }
+
+  &:focus-visible {
+
+    background-color: white;
+    border-color    : transparent;
+    outline         : var(--blue) solid var(--focus-width);
+
+    &::placeholder {
+      color: var(--blue);
+    }
+
+  }
+
+}
