@@ -1,5 +1,3 @@
-@import (reference) 'variables';
-
 @component-breakpoint: 75em;
 
 .additional-name {
@@ -11,6 +9,7 @@
   .buttons {
 
     align-items: center;
+    align-self:  flex-end;
     flex-flow:   row nowrap;
 
     button {
@@ -34,7 +33,7 @@
     @media (min-width: @component-breakpoint) {
       flex-direction: row;
     }
-  
+
   }
 
   label {
