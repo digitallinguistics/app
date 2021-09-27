@@ -1,0 +1,71 @@
+@import (reference) 'variables';
+
+.note {
+
+  border:        var(--border);
+  border-radius: var(--border-radius);
+  box-shadow:    var(--box-shadow);
+  padding:       var(--space-xs);
+  position:      relative;
+
+  button {
+    margin: var(--space-xxxs);
+  }
+
+  .buttons {
+    align-items: center;
+    flex-flow:   row nowrap;
+  }
+
+  .date {
+
+    // small screens
+    @media (max-width: @breakpoint) {
+      margin-block-start: var(--space-xxs);
+    }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      margin-inline-start: var(--space);
+    }
+
+  }
+
+  fieldset {
+    .buttons {
+      align-self: flex-end;
+    }
+  }
+
+  header {
+
+    align-items: baseline;
+
+    // small screens
+    @media (max-width: @breakpoint) {
+      flex-direction: column;
+    }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      flex-direction: row;
+    }
+
+  }
+
+  .note-buttons {
+    inset-block-start:   0;
+    inset-inline-end:    0;
+    position:            absolute;
+    margin-inline-start: auto;
+  }
+
+  .text-preview {
+    padding-block: var(--text-block-padding-lg);
+  }
+
+  time {
+    font-size: small;
+  }
+
+}

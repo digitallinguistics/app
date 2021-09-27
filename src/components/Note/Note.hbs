@@ -1,0 +1,55 @@
+<article class=note>
+
+  <div class='buttons note-buttons'>
+    <button aria-label='Edit this Note' class='button js-edit-button transparent' type=button>
+      <svg>
+        <use href=#edit-note></use>
+      </svg>
+    </button>
+    <button aria-label='Delete this Note' class='button js-delete-button transparent' type=button>
+      <svg>
+        <use href=#trash></use>
+      </svg>
+    </button>
+  </div>
+
+  <header>
+    <b class='legend src-preview'></b>
+    <div class=date>
+      <label class=label>Date Created:</label>
+      <time class=date-created></time>
+    </div>
+    <div class=date>
+      <label class=label>Last Modified:</label>
+      <time class=date-modified></time>
+    </div>
+  </header>
+  
+  <p class=text-preview></p>
+
+  <fieldset>
+    <div>
+      <label data-bind=for:textID>Note Text</label>
+      <p class=help-text>The text of the note.</p>
+      <textarea class=text-input data-bind=id:textID rows=4></textarea>
+    </div>
+    <div>
+      <label data-bind=for:sourceID>Source</label>
+      <p class=help-text>The source of this note (person, bibliographic item, etc.).</p>
+      <input
+        autocomplete=off
+        class=src-input
+        data-bind=id:sourceID
+        inputmode=text
+        placeholder='e.g. DWH'
+        spellcheck=false
+        type=text
+      >
+    </div>
+    <div class=buttons>
+      <button class='button js-cancel-button' type=button>Cancel</button>
+      <button class='button blue js-save-button' type=button>Save</button>
+    </div>
+  </fieldset>
+
+</article>
