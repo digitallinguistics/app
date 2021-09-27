@@ -35,7 +35,7 @@
     "test": "npm run test:unit & npm run test:integration & npm run test:perf",
     "test:component": "cypress run-ct --config-file test/cypress.json",
     "test:integration": "start-server-and-test start 3000 cypress-run",
-    "test:perf": "lhci autorun & rimraf .lighthouseci",
+    "test:perf": "lhci autorun && rimraf .lighthouseci",
     "test:unit": "mocha **/*.unit.*",
     "storybook": "start-storybook -p 6006"
   },
