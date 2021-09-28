@@ -34,7 +34,6 @@ await oraPromise(emptyDir(joinPath(currentDir, `../docs`)), `Empty /docs directo
 
 const jsdocDir         = joinPath(currentDir, `../node_modules/.bin/jsdoc`);
 const buildDocsPromise = execute(`${ jsdocDir } -c build/jsdoc.json`);
-
 await oraPromise(buildDocsPromise, `Build developer documentation`);
 
 console.info(`App finished building.\n`);
