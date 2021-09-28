@@ -106,11 +106,13 @@ dist
 
 .eslintrc.js
 .idea
+.lighthouseci
 .project
 .vscode
 .project
 src/**/*.css
 /dist
 /docs
+preview-body.html
 screenshots
 nodemon.json

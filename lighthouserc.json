@@ -1,0 +1,23 @@
+{
+  "ci": {
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "apple-touch-icon"                 : "off",
+        "content-width"                    : "off",
+        "csp-xss"                          : "off",
+        "external-anchors-use-rel-noopener": "off",
+        "maskable-icon"                    : "off",
+        "splash-screen"                    : "off",
+        "themed-omnibox"                   : "off",
+        "unminified-javascript"            : "off",
+        "uses-text-compression"            : "off"
+      }
+    },
+    "collect": {
+      "numberOfRuns"      : 1,
+      "startServerCommand": "npm start",
+      "url"               : ["http://localhost:3000/"]
+    }
+  }
+}

@@ -9,7 +9,8 @@ module.exports = function startServer() {
   const port   = 3000 || process.env.PORT;
   const server = http.createServer((req, res) => handler(req, res, { public: distDir }));
 
-  server.listen(port, () => console.info(`Server started on port ${ port }. Press Ctrl+C to terminate.`));
+  // NOTE: The server start message must contain the string "listen" or "ready" in order for Lighthouse to run properly.
+  server.listen(port, () => console.info(`Server started listening on port ${ port }. Press Ctrl+C to terminate.`));
   server.on(`error`, console.error);
 
   return server;
