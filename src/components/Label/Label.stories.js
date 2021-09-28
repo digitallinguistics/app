@@ -4,4 +4,4 @@ export default {
   title: `Components/Label`,
 };
 
-export const Label = () => `<label class=label>label</label>`;
+export const Label = () => `<label class=label>Label</label>`;
