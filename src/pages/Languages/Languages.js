@@ -20,12 +20,8 @@ export default class LanguagesPage extends View {
     this.languages = languages;
   }
 
-  addEventListeners() {
-    this.el.querySelector(`.languages-nav .add-language-button`)
-    .addEventListener(`click`, this.addLanguage.bind(this));
-  }
-
   async addLanguage() {
+    console.log(`called`);
     let language = new Language;
     language.autonym.set(`default`, ``);
     language.name.set(`eng`, `{ new language }`);
@@ -57,7 +53,6 @@ export default class LanguagesPage extends View {
     this.el.view  = this;
     this.renderNav(languageCID);
     this.renderEditor(languageCID);
-    this.addEventListeners();
     return this.el;
   }
 
