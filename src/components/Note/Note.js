@@ -15,6 +15,7 @@ export default class NoteView extends View {
     this.el.querySelector(`.js-cancel-button`).addEventListener(`click`, this.hideEditor.bind(this));
     this.el.querySelector(`.js-edit-button`).addEventListener(`click`, this.showEditor.bind(this));
     this.el.querySelector(`.js-save-button`).addEventListener(`click`, this.hideEditor.bind(this));
+    this.el.querySelector(`.js-text-preview`).addEventListener(`click`, this.showEditor.bind(this));
   }
 
   hideEditor() {
@@ -53,7 +54,7 @@ export default class NoteView extends View {
     this.el.querySelector(`.date-created`).textContent  = dateCreated;
     this.el.querySelector(`.date-modified`).textContent = dateModified;
     this.el.querySelector(`.src-preview`).textContent   = this.note.source;
-    this.el.querySelector(`.text-preview`).textContent  = this.note.text;
+    this.el.querySelector(`.text-preview`).innerHTML    = this.note.text || `<i style='font-style: italic;'>(no text)</i>`;
   
     // editor
     this.el.querySelector(`.src-input`).value  = this.note.source;

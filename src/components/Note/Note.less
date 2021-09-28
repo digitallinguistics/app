@@ -20,6 +20,8 @@
   .content {
     background-image   : repeating-linear-gradient(white 0, white 1.65em, teal 1.75em);
     border-block-start : 0.2em solid rgba(255, 0, 0, 0.6);
+    border-radius      : 0 0 var(--border-radius) var(--border-radius);
+    min-block-size     : 3em;
     padding-block-start: 0.125em;
   }
 
@@ -40,6 +42,10 @@
       display: none;
     }
 
+    .text-preview {
+      display: none;
+    }
+
   }
 
   &:not(.editing) {
@@ -49,7 +55,11 @@
     }
 
     .js-edit-button {
-      display: flex;
+      display: block;
+    }
+
+    .text-preview {
+      display: block;
     }
 
   }
@@ -75,9 +85,10 @@
 
   header {
 
-    align-items   : baseline;
-    flex-direction: row;
-    padding       : var(--space-xs);
+    align-items      : baseline;
+    flex-direction   : row;
+    margin-inline-end: 5em; // space for .buttons + a little padding
+    padding          : var(--space-xs);
 
     // small screens
     @media (max-width: @breakpoint) {
@@ -89,6 +100,10 @@
       flex-direction: row;
     }
 
+  }
+
+  .help-text {
+    padding-block-end: var(--text-block-padding);
   }
 
   .note-buttons {
@@ -116,6 +131,7 @@
   }
 
   .text-preview {
+    cursor        : pointer;
     line-height   : 1.75;
     padding-inline: var(--space-xs);
   }

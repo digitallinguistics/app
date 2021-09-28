@@ -23,7 +23,13 @@ describe(`Note`, function() {
   
   });
 
-  it(`edits / saves with Edit + Save buttons`, function() {
+  it(`edits / saves with click-on-text + Save buttons`, function() {
+
+    cy.contains(`p`, `Velit tempor`)
+    .click();
+
+    cy.get(`.js-editor`)
+    .should(`be.visible`);
     
     cy.get(`.js-edit-button`)
     .click();
