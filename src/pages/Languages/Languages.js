@@ -21,7 +21,6 @@ export default class LanguagesPage extends View {
   }
 
   async addLanguage() {
-    console.log(`called`);
     let language = new Language;
     language.autonym.set(`default`, ``);
     language.name.set(`eng`, `{ new language }`);
