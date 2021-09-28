@@ -23,18 +23,35 @@
     padding-block-start: 0.125em;
   }
 
-  :not(:empty) + .date {
-    // small screens
-    @media (max-width: @breakpoint) {
-      margin-block-start: var(--space-xxs);
-    }
-  }
-
   .date + .date {
     // large screens
     @media (min-width: @breakpoint) {
       margin-inline-start: var(--space);
     }
+  }
+
+  &.editing {
+
+    .js-editor {
+      display: flex;
+    }
+
+    .js-edit-button {
+      display: none;
+    }
+
+  }
+
+  &:not(.editing) {
+
+    .js-editor {
+      display: none;
+    }
+
+    .js-edit-button {
+      display: flex;
+    }
+
   }
 
   // NOTE: Don't use .input-group here.
@@ -82,7 +99,20 @@
   }
 
   .src-preview:not(:empty) {
+
     margin-inline-end: var(--space);
+
+    & .date {
+      // small screens
+      @media (max-width: @breakpoint) {
+        margin-block-start: var(--space-xxs);
+      }
+    }
+
+  }
+
+  .text-input {
+    resize: vertical;
   }
 
   .text-preview {

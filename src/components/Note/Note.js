@@ -29,8 +29,7 @@ export default class NoteView extends View {
   }
 
   showEditor() {
-    this.el.querySelector(`.js-editor`).hidden      = false;
-    this.el.querySelector(`.js-edit-button`).hidden = true;
+    this.el.classList.add(`editing`);
     this.el.querySelector(`.js-text-input`).focus();
   }
 
