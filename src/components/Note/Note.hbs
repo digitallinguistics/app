@@ -24,39 +24,43 @@
       <time class=date-modified></time>
     </div>
   </header>
-  
-  <p class=text-preview></p>
 
-  <fieldset>
-    <div>
-      <label class=legend data-bind=for:textID>Note Text</label>
-      <p class=help-text>The text of the note.</p>
-      <textarea
-        autocomplete=off
-        class=text-input
-        data-bind=id:textID
-        inputmode=text
-        placeholder='Type your note here.'
-        rows=4
-      ></textarea>
-    </div>
-    <div>
-      <label class=legend data-bind=for:sourceID>Source</label>
-      <p class=help-text>The source of this note (person, bibliographic item, etc.).</p>
-      <input
-        autocomplete=off
-        class=src-input
-        data-bind=id:sourceID
-        inputmode=text
-        placeholder='e.g. DWH'
-        spellcheck=false
-        type=text
-      >
-    </div>
-    <div class=buttons>
-      <button class='button js-cancel-button' type=button>Cancel</button>
-      <button class='button blue js-save-button' type=button>Save</button>
-    </div>
-  </fieldset>
+  <div class=content>
+
+    <p class=text-preview></p>
+
+    <fieldset>
+      <div class=field-group>
+        <label class=legend data-bind=for:textID>Note Text</label>
+        <p class=help-text>The text of the note.</p>
+        <textarea
+          autocomplete=off
+          class='box-input text-input'
+          data-bind=id:textID
+          inputmode=text
+          placeholder='Type your note here.'
+          rows=4
+        ></textarea>
+      </div>
+      <div class=field-group>
+        <label class=legend data-bind=for:sourceID>Source</label>
+        <p class=help-text>The source of this note (person, bibliographic item, etc.).</p>
+        <input
+          autocomplete=off
+          class='box-input src-input'
+          data-bind=id:sourceID
+          inputmode=text
+          placeholder='e.g. DWH'
+          spellcheck=false
+          type=text
+        >
+      </div>
+      <div class=buttons>
+        <button class='button js-cancel-button' type=button>Cancel</button>
+        <button class='button blue js-save-button' type=button>Save</button>
+      </div>
+    </fieldset>
+  
+  </div>
 
 </article>
