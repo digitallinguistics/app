@@ -6,9 +6,11 @@ import List from '../List/List.js';
 export default class NavList extends List {
 
   addEventListeners() {
-    this.el.addEventListener(`click`, ({ target }) => {
+    this.el.addEventListener(`click`, ev => {
 
-      const li = target.closest(`li`);
+      ev.preventDefault();
+
+      const li = ev.target.closest(`li`);
       const id = li?.dataset?.id;
 
       if (id) {
