@@ -14,6 +14,7 @@ export default class NoteView extends View {
   addEventListeners() {
     this.el.querySelector(`.js-cancel-button`).addEventListener(`click`, this.hideEditor.bind(this));
     this.el.querySelector(`.js-edit-button`).addEventListener(`click`, this.showEditor.bind(this));
+    this.el.querySelector(`.js-save-button`).addEventListener(`click`, this.hideEditor.bind(this));
   }
 
   hideEditor() {

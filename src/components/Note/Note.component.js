@@ -4,7 +4,7 @@ describe(`Note`, function() {
     cy.visit(`http://localhost:6006/iframe.html?id=components-note--populated`);
   });
 
-  it(`displays the editor when the Edit button is clicked`, function() {
+  it(`shows / hides the editor with Edit + Cancel buttons`, function() {
 
     cy.get(`.js-edit-button`)
     .click();
@@ -15,16 +15,25 @@ describe(`Note`, function() {
     cy.get(`.js-text-input`)
     .should(`have.focus`);
     
-  });
-
-  it(`hides the editor when the Cancel button is clicked`, function() {
-    
     cy.contains(`button`, `Cancel`)
     .click();
 
     cy.get(`.js-editor`)
     .should(`not.be.visible`);
   
+  });
+
+  it(`edits / saves with Edit + Save buttons`, function() {
+    
+    cy.get(`.js-edit-button`)
+    .click();
+
+    cy.contains(`button`, `Save`)
+    .click();
+
+    cy.get(`.js-editor`)
+    .should(`not.be.visible`);
+
   });
 
 });
