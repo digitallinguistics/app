@@ -6,8 +6,11 @@ describe(`Note`, function() {
     cy.get(`.js-edit-button`)
     .click();
 
-    cy.get(`fieldset`)
+    cy.get(`.js-editor`)
     .should(`be.visible`);
+
+    cy.get(`.js-text-input`)
+    .should(`have.focus`);
     
   });
 

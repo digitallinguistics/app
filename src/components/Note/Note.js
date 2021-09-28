@@ -11,6 +11,10 @@ export default class NoteView extends View {
     this.textID   = `note-text-${ index }`;
   }
 
+  addEventListeners() {
+    this.el.querySelector(`.js-edit-button`).addEventListener(`click`, this.showEditor.bind(this));
+  }
+
   render() {
 
     this.el      = this.cloneTemplate();
@@ -18,9 +22,16 @@ export default class NoteView extends View {
 
     this.updatePreview();
     this.hydrate();
+    this.addEventListeners();
 
     return this.el;
   
+  }
+
+  showEditor() {
+    this.el.querySelector(`.js-editor`).hidden      = false;
+    this.el.querySelector(`.js-edit-button`).hidden = true;
+    this.el.querySelector(`.js-text-input`).focus();
   }
 
   updatePreview() {
