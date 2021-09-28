@@ -1,0 +1,147 @@
+@import (reference) 'variables';
+
+.note {
+
+  border       : var(--border);
+  border-radius: var(--border-radius);
+  box-shadow   : var(--box-shadow);
+  position     : relative;
+
+  button {
+    margin: var(--space-xxxs);
+  }
+
+  .buttons {
+    align-items: center;
+    flex-flow  : row nowrap;
+  }
+
+  // index card styling
+  .content {
+    background-image   : repeating-linear-gradient(white 0, white 1.65em, teal 1.75em);
+    border-block-start : 0.2em solid rgba(255, 0, 0, 0.6);
+    border-radius      : 0 0 var(--border-radius) var(--border-radius);
+    min-block-size     : 3em;
+    padding-block-start: 0.125em;
+  }
+
+  .date + .date {
+    // large screens
+    @media (min-width: @breakpoint) {
+      margin-inline-start: var(--space);
+    }
+  }
+
+  &.editing {
+
+    .js-editor {
+      display: flex;
+    }
+
+    .js-edit-button {
+      display: none;
+    }
+
+    .text-preview {
+      display: none;
+    }
+
+  }
+
+  &:not(.editing) {
+
+    .js-editor {
+      display: none;
+    }
+
+    .js-edit-button {
+      display: block;
+    }
+
+    .text-preview {
+      display: block;
+    }
+
+  }
+
+  // NOTE: Don't use .input-group here.
+  .field-group {
+    margin-block-end: var(--space-sm);
+  }
+
+  fieldset {
+
+    background-color: white;
+    border          : var(--border);
+    border-radius   : var(--border-radius);
+    margin          : var(--space-xs);
+    padding         : var(--space-xs);
+
+    .buttons {
+      align-self: flex-end;
+    }
+
+  }
+
+  header {
+
+    align-items      : baseline;
+    flex-direction   : row;
+    margin-inline-end: 5em; // space for .buttons + a little padding
+    padding          : var(--space-xs);
+
+    // small screens
+    @media (max-width: @breakpoint) {
+      flex-direction: column;
+    }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      flex-direction: row;
+    }
+
+  }
+
+  .help-text {
+    padding-block-end: var(--text-block-padding);
+  }
+
+  .note-buttons {
+    inset-block-start  : 0;
+    inset-inline-end   : 0;
+    position           : absolute;
+    margin-inline-start: auto;
+  }
+
+  .src-preview:not(:empty) {
+
+    margin-inline-end: var(--space);
+
+    & .date {
+      // small screens
+      @media (max-width: @breakpoint) {
+        margin-block-start: var(--space-xxs);
+      }
+    }
+
+  }
+
+  .text-input {
+    resize: vertical;
+  }
+
+  .text-preview {
+    cursor        : pointer;
+    line-height   : 1.75;
+    padding-inline: var(--space-xs);
+  }
+
+  .text-preview:not(:empty) + fieldset {
+    margin-block-start: var(--space-sm);
+  }
+
+  time {
+    font-size: small;
+  }
+
+}
