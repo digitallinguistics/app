@@ -5,6 +5,11 @@ import List from '../List/List.js';
  */
 export default class NavList extends List {
 
+  constructor(options) {
+    super(options);
+    this.name = options.name ?? `item`;
+  }
+
   addEventListeners() {
     this.el.addEventListener(`click`, ev => {
 
@@ -23,6 +28,7 @@ export default class NavList extends List {
 
   render(id) {
     super.render();
+    this.el.classList.add(`list`);
     this.el.classList.add(`nav-list`);
     if (id) this.setCurrentItem(id);
     this.addEventListeners();

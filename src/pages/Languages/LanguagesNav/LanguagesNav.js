@@ -16,7 +16,7 @@ export default class LanguagesNav extends View {
     this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
     const listView = new NavList(this.languages, {
-      classes:  [`languages-list`],
+      classes:  [`list`, `languages-list`],
       name:     `language`,
       template: this.itemTemplate,
     });

@@ -1,0 +1,131 @@
+.notes-list {
+
+  &.bordered {
+
+    border       : var(--border);
+    border-radius: var(--border-radius);
+
+    .notes {
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+  }
+
+  &[open] {
+
+    .closed-icon {
+      display: none;
+    }
+
+    .note-button {
+      display: none;
+    }
+
+    .note-item {
+      margin-inline     : var(--space);
+      margin-block-start: var(--space);
+    }
+
+    .note-item:last-child {
+      margin-block-end: var(--space);
+    }
+
+    .notes {
+      background-color  : var(--teal-1);
+      border-block-start: var(--border);
+      box-shadow        : inset var(--box-shadow);
+    }
+
+    .opened-icon {
+      display: block;
+    }
+
+  }
+
+  &:not([open]) {
+
+    .closed-icon {
+      display: block;
+    }
+
+    .editing {
+      display           : block !important;
+      inline-size       : 95%;
+      inset-block-end   : var(--space-xs);
+      inset-inline-start: calc(-1 * var(--border-width) + 2.5%);
+      position          : absolute;
+      transform         : translateY(100%);
+      z-index           : 2;
+    }
+
+    .note {
+      display: none;
+    }
+
+    .note-button {
+      display: block;
+    }
+
+    .note-item {
+
+      margin: var(--space-xxxs);
+
+      &:focus-within,
+      &:hover {
+
+        .note {
+          .editing;
+        }
+
+        .note-button {
+          background-color: var(--teal-1);
+          outline         : black solid var(--focus-width);
+        }
+
+      }
+
+    }
+
+    .notes {
+      flex-flow: row wrap;
+      position : relative;
+    }
+
+    .opened-icon {
+      display: none;
+    }
+
+  }
+
+  .add-note-button {
+    margin: var(--space-xxxs);
+  }
+
+  &-header {
+    align-items    : center;
+    cursor         : pointer;
+    flex-flow      : row wrap;
+    justify-content: space-between;
+  }
+
+  &-heading {
+    font-weight: 500;
+    padding    : var(--text-padding);
+  }
+
+  .icon {
+    --icon-size: 1.5em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : var(--space-xxxs);
+  }
+
+  .notes {
+    inline-size: 100%;
+  }
+
+  .notes:empty {
+    display: none;
+  }
+
+}
