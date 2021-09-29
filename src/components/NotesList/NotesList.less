@@ -1,0 +1,27 @@
+.notes-list {
+
+  &.bordered {
+    border       : var(--border);
+    border-radius: var(--border-radius);
+  }
+
+  .add-note-button {
+    margin: var(--space-xxxs);
+  }
+
+  .notes:empty {
+    display: none;
+  }
+
+  .notes-list-header {
+    align-items    : center;
+    flex-direction : row;
+    justify-content: space-between;
+  }
+
+  .notes-list-heading {
+    font-weight: 500;
+    padding    : var(--text-padding);
+  }
+
+}

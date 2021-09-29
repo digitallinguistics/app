@@ -30,7 +30,7 @@ export default class List extends View {
    */
   constructor(collection = [], {
     classes = [],
-    name = `item`,
+    name    = `item`,
     template,
   } = {}) {
 
@@ -47,8 +47,6 @@ export default class List extends View {
 
     this.el      = document.createElement(`ul`);
     this.el.view = this;
-
-    this.el.classList.add(`list`);
 
     for (const className of this.classes) {
       this.el.classList.add(className);
