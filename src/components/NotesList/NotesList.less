@@ -11,6 +11,71 @@
 
   }
 
+  &.expanded {
+
+    .notes {
+      background-color  : var(--teal-1);
+      border-block-start: var(--border);
+      box-shadow        : inset var(--box-shadow);
+    }
+
+    .note-button {
+      display: none;
+    }
+
+    .note-item {
+      margin-inline     : var(--space);
+      margin-block-start: var(--space);
+    }
+    
+    .note-item:last-child {
+      margin-block-end: var(--space);
+    }
+
+  }
+
+  &:not(.expanded) {
+
+    .note {
+      display: none;
+    }
+
+    .note-button {
+      display: block;
+    }
+
+    .note-item {
+
+      margin: var(--space-xxxs);
+
+      &:focus-within,
+      &:hover {
+
+        .note {
+          display           : block;
+          inline-size       : 100%;
+          inset-block-end   : 0;
+          inset-inline-start: calc(-1 * var(--border-width));;
+          position          : absolute;
+          transform         : translateY(100%);
+        }
+
+        .note-button {
+          background-color: var(--teal-1);
+          outline         : black solid var(--focus-width);
+        }
+      
+      }
+    
+    }
+
+    .notes {
+      flex-flow: row wrap;
+      position : relative;
+    }
+
+  }
+
   .add-note-button {
     margin: var(--space-xxxs);
   }
@@ -26,21 +91,6 @@
     padding    : var(--text-padding);
   }
   
-  .note-item {
-    margin-inline     : var(--space);
-    margin-block-start: var(--space);
-  }
-  
-  .note-item:last-child {
-    margin-block-end: var(--space);
-  }
-  
-  .notes {
-    background-color  : var(--teal-1);
-    border-block-start: var(--border);
-    box-shadow        : inset var(--box-shadow);
-  }
-
   .notes:empty {
     display: none;
   }

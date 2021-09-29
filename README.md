@@ -9,7 +9,7 @@ This repository contains the source code for the Digital Linguistics (DLx) [Lotu
 
 * [Try out the Lotus app!][app]
 * [Report a problem or request a feature.][new-issue]
-* [Contribute to the project.][developers]
+* [Contribute to the project.](./.github/CONTRIBUTING.md)
 
 ## Attribution
 
@@ -18,8 +18,7 @@ If you use the Lotus app in your work, please consider citing it similar to the 
 > Hieber, Daniel W. 2021. Lotus (@digitallinguistics/app). https://github.com/digitallinguistics/app
 
 <!-- LINKS -->
-[app]:        https://app.digitallinguistics.io
-[developers]: https://developer.digitallinguistics.io/app
-[GitHub]:     https://github.com/digitallinguistics/app
-[issues]:     https://github.com/digitallinguistics/app/issues
-[new-issue]:  https://github.com/digitallinguistics/app/issues/new
+[app]:          https://app.digitallinguistics.io
+[GitHub]:       https://github.com/digitallinguistics/app
+[issues]:       https://github.com/digitallinguistics/app/issues
+[new-issue]:    https://github.com/digitallinguistics/app/issues/new

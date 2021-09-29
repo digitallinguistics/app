@@ -25,6 +25,7 @@ export default class NotesList extends View {
       
       if (target.classList.contains(`js-add-note-button`)) { 
         this.addNote(); 
+        this.expand();
       }
       
       if (target.classList.contains(`js-delete-button`)) {
@@ -46,10 +47,18 @@ export default class NotesList extends View {
     this.save();
   }
 
+  collapse() {
+    this.el.classList.remove(`expanded`);
+  }
+
   deleteNote(i) {
     this.notes.splice(i, 1);
     this.renderList();
     this.save();
+  }
+
+  expand() {
+    this.el.classList.add(`expanded`);
   }
 
   save() {
@@ -57,13 +66,26 @@ export default class NotesList extends View {
   }
 
   itemTemplate(data, i) {
-    const li   = document.createElement(`li`);
+
+    const li = View.fromHTML(`<li class=note-item data-id='${ i }'></li>`);
+    
+    const button = View.fromHTML(`<button
+      aria-label='Show note'
+      class='button js-note-button note-button transparent'
+      data-id='${ i }'
+      type=button
+    >
+      <svg><use href=#sticky-note></svg>
+    </button>`);
+
     const view = new NoteView(data, i);
     const el   = view.render();
-    li.classList.add(`note-item`);
-    li.dataset.id = i;
+    
+    li.appendChild(button);
     li.appendChild(el);
+    
     return li;
+  
   }
 
   render() {
