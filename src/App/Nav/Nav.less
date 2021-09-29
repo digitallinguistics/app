@@ -25,7 +25,8 @@
 
   button {
 
-    align-items:      center;    background-color: transparent;
+    align-items:      center;
+    background-color: transparent;
     cursor:           pointer;
     display:          flex;
 
@@ -71,8 +72,16 @@
       align-items: center;
     }
 
-    button[aria-expanded=false] + ul span {
-      .visually-hidden;
+    button[aria-expanded=false] + ul {
+      span {
+        .visually-hidden;
+      }
+      li {
+        width: fit-content;
+      }
+      a {
+        width: fit-content;
+      }
     }
 
   }
