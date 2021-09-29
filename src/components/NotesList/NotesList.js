@@ -23,6 +23,7 @@ export default class NotesList extends View {
     const li   = document.createElement(`li`);
     const view = new Note(data, i);
     const el   = view.render();
+    li.classList.add(`note-item`);
     li.appendChild(el);
     return li;
   }

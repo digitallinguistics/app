@@ -5,6 +5,11 @@ import List from '../List/List.js';
  */
 export default class NavList extends List {
 
+  constructor(options) {
+    super(options);
+    this.name = options.name ?? `item`;
+  }
+
   addEventListeners() {
     this.el.addEventListener(`click`, ev => {
 

@@ -1,27 +1,48 @@
 .notes-list {
 
   &.bordered {
+
     border       : var(--border);
     border-radius: var(--border-radius);
+
+    .notes {
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
   }
 
   .add-note-button {
     margin: var(--space-xxxs);
   }
 
-  .notes:empty {
-    display: none;
-  }
-
-  .notes-list-header {
+  &-header {
     align-items    : center;
     flex-direction : row;
     justify-content: space-between;
   }
-
-  .notes-list-heading {
+  
+  &-heading {
     font-weight: 500;
     padding    : var(--text-padding);
+  }
+  
+  .note-item {
+    margin-inline     : var(--space);
+    margin-block-start: var(--space);
+  }
+  
+  .note-item:last-child {
+    margin-block-end: var(--space);
+  }
+  
+  .notes {
+    background-color  : var(--teal-1);
+    border-block-start: var(--border);
+    box-shadow        : inset var(--box-shadow);
+  }
+
+  .notes:empty {
+    display: none;
   }
 
 }

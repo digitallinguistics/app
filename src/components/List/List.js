@@ -25,12 +25,10 @@ export default class List extends View {
    * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
    * @param {Object}   [options={}]              An optional options hash
    * @param {Array}    [options.classes=[]]      An Array of classes to add to the list.
-   * @param {String}   [options.name=`item`]     The name of each item
    * @param {Function} [options.template]        A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
    */
   constructor(collection = [], {
     classes = [],
-    name    = `item`,
     template,
   } = {}) {
 
@@ -38,7 +36,6 @@ export default class List extends View {
 
     this.classes    = classes;
     this.collection = collection;
-    this.name       = name;
     this.template   = template ?? this.template;
 
   }
