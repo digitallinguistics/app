@@ -5,7 +5,7 @@ describe(`Notes List`, function() {
     cy.contains(`.notes-list h2`, `Notes`);
   });
 
-  it(`adds a note`, function() {
+  it(`adds / deletes a note`, function() {
     
     cy.visit(`http://localhost:6006/iframe.html?id=components-notes-list--empty`);
     
@@ -16,7 +16,12 @@ describe(`Notes List`, function() {
     .children()
     .should(`have.lengthOf`, 1);
 
-    // TODO: Note should be visible.
+    cy.get(`.note .js-delete-button`)
+    .click();
+
+    cy.get(`.notes`)
+    .children()
+    .should(`have.lengthOf`, 0);
 
   });
 
