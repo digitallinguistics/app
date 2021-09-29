@@ -539,6 +539,7 @@ Some great resources on creating accessible components:
 
 * [Inclusive Components](https://inclusive-components.design/)
 * [A complete guide to accessible front-end components](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/)
+* [Developer Accessibility Guide](https://www.accessibility-developer-guide.com/)
 
 ### Inspiration
 
