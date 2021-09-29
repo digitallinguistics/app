@@ -21,12 +21,39 @@ export default class NotesList extends View {
   }
 
   addEventListeners() {
-    this.el.querySelector(`.js-add-note-button`).addEventListener(`click`, this.addNote.bind(this));
+    this.el.addEventListener(`click`, ({ target }) => {
+      
+      if (target.classList.contains(`js-add-note-button`)) { 
+        this.addNote(); 
+      }
+      
+      if (target.classList.contains(`js-delete-button`)) {
+        const id = target.closest(`li`)?.dataset?.id;
+        if (!id) return; // ID is still a string here
+        this.deleteNote(Number(id));
+      }
+
+      if (target.classList.contains(`js-save-button`)) {
+        this.save();
+      }
+    
+    });
   }
 
   addNote() {
     this.notes.unshift(new Note);
     this.renderList();
+    this.save();
+  }
+
+  deleteNote(i) {
+    this.notes.splice(i, 1);
+    this.renderList();
+    this.save();
+  }
+
+  save() {
+    this.events.emit(`update`);
   }
 
   itemTemplate(data, i) {
@@ -34,6 +61,7 @@ export default class NotesList extends View {
     const view = new NoteView(data, i);
     const el   = view.render();
     li.classList.add(`note-item`);
+    li.dataset.id = i;
     li.appendChild(el);
     return li;
   }
