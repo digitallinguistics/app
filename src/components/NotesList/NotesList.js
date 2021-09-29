@@ -1,6 +1,7 @@
-import List from '../../components/List/List.js';
-import Note from '../Note/Note.js';
-import View from '../../core/View.js';
+import List     from '../../components/List/List.js';
+import Note     from '../../models/Note.js';
+import NoteView from '../Note/Note.js';
+import View     from '../../core/View.js';
 
 export default class NotesList extends View {
 
@@ -19,9 +20,18 @@ export default class NotesList extends View {
     this.notes        = notes;
   }
 
+  addEventListeners() {
+    this.el.querySelector(`.js-add-note-button`).addEventListener(`click`, this.addNote.bind(this));
+  }
+
+  addNote() {
+    this.notes.unshift(new Note);
+    this.renderList();
+  }
+
   itemTemplate(data, i) {
     const li   = document.createElement(`li`);
-    const view = new Note(data, i);
+    const view = new NoteView(data, i);
     const el   = view.render();
     li.classList.add(`note-item`);
     li.appendChild(el);
@@ -45,6 +55,15 @@ export default class NotesList extends View {
       oldHeading.replaceWith(newHeading);
     }
 
+    this.renderList();
+    this.addEventListeners();
+    
+    return this.el;
+  
+  }
+
+  renderList() {
+
     const listOptions = {
       classes:  [`notes`],
       name:     `note`,
@@ -52,12 +71,11 @@ export default class NotesList extends View {
     };
 
     const listView = new List(this.notes, listOptions);
-    const newList  = listView.render();
-    const oldList  = this.el.querySelector(`.notes`);
+    const newList = listView.render();
+    const oldList = this.el.querySelector(`.notes`);
+    oldList.view?.events.stop();
     oldList.replaceWith(newList);
-    
-    return this.el;
-  
+
   }
 
 }
