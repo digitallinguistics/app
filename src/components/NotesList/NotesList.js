@@ -116,8 +116,8 @@ export default class NotesList extends View {
     };
 
     const listView = new List(this.notes, listOptions);
-    const newList  = listView.render();
-    const oldList  = this.el.querySelector(`.notes`);
+    const newList = listView.render();
+    const oldList = this.el.querySelector(`.notes`);
     oldList.view?.events.stop();
     oldList.replaceWith(newList);
 
