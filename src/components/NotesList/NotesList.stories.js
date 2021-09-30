@@ -9,11 +9,11 @@ export default {
 const data = [{ text: `Note A` }, { text: `Note B` }, { text: `Note C` }]
 .map(item => new Note(item));
 
-const Template = ({ border, expanded, headingLevel, notes }) => {
+const Template = ({ border, headingLevel, notes, open }) => {
   const list = new NotesList(notes, { border, headingLevel });
   const el   = list.render();
   el.style.width = `30em`;
-  if (expanded) el.classList.add(`expanded`);
+  if (open) el.setAttribute(`open`, true);
   return el;
 };
 
@@ -24,8 +24,8 @@ export const Empty        = Template.bind({}); // also Border,    Expanded
 export const HeadingLevel = Template.bind({}); // also Populated, Expanded
 
 Border.args = {
-  expanded: true,
-  notes:    data,
+  notes: data,
+  open:  true,
 };
 
 Collapsed.args = {
@@ -33,19 +33,19 @@ Collapsed.args = {
 };
 
 Empty.args = {
-  expanded: true,
+  open: true,
 };
 
 HeadingLevel.args = {
-  expanded:     true,
   headingLevel: `h2`,
   notes:        data,
+  open:         true,
 };
 
 NoBorder.args = {
-  expanded: true,
-  border:   false,
-  notes:    data,
+  border: false,
+  notes:  data,
+  open:   true,
 };
 
 

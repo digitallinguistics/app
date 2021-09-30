@@ -1,9 +1,13 @@
-<section class=notes-list>
-  <header class=notes-list-header>
-    <h3 class='notes-list-heading js-notes-list-heading'>Notes</h3>
-    <button aria-label='Add a note' class='add-note-button button js-add-note-button transparent' type=button>
-      <svg><use href=#add-doc></svg>
-    </button>
-  </header>
-  <ul class=notes></ul>
-</section>
+<details class=notes-list>
+  <summary>
+    <header class=notes-list-header>
+      <svg aria-hidden=true class='closed-icon icon'><use href=#chevron-right></svg>
+      <svg aria-hidden=true class='icon opened-icon'><use href=#chevron-down></svg>
+      <h3 class='notes-list-heading js-notes-list-heading'>Notes</h3>
+      <button aria-label='Add a note' class='add-note-button button js-add-note-button transparent' type=button>
+        <svg><use href=#add-doc></svg>
+      </button>
+    </header>
+    <ul class=notes></ul>
+  </summary>
+</details>
