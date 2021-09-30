@@ -23,7 +23,7 @@ export default class HomePage extends View {
   showInstallPrompt() {
     this.el.querySelector(`#install-prompt`).hidden = false;
     this.el.querySelector(`#install-prompt button`).addEventListener(`click`, () => {
-      app.installEvent.prompt();
+      window.installEvent.prompt();
     });
   }
 
