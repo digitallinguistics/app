@@ -21,14 +21,17 @@ export default class NotesList extends View {
   }
 
   addEventListeners() {
-    this.el.addEventListener(`click`, ({ target }) => {
+    this.el.addEventListener(`click`, ev => {
       
+      const { target } = ev;
+
       if (target.classList.contains(`js-add-note-button`)) { 
         this.addNote(); 
-        this.expand();
       }
       
       if (target.classList.contains(`js-delete-button`)) {
+        const confirmed = confirm(`Are you sure you want to delete this note? This action cannot be undone.`);
+        if (!confirmed) return;
         const id = target.closest(`li`)?.dataset?.id;
         if (!id) return; // ID is still a string here
         this.deleteNote(Number(id));
@@ -37,28 +40,29 @@ export default class NotesList extends View {
       if (target.classList.contains(`js-save-button`)) {
         this.save();
       }
+
+      // this prevents clicks within the notes list from toggling the summary element's "open" attribute
+      if (target.closest(`.notes`)) {
+        ev.preventDefault();
+      }
     
     });
   }
 
   addNote() {
     this.notes.unshift(new Note);
+    this.updateHeading();
     this.renderList();
     this.save();
-  }
-
-  collapse() {
-    this.el.classList.remove(`expanded`);
+    const noteView = this.el.querySelector(`.notes li:first-child .note`).view;
+    noteView.showEditor();
   }
 
   deleteNote(i) {
     this.notes.splice(i, 1);
+    this.updateHeading();
     this.renderList();
     this.save();
-  }
-
-  expand() {
-    this.el.classList.add(`expanded`);
   }
 
   save() {
@@ -95,16 +99,7 @@ export default class NotesList extends View {
 
     if (this.border) this.el.classList.add(`bordered`);
 
-    if (this.headingLevel !== `h3`) {
-      const oldHeading = this.el.querySelector(`.js-notes-list-heading`);
-      const newHeading = View.fromHTML(`
-        <${ this.headingLevel } class='notes-list-heading js-notes-list-heading'>
-          Notes
-        </${ this.headingLevel }>
-      `);
-      oldHeading.replaceWith(newHeading);
-    }
-
+    this.updateHeading();
     this.renderList();
     this.addEventListeners();
     
@@ -126,6 +121,21 @@ export default class NotesList extends View {
     oldList.view?.events.stop();
     oldList.replaceWith(newList);
 
+  }
+
+  updateHeading() {
+    if (this.headingLevel === `h3`) {
+      const heading = this.el.querySelector(`.js-notes-list-heading`);
+      heading.textContent = `Notes (${ this.notes.length })`;
+    } else {
+      const oldHeading = this.el.querySelector(`.js-notes-list-heading`);
+      const newHeading = View.fromHTML(`
+        <${ this.headingLevel } class='notes-list-heading js-notes-list-heading'>
+          Notes (${ this.notes.length })
+        </${ this.headingLevel }>
+      `);
+      oldHeading.replaceWith(newHeading);
+    }
   }
 
 }
