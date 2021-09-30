@@ -1,3 +1,5 @@
+@import 'Link/Link';
+
 .banner {
 
   background-color:  var(--blue);
@@ -12,4 +14,18 @@
     width:  2em;
   }
 
+  div {
+    padding: var(--text-padding);
+    position: absolute;
+    align-self: flex-end;
+    right: 1px;
+    .link {
+      color: white;
+      &:not([href*='digitallinguistics.io'], [href^='#']) {
+        &::after {
+          background-image: url('@{external-link}');
+        }
+      }
+    }
+  }
 }
