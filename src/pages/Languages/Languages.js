@@ -41,7 +41,8 @@ export default class LanguagesPage extends View {
     this.languages.splice(i, 1);
     this.renderNav();
     this.renderEditor();
-    this.el.querySelector(`.languages-nav a`).focus();
+    const navLink = this.el.querySelector(`.languages-nav a`);
+    if (navLink) navLink.focus();
   }
 
   /**
