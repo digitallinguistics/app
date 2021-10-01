@@ -29,7 +29,7 @@ export default class LanguagesPage extends View {
     app.settings.language = language.cid;
     this.renderNav(language.cid);
     this.renderEditor(language.cid);
-    document.querySelector(`.language-editor input`).focus();
+    this.el.querySelector(`.language-editor input`).focus();
   }
 
   async deleteLanguage(languageCID) {
@@ -41,7 +41,7 @@ export default class LanguagesPage extends View {
     this.languages.splice(i, 1);
     this.renderNav();
     this.renderEditor();
-    document.querySelector(`.languages-nav a`).focus();
+    this.el.querySelector(`.languages-nav a`).focus();
   }
 
   /**
