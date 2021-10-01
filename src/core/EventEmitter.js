@@ -1,21 +1,22 @@
 /**
- * An Event Emitter class
- * @memberof core
- * @instance
+ * An EventEmitter class, for subscribing to events emitted by an object.
+ * @memberof Core
+ * @see [Understanding Event Emitters]{@link https://css-tricks.com/understanding-event-emitters/}
  */
 export default class EventEmitter {
 
   /**
-   * The events hash for this EventEmitter
-   * @type {Object}
+   * The events table for this EventEmitter.
+   * @type {Map}
    */
   events = new Map;
 
   /**
-   * Emit an event with data
-   * @param  {String}  eventName The name of the event being emitted
-   * @param  {Any}     [data]    Data accompanying the event
-   * @return {Promise}
+   * Emit an event with data.
+   * @async
+   * @param   {String}  eventName the name of the event being emitted
+   * @param   {*}       [data]    any data accompanying the event
+   * @returns {Promise}
    */
   emit(eventName, data) {
     const listeners = this.events.get(eventName) ?? new Set;
@@ -23,9 +24,9 @@ export default class EventEmitter {
   }
 
   /**
-   * Unsubscribe a function from an event
-   * @param  {String}   eventName The name of the event to unsubscribe from
-   * @param  {Function} func      The function to unsubscribe from the event
+   * Unsubscribe a function from an event.
+   * @param  {String}   eventName the name of the event to unsubscribe from
+   * @param  {Function} func      the function to unsubscribe from the event
    */
   off(eventName, func) {
     const listeners = this.events.get(eventName) ?? new Set;
@@ -33,10 +34,10 @@ export default class EventEmitter {
   }
 
   /**
-   * Add an event listener to this emitter
-   * @param  {String}   eventName The name of the event to subscribe to
-   * @param  {Function} func      The function to trigger when the event is emitted
-   * @return {Function}           Returns a function that can be called to remove the subscription
+   * Listen for an event to be emitted by this emitter.
+   * @param   {String}   eventName the name of the event to listen for
+   * @param   {Function} func      the function to call when the event is emitted
+   * @returns {Function}           a function that can be called to remove the listener
    */
   on(eventName, func) {
 
@@ -51,9 +52,10 @@ export default class EventEmitter {
   }
 
   /**
-   * Add an event listener to this emitter that will only fire once.
-   * @param {String}   eventName
-   * @param {Function} func
+   * Listen for an event to be emitted by this emitter, and only fire the callback function once.
+   * @param   {String}   eventName the name of the event to listen for
+   * @param   {Function} func      the function to call when the event is emitted
+   * @returns {Function}           a function that can be called to remove the listener
    */
   once(eventName, func) {
 
@@ -62,12 +64,12 @@ export default class EventEmitter {
       return func(data);
     };
 
-    this.on(eventName, wrappedFunc);
+    return this.on(eventName, wrappedFunc);
 
   }
 
   /**
-   * Removes all event listeners.
+   * Remove all event listeners.
    */
   stop() {
     this.events = new Map;

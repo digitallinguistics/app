@@ -1,5 +1,6 @@
 /**
- * A class for the Settings object. Wraps Local Storage in a Proxy so that any changes to the Settings instance is automatically saved to Local Storage.
+ * A class for the Settings object. Wraps Local Storage in a Proxy so that any changes to the Settings instance are automatically saved to Local Storage.
+ * @memberof Services
  */
 export default class Settings {
 

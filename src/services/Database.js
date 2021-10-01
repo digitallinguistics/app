@@ -5,38 +5,23 @@ import Text       from '../models/Text.js';
 const IndexedDB = window.indexedDB;
 
 /**
- * A class representing a local database
- * @memberof services
+ * A class representing a local database.
+ * @memberof Services
  */
 export default class Database {
 
   // PROPERTIES
 
-  /**
-   * A reference to the IndexedDB instance.
-   */
   idb;
 
-  /**
-   * The name of the database.
-   * @type {String}
-   */
   get name() {
     return `Lotus`;
   }
 
-  /**
-   * The database version number.
-   * @type {Integer}
-   */
   get version() {
     return 1;
   }
 
-  /**
-   * A lookup of database types, with their corresponding object store names.
-   * @type {Object}
-   */
   types = {
     Language: {
       Model:     Language,
@@ -50,23 +35,12 @@ export default class Database {
 
   // COLLECTIONS
 
-  /**
-   * The Languages collection.
-   * @type {Collection}
-   */
   languages;
 
-  /**
-   * The Texts collection.
-   * @type {Collection}
-   */
   texts;
 
   // METHODS
 
-  /**
-   * Configures the Lotus database by adding tables and indexes. Can only be run during a open database transaction.
-   */
   #configureDatabase() {
 
     if (!this.idb.objectStoreNames.contains(`languages`)) {
@@ -90,19 +64,12 @@ export default class Database {
 
   }
 
-  /**
-   * Creates the collections for performing operations on object stores
-   */
   #createCollections() {
     Object.entries(this.types).forEach(([, { Model, storeName }]) => {
       this[storeName] = new Collection(storeName, Model, this.idb);
     });
   }
 
-  /**
-   * Deletes the database.
-   * @return {Promise}
-   */
   deleteDatabase() {
     return new Promise((resolve, reject) => {
 
@@ -118,11 +85,6 @@ export default class Database {
     });
   }
 
-  /**
-   * Exports all the data in the database and returns an array of JavaScript objects.
-   * @fires Database#onexportupdate
-   * @return {Promise<Array>}
-   */
   exportData() {
 
     const storeNames = this.idb.objectStoreNames;
@@ -182,11 +144,6 @@ export default class Database {
 
   }
 
-  /**
-   * Imports one or more items or array of items into the database.
-   * @param  {Object|Array}          [data=[]] An object, an array of of objects, or an array of arrays of objects, to import.
-   * @return {Promise<Object|Array>}           Returns the newly-added item or array of items.
-   */
   importData(data = []) {
 
     let items = (Array.isArray(data) ? data : [data]).flat(2);
@@ -221,10 +178,6 @@ export default class Database {
 
   }
 
-  /**
-   * Initialize the DLx database
-   * @return {Promise}
-   */
   async initialize() {
     await this.#openDatabase();
     this.#createCollections();
@@ -267,12 +220,3 @@ export default class Database {
   }
 
 }
-
-/**
- * onexportupdate event. This event is fired during database export each time an item is retrieved from the database.
- *
- * @event Database#onexportupdate
- * @type {Object}
- * @property {Integer} count - The current total number of items that have been exported so far.
- * @property {Integer} total - The total number of items to export.
- */
