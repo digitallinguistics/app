@@ -2,26 +2,24 @@
 
 .additional-name {
 
-  align-items:     center;
-  flex-flow:       row wrap;
+  align-items    : center;
+  flex-direction : column;
   justify-content: space-between;
 
-  .buttons {
-
-    align-items: center;
-    align-self:  flex-end;
-    flex-flow:   row nowrap;
-
-    button {
-      margin: var(--space-xxxs);
-    }
-
+  &__button {
+    margin: var(--space-xxxs);
   }
 
-  fieldset {
+  &__buttons {
+    align-items: center;
+    align-self : flex-end;
+    flex-flow  : row nowrap;
+  }
 
-    flex-wrap:       nowrap;
-    inline-size:     100%;
+  &__editor {
+
+    flex-wrap      : nowrap;
+    inline-size    : 100%;
     justify-content: space-between;
 
     // small screens
@@ -36,23 +34,19 @@
 
   }
 
-  label {
+  &__help-text {
+    margin-inline-end: auto;
+  }
+
+  &__label {
     // small screens
     @media (max-width: @component-breakpoint) {
       inline-size: 4.5em;
     }
   }
 
-  .line-input {
+  &__line-input {
     inline-size: 15rem;
-  }
-
-  p {
-    margin-inline-end: auto;
-  }
-
-  p + button {
-    margin-inline-start: var(--space);
   }
 
 }

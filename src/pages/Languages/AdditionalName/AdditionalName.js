@@ -27,16 +27,16 @@ export default class AdditionalName extends View {
 
     this.el.addEventListener(`click`, ({ target }) => {
 
-      if (target.classList.contains(`js-cancel-button`)) {
+      if (target.classList.contains(`js-additional-name__cancel-button`)) {
         this.nameValue     = this.name;
         this.languageValue = this.language;
         this.updatePreview(this.nameValue, this.languageValue);
         return this.hideEditor();
       }
       
-      if (target.classList.contains(`js-edit-button`)) return this.showEditor();
+      if (target.classList.contains(`js-additional-name__edit-button`)) return this.showEditor();
       
-      if (target.classList.contains(`js-save-button`)) {
+      if (target.classList.contains(`js-additional-name__save-button`)) {
         this.name     = this.nameValue;
         this.language = this.languageValue;
         this.updatePreview(this.nameValue, this.languageValue);
@@ -50,8 +50,8 @@ export default class AdditionalName extends View {
   }
 
   hideEditor() {
-    this.el.querySelector(`.js-editor`).hidden      = true;
-    this.el.querySelector(`.js-edit-button`).hidden = false;
+    this.el.querySelector(`.js-additional-name__editor`).hidden      = true;
+    this.el.querySelector(`.js-additional-name__edit-button`).hidden = false;
   }
 
   render() {
@@ -77,30 +77,30 @@ export default class AdditionalName extends View {
   }
   
   showEditor() {
-    this.el.querySelector(`.js-editor`).hidden      = false;
-    this.el.querySelector(`.js-edit-button`).hidden = true;
-    this.el.querySelector(`.js-name-input`).focus();
+    this.el.querySelector(`.js-additional-name__editor`).hidden      = false;
+    this.el.querySelector(`.js-additional-name__edit-button`).hidden = true;
+    this.el.querySelector(`.js-additional-name__name-input`).focus();
   }
   
   updatePreview(name, language) {
-    this.el.querySelector(`.js-preview`)
+    this.el.querySelector(`.js-additional-name__preview`)
     .innerHTML = `<span class=txn>${ name }</span> (${ language })`;
   }
 
   get languageValue() {
-    return this.el.querySelector(`.js-lang-input`).value;
+    return this.el.querySelector(`.js-additional-name__lang-input`).value;
   }
 
   set languageValue(value) {
-    this.el.querySelector(`.js-lang-input`).value = value;
+    this.el.querySelector(`.js-additional-name__lang-input`).value = value;
   }
 
   get nameValue() {
-    return this.el.querySelector(`.js-name-input`).value;
+    return this.el.querySelector(`.js-additional-name__name-input`).value;
   }
 
   set nameValue(value) {
-    this.el.querySelector(`.js-name-input`).value = value;
+    this.el.querySelector(`.js-additional-name__name-input`).value = value;
   }
 
 }
