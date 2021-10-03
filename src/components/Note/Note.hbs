@@ -30,6 +30,7 @@
     <p class='js-note__text-preview note__text-preview'></p>
 
     <fieldset class='note__editor js-note__editor'>
+
       <div class=note__input-group>
         <label class=legend data-bind=for:textID>Note Text</label>
         <p class=help-text note__help-text>The text of the note.</p>
@@ -42,6 +43,7 @@
           rows=4
         ></textarea>
       </div>
+      
       <div class=note__input-group>
         <label class=legend data-bind=for:sourceID>Source</label>
         <p class=help-text note__help-text>The source of this note (person, bibliographic item, etc.).</p>
@@ -55,10 +57,12 @@
           type=text
         >
       </div>
+      
       <div class='note__buttons note__editor-buttons'>
         <button class='button js-note__cancel-button' type=button>Cancel</button>
         <button class='blue button js-note__save-button note__save-button' type=button>Save</button>
       </div>
+    
     </fieldset>
   
   </div>
