@@ -12,9 +12,11 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 
 ## Quick Links
 
-* [View the complete developer documentation here.][developers] (**Note:** Must currently be accessed locally in `./docs`.)
+* [View the complete developer documentation here.][developers] **
 * [View documentation for maintainers.][maintainers]
-* [View JavaScript documentation.][developers] (**Note:** Must currently be accessed locally in `./docs`.)
+* [View JavaScript documentation.][developers] **
+
+\** Developer documentation can currently only be viewed by openining `docs/index.html` in a browser.
 
 ## Contents
 
