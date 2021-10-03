@@ -43,6 +43,17 @@
 
   &:not([open]) {
 
+    // display Note when edit button is clicked
+    .editing {
+      display           : block !important;
+      inline-size       : 95%;
+      inset-block-end   : var(--space-xs);
+      inset-inline-start: calc(-1 * var(--border-width) + 2.5%);
+      position          : absolute;
+      transform         : translateY(100%);
+      z-index           : 2;
+    }
+
     .notes-list__closed-icon {
       display: block;
     }
@@ -62,14 +73,9 @@
       &:focus-within,
       &:hover {
 
+        // displays note on focus/hover
         .note {
-          display           : block !important;
-          inline-size       : 95%;
-          inset-block-end   : var(--space-xs);
-          inset-inline-start: calc(-1 * var(--border-width) + 2.5%);
-          position          : absolute;
-          transform         : translateY(100%);
-          z-index           : 2;
+          .editing;
         }
 
         .notes-list__note-button {
