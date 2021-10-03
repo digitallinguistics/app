@@ -12,16 +12,34 @@ export default class Database {
 
   // PROPERTIES
 
+  /**
+   * A reference to the IndexedDB instance.
+   * @type {IndexedDB}
+   */
   idb;
 
+  /**
+   * @const
+   * @default "Lotus"
+   * @returns {String}
+   */
   get name() {
     return `Lotus`;
   }
 
+  /**
+   * @const
+   * @default 1
+   * @returns {Integer}
+   */
   get version() {
     return 1;
   }
 
+  /**
+   * A lookup of database types, with their corresponding object store names.
+   * @type {Object}
+   */
   types = {
     Language: {
       Model:     Language,
@@ -35,12 +53,24 @@ export default class Database {
 
   // COLLECTIONS
 
+  /**
+   * The Languages collection.
+   * @type {DatabaseCollection}
+   */
   languages;
 
+  /**
+   * The Texts collection.
+   * @type {DatabaseCollection}
+   */
   texts;
 
   // METHODS
 
+  /**
+   * Configure the Lotus database by adding tables and indexes. Can only be run during an IDBOpenDBRequest.
+   * @private
+   */
   #configureDatabase() {
 
     if (!this.idb.objectStoreNames.contains(`languages`)) {
@@ -64,12 +94,20 @@ export default class Database {
 
   }
 
+  /**
+   * Create collections for each database type, for performing operations on object stores.
+   * @private
+   */
   #createCollections() {
     Object.entries(this.types).forEach(([, { Model, storeName }]) => {
       this[storeName] = new Collection(storeName, Model, this.idb);
     });
   }
 
+  /**
+   * Delete the database.
+   * @returns {Promise}
+   */
   deleteDatabase() {
     return new Promise((resolve, reject) => {
 
@@ -85,6 +123,11 @@ export default class Database {
     });
   }
 
+  /**
+   * Export all the data in the database and return an Array of JavaScript Objects.
+   * @fires   Database#onexportupdate
+   * @returns {Promise<Array>}
+   */
   exportData() {
 
     const storeNames = this.idb.objectStoreNames;
@@ -144,6 +187,11 @@ export default class Database {
 
   }
 
+  /**
+   * Import one or more items into the database.
+   * @param {Object|Array} [data=[]] An Object, an Array of Objects, or an Array of Arrays of Objects, to import.
+   * @returns {Promise<Object|Array>} Returns the added item or Array of items.
+   */
   importData(data = []) {
 
     let items = (Array.isArray(data) ? data : [data]).flat(2);
@@ -178,11 +226,20 @@ export default class Database {
 
   }
 
+  /**
+   * Initialize the database.
+   * @return {Promise}
+   */
   async initialize() {
     await this.#openDatabase();
     this.#createCollections();
   }
 
+  /**
+   * Open the IndexedDB database.
+   * @private
+   * @returns {Promise<IDBDatabase>}
+   */
   #openDatabase() {
     return new Promise((resolve, reject) => {
 
@@ -220,3 +277,13 @@ export default class Database {
   }
 
 }
+
+
+/**
+ * onexportupdate event. This event is fired during database export each time an item is retrieved from the database.
+ *
+ * @event Services.Database#onexportupdate
+ * @type {Object}
+ * @property {Integer} count - The current total number of items that have been exported so far.
+ * @property {Integer} total - The total number of items to export.
+ */

@@ -90,7 +90,7 @@ class App extends View {
 
   /**
    * Render the Main Nav and last visited page. {@link App#initialize} must be called first.
-   * @returns {Promise}
+   * @returns {Promise<HTMLElement>}
    */
   async render() {
     this.el      = document.getElementById(`app`);

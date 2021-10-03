@@ -16,7 +16,7 @@ export default class EventEmitter {
    * @async
    * @param   {String}  eventName the name of the event being emitted
    * @param   {*}       [data]    any data accompanying the event
-   * @returns {Promise}
+   * @returns {Promise<Array>}
    */
   emit(eventName, data) {
     const listeners = this.events.get(eventName) ?? new Set;
