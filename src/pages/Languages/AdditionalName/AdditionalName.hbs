@@ -1,11 +1,16 @@
 <li class=additional-name>
+
+  <div class='buttons'>
+    <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
+      <svg><use href=#edit-line></use></svg>
+    </button>
+    <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
+      <svg><use href=#trash></use></svg>
+    </button>
+  </div>
+
   <p class=js-preview></p>
-  <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
-    <svg><use href=#edit-line></use></svg>
-  </button>
-  <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
-    <svg><use href=#trash></use></svg>
-  </button>
+  
   <fieldset class='js-editor' hidden>
     <div class=input-group>
       <label data-bind=for:nameID>Name</label>

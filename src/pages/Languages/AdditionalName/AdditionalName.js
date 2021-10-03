@@ -1,16 +1,22 @@
-import View from '../../../core/View.js';
+import NotesList from '../../../components/NotesList/NotesList.js';
+import View      from '../../../core/View.js';
 
 export default class AdditionalName extends View {
 
   template = document.getElementById(`additional-name-template`);
 
-  constructor({ language = ``, name = `` } = {}, index) {
+  constructor({
+    language = ``,
+    name = ``,
+    notes = [],
+  } = {}, index) {
 
     super();
 
     this.index    = index;
     this.language = language;
     this.name     = name;
+    this.notes    = [];
 
     this.langID = `additional-name-lang-${ index }`;
     this.nameID = `additional-name-name-${ index }`;
@@ -57,9 +63,17 @@ export default class AdditionalName extends View {
     this.updatePreview(this.name, this.language);
     this.hydrate();
     this.addEventListeners();
+    // this.renderNotes();
     
     return this.el;
     
+  }
+
+  renderNotes() {
+    const list = new NotesList(this.notes, {
+      border: false,
+    });
+    this.el.appendChild(list.render());
   }
   
   showEditor() {
