@@ -5,7 +5,7 @@
     border       : var(--border);
     border-radius: var(--border-radius);
 
-    .notes {
+    .notes-list__notes {
       border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
@@ -13,29 +13,29 @@
 
   &[open] {
 
-    .closed-icon {
+    .notes-list__closed-icon {
       display: none;
     }
 
-    .note-button {
+    .notes-list__note-button {
       display: none;
     }
 
-    .note-item {
+    .notes-list__note-item {
       margin-inline     : var(--space);
       margin-block-start: var(--space);
     }
-    .note-item:last-child {
+    .notes-list__note-item:last-child {
       margin-block-end: var(--space);
     }
 
-    .notes {
+    .notes-list__notes {
       background-color  : var(--teal-1);
       border-block-start: var(--border);
       box-shadow        : inset var(--box-shadow);
     }
 
-    .opened-icon {
+    .notes-list__opened-icon {
       display: block;
     }
 
@@ -43,29 +43,19 @@
 
   &:not([open]) {
 
-    .closed-icon {
+    .notes-list__closed-icon {
       display: block;
-    }
-
-    .editing {
-      display           : block !important;
-      inline-size       : 95%;
-      inset-block-end   : var(--space-xs);
-      inset-inline-start: calc(-1 * var(--border-width) + 2.5%);
-      position          : absolute;
-      transform         : translateY(100%);
-      z-index           : 2;
     }
 
     .note {
       display: none;
     }
 
-    .note-button {
+    .notes-list__note-button {
       display: block;
     }
 
-    .note-item {
+    .notes-list__note-item {
 
       margin: var(--space-xxxs);
 
@@ -73,10 +63,16 @@
       &:hover {
 
         .note {
-          .editing;
+          display           : block !important;
+          inline-size       : 95%;
+          inset-block-end   : var(--space-xs);
+          inset-inline-start: calc(-1 * var(--border-width) + 2.5%);
+          position          : absolute;
+          transform         : translateY(100%);
+          z-index           : 2;
         }
 
-        .note-button {
+        .notes-list__note-button {
           background-color: var(--teal-1);
           outline         : black solid var(--focus-width);
         }
@@ -85,45 +81,45 @@
 
     }
 
-    .notes {
+    .notes-list__notes {
       flex-flow: row wrap;
       position : relative;
     }
 
-    .opened-icon {
+    .notes-list__opened-icon {
       display: none;
     }
 
   }
 
-  .add-note-button {
+  &__add-note-button {
     margin: var(--space-xxxs);
   }
 
-  &-header {
+  &__header {
     align-items    : center;
     cursor         : pointer;
     flex-flow      : row wrap;
     justify-content: space-between;
   }
 
-  &-heading {
+  &__heading {
     font-weight: 500;
     padding    : var(--text-padding);
   }
 
-  .icon {
+  &__icon {
     --icon-size: 1.5em;
     block-size : var(--icon-size);
     inline-size: var(--icon-size);
     margin     : var(--space-xxxs);
   }
 
-  .notes {
+  &__notes {
     inline-size: 100%;
   }
 
-  .notes:empty {
+  &__notes:empty {
     display: none;
   }
 
