@@ -178,15 +178,15 @@ This section explains the organization of the project and the app code.
 
 ### Project Structure
 
-| Folder        | Description                                                                                                                                            |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `.github/`    | Developer documentation.                                                                                                                               |
-| `.storybook/` | Configuration for [Storybook].                                                                                                                         |
-| `build/`      | Scripts to build the production version of the app from the `src/` files.                                                                              |
-| `dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.      |
-| `docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.                                         |
-| `src/`        | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.              |
-| `test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment. |
+| Folder        | Description                                                                                                                                                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.github/`    | Developer documentation.                                                                                                                                                                                                                                    |
+| `.storybook/` | Configuration for [Storybook].                                                                                                                                                                                                                              |
+| `build/`      | Scripts to build the production version of the app from the `src/` files.                                                                                                                                                                                   |
+| `dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.                                                                                                           |
+| `docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.                                                                                                                                              |
+| `src/`        | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.                                                                                                                   |
+| `test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment. Test files belong next to the component they are testing. (See [Testing the App](#testing-the-app).) |
 
 ### Directory Structure
 
