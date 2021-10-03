@@ -8,7 +8,7 @@ import View     from '../core/View.js';
  * @extends View
  * @global
  */
-export default class App extends View {
+class App extends View {
 
   // PROPERTIES
 
@@ -171,11 +171,18 @@ export default class App extends View {
 
 }
 
+export default App;
+
 // JSDoc Virtual Comments
 
 /**
  * The custom JavaScript framework used by the Lotus app.
  * @namespace Core
+ */
+
+/**
+ * Data models for each type of database object.
+ * @namespace Models
  */
 
 /**

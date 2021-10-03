@@ -2,13 +2,15 @@ import Model from '../core/Model.js';
 
 /**
  * A class representing a linguistic text
- * @memberof models
- * @extends core#Model
+ * @extends Model
+ * @memberof Models
  */
-export default class Text extends Model {
+class Text extends Model {
 
   constructor() {
     super({}, { type: `Text` });
   }
 
 }
+
+export default Text;

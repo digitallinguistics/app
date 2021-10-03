@@ -22,8 +22,6 @@ export default class Model {
       /**
        * The client ID for this model. Generated on instantiation if not already present.
        * @name Model#cid
-       * @instance
-       * @memberof Model
        * @readonly
        * @type {UUID}
        */
@@ -35,7 +33,6 @@ export default class Model {
       /**
        * The date that the data for this model were originally created. Generated on instantiation if not already present.
        * @name Model#dateCreated
-       * @instance
        * @readonly
        * @type {Date}
        */
@@ -48,8 +45,6 @@ export default class Model {
 
     /**
      * The date that the data for this model were last modified. Generated on instantiation if not already present.
-     * @name Model#dateModified
-     * @instance
      * @type {Date}
      */
     this.dateModified = this.dateModified ? new Date(this.dateModified) : new Date;
@@ -57,7 +52,7 @@ export default class Model {
     /**
      * The type for this model, e.g. `Language`, `Text`, `Lexeme`, etc.
      * @name Model#type
-     * @instance
+     * @const
      * @readonly
      * @type {String}
      */
