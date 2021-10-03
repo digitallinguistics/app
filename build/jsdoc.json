@@ -18,9 +18,8 @@
       "./src/App/App.js",
       "./src/core/",
       "./src/models/",
-      "./src/services/Database.js",
-      "./src/services/Settings.js",
-      "./src/utilities/html2element.js"
+      "./src/services/",
+      "./src/utilities/"
     ]
   },
   "sourceType": "module",

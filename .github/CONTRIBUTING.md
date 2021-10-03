@@ -10,9 +10,11 @@ Consider [opening an issue][new-issue] for any of the following:
 
 Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open Source Guide][gh-contributing] on contributing to open source projects.
 
-[View the complete developer documentation here.][developers]
+## Quick Links
 
-[View documentation for maintainers.][maintainers]
+* [View the complete developer documentation here.][developers] (**Note:** Must currently be accessed locally in `./docs`.)
+* [View documentation for maintainers.][maintainers]
+* [View JavaScript documentation.][developers] (**Note:** Must currently be accessed locally in `./docs`.)
 
 ## Contents
 
@@ -213,7 +215,9 @@ The Lotus app follows a typical [app shell model][app-shell-model]. A lightweigh
 
 - **CSS / LESS:** Global styles and utilities are located in `src/styles/`. Styling for the app shell is located in `src/App/App.less`. Styles for individual components are located alongside their components, in `{ComponentName}.less`.
 
-- **JavaScript:** The documentation for the app's JavaScript is available at https://developer.digitallinguistics.io/app. It shows all the methods available on the global `App` object, as well as documents how to use other shared modules such as the `View` and `EventEmitter` classes.
+- **JavaScript:** Many single-page apps use a JavaScript framework such as Vue or React. The Lotus app uses its own simple, vanilla JavaScript framework instead, consisting of base `View` and `Model` classes, among others. In addition, all modules have access to the global `app` object.
+
+  The documentation for the app's JavaScript framework is available at https://developer.digitallinguistics.io/app. It shows all the methods available on the global `App` object, as well as documents how to use other shared modules such as the `View` and `EventEmitter` classes.
 
 The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
 
