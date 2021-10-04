@@ -6,14 +6,14 @@ describe(`Language Editor`, function() {
 
   it(`adds an Additional Name`, function() {
 
-    cy.get(`.names-list`)
+    cy.get(`.js-language-editor__names-list`)
     .children()
     .should(`have.lengthOf`, 0);
 
     cy.contains(`button`, `Add a Language Name`)
     .click();
 
-    cy.get(`.names-list`)
+    cy.get(`.js-language-editor__names-list`)
     .children()
     .should(`have.lengthOf`, 1);
 
@@ -26,7 +26,7 @@ describe(`Language Editor`, function() {
     cy.get(`.js-additional-name__delete-button`)
     .click();
 
-    cy.get(`.names-list`)
+    cy.get(`.js-language-editor__names-list`)
     .children()
     .should(`have.lengthOf`, 0);
 

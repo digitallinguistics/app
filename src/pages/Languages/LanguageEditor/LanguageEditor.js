@@ -110,7 +110,7 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
     const listView = new List(this.language.additionalNames, {
-      classes:  [`names-list`],
+      classes:  [`js-language-editor__names-list`],
       template: this.renderAdditionalName,
     });
 
@@ -213,7 +213,7 @@ export default class LanguageEditor extends View {
     await this.save();
     this.renderAdditionalNames();
 
-    const nameView = this.el.querySelector(`.language-editor__names-list .additional-name:first-child`).view;
+    const nameView = this.el.querySelector(`.js-language-editor__names-list .additional-name:first-child`).view;
 
     nameView.showEditor();
 
