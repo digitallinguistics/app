@@ -116,3 +116,4 @@ src/**/*.css
 /docs
 screenshots
 nodemon.json
+.DS_Store

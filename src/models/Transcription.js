@@ -1,8 +1,8 @@
 /**
  * A class representing a Transcription, in one or more orthographies.
- * @memberof models
+ * @memberof Models
  */
-export default class Transcription extends Map {
+class Transcription extends Map {
 
   /**
    * Create a new Transcription.
@@ -34,3 +34,5 @@ export default class Transcription extends Map {
   }
 
 }
+
+export default Transcription;
