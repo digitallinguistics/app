@@ -1,3 +1,5 @@
+@import (reference) 'utilities';
+
 .language-editor {
 
   flex-grow:     1;
@@ -5,44 +7,32 @@
   max-width:     var(--measure);
   padding:       var(--space);
 
-  .add-language-button {
+  &__add-language-button {
     margin: auto;
   }
 
-  .add-name-button {
+  &__add-name-button {
     margin-block:        var(--space-sm);
     margin-inline-start: var(--space);
   }
 
-  .additional-names {
-
+  &__additional-names {
     align-items: stretch;
-
-    header {
-      flex-direction:  row;
-      flex-wrap:       nowrap;
-      justify-content: space-between;
-    }
-
   }
 
-  .delete-language-button {
-    align-self:   flex-end;
+  &__additional-names-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
+  }
+
+  &__delete-language-button {
+    .align-end;
     margin-block: var(--space);
   }
 
-  .fieldset {
+  &__fieldset {
     margin-block: var(--space-xs);
-  }
-
-  .right {
-    align-self: flex-end;
-  }
-
-  .input-group {
-    .label {
-      width: 7.5em;
-    }
   }
 
 }
