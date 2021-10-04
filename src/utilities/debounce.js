@@ -1,5 +1,8 @@
 /**
- * A debounce function. Documentation: https://davidwalsh.name/javascript-debounce-function
+ * A debounce function.
+ * @name Utilities#debounce
+ * @function
+ * @see {@link https://davidwalsh.name/javascript-debounce-function}
  * @param  {Function} func      The function to debounce
  * @param  {Number}   wait      The time to wait, in milliseconds
  * @param  {Boolean}  immediate Whether to invoke the function immediately
