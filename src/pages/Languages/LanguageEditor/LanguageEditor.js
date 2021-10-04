@@ -65,14 +65,14 @@ export default class LanguageEditor extends View {
 
   handleNamesUpdate({ target }) {
 
-    if (target.classList.contains(`js-delete-button`)) {
+    if (target.classList.contains(`js-additional-name__delete-button`)) {
       const confirmDelete = confirm(`Are you sure you want to delete this Additional Language Name? This action cannot be undone. Click 'OK' to confirm deletion.`);
       if (!confirmDelete) return;
       const i = Number(target.closest(`li`).dataset.id);
       return this.deleteName(i);
     }
 
-    if (target.classList.contains(`js-save-button`)) {
+    if (target.classList.contains(`js-additional-name__save-button`)) {
       return this.updateAdditionalNames();
     }
 
