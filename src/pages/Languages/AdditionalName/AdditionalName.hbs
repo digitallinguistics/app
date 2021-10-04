@@ -1,20 +1,24 @@
 <li class=additional-name>
 
-  <div class=additional-name__buttons>
-    <button aria-label='Edit this Language Name' class='additional-name__button button js-additional-name__edit-button transparent' type=button>
-      <svg><use href=#edit-line></use></svg>
-    </button>
-    <button aria-label='Delete this Language Name' class='additional-name__button button js-additional-name__delete-button transparent' type=button>
-      <svg><use href=#trash></use></svg>
-    </button>
-  </div>
+  <header class=additional-name__header>
 
-  <p class=js-additional-name__preview></p>
+    <p class='additional-name__preview js-additional-name__preview'></p>
+
+    <div class='additional-name__buttons additional-name__header-buttons'>
+      <button aria-label='Edit this Language Name' class='additional-name__button button js-additional-name__edit-button transparent' type=button>
+        <svg><use href=#edit-line></use></svg>
+      </button>
+      <button aria-label='Delete this Language Name' class='additional-name__button button js-additional-name__delete-button transparent' type=button>
+        <svg><use href=#trash></use></svg>
+      </button>
+    </div>
+
+  </header>
   
   <fieldset class='additional-name__editor js-additional-name__editor' hidden>
     
-    <div class=additional-name__input-group>
-      <label class=additional-name__label data-bind=for:nameID>Name</label>
+    <div class=input-group>
+      <label class='additional-name__legend legend' data-bind=for:nameID>Name</label>
       <div>
         <input
           autocomplete=off
@@ -29,8 +33,8 @@
       </div>
     </div>
     
-    <div class=additional-name__input-group>
-      <label class=additional-name__label data-bind=for:langID>Language</label>
+    <div class=input-group>
+      <label class='additional-name__legend legend' data-bind=for:langID>Language</label>
       <div>
         <input
           autocomplete=off

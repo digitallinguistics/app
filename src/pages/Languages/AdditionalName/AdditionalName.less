@@ -2,9 +2,8 @@
 
 .additional-name {
 
-  align-items    : center;
-  flex-direction : column;
-  justify-content: space-between;
+  align-items   : stretch;
+  flex-direction: column;
 
   &__button {
     margin: var(--space-xxxs);
@@ -34,11 +33,17 @@
 
   }
 
+  &__header {
+    align-items    : center;
+    flex-flow      : row nowrap;
+    justify-content: space-between;
+  }
+
   &__help-text {
     margin-inline-end: auto;
   }
 
-  &__label {
+  &__legend {
     // small screens
     @media (max-width: @component-breakpoint) {
       inline-size: 4.5em;
@@ -47,6 +52,10 @@
 
   &__line-input {
     inline-size: 15rem;
+  }
+
+  &__preview {
+    padding: var(--text-padding);
   }
 
 }
