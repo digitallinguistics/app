@@ -1,3 +1,10 @@
+import './HelpMenu.css';
+
+export default {
+  title: `App/HelpMenu`,
+};
+
+export const HelpMenu = () => `
 <div id=help-menu class=help-menu>
   <details>
     <summary>
@@ -26,3 +33,4 @@
     </div>
   </details>
 </div>
+`;
