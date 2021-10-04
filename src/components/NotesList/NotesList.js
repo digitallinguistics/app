@@ -23,7 +23,7 @@ export default class NotesList extends View {
   addEventListeners() {
     this.el.addEventListener(`click`, ev => {
       
-      const { target } = ev;
+      const { currentTarget, target } = ev;
 
       if (target.classList.contains(`js-notes-list__add-note-button`)) { 
         this.addNote(); 
@@ -41,11 +41,6 @@ export default class NotesList extends View {
         this.save();
       }
 
-      // this prevents clicks within the notes list from toggling the summary element's "open" attribute
-      if (target.closest(`.js-notes-list__notes`)) {
-        ev.preventDefault();
-      }
-    
     });
   }
 
@@ -117,7 +112,7 @@ export default class NotesList extends View {
 
     const listView = new List(this.notes, listOptions);
     const newList = listView.render();
-    const oldList = this.el.querySelector(`.notes-list__notes`);
+    const oldList = this.el.querySelector(`.js-notes-list__notes`);
     oldList.view?.events.stop();
     oldList.replaceWith(newList);
 

@@ -63,7 +63,7 @@ export default class AdditionalName extends View {
     this.updatePreview(this.name, this.language);
     this.hydrate();
     this.addEventListeners();
-    // this.renderNotes();
+    this.renderNotes();
     
     return this.el;
     
