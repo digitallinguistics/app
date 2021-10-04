@@ -1,0 +1,71 @@
+@import 'Link/Link';
+
+.help-menu {
+
+  display: inline-block;
+  align-self: center;
+
+  /* Closing the detail content on clicking anywhere else */
+  details[open] summary::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    z-index: -1;
+    cursor: default;
+  }
+
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  svg {
+    --icon-size: 1.5em;
+    height:      var(--icon-size);
+    margin:      var(--space-xs);
+    width:       var(--icon-size);
+  }
+
+  .link {
+    svg {
+      color: black;
+    }
+  }
+
+  .dropdown-content {
+    z-index: 2;
+    position: absolute;
+    min-inline-size: max-content;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    border: var(--border);
+    border-radius: var(--border-radius);
+  }
+
+  span {
+    display: inline;
+    padding:     var(--text-padding);
+    white-space: nowrap;
+  }
+
+  li:hover {
+
+    background-color: var(--blue-1);
+
+    span {
+      text-decoration:         underline;
+      text-underline-position: under;
+    }
+
+  }
+
+  summary {
+    display: inline;
+    cursor: pointer;
+  }
+
+}
