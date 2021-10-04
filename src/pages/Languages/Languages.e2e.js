@@ -18,7 +18,7 @@ describe(`Languages`, () => {
     });
   });
 
-  it(`adds / switches / edits a language`, function() {
+  it.only(`adds / switches / edits a language`, function() {
 
     // setup
     cy.visit(`/`);
@@ -28,7 +28,7 @@ describe(`Languages`, () => {
     cy.clock();
 
     // edit the language name
-    cy.get(`.language-editor .name input[name=name-eng]`)
+    cy.get(`.js-language-editor__name input[name=name-eng]`)
     .should(`have.value`, `{ new language }`)
     .clear()
     .type(`Chitimacha`);
@@ -37,40 +37,21 @@ describe(`Languages`, () => {
     // check that Languages List was updated
     cy.contains(`.languages-nav li`, `Chitimacha`);
 
-    // add / delete language names
+    // add a language name
+
     cy.contains(`.language-editor button`, `Add a Language Name`)
     .click();
 
-    cy.get(`.additional-names`)
-    .within(() => {
-      
-      cy.get(`.names-list`)
-      .children()
-      .should(`have.lengthOf`, 1);
-
-      cy.get(`.js-delete-button`)
-      .click();
-
-      cy.get(`.names-list`)
-      .children()
-      .should(`have.lengthOf`, 0);
-    
-    });
-
-    // edit language name
-    cy.contains(`.language-editor button`, `Add a Language Name`)
-    .click();
-
-    cy.get(`.additional-names`)
+    cy.get(`.language-editor__additional-names`)
     .within(() => {
 
-      cy.get(`.js-name-input`)
+      cy.get(`.js-additional-name__name-input`)
       .type(`Shetimachas`);
 
-      cy.get(`.js-lang-input`)
+      cy.get(`.js-additional-name__lang-input`)
       .type(`French`);
 
-      cy.get(`.js-save-button`)
+      cy.get(`.js-additional-name__save-button`)
       .click();
     
     });
@@ -79,7 +60,7 @@ describe(`Languages`, () => {
     cy.get(`.language-editor`)
     .within(() => {
 
-      cy.get(`.autonym input[name=autonym-default]`)
+      cy.get(`.js-language-editor__autonym input[name=autonym-default]`)
       .type(`Sitimaxa`);
 
       cy.get(`input[name=abbreviation]`)
@@ -98,16 +79,16 @@ describe(`Languages`, () => {
     cy.get(`.language-editor`)
     .within(() => {
 
-      cy.get(`.name input[name=name-eng]`)
+      cy.get(`.js-language-editor__name input[name=name-eng]`)
       .should(`have.value`, `Chitimacha`);
 
-      cy.get(`.autonym input[name=autonym-default]`)
+      cy.get(`.js-language-editor__autonym input[name=autonym-default]`)
       .should(`have.value`, `Sitimaxa`);
 
       cy.get(`input[name=abbreviation]`)
       .should(`have.value`, `chiti`);
 
-      cy.contains(`.additional-names`, `Shetimachas (French)`);
+      cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
 
     });
 
