@@ -7,25 +7,18 @@
   position:          sticky;
   inset-block-start: 0;
 
-  svg {
+
+  .lotus {
     fill:   white;
     height: 2em;
     margin: var(--space-xs) auto;
     width:  2em;
   }
 
+
   div {
-    padding: var(--text-padding);
     position: absolute;
-    align-self: flex-end;
     inset-inline-end: 1px;
-    .link {
-      color: white;
-      &:not([href*='digitallinguistics.io'], [href^='#']) {
-        &::after {
-          background-image: url('@{external-link}');
-        }
-      }
-    }
+    color: white;
   }
 }
