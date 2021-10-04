@@ -21,9 +21,15 @@ export default class NotesList extends View {
   }
 
   addEventListeners() {
+
+    this.el.querySelector(`.notes-list__header`).addEventListener(`click`, ({ target }) => {
+      if (target.classList.contains(`js-notes-list__add-note-button`)) return;
+      this.toggle();
+    });
+
     this.el.addEventListener(`click`, ev => {
       
-      const { currentTarget, target } = ev;
+      const { target } = ev;
 
       if (target.classList.contains(`js-notes-list__add-note-button`)) { 
         this.addNote(); 
@@ -42,6 +48,7 @@ export default class NotesList extends View {
       }
 
     });
+
   }
 
   addNote() {
@@ -58,10 +65,6 @@ export default class NotesList extends View {
     this.updateHeading();
     this.renderList();
     this.save();
-  }
-
-  save() {
-    this.events.emit(`update`);
   }
 
   itemTemplate(data, i) {
@@ -116,6 +119,15 @@ export default class NotesList extends View {
     oldList.view?.events.stop();
     oldList.replaceWith(newList);
 
+  }
+
+  save() {
+    this.events.emit(`update`);
+  }
+
+  toggle() {
+    const expanded = this.el.getAttribute(`aria-expanded`) === `true`;
+    this.el.setAttribute(`aria-expanded`, !expanded);
   }
 
   updateHeading() {

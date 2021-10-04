@@ -11,7 +11,8 @@
 
   }
 
-  &[open] {
+  // open / expanded
+  &:not([aria-expanded=false]) {
 
     .notes-list__closed-icon {
       display: none;
@@ -41,7 +42,8 @@
 
   }
 
-  &:not([open]) {
+  // closed / collapsed
+  &[aria-expanded=false] {
 
     // display Note when edit button is clicked
     .editing {
