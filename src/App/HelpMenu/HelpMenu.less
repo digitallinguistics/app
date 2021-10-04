@@ -1,4 +1,6 @@
 @import 'Link/Link';
+@import (reference) 'utilities';
+@import (reference) 'variables';
 
 .help-menu {
 
@@ -66,6 +68,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+  }
+
+  // small screens
+  @media (max-width: @breakpoint) {
+
+    span {
+      .visually-hidden;
+    }
+
   }
 
 }
