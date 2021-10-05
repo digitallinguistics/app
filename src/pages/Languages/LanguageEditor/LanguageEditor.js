@@ -44,6 +44,7 @@ export default class LanguageEditor extends View {
   }
 
   save() {
+    this.language.dateModified = new Date;
     return app.db.languages.put(this.language);
   }
 
@@ -92,6 +93,7 @@ export default class LanguageEditor extends View {
     this.renderName();
     this.renderAutonym();
     this.renderAdditionalNames();
+    this.renderMetadata();
 
     this.addEventListeners();
 
@@ -135,6 +137,21 @@ export default class LanguageEditor extends View {
 
     autonymField.appendChild(txnEditor.render());
 
+  }
+
+  renderMetadata() {
+
+    const dateCreated = this.language.dateCreated.toLocaleDateString(undefined, {
+      dateStyle: `short`,
+    });
+
+    const dateModified = this.language.dateModified.toLocaleDateString(undefined, {
+      dateStyle: `short`,
+    });
+
+    this.el.querySelector(`.js-language-editor__date-created`).textContent  = dateCreated;
+    this.el.querySelector(`.js-language-editor__date-modified`).textContent = dateModified;
+    
   }
 
   renderName() {
