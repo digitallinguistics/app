@@ -8,7 +8,7 @@
   </button>
   <fieldset class='js-editor' hidden>
     <div class=input-group>
-      <label data-bind=for:nameID>Name</label>
+      <label class=required data-bind=for:nameID>Name</label>
       <div>
         <input
           autocomplete=off
@@ -18,12 +18,13 @@
           placeholder='e.g. espagnol'
           spellcheck=false
           type=text
+          required
         >
         <p class=help-text>An additional name for this language.</p>
       </div>
     </div>
     <div class=input-group>
-      <label data-bind=for:langID>Language</label>
+      <label class=required data-bind=for:langID>Language</label>
       <div>
         <input
           autocomplete=off
@@ -33,6 +34,7 @@
           placeholder='e.g. French'
           spellcheck=false
           type=text
+          required
         >
         <p class=help-text>The language of this additional name.</p>
       </div>
