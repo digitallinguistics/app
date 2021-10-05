@@ -7,8 +7,21 @@
   max-width:     var(--measure);
   padding:       var(--space);
 
-  &.placeholder form :not(.language-editor__add-language-button) {
-    display: none;
+
+  &.placeholder {
+
+    .language-editor__buttons {
+      .align-center;
+    }
+
+    form > :not(.language-editor__buttons) {
+      display: none;
+    }
+
+    .language-editor__delete-language-button {
+      display: none;
+    }
+
   }
 
   &__add-name-button {
