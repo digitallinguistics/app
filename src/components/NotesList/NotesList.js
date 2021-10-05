@@ -33,6 +33,20 @@ export default class NotesList extends View {
       if (target.classList.contains(`js-notes-list__add-note-button`)) { 
         this.addNote(); 
       }
+
+      if (target.classList.contains(`js-note__cancel-button`)) {
+        
+        const note   = target.closest(`.js-notes-list__note-item`);
+        const text   = note.querySelector(`.js-note__text-input`).value;
+        const source = note.querySelector(`.js-note__src-input`).value;
+
+        if (text || source) return;
+
+        const { id } = note.dataset;
+        if (!id) return; // ID is still a string here
+        this.deleteNote(Number(id));
+      
+      }
       
       if (target.classList.contains(`js-note__delete-button`)) {
         const confirmed = confirm(`Are you sure you want to delete this note? This action cannot be undone.`);

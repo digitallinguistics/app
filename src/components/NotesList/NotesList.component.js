@@ -34,6 +34,22 @@ describe(`Notes List`, function() {
 
   });
 
+  it.only(`deletes a canceled note`, function() {
+
+    cy.visit(`http://localhost:6006/iframe.html?id=components-notes-list--border`);
+
+    cy.get(`.js-notes-list__add-note-button`)
+    .click();
+
+    cy.get(`.js-notes-list__note-item:first-child .js-note__cancel-button`)
+    .click();
+
+    cy.get(`.js-notes-list__notes`)
+    .children()
+    .should(`have.lengthOf`, 3);
+
+  });
+
   it(`has expanded / collapsed states`, function() {
 
     cy.visit(`http://localhost:6006/iframe.html?id=components-notes-list--collapsed`);
