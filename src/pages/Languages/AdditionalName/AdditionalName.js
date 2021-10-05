@@ -73,7 +73,9 @@ export default class AdditionalName extends View {
     const list = new NotesList(this.notes, {
       border: false,
     });
-    this.el.appendChild(list.render());
+    const el = list.render();
+    el.setAttribute(`aria-expanded`, false);
+    this.el.appendChild(el);
   }
   
   showEditor() {

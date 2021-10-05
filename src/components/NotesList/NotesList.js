@@ -5,8 +5,6 @@ import View     from '../../core/View.js';
 
 export default class NotesList extends View {
 
-  template = document.getElementById(`notes-list-template`);
-
   constructor(
     notes = [],
     {
@@ -92,8 +90,9 @@ export default class NotesList extends View {
 
   render() {
 
-    this.el      = this.cloneTemplate();
-    this.el.view = this;
+    this.template = document.getElementById(`notes-list-template`);
+    this.el       = this.cloneTemplate();
+    this.el.view  = this;
 
     if (this.border) this.el.classList.add(`bordered`);
 
@@ -126,7 +125,7 @@ export default class NotesList extends View {
   }
 
   toggle() {
-    const expanded = this.el.getAttribute(`aria-expanded`) === `true`;
+    const expanded = this.el.getAttribute(`aria-expanded`) !== `false`;
     this.el.setAttribute(`aria-expanded`, !expanded);
   }
 
