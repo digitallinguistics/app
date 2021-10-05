@@ -177,8 +177,8 @@ If a story relies on a template, you will need to include that template in `.sto
 ```hbs
 <!-- .storybook/preview-body.hbs -->
 
-<template id=home-template>
-  {{> Home }}
+<template id=help-menu-template>
+  {{> HelpMenu }}
 </template>
 
 <template id=language-editor-template>
@@ -186,6 +186,15 @@ If a story relies on a template, you will need to include that template in `.sto
 </template>
 
 <!-- etc. -->
+```
+
+You can then use that template in your story in a similar way to the following:
+
+```js
+export HelpMenu = () => {
+  const template = document.getElementById(`help-menu-template`);
+  return template.content.cloneNode(true).firstElementChild;
+}
 ```
 
 ## Organization
