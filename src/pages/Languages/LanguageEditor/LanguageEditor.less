@@ -7,6 +7,14 @@
   max-width:     var(--measure);
   padding:       var(--space);
 
+  &.placeholder form :not(.language-editor__add-language-button) {
+    display: none;
+  }
+
+  &:not(.placeholder) .language-editor__add-language-button {
+    display: none;
+  }
+
   &__add-language-button {
     margin: auto;
   }
