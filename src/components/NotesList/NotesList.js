@@ -20,6 +20,7 @@ export default class NotesList extends View {
 
   addEventListeners() {
 
+    // toggle expand / collapse state on click (except if the Add a Note button is being clicked)
     this.el.querySelector(`.notes-list__header`).addEventListener(`click`, ({ target }) => {
       if (target.classList.contains(`js-notes-list__add-note-button`)) return;
       this.toggle();
