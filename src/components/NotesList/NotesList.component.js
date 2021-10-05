@@ -34,7 +34,7 @@ describe(`Notes List`, function() {
 
   });
 
-  it.only(`deletes a canceled note`, function() {
+  it(`deletes a canceled note`, function() {
 
     cy.visit(`http://localhost:6006/iframe.html?id=components-notes-list--border`);
 
