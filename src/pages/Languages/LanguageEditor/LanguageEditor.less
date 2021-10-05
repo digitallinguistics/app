@@ -11,14 +11,6 @@
     display: none;
   }
 
-  &:not(.placeholder) .language-editor__add-language-button {
-    display: none;
-  }
-
-  &__add-language-button {
-    margin: auto;
-  }
-
   &__add-name-button {
     margin-block:        var(--space-sm);
     margin-inline-start: var(--space);
@@ -34,9 +26,15 @@
     justify-content: space-between;
   }
 
-  &__delete-language-button {
+  &__buttons {
     .align-end;
-    margin-block: var(--space);
+    align-items   : center;
+    flex-direction: row;
+    margin-block  : var(--space-xxxs);
+  }
+
+  &__delete-language-button {
+    margin-inline-start: var(--space-sm);
   }
 
   &__fieldset {
