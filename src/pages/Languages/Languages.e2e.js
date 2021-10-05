@@ -14,7 +14,7 @@ describe(`Languages`, () => {
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
       cy.get(`.languages-nav .languages-list`).children()
       .should(`have.length`, 0);
-      cy.get(`.language-editor .add-language-button`);
+      cy.get(`.language-editor__add-language-button`);
     });
   });
 
