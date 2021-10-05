@@ -72,7 +72,17 @@
     {{> sprites}}
 
     {{!-- template tags for pages and components will get populated here --}}
-    <div id=templates hidden></div>
+    <div id=templates hidden>
+
+      <template id=note-template>
+        {{> Note }}
+      </template>
+
+      <template id=notes-list-template>
+        {{> NotesList }}
+      </template>
+
+    </div>
 
     {{!-- app-level scripts go here --}}
     <script type=module>
