@@ -172,6 +172,22 @@ To use Storybook:
 
 The [Storybook documentation][Storybook] explains how to write stories for components.
 
+If a story relies on a template, you will need to include that template in `.storybook/preview-body.hbs`, like so:
+
+```hbs
+<!-- .storybook/preview-body.hbs -->
+
+<template id=home-template>
+  {{> Home }}
+</template>
+
+<template id=language-editor-template>
+  {{> LanguageEditor }}
+</template>
+
+<!-- etc. -->
+```
+
 ## Organization
 
 This section explains the organization of the project and the app code.
