@@ -172,6 +172,31 @@ To use Storybook:
 
 The [Storybook documentation][Storybook] explains how to write stories for components.
 
+If a story relies on a template, you will need to include that template in `.storybook/preview-body.hbs`, like so:
+
+```hbs
+<!-- .storybook/preview-body.hbs -->
+
+<template id=help-menu-template>
+  {{> HelpMenu }}
+</template>
+
+<template id=language-editor-template>
+  {{> LanguageEditor }}
+</template>
+
+<!-- etc. -->
+```
+
+You can then use that template in your story in a similar way to the following:
+
+```js
+export HelpMenu = () => {
+  const template = document.getElementById(`help-menu-template`);
+  return template.content.cloneNode(true).firstElementChild;
+}
+```
+
 ## Organization
 
 This section explains the organization of the project and the app code.
