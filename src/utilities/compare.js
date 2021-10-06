@@ -1,5 +1,7 @@
 /**
  * A generic comparator function, for use with the sort method. Works with Strings and Numbers.
+ * @name Utilities#compare
+ * @function
  * @param  {Any}     a First item to be compared
  * @param  {Any}     b Second item to be compared
  * @return {Integer}   Returns 1 if the first item is greater, -1 if the first item is lesser, and 0 if the two items are the same.

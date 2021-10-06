@@ -1,12 +1,13 @@
 /**
- * A class representing text in multiple languages
- * @memberof models
- * @instance
+ * A class representing text in multiple languages.
+ * @extends Map
+ * @memberof Models
+ * @prop {String} type - "MultiLangString"
  */
-export default class MultiLangString extends Map {
+class MultiLangString extends Map {
 
   /**
-   * Create a new MultiLangString
+   * Create a new MultiLangString.
    * @param {Object} [data={}]
    */
   constructor(data = {}) {
@@ -23,9 +24,9 @@ export default class MultiLangString extends Map {
       enumerable: true,
       value:      `MultiLangString`,
     });
-
+    
   }
-
+  
   /**
    * The default language.
    * @return {String}
@@ -33,7 +34,7 @@ export default class MultiLangString extends Map {
   get default() {
     return this.get(`en`) ?? this.get(`eng`) ?? Array.from(this.values())[0];
   }
-
+  
   /**
    * Create a version of the data suitable for JSON serialization
    * @return {Object}
@@ -41,5 +42,7 @@ export default class MultiLangString extends Map {
   toJSON() {
     return Object.fromEntries(this);
   }
-
+  
 }
+
+export default MultiLangString;
