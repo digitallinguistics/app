@@ -8,14 +8,12 @@
 
   /* Closes the details when clicking anywhere else */
   &[open] summary::before {
-    bottom  : 0;
-    content : '';
-    cursor  : default;
-    left    : 0;
-    position: fixed;
-    right   : 0;
-    top     : 0;
-    z-index : -1;
+    inset-block : 0;
+    content     : '';
+    cursor      : default;
+    inset-inline: 0;
+    position    : fixed;
+    z-index     : -1;
   }
 
   a {
@@ -26,9 +24,9 @@
 
   svg {
     --icon-size: 1.25em;
-    height     : var(--icon-size);
+    block-size : var(--icon-size);
     margin     : var(--space-xs);
-    width      : var(--icon-size);
+    inline-size: var(--icon-size);
   }
 
   .link {
