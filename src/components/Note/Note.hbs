@@ -1,53 +1,55 @@
 <article class=note>
 
-  <div class='buttons note-buttons'>
-    <button aria-label='Edit this Note' class='button js-edit-button transparent' type=button>
+  <div class='note__buttons note__header-buttons'>
+    <button aria-label='Edit this Note' class='button note__header-button note__edit-button js-note__edit-button transparent' type=button>
       <svg>
         <use href=#edit-note></use>
       </svg>
     </button>
-    <button aria-label='Delete this Note' class='button js-delete-button transparent' type=button>
+    <button aria-label='Delete this Note' class='button note__delete-button note__header-button js-note__delete-button transparent' type=button>
       <svg>
         <use href=#trash></use>
       </svg>
     </button>
   </div>
 
-  <header>
-    <b class='legend js-src-preview src-preview'></b>
-    <div class=date>
+  <header class=note__header>
+    <b class='legend js-note__src-preview note__src-preview'></b>
+    <div class=note__date-field>
       <label class=label>Date Created:</label>
-      <time class='date-created js-date-created'></time>
+      <time class='note__date js-note__date-created'></time>
     </div>
-    <div class=date>
+    <div class=note__date-field>
       <label class=label>Last Modified:</label>
-      <time class='date-modified js-date-modified'></time>
+      <time class='note__date js-note__date-modified'></time>
     </div>
   </header>
 
-  <div class=content>
+  <div class=note__content>
 
-    <p class='js-text-preview text-preview'></p>
+    <p class='js-note__text-preview note__text-preview'></p>
 
-    <fieldset class=js-editor>
-      <div class=field-group>
+    <fieldset class='note__editor js-note__editor'>
+
+      <div class=note__input-group>
         <label class=legend data-bind=for:textID>Note Text</label>
-        <p class=help-text>The text of the note.</p>
+        <p class=help-text note__help-text>The text of the note.</p>
         <textarea
           autocomplete=off
-          class='box-input js-text-input text-input'
+          class='box-input js-note__text-input note__text-input'
           data-bind=id:textID
           inputmode=text
           placeholder='Type your note here.'
           rows=4
         ></textarea>
       </div>
-      <div class=field-group>
+      
+      <div class=note__input-group>
         <label class=legend data-bind=for:sourceID>Source</label>
-        <p class=help-text>The source of this note (person, bibliographic item, etc.).</p>
+        <p class=help-text note__help-text>The source of this note (person, bibliographic item, etc.).</p>
         <input
           autocomplete=off
-          class='box-input js-src-input src-input'
+          class='box-input js-note__src-input note__src-input'
           data-bind=id:sourceID
           inputmode=text
           placeholder='e.g. DWH'
@@ -55,10 +57,12 @@
           type=text
         >
       </div>
-      <div class=buttons>
-        <button class='button js-cancel-button' type=button>Cancel</button>
-        <button class='blue button js-save-button' type=button>Save</button>
+      
+      <div class='note__buttons note__editor-buttons'>
+        <button class='button js-note__cancel-button' type=button>Cancel</button>
+        <button class='blue button js-note__save-button note__save-button' type=button>Save</button>
       </div>
+    
     </fieldset>
   
   </div>

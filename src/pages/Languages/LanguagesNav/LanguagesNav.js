@@ -35,7 +35,7 @@ export default class LanguagesNav extends View {
       this.events.emit(`change`, cid);
     });
 
-    this.el.querySelector(`.add-language-button`)
+    this.el.querySelector(`.js-languages-nav__add-language-button`)
     .addEventListener(`click`, () => this.events.emit(`add`));
 
     return this.el;
