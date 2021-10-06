@@ -67,7 +67,7 @@ export default class LanguageEditor extends View {
 
   }
 
-  handleNamesUpdate({ target }) {
+  async handleNamesUpdate({ target }) {
 
     if (target.classList.contains(`js-additional-name__cancel-button`)) {
       const item = target.closest(`.additional-name`);
@@ -76,6 +76,7 @@ export default class LanguageEditor extends View {
       if (name || lang) return;
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
+      await this.save();
       this.renderAdditionalNames();
     }
 
