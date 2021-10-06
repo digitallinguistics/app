@@ -21,6 +21,9 @@ export default class LanguageEditor extends View {
     this.el.addEventListener(`change`, debounce(this.handleFormUpdate.bind(this), delay));
     this.el.addEventListener(`input`, debounce(this.handleFormUpdate.bind(this), delay));
 
+    this.el.querySelector(`.js-language-editor__add-language-button`)
+    .addEventListener(`click`, () => this.events.emit(`add`));
+
     this.el.querySelector(`.js-language-editor__add-name-button`)
     .addEventListener(`click`, this.addName.bind(this));
 

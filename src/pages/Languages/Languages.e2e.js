@@ -3,19 +3,34 @@ const delay = 500;
 describe(`Languages`, () => {
 
   it(`adds / deletes a language from the Language Editor`, function() {
+
+    // visit Languages page
     cy.visit(`/`);
     cy.get(`#main[data-page=Home]`);
-    cy.contains(`#nav li`, `Languages`).click();
-    cy.contains(`.language-editor button`, `Add a Language`).click();
+    cy.contains(`#nav li`, `Languages`)
+    .click();
+    
+    // add a language from the editor
+    cy.contains(`.js-language-editor__add-language-button`, `Add a Language`)
+    .click();
     cy.contains(`.languages-nav li`, `{ new language }`);
+    
+    // delete the language
     cy.window().then(win => {
+      
       cy.stub(win, `prompt`).returns(`YES`);
-      cy.contains(`Delete this Language`).click();
-      cy.get(`#nav[data-loaded=true] li[data-page=Languages]`).click();
+      
+      cy.contains(`Delete this Language`)
+      .click();
+      
+      cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
+      .click();
+      
       cy.get(`.languages-nav .languages-list`).children()
       .should(`have.length`, 0);
-      cy.get(`.language-editor__add-language-button`);
+      
     });
+  
   });
 
   it(`adds / switches / edits a language`, function() {
@@ -23,8 +38,10 @@ describe(`Languages`, () => {
     // setup
     cy.visit(`/`);
     cy.get(`#main[data-page=Home]`);
-    cy.contains(`#nav li`, `Languages`).click();
-    cy.contains(`.languages-nav button`, `Add a Language`).click();
+    cy.contains(`#nav li`, `Languages`)
+    .click();
+    cy.contains(`.languages-nav button`, `Add a Language`)
+    .click();
     cy.clock();
 
     // edit the language name

@@ -7,8 +7,21 @@
   max-width:     var(--measure);
   padding:       var(--space);
 
-  &__add-language-button {
-    margin: auto;
+
+  &.placeholder {
+
+    .language-editor__buttons {
+      .align-center;
+    }
+
+    form > :not(.language-editor__buttons) {
+      display: none;
+    }
+
+    .language-editor__delete-language-button {
+      display: none;
+    }
+
   }
 
   &__add-name-button {
@@ -26,9 +39,15 @@
     justify-content: space-between;
   }
 
-  &__delete-language-button {
+  &__buttons {
     .align-end;
-    margin-block: var(--space);
+    align-items   : center;
+    flex-direction: row;
+    margin-block  : var(--space-xxxs);
+  }
+
+  &__delete-language-button {
+    margin-inline-start: var(--space-sm);
   }
 
   &__fieldset {
