@@ -2,11 +2,17 @@
 
 .banner {
 
-  background-color:  var(--blue);
-  flex-direction:    row;
-  position:          sticky;
+  background-color : var(--blue);
+  flex-direction   : row;
+  position         : sticky;
   inset-block-start: 0;
+  z-index          : 2;
 
+  .help-menu {
+    position        : absolute;
+    inset-inline-end: 0;
+    color           : white;
+  }
 
   .lotus {
     fill:   white;
@@ -15,10 +21,4 @@
     width:  2em;
   }
 
-
-  div {
-    position: absolute;
-    inset-inline-end: 1px;
-    color: white;
-  }
 }

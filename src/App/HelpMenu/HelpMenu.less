@@ -4,32 +4,31 @@
 
 .help-menu {
 
-  display: inline-block;
   align-self: center;
 
-  /* Closing the detail content on clicking anywhere else */
-  details[open] summary::before {
+  /* Closes the details when clicking anywhere else */
+  &[open] summary::before {
+    bottom  : 0;
+    content : '';
+    cursor  : default;
+    left    : 0;
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: '';
-    z-index: -1;
-    cursor: default;
+    right   : 0;
+    top     : 0;
+    z-index : -1;
   }
 
   a {
-    display: flex;
+    align-items   : center;
+    display       : flex;
     flex-direction: row;
-    align-items: center;
   }
 
   svg {
-    --icon-size: 1.5em;
-    height:      var(--icon-size);
-    margin:      var(--space-xs);
-    width:       var(--icon-size);
+    --icon-size: 1.25em;
+    height     : var(--icon-size);
+    margin     : var(--space-xs);
+    width      : var(--icon-size);
   }
 
   .link {
@@ -39,13 +38,14 @@
   }
 
   .dropdown-content {
-    z-index: 2;
-    position: absolute;
-    min-inline-size: max-content;
     background-color: white;
-    box-shadow: var(--box-shadow);
-    border: var(--border);
-    border-radius: var(--border-radius);
+    border          : var(--border);
+    border-radius   : var(--border-radius);
+    box-shadow      : var(--box-shadow);
+    inset-inline-end: var(--space-xs);
+    min-inline-size : max-content;
+    position        : absolute;
+    z-index         : 2;
   }
 
   span {
@@ -56,24 +56,26 @@
 
     background-color: var(--blue-1);
 
-    span {
-      text-decoration:         underline;
-      text-underline-position: under;
+    &:first-child {
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
   }
 
   summary {
-    cursor: pointer;
-    display: flex;
+    align-items   : center;
+    cursor        : pointer;
+    display       : flex;
     flex-direction: row;
-    align-items: center;
   }
 
-  // small screens
   @media (max-width: @breakpoint) {
 
-    span {
+    &__title {
       .visually-hidden;
     }
 
