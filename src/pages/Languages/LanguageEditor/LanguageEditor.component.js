@@ -32,4 +32,18 @@ describe(`Language Editor`, function() {
 
   });
 
+  it(`deletes an empty additional name when editing is canceled`, function() {
+
+    cy.contains(`button`, `Add a Language Name`)
+    .click();
+
+    cy.get(`.js-additional-name__cancel-button`)
+    .click();
+
+    cy.get(`.js-language-editor__names-list`)
+    .children()
+    .should(`have.lengthOf`, 0);
+    
+  });
+
 });
