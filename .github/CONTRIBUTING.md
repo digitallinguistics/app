@@ -23,6 +23,7 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 <!-- TOC -->
 
 - [Contributor Guidelines](#contributor-guidelines)
+  - [Quick Links](#quick-links)
   - [Contents](#contents)
   - [Project Principles](#project-principles)
   - [Setting up the Development Environment](#setting-up-the-development-environment)
@@ -347,6 +348,85 @@ If you only want to use specific styles/declarations from a stylesheet, use `@im
 
 [See the LESS documentation for more details on using LESS.][LESS]
 
+The Lotus project partially uses [Block-Element-Modifier (BEM)][BEM] naming conventions for CSS, which typically looks like this:
+
+```css
+.block__element--modifier {
+  /* styles here */
+}
+```
+
+For the Lotus app, a "block" is a component, and an "element" is any element within that component. The Lotus app does *not* use the `--modifier` syntax however. Instead it uses a separate modifier class.
+
+As an example, if you have a Languages Nav component which includes a green "Add a Language" button and a red "Delete a Language" button, your HTML and styles might look like this:
+
+```html
+<nav class=lang-nav>
+  <ul class=lang-nav__list>
+    <li class=lang-nav__item>Language A</li>
+    <li class=lang-nav__item>Language B</li>
+    <li class=lang-nav__item>Language C</li>
+  </ul>
+  <button class='btn green lang-nav__btn lang-nav__add-lang-btn'>Add a Language</button>
+  <button class='btn red lang-nav__btn lang-nav__delete-lang-btn'>Delete a Language</button>
+</nav>
+```
+
+```css
+.btn {
+  /* generic button styles */
+}
+
+.green {
+  /* green button styles */
+}
+
+.red {
+  /* red button styles */
+}
+
+.lang-nav {
+  /* styles for the <nav> */
+}
+
+.lang-nav .lang-nav__list {
+  /* styles for the list */
+}
+
+.lang-nav .lang-nav__item {
+  /* styles for list items */
+}
+
+.lang-nav__btn {
+  /* styles for the specific buttons inside the languages nav */
+}
+
+.lang-nav__add-lang-btn {
+  /* styles specific to the Add a Language button */
+}
+
+.lang-nav__delete-lang-btn {
+  /* styles specific to the Delete a Language button */
+}
+```
+
+In LESS, this can be written much more tersely:
+
+```less
+.btn {
+  &.red { /* styles */ }
+  &.green { /* styles */ }
+}
+
+.lang-nav {
+  &__list { /* styles */ }
+  &__item { /* styles */ }
+  &__btn { /* styles */ }
+  &__add-lang-btn { /* styles */ }
+  &__delete-lang-btn { /* styles */ }
+}
+```
+
 **Where to import component styles**
 
 * Global styles and declarations that apply across the app are located in `index.less`.
@@ -588,6 +668,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
+[BEM]:             http://getbem.com/introduction/
 [Chai]:            https://www.chaijs.com/
 [Cypress]:         https://www.cypress.io/
 [cypress-ct]:      https://docs.cypress.io/guides/component-testing/introduction
