@@ -124,7 +124,7 @@ An easier solution is to use a tool like [nodemon], which watches the project fo
     ```cmd
     > npm install --global nodemon
     ```
- 
+
 2. Add a `nodemon.json` config file to the root of the project. Below is a recommended configuration. It will watch for changes to any files which have an extension in the `ext` field, but ignore any files which match the glob patterns in the `ignore` field. Any time a change is detected, it will run `npm run build`.
 
     ```json
@@ -142,13 +142,13 @@ An easier solution is to use a tool like [nodemon], which watches the project fo
       ]
     }
     ```
- 
+
 3. Start nodemon.
 
     ```cmd
     > nodemon
     ```
- 
+
 You can configure nodemon to run different commands instead. For example, nodemon can rebuild the app after each change and then start the server, or rebuild the app and then run tests, etc. See the complete documentation on the [nodemon website][nodemon].
 
 ### ESLint & Stylelint
@@ -191,10 +191,10 @@ If a story relies on a template, you will need to include that template in `.sto
 You can then use that template in your story in a similar way to the following:
 
 ```js
-export HelpMenu = () => {
+export const HelpMenu = () => {
   const template = document.getElementById(`help-menu-template`);
   return template.content.cloneNode(true).firstElementChild;
-}
+};
 ```
 
 ## Organization
@@ -295,7 +295,7 @@ The compiled HTML for each component is also injected into the page inside a `<t
 
 #### CSS / LESS
 
-The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS. 
+The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS.
 
 The most useful LESS feature is nesting. For example, instead of writing this…
 
