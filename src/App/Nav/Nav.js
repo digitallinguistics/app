@@ -1,28 +1,14 @@
 import View from '../../core/View.js';
 
 /**
- * A class for the main navigation menu.
- * @memberof app
- * @instance
- * @extends core#View
+ * A controller for the Main Nav.
  */
-export default class Nav extends View {
+export default class MainNav extends View {
 
-  /**
-   * A reference to the menu button
-   * @type {HTMLButtonElement}
-   */
   button = document.querySelector(`#nav button`);
 
-  /**
-   * A reference to the list of pages in the na
-   * @type {HTMLULElement}
-   */
   pages = document.querySelector(`#nav ul`);
 
-  /**
-   * Adds event listeners to the nav
-   */
   addEventListeners() {
 
     this.button.addEventListener(`click`, this.toggle.bind(this));
@@ -42,10 +28,6 @@ export default class Nav extends View {
 
   }
 
-  /**
-   * Initialize the nav view
-   * @param {String} [page] The page to set as selected.
-   */
   render(page) {
     this.el = document.getElementById(`nav`);
     this.addEventListeners();
@@ -56,10 +38,6 @@ export default class Nav extends View {
     return this.el;
   }
 
-  /**
-   * Sets the current page
-   * @param {String}  page The page route to set as current.
-   */
   setPage(page) {
 
     // clear currently selected page from all items
@@ -81,9 +59,6 @@ export default class Nav extends View {
 
   }
 
-  /**
-   * Toggles the expanded/collapsed state of the nav
-   */
   toggle() {
     const expanded = this.button.getAttribute(`aria-expanded`) === `true`;
     this.button.setAttribute(`aria-expanded`, !expanded);
