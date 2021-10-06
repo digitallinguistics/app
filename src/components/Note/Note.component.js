@@ -10,33 +10,33 @@ describe(`Note`, function() {
 
   it(`shows / hides the editor with Edit + Cancel buttons`, function() {
 
-    cy.get(`.js-edit-button`)
+    cy.get(`.js-note__edit-button`)
     .click();
 
-    cy.get(`.js-editor`)
+    cy.get(`.js-note__editor`)
     .should(`be.visible`);
 
     // can open editor by clicking note text preview
-    cy.get(`.js-text-input`)
+    cy.get(`.js-note__text-input`)
     .should(`have.focus`)
     .clear()
     .type(newText);
 
-    cy.get(`.js-src-input`)
+    cy.get(`.js-note__src-input`)
     .clear()
     .type(newSrc);
     
     cy.contains(`button`, `Cancel`)
     .click();
 
-    cy.get(`.js-editor`)
+    cy.get(`.js-note__editor`)
     .should(`not.be.visible`);
 
     // none of the Note fields should be updated after cancellation
 
     cy.contains(`b`, `DWH`);
 
-    cy.get(`.js-date-modified`)
+    cy.get(`.js-note__date-modified`)
     .should(`have.text`, new Date(`2021-01-01`).toLocaleDateString(undefined, { dateStyle: `short` }));
     
     cy.contains(`p`, loremFragment);
@@ -48,26 +48,26 @@ describe(`Note`, function() {
     cy.contains(`p`, loremFragment)
     .click();
 
-    cy.get(`.js-editor`)
+    cy.get(`.js-note__editor`)
     .should(`be.visible`);
 
-    cy.get(`.js-text-input`)
+    cy.get(`.js-note__text-input`)
     .clear()
     .type(newText);
 
-    cy.get(`.js-src-input`)
+    cy.get(`.js-note__src-input`)
     .clear()
     .type(newSrc);
 
     cy.contains(`button`, `Save`)
     .click();
 
-    cy.get(`.js-editor`)
+    cy.get(`.js-note__editor`)
     .should(`not.be.visible`);
 
     cy.contains(`b`, `SRC`);
 
-    cy.get(`.js-date-modified`)
+    cy.get(`.js-note__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
 
     cy.contains(`p`, newText);

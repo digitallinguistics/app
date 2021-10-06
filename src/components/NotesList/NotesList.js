@@ -5,8 +5,6 @@ import View     from '../../core/View.js';
 
 export default class NotesList extends View {
 
-  template = document.getElementById(`notes-list-template`);
-
   constructor(
     notes = [],
     {
@@ -21,32 +19,49 @@ export default class NotesList extends View {
   }
 
   addEventListeners() {
+
+    // toggle expand / collapse state on click (except if the Add a Note button is being clicked)
+    this.el.querySelector(`.notes-list__header`).addEventListener(`click`, ({ target }) => {
+      if (target.classList.contains(`js-notes-list__add-note-button`)) return;
+      this.toggle();
+    });
+
     this.el.addEventListener(`click`, ev => {
       
       const { target } = ev;
 
-      if (target.classList.contains(`js-add-note-button`)) { 
+      if (target.classList.contains(`js-notes-list__add-note-button`)) { 
         this.addNote(); 
       }
+
+      if (target.classList.contains(`js-note__cancel-button`)) {
+        
+        const note   = target.closest(`.js-notes-list__note-item`);
+        const text   = note.querySelector(`.js-note__text-input`).value;
+        const source = note.querySelector(`.js-note__src-input`).value;
+
+        if (text || source) return;
+
+        const { id } = note.dataset;
+        if (!id) return; // ID is still a string here
+        this.deleteNote(Number(id));
       
-      if (target.classList.contains(`js-delete-button`)) {
+      }
+      
+      if (target.classList.contains(`js-note__delete-button`)) {
         const confirmed = confirm(`Are you sure you want to delete this note? This action cannot be undone.`);
         if (!confirmed) return;
-        const id = target.closest(`li`)?.dataset?.id;
+        const id = target.closest(`.js-notes-list__note-item`)?.dataset?.id;
         if (!id) return; // ID is still a string here
         this.deleteNote(Number(id));
       }
 
-      if (target.classList.contains(`js-save-button`)) {
+      if (target.classList.contains(`js-note__save-button`)) {
         this.save();
       }
 
-      // this prevents clicks within the notes list from toggling the summary element's "open" attribute
-      if (target.closest(`.notes`)) {
-        ev.preventDefault();
-      }
-    
     });
+
   }
 
   addNote() {
@@ -54,7 +69,7 @@ export default class NotesList extends View {
     this.updateHeading();
     this.renderList();
     this.save();
-    const noteView = this.el.querySelector(`.notes li:first-child .note`).view;
+    const noteView = this.el.querySelector(`.js-notes-list__notes .js-notes-list__note-item:first-child .note`).view;
     noteView.showEditor();
   }
 
@@ -65,17 +80,13 @@ export default class NotesList extends View {
     this.save();
   }
 
-  save() {
-    this.events.emit(`update`);
-  }
-
   itemTemplate(data, i) {
 
-    const li = View.fromHTML(`<li class=note-item data-id='${ i }'></li>`);
+    const li = View.fromHTML(`<li class='js-notes-list__note-item notes-list__note-item' data-id='${ i }'></li>`);
     
     const button = View.fromHTML(`<button
       aria-label='Show note'
-      class='button js-note-button note-button transparent'
+      class='button js-notes-list__note-button notes-list__note-button transparent'
       data-id='${ i }'
       type=button
     >
@@ -94,8 +105,9 @@ export default class NotesList extends View {
 
   render() {
 
-    this.el      = this.cloneTemplate();
-    this.el.view = this;
+    this.template = document.getElementById(`notes-list-template`);
+    this.el       = this.cloneTemplate();
+    this.el.view  = this;
 
     if (this.border) this.el.classList.add(`bordered`);
 
@@ -110,27 +122,36 @@ export default class NotesList extends View {
   renderList() {
 
     const listOptions = {
-      classes:  [`notes`],
+      classes:  [`js-notes-list__notes`, `notes-list__notes`],
       name:     `note`,
       template: this.itemTemplate,
     };
 
     const listView = new List(this.notes, listOptions);
     const newList = listView.render();
-    const oldList = this.el.querySelector(`.notes`);
+    const oldList = this.el.querySelector(`.js-notes-list__notes`);
     oldList.view?.events.stop();
     oldList.replaceWith(newList);
 
   }
 
+  save() {
+    this.events.emit(`update`);
+  }
+
+  toggle() {
+    const expanded = this.el.getAttribute(`aria-expanded`) !== `false`;
+    this.el.setAttribute(`aria-expanded`, !expanded);
+  }
+
   updateHeading() {
     if (this.headingLevel === `h3`) {
-      const heading = this.el.querySelector(`.js-notes-list-heading`);
+      const heading = this.el.querySelector(`.js-notes-list__heading`);
       heading.textContent = `Notes (${ this.notes.length })`;
     } else {
-      const oldHeading = this.el.querySelector(`.js-notes-list-heading`);
+      const oldHeading = this.el.querySelector(`.js-notes-list__heading`);
       const newHeading = View.fromHTML(`
-        <${ this.headingLevel } class='notes-list-heading js-notes-list-heading'>
+        <${ this.headingLevel } class='notes-list__heading js-notes-list__heading'>
           Notes (${ this.notes.length })
         </${ this.headingLevel }>
       `);
