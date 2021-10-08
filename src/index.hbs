@@ -72,7 +72,17 @@
     {{> sprites}}
 
     {{!-- template tags for pages and components will get populated here --}}
-    <div id=templates hidden></div>
+    <div id=templates hidden>
+
+      <template id=note-template>
+        {{> Note }}
+      </template>
+
+      <template id=notes-list-template>
+        {{> NotesList }}
+      </template>
+
+    </div>
 
     {{!-- app-level scripts go here --}}
     <script type=module>
@@ -91,7 +101,10 @@
       // initialize the app
       import App from './App/App.js';
       window.app = new App;
-      window.addEventListener(`load`, () => window.app.render());
+      window.addEventListener(`load`, async () => {
+        await window.app.initialize();
+        await window.app.render();
+      });
 
       // register the offline service worker
       if ('serviceWorker' in navigator && navigator.onLine) {

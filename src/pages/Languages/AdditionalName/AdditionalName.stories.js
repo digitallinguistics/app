@@ -1,6 +1,6 @@
 import './AdditionalName.css';
 import html2element from '../../../utilities/html2element';
-import Name from './AdditionalName.js';
+import Name         from './AdditionalName.js';
 
 export default {
   title: `Languages/Additional Name`,

@@ -10,27 +10,50 @@ Consider [opening an issue][new-issue] for any of the following:
 
 Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open Source Guide][gh-contributing] on contributing to open source projects.
 
-[View the complete developer documentation here.][developers]
+## Quick Links
 
-[View documentation for maintainers.][maintainers]
+* [View the complete developer documentation here.][developers] **
+* [View documentation for maintainers.][maintainers]
+* [View JavaScript documentation.][developers] **
+
+\** Developer documentation can currently only be viewed by openining `docs/index.html` in a browser.
 
 ## Contents
 
 <!-- TOC -->
 
-- [Project Principles](#project-principles)
-- [Building & Testing the App](#building--testing-the-app)
-  - [Component Testing](#component-testing)
-- [Project Structure](#project-structure)
-- [App Structure](#app-structure)
-- [Directory Structure](#directory-structure)
-- [Pages & Components](#pages--components)
-- [Rendering Pages & Components](#rendering-pages--components)
-- [Images](#images)
-- [Offline Functionality](#offline-functionality)
-- [Styleguides](#styleguides)
-- [Design Guidelines](#design-guidelines)
-- [Inspiration](#inspiration)
+- [Contributor Guidelines](#contributor-guidelines)
+  - [Quick Links](#quick-links)
+  - [Contents](#contents)
+  - [Project Principles](#project-principles)
+  - [Setting up the Development Environment](#setting-up-the-development-environment)
+  - [Developer Tools](#developer-tools)
+    - [nodemon](#nodemon)
+    - [ESLint & Stylelint](#eslint--stylelint)
+    - [Storybook](#storybook)
+  - [Organization](#organization)
+    - [Project Structure](#project-structure)
+    - [Directory Structure](#directory-structure)
+    - [App Structure](#app-structure)
+  - [Components](#components)
+    - [Types of Components](#types-of-components)
+    - [Writing Components](#writing-components)
+      - [HTML / Handlebars](#html--handlebars)
+      - [CSS / LESS](#css--less)
+      - [JavaScript](#javascript)
+  - [Testing the App](#testing-the-app)
+    - [Types of Tests](#types-of-tests)
+    - [Writing Tests](#writing-tests)
+      - [Unit Tests](#unit-tests)
+      - [Component Tests](#component-tests)
+      - [Integration Tests](#integration-tests)
+      - [End-to-End Tests (E2E)](#end-to-end-tests-e2e)
+  - [Build Process](#build-process)
+    - [Offline Functionality](#offline-functionality)
+  - [Resources](#resources)
+    - [Images](#images)
+    - [Accessibility](#accessibility)
+    - [Inspiration](#inspiration)
 
 <!-- /TOC -->
 
@@ -48,153 +71,592 @@ This project is driven by the needs of documentary and descriptive linguists, an
 - **open source** (e.g. free, easy to contribute, rely only on well-supported tools/libraries, well-documented)
 - **scientific transparency** (e.g. ability to recreate data sets, faithfulness to original data, easily citable)
 
-## Building & Testing the App
+## Setting up the Development Environment
 
-This project uses the following build and testing tools:
+Follow these steps to set up your local development environment:
 
-* [Chai]: Assertion library.
-* [Cypress]: Runs component and integration tests.
-* [ESBuild]: Bundles multiple JavaScript modules into a single file, to reduce the number of network requests made by the browser.
-* [ESLint]: Lints JavaScript
-* [Handlebars]: Compiles the HTML for the app shell and pages. HTML components are written in Handlebars but with the `.html` extension.
-* [JSDoc]: Builds developer documentation from inline JS comments.
-* [LESS]: Enables a superset of CSS syntax, and compiles LESS > CSS.
-* [Mocha]: Runs unit tests.
-* [Storybook]: Tool for developing individual components in isolation.
-* [Stylelint]: Lints SCSS / CSS.
+1. Install the latest Current version of [Node]. (If you need use multiple versions of Node on your machine, consider using [nvm] (unix, macOS, and windows WSL) or [nvm-windows] (windows)).
 
-The following build scripts are available:
+2. Clone the repository and `cd` into its folder:
 
-* `npm run build`: Builds the production code for the app and outputs to `dist/`. Build scripts are located in `build/`. Individual build steps can be run with `build:{step}`.
-  - `npm run build:cache`: builds a list of assets to cache offline
-  - `npm run build:copy`: copies static assets to `dist/`
-  - `npm run build:docs`: builds the developer documentation
-  - `npm run build:js`: builds transpiled JS files
-  - `npm run build:page`: builds the HTML + CSS for the app skeleton and individual pages
-  - `npm run build:svg`: builds the SVG sprites for app skeleton and individual pages
+    ```cmd
+    > git clone https://github.com/digitallinguistics/app.git
+    > cd app
+    ```
 
-* `npm start`: Run a local test server for development. Defaults to port `3000` (set `process.env.PORT` to change this).
+    If you're unfamiliar with the git or the command line, you may want to install [GitHub Desktop][gh-desktop], an easy-to-use user interface for managing git repositories.
 
-* `npm run storybook`: Builds and runs the Storybook component interface.
+3. Install all the software dependencies for the project. This typically takes several minutes.
 
-* `npm test`: Runs all tests. By default tests are run on the command line. You can run unit or integration tests individually with the following commands:
-  - `npm run test:integration`: component + integration tests
-  - `npm run test:unit`: unit tests
-  - `npm run cypress`: runs component + integration tests manually in Cypress dashboard
+    ```cmd
+    > npm install
+    ```
 
-### Component Testing
+4. Build the app. This processes all of the files in the `src/` directory and outputs the production-ready code in the `dist/` directory.
 
-Component testing may eventually use [Cypress' component testing framework][cypress-ct]. In the meantime, to test the functionality of an individual component such as a `ListView` in isolation, navigate to the app in Cypress (`cy.visit('/')`) and render the component in the `<main>` area. If your component is specific to a page, you may need to visit that page instead (e.g. `cy.visit('/languages')`).
+    ```cmd
+    > npm run build
+    ```
 
-You can also work on designing individual components using [Storybook]. The Storybook documentation pages explain how to add components to the Storybook interface for visual testing. To run Storybook locally, use `npm run storybook`.
+5. Start a local server which points to the production-ready files in `dist/`.
 
-## Project Structure
+    ```cmd
+    > npm start
+    ```
 
-Folder        | Description
---------------|---------------
-`.github/`    | Developer documentation.
-`.storybook/` | Configuration for [Storybook].
-`build/`      | Scripts to build the production version of the app.
-`dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.
-`docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.
-`src/`        | Source code for the app. Test files should live alongside their source components.
-`test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment.
+6. View the working version of the app by opening a browser and navigating to https://localhost:3000.
 
-## App Structure
+## Developer Tools
 
-The Lotus app follows a typical [app shell model][app-shell-model]. A lightweight app skeleton with minimal content is delivered to the browser, and everything else is then loaded dynamically or lazy-loaded. Think of the app shell as your development environment—it makes certain global features and variables available for you to work with, such as predefined HTML regions, global CSS variables, and a global `app` JavaScript object with methods for updating settings, accessing the database, etc. etc.
+This section describes several developer tools it is strongly recommended that you use while making changes to the code.
 
-The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
+### nodemon
 
-Each section of the app shell's HTML is documented with inline code in `src/index.html`.
+Each time you make changes to the sources files, you will need to rebuild the app. You do not need to restart the server each time, but you will need to refresh the page in the browser for the changes to appear.
 
-## Directory Structure
+One way to do this is to open two terminals—one to run the server (`npm start`), and run to rebuild the app each time you make a change (`npm run build`).
+
+An easier solution is to use a tool like [nodemon], which watches the project for changes and automatically runs commands of your choosing each time a file changes. In this case, you can run `npm run build` each time the code changes.
+
+**Steps to Use nodemon**
+
+1. Install nodemon globally:
+
+    ```cmd
+    > npm install --global nodemon
+    ```
+ 
+2. Add a `nodemon.json` config file to the root of the project. Below is a recommended configuration. It will watch for changes to any files which have an extension in the `ext` field, but ignore any files which match the glob patterns in the `ignore` field. Any time a change is detected, it will run `npm run build`.
+
+    ```json
+    <!-- nodemon.json -->
+
+    {
+      "exec": "npm run build",
+      "ext": "hbs,js,less,md",
+      "ignore": [
+        "dist",
+        "docs",
+        "**/*.stories.js",
+        "**/*.test.js",
+        "**/*.unit.js"
+      ]
+    }
+    ```
+ 
+3. Start nodemon.
+
+    ```cmd
+    > nodemon
+    ```
+ 
+You can configure nodemon to run different commands instead. For example, nodemon can rebuild the app after each change and then start the server, or rebuild the app and then run tests, etc. See the complete documentation on the [nodemon website][nodemon].
+
+### ESLint & Stylelint
+
+[ESLint] and [Stylelint] are two tools that analyze or "lint" your code as you work to detect common problems and in many cases fix them automatically. They also help ensure that different developers structure their code in the same way.
+
+ESLint lints JavaScript, while Stylelint lints CSS / LESS. The list of rules / problems that ESLint checks for are located in `.eslintrc.yml`. The list of rules / problems that Stylelint checks for are located in `.stylelintrc.yml`.
+
+Most code editors have settings, plugins, or extensions that support ESLint and Stylelint. You should install these plugins / extensions so that your editor automatically reports issues found by ESLint and Stylelint.
+
+### Storybook
+
+[Storybook] is a tool for managing a library of components. It allows developers to create, style, and test each component in isolation, as well as in combination. Each component is given its own "story", and files containing story specifications end in `.stories.js`. When creating new components, it is recommended that you develop using Storybook first, and then write component tests using Cypress.
+
+To use Storybook:
+
+1. Start a local server (`npm start`).
+2. Run the Storybook application (`npm run storybook`).
+3. The Storybook interface will open, allowing you to explore each component and its variations.
+4. Storybook automatically updates its interface when you make changes to either the stories or the component ("hot reloading"). You do not (usually) need to restart Storybook after each change, or even refresh the page.
+
+The [Storybook documentation][Storybook] explains how to write stories for components.
+
+If a story relies on a template, you will need to include that template in `.storybook/preview-body.hbs`, like so:
+
+```hbs
+<!-- .storybook/preview-body.hbs -->
+
+<template id=help-menu-template>
+  {{> HelpMenu }}
+</template>
+
+<template id=language-editor-template>
+  {{> LanguageEditor }}
+</template>
+
+<!-- etc. -->
+```
+
+You can then use that template in your story in a similar way to the following:
+
+```js
+export HelpMenu = () => {
+  const template = document.getElementById(`help-menu-template`);
+  return template.content.cloneNode(true).firstElementChild;
+}
+```
+
+## Organization
+
+This section explains the organization of the project and the app code.
+
+### Project Structure
+
+| Folder        | Description                                                                                                                                                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.github/`    | Developer documentation.                                                                                                                                                                                                                                    |
+| `.storybook/` | Configuration for [Storybook].                                                                                                                                                                                                                              |
+| `build/`      | Scripts to build the production version of the app from the `src/` files.                                                                                                                                                                                   |
+| `dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.                                                                                                           |
+| `docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.                                                                                                                                              |
+| `src/`        | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.                                                                                                                   |
+| `test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment. Test files belong next to the component they are testing. (See [Testing the App](#testing-the-app).) |
+
+### Directory Structure
 
 The `src/` folder contains the following:
 
-Folder              | Description
---------------------|-------------
-`App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell.
-`components/`       | Components that are shared across pages (but not part of the app shell).
-`core/`             | High-level JavaScript modules whose functionality is shared across components.
-`fonts/`            | Font files.
-`images/`           | Images and icons used in the app.
-`models/`           | Data models (e.g. Language, Text, etc.).
-`pages/`            | Each subfolder contains all the code for a single "page".
-`services/`         | JavaScript modules which manage access to services like databases and APIs.
-`styles/`           | Global classes, variables, and utility classes that are used across pages.
-`utilities/`        | JavaScript utilities that are reused across components.
-`manifest.json`     | Web app manifest for installing the site as a web app.
-`offline-worker.js` | A service worker which makes the app work offline.
+| Folder              | Description                                                                                                                                         |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell. |
+| `components/`       | Components that are shared across pages (but not part of the app shell).                                                                            |
+| `core/`             | High-level JavaScript modules whose functionality is shared across components. These files are essentially a custom JavaScript framework.           |
+| `fonts/`            | Font files.                                                                                                                                         |
+| `images/`           | Images and icons used in the app.                                                                                                                   |
+| `models/`           | Data models (e.g. Language, Text, etc.).                                                                                                            |
+| `pages/`            | Each subfolder contains all the code for a single "page".                                                                                           |
+| `services/`         | JavaScript modules which manage access to services like databases and APIs.                                                                         |
+| `styles/`           | Global classes, variables, and utility classes that are used across pages.                                                                          |
+| `utilities/`        | JavaScript utilities that are reused across components.                                                                                             |
+| `index.hbs`         | The HTML shell for the app.                                                                                                                         |
+| `index.less`        | Global styles that apply across the app.                                                                                                            |
+| `manifest.json`     | Web app manifest for installing the site as a web app.                                                                                              |
+| `offline-worker.js` | A service worker which makes the app work offline.                                                                                                  |
 
-## Pages & Components
+### App Structure
 
-The code for the app consists of the app shell, plus one bundle of code for each page within the app. The HTML, CSS, and JavaScript for each page are loaded dynamically when that page is loaded. (These files are cached by a service worker in advance, so the user doesn't have to wait for them to be fetched from the server.) All of the various code and components for the Languages page, for example, are compiled into the following two files:
+The Lotus app follows a typical [app shell model][app-shell-model]. A lightweight HTML + CSS + JS skeleton with minimal content is delivered to the browser, and everything else is then loaded dynamically or lazy-loaded. Think of the app shell as your development environment—it makes certain global features and variables available for you to work with, such as predefined HTML regions, global CSS variables, and a global `app` object with methods for updating settings, accessing the database, etc. etc.
 
-* `Languages.html` (contains both HTML and inlined CSS for the Languages page)
-* `Languages.js` (contains the View for the Languages page)
+- **HTML:** Each section of the app's HTML shell is documented with inline comments in `src/index.hbs`.
 
-Each component should have its own folder within the page it is used, and contain all the necessary HTML, CSS/SCSS, and JavaScript for that component, like so:
+- **CSS / LESS:** Global styles and utilities are located in `src/styles/`. Styling for the app shell is located in `src/App/App.less`. Styles for individual components are located alongside their components, in `{ComponentName}.less`.
+
+- **JavaScript:** Many single-page apps use a JavaScript framework such as Vue or React. The Lotus app uses its own simple, vanilla JavaScript framework instead, consisting of base `View` and `Model` classes, among others. In addition, all modules have access to the global `app` object.
+
+  The documentation for the app's JavaScript framework is available at https://developer.digitallinguistics.io/app. It shows all the methods available on the global `App` object, as well as documents how to use other shared modules such as the `View` and `EventEmitter` classes.
+
+The Lotus app is also a [Progressive Web App][PWA] (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.
+
+## Components
+
+Each interactive section of the app is called a **component**. Components may contain other, smaller components. For example, the top-level `App` component contains a `LanguagesPage` component, the `LanguagesPage` component contains a `LanguageEditor` component, and the `LanguageEditor` component uses the `TranscriptionGroup` component.
+
+Each component can have several types of files associated with it. Not all components will have all of these types of files. Many components consist of just a CSS class, and so consist of a single LESS file. Most components only need 1 type of test file as well.
+
+- `.component.js`: Component tests for this component.
+- `.e2e.js`: End-to-end tests for this component.
+- `.integration.js`: Integration tests for this component.
+- `.hbs`: The HTML template for the component, written in [Handlebars].
+- `.less`: The styling for the component, written in [LESS].
+- `.js`: The JavaScript controller that manages this view's functionality.
+- `.stories.js`: The code for rendering this component in Storybook.
+- `.unit.js`: Unit tests for this component.
+
+All of these files should be located together in the same directory. For example, the `LanguagesNav` directory looks like this:
 
 ```
-pages/
-  LanguagesPage/
-    LanguagesList/
-      - LanguagesList.css // not checked into git; just used for development in Storybook
-      - LanguagesList.hbs
-      - LanguagesList.js
-      - LanguagesList.less
-      - LanguagesList.stories.js
-      - LanguagesList.test.js
+LanguagesNav/
+  - LanguagesNav.component.js
+  - LanguagesNav.hbs
+  - LanguagesNav.js
+  - LanguagesNav.less
+  - LanguagesNav.stories.js
 ```
 
-* The app shell is treated as a special top-level component and located in the `App/` folder.
-* Components that are specific to the app shell should be placed in the `App/` folder instead of a page folder.
-* Components that are used across pages should be placed in the `components/` folder instead of a page folder.
+### Types of Components
 
-The HTML template for each component should be inserted into a `<template id={component-name}-template>` tag in that page's HTML, typically using a partial: `<template id=component-name-template>{{> component-name}}</template>`. Your JavaScript component can load that template using `document.querySelector('#{component-name}-template')`.
+There are four types of components in the app:
 
-The CSS for each component will be loaded along with the page's CSS (or better yet, the CSS should be inlined into the component using Web Components and the shadow DOM).
+* the top-level `App` component (`src/App/`)
+* one component for each page (`src/pages/`), ex. `Languages`
+* components that are specific to a certain page (`src/pages/{Page}/{ComponentName}/`), ex. `LanguagesNav`
+* components that are shared across pages (`src/components/{ComponentName}/`), ex. `List`
 
-Each page's JavaScript is responsible for loading its own components, and they in turn are responsible for loading any subcomponents.
+### Writing Components
 
-## Rendering Pages & Components
+This section provides guidelines for writing components.
 
-* Each page and component should be an instance of the `View` class.
+#### HTML / Handlebars
 
-* Pages and components should never insert themselves into the DOM; this is the job of their controller. The `render()` method of each View instance should update the `el` property of the instance with the new DOM element, and return that element. It should also store a reference to the view on `el.view`.
+The HTML for each component is written in [Handlebars], an HTML templating language. This allows you to embed components within components using `{{> ComponentName }}`.
 
-* Each page or component should return a single root element. Pages must always return a `<main id=main class=main data-page={page}>` element.
+The compiled HTML for each component is also injected into the page inside a `<template id={component-name}-template>` tag, which allows the JavaScript controller to copy and reuse that template as many times as needed. [See the MDN documentation on using `<template>` tags][templates].
 
-* Pages and controllers _should_ add their own event listeners. This can be done at the end of the `render()` method.
+#### CSS / LESS
 
-* If a component is already inserted into the DOM, use the `render()` method to add a `data-loaded=true` attribute to the component when it is finished initializing.
+The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS. 
 
-## Images
+The most useful LESS feature is nesting. For example, instead of writing this…
 
-The Lotus app uses [Feather Icons][Feather] for UI purposes by default. The app also has some more decorative icons that are less interactive. These are taken from [Flaticon][Flaticon]. Generally, UI icons should be black and white with rounded edges, while decorative icons should be colorful and flat with sharp edges.
+```css
+#header {
+  color: black;
+}
 
-## Offline Functionality
+#header .navigation {
+  font-size: 12px;
+}
+
+#header .logo {
+  width: 300px;
+}
+```
+
+…we can write this:
+
+```less
+#header {
+
+  color: black;
+
+  .navigation {
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+}
+```
+
+You can load other LESS dependencies into your LESS stylesheet with the `@import` command. For example, `App.less` loads stylesheets for the Banner, Nav, and Skip Link.
+
+```less
+@import 'Banner/Banner';
+@import 'Nav/Nav';
+@import 'Skip-Link/Skip-Link';
+```
+
+If you only want to use specific styles/declarations from a stylesheet, use `@import (reference)`. For example, the following line in `App.less` loads the `variables.less` file, but will *only* import the variables that `App.less` explicitly uses.
+
+```less
+@import (reference) 'variables';
+```
+
+[See the LESS documentation for more details on using LESS.][LESS]
+
+The Lotus project partially uses [Block-Element-Modifier (BEM)][BEM] naming conventions for CSS, which typically looks like this:
+
+```css
+.block__element--modifier {
+  /* styles here */
+}
+```
+
+For the Lotus app, a "block" is a component, and an "element" is any element within that component. The Lotus app does *not* use the `--modifier` syntax however. Instead it uses a separate modifier class.
+
+As an example, if you have a Languages Nav component which includes a green "Add a Language" button and a red "Delete a Language" button, your HTML and styles might look like this:
+
+```html
+<nav class=lang-nav>
+  <ul class=lang-nav__list>
+    <li class=lang-nav__item>Language A</li>
+    <li class=lang-nav__item>Language B</li>
+    <li class=lang-nav__item>Language C</li>
+  </ul>
+  <button class='btn green lang-nav__btn lang-nav__add-lang-btn'>Add a Language</button>
+  <button class='btn red lang-nav__btn lang-nav__delete-lang-btn'>Delete a Language</button>
+</nav>
+```
+
+```css
+.btn {
+  /* generic button styles */
+}
+
+.green {
+  /* green button styles */
+}
+
+.red {
+  /* red button styles */
+}
+
+.lang-nav {
+  /* styles for the <nav> */
+}
+
+.lang-nav .lang-nav__list {
+  /* styles for the list */
+}
+
+.lang-nav .lang-nav__item {
+  /* styles for list items */
+}
+
+.lang-nav__btn {
+  /* styles for the specific buttons inside the languages nav */
+}
+
+.lang-nav__add-lang-btn {
+  /* styles specific to the Add a Language button */
+}
+
+.lang-nav__delete-lang-btn {
+  /* styles specific to the Delete a Language button */
+}
+```
+
+In LESS, this can be written much more tersely:
+
+```less
+.btn {
+  &.red { /* styles */ }
+  &.green { /* styles */ }
+}
+
+.lang-nav {
+  &__list { /* styles */ }
+  &__item { /* styles */ }
+  &__btn { /* styles */ }
+  &__add-lang-btn { /* styles */ }
+  &__delete-lang-btn { /* styles */ }
+}
+```
+
+**Where to import component styles**
+
+* Global styles and declarations that apply across the app are located in `index.less`.
+
+* Styling for the app shell is located in `App/App.less`.
+
+* Styles for individual components should be imported into any page that uses those components. For example, the `LineInput` class is used by the Languages page and the Lexicon page, but not the Home page, so `Languages.less` and `Home.less` import `LineInput.less`, but `Home.less` does not.
+
+#### JavaScript
+
+Each component with functionality has a JavaScript *controller* which controls that functionality. The main tasks of the controller are to render the component, respond to user interactions with the component, and alert other components when certain events happen.
+
+Each controller should be an instance of the `View` class (`src/core/View.js`). Each JavaScript file for a component should export a single view as its default export. For example, the `List` component looks like this:
+
+```js
+// List.js
+
+import View from '../../core/View.js';
+
+export default class List extends View { /* ... */ }
+```
+
+The `View` class has some utilities for controllers, and documents the conventions that should be followed by view instances. *Be sure to read the source code comments in `src/core/View.js`.*
+
+Each view should have a `render()` method which compiles the DOM element for that component. The `render()` method should return a single DOM element. Components for entire pages must always return a `<main id=main class=main data-page={PageName}>` element.
+
+*Components should never insert themselves into the DOM.* This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguagesNav component. Each component is responsible for loading its immediate subcomponents.
+
+Controllers *should* add their own event listeners. This is usually done at the end of the `render()` method.
+
+Sometimes components will need to listen for events on other components. For example, clicking a button in one component might cause another component to update. To alert other components of an event, use `{view}.events.emit('{event name}', data)`. To subscribe to events on another component, use `{view}.events.on('{event name}', callbackFunction)`. When an event is emitted, the data for that event is passed to the callback function. Event listeners can be synchronous or asynchronous. See the source code for the `EventEmitter` class in `src/core/EventEmitter.js` for more details.
+
+Views should only listen for events on their children / subcomponents.
+
+Be sure to document your JavaScript code using [JSDoc][JSDoc] code comments.
+
+## Testing the App
+
+The Lotus project includes a collection of tests that you can run to ensure that everything in the app is functioning correctly. Before you make a pull request, you should run the tests for the app to check that your changes did not break any existing functionality. (Instructions for how to run the tests are below.) If the tests fail, you should either fix the code or update the tests to reflect the new functionality.
+
+Whenever possible, write a test for the changes you are making. This ensures that future changes will not break your code.
+
+### Types of Tests
+
+There are several types of tests in this project:
+
+- **unit tests:** These tests cover small, isolated parts of the code such as individual classes, methods, or modules. These tests are run with [Mocha] and have a `.unit.js` extension.
+
+- **component tests:** These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc. These tests are run with a combination of [Storybook] + [Cypress] and have a `.component.js` extension.
+
+- **integration tests:** These tests check that different components interact properly with each other when used together in the app. For example, clicking a button in one component should open a menu in another. These tests should not generally depend on databases or servers. These tests are run with a combination of [Storybook] + [Cypress] and have an `.integration.js` extension.
+
+- **end-to-end (E2E) tests:** These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks, and depend on databases, servers, etc. These typically only test the "happy path", rather than various errors. These tests are run with [Cypress] and have a `.e2e.js` extension.
+
+- **performance tests:** These tests check the app's performance in terms of speed and other metrics. These tests are run with [Lighthouse].
+
+**NOTE:** Both Mocha and Cypress use the [Chai] assertion framework to make assertions about expected behaviors.
+
+The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.
+
+```
+fast / cheap <----------------------------> slow / expensive
+
+unit <--- component --- integration --- E2E ---> performance
+```
+
+Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the "testing pyramid", with many tiny unit / component tests, fewer integration tests, and a small number of E2E / performance tests.
+
+Cypress tests can either be run programmatically (from the command line), or by using an interactive interface which allows you to watch the tests interact with the app, rerun, and debug those tests.
+
+You can run the various types of tests with the following commands:
+
+| Test Type   | Extension         | Interface    | Command (with `npm run`)          |
+| ----------- | ----------------- | ------------ | --------------------------------- |
+| unit        | `.unit.js`        | interactive  | —                                 |
+| unit        | `.unit.js`        | programmatic | `test:unit`                       |
+| component   | `.component.js`   | interactive  | `cypress-ct`                      |
+| component   | `.component.js`   | programmatic | `test:component`                  |
+| integration | `.integration.js` | interactive  | `cypress-it`                      |
+| integration | `.integration.js` | programmatic | `test:integration`                |
+| E2E         | `.e2e.js`         | interactive  | `cypress-e2e`                     |
+| E2E         | `.e2e.js`         | programmatic | `test:e2e`                        |
+| performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
+| performance | —                 | programmatic | `test:perf`                       |
+
+Alternatively, you can open both Storybook + Cypress manually, which is sometimes easier for development. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively.
+
+### Writing Tests
+
+This section explains how to structure the different kinds of tests.
+
+#### Unit Tests
+
+Unit tests typically test pure JavaScript modules that don't require a browser to run. Each test within a unit test suite should work in isolation, independently of any of the other tests. You should even be able to run them out of order.
+
+In this project, items that have unit tests are modules in `core/`, `models/`, or `utilities/`, plus a few tests of the development environment in `test/`.
+
+To write a unit test, import the module you are testing as well as the [Chai] assertion library, then write tests for each of the properties / methods that the module exposes. Here is a small example:
+
+```js
+// EventEmitter.unit.js
+
+import chai         from 'chai';
+import EventEmitter from './EventEmitter.js'
+
+const { expect } = chai;
+
+describe(`EventEmitter`, function() {
+
+  it(`has an events Map`, function() {
+    const emitter = new EventEmitter;
+    expect(emitter.events).to.be.a(Map);
+  });
+
+});
+```
+
+You may occasionally also want to import other testing utilities such as [Sinon] for stubs, mocks, and spies:
+
+```js
+// EventEmitter.unit.js
+
+import chai         from 'chai';
+import EventEmitter from './EventEmitter.js';
+import sinon        from 'sinon';
+import sinonChai    from 'sinon-chai';
+
+chai.use(sinonChai);
+
+const { expect } = chai;
+
+describe(`EventEmitter`, function() {
+
+  it(`emit`, async function() {
+
+    const emitter = new EventEmitter;
+    const stub    = sinon.stub();
+
+    emitter.on(`test`, stub);
+    await emitter.emit(`test`);
+
+    expect(stub).to.have.been.calledOnce;
+
+  });
+
+});
+```
+
+**NOTE:** Some unit tests have to be run in the browser because they rely on specific browser APIs (for example, the tests for `Model.js`). These should be given the `.component.js` extension so that they run in the browser, but otherwise can be written as normal unit tests.
+
+#### Component Tests
+
+Component tests check the functionality of a single component in isolation. Any items in the `components/` folder that have functionality, or any page-specific components in `pages/{ComponentName}` that have functionality, should have a component test.
+
+Component tests are run using [Cypress] tests on a single [Storybook] story. To load the component, call `cy.visit()` on the URL for that particular story. You can find the URL by opening that story in Storybook, clicking the "Open canvas in new tab" icon in the upper right (the external link icon), and copying the URL from that tab. Now you can write your component tests using Cypress' API. Note that you do *not* need to import Chai or Sinon—these are included in Cypress. Here is a small example test:
+
+```js
+// List.component.js
+
+describe(`List`, function() {
+
+  // load the Storybook story
+  before(function() {
+    cy.visit(`http://localhost:6006/iframe.html?id=components-list`);
+  });
+
+  // run tests on the component
+  it(`renders`, function() {
+    cy.get(`.list`)
+    .children()
+    .should(`have.lengthOf`, 3);
+  });
+
+});
+```
+
+#### Integration Tests
+
+Integration tests check that different components interact as expected. For example, clicking an item in a list might render the view for that item.
+
+Integration tests are written exactly like component tests, except that they have the `.integration.js` extension instead. Integration tests should not generally involve interactions with a database or calls to a server. Whenever possible, they should work in insolation, without needing the rest of the app framework in place.
+
+Integration tests are generally only written for pages, to check that the various components within the page interact as expected. Tests that need to switch pages or interact with the app shell should be part of end-to-end tests instead.
+
+#### End-to-End Tests (E2E)
+
+End-to-end (E2E) tests are tests on the entire composed app that imitate how a user would interact with the app to perform various tasks. E2E tests should generally only test the "happy path" (that the required functionality works as expected); they should not test every possible error and edge case.
+
+E2E tests do not use Storybook components. Instead they run directly on the app itself. E2E tests often involve long chains of commands, where the result of one test depends on the outcome of previous tests. [Read the Cypress docs about tiny tests for more information.](https://docs.cypress.io/guides/references/best-practices#Creating-tiny-tests-with-a-single-assertion)
+
+To write an E2E test, first visit the app page using `cy.visit('/')`, and then use Cypress to interact with the app like a user would. For example, you could use `cy.get()` to look for text on a page rather than IDs or class names. See the `Languages.e2e.js` file for a good example of what this looks like.
+
+#### Miscellaneous Notes on Testing
+
+* Use "if/when ..., then ..." format whenever appropriate.
+
+## Build Process
+
+Running `npm run build` triggers a number of build steps. Each of these steps can also be run individually with the following commands. Build scripts are all located in `build/`.
+
+- `npm run build:cache`: builds a list of assets to cache offline
+- `npm run build:copy`: copies static assets to `dist/`
+- `npm run build:docs`: builds the developer documentation
+- `npm run build:js`: builds transpiled JS files
+- `npm run build:page`: builds the HTML + CSS for the app skeleton and individual pages
+- `npm run build:stories`: builds assets required by Storybook
+
+You can skip building the docs and Storybook stories by running `npm run quick-build`.
+
+### Offline Functionality
 
 The Lotus app is designed to be an offline web app. As such, all assets required to run the app must be available offline. This functionality is achieved via the `src/offline-worker.js` file. This file caches all the required assets for the app. It uses the file `dist/cache.json` to determine which files need to be cached. `cache.json` is generated during the build process (by `buildCache.js`) by creating a list of all files present in the `dist/` folder (except for `offline-worker.js` itself).
 
-## Styleguides
+## Resources
 
-JavaScript and CSS / SCSS code should be linted before opening a pull request.
+This section contains various resources that may be useful during development.
 
-* JavaScript code is linted with [ESLint][ESLint]. The ESLint config file for this project is located at `.eslintrc.yml`.
-* SCSS / CSS code is linted with [Stylelint][Stylelint]. The Stylelint config file for this project is located at `.stylelintrc.yml`.
+### Images
 
-JavaScript code comments follow [JSDoc][JSDoc] conventions for describing code.
+The Lotus app uses [Feather Icons][Feather] for UI purposes by default. The app also has some more decorative icons that are less interactive. These are taken from [Flaticon][Flaticon]. Generally, UI icons should be black and white with rounded edges, while decorative icons should be colorful and flat with sharp edges.
 
-## Accessibility
+### Accessibility
 
 Some great resources on creating accessible components:
 
 * [Inclusive Components](https://inclusive-components.design/)
 * [A complete guide to accessible front-end components](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/)
+* [Developer Accessibility Guide](https://www.accessibility-developer-guide.com/)
 
-## Inspiration
+### Inspiration
 
 Other single-page apps or tools this project sometimes mimics:
 
@@ -210,6 +672,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 
 <!-- LINKS -->
 [app-shell-model]: https://developers.google.com/web/fundamentals/architecture/app-shell
+[BEM]:             http://getbem.com/introduction/
 [Chai]:            https://www.chaijs.com/
 [Cypress]:         https://www.cypress.io/
 [cypress-ct]:      https://docs.cypress.io/guides/component-testing/introduction
@@ -220,15 +683,24 @@ Some older versions of styles for the app are located [here](https://github.com/
 [Flaticon]:        https://www.flaticon.com/
 [FLEx]:            https://software.sil.org/fieldworks/
 [gh-contributing]: https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution
+[gh-desktop]:      https://desktop.github.com/
 [Handlebars]:      https://handlebarsjs.com/
 [JSDoc]:           https://jsdoc.app/
 [LESS]:            https://lesscss.org/
+[lh-devtools]:     https://developers.google.com/web/tools/lighthouse/#devtools
+[Lighthouse]:      https://developers.google.com/web/tools/lighthouse/
 [maintainers]:     https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md
 [Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
 [Mocha]:           https://mochajs.org/
 [MSTodo]:          https://to-do.live.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
+[Node]:            https://nodejs.org/en/
+[nodemon]:         https://nodemon.io/
+[nvm]:             https://github.com/nvm-sh/nvm
+[nvm-windows]:     https://github.com/coreybutler/nvm-windows
 [PWA]:             https://developers.google.com/web/updates/2015/12/getting-started-pwa
 [SayMore]:         https://software.sil.org/saymore/
+[Sinon]:           https://sinonjs.org/
 [Storybook]:       https://storybook.js.org/
 [Stylelint]:       https://stylelint.io/
+[templates]:       https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots

@@ -12,9 +12,10 @@ const items = [
 ];
 
 const template = (item, i) => {
-  const li       = document.createElement(`li`);
-  li.dataset.id  = i;
-  li.textContent = item;
+  const li         = document.createElement(`li`);
+  li.dataset.id    = i;
+  li.textContent   = item;
+  li.style.padding = `var(--text-padding)`;
   return li;
 };
 

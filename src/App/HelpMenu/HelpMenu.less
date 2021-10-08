@@ -1,0 +1,83 @@
+@import 'Link/Link';
+@import (reference) 'utilities';
+@import (reference) 'variables';
+
+.help-menu {
+
+  align-self: center;
+  color     : white;
+
+  /* Closes the details when clicking anywhere else */
+  &[open] summary::before {
+    content     : '';
+    cursor      : default;
+    inset-block : 0;
+    inset-inline: 0;
+    position    : fixed;
+    z-index     : -1;
+  }
+
+  a {
+    align-items   : center;
+    display       : flex;
+    flex-direction: row;
+  }
+
+  svg {
+    --icon-size: 1.25em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : var(--space-xs);
+  }
+
+  .link {
+    svg {
+      color: black;
+    }
+  }
+
+  .dropdown-content {
+    background-color: white;
+    border          : var(--border);
+    border-radius   : var(--border-radius);
+    box-shadow      : var(--box-shadow);
+    inset-inline-end: var(--space-xs);
+    min-inline-size : max-content;
+    position        : absolute;
+    z-index         : 2;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  li:hover {
+
+    background-color: var(--blue-1);
+
+    &:first-child {
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+  }
+
+  summary {
+    align-items   : center;
+    cursor        : pointer;
+    display       : flex;
+    flex-direction: row;
+  }
+
+  @media (max-width: @breakpoint) {
+
+    &__title {
+      .visually-hidden;
+    }
+
+  }
+
+}

@@ -3,6 +3,8 @@
 
 .txn-group {
 
+  --display-color: var(--blue);
+
   align-items:           baseline;
   column-gap:            var(--space-xs);
   display:               grid;
@@ -14,6 +16,29 @@
   input {
     grid-column: input;
     min-width:   10em;
+
+    &:focus {
+
+      border-block-end-color: currentColor;
+      color:                  var(--display-color);
+      outline-color:          var(--display-color);
+
+      &::placeholder {
+        color:      currentColor;
+        font-style: italic;
+      }
+
+      &:invalid {
+
+        --display-color: var(--red);
+
+        + .help-text {
+          color: var(--red);
+        }
+
+      }
+
+    }
   }
 
   label {

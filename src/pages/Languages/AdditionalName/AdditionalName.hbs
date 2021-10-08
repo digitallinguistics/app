@@ -1,18 +1,28 @@
 <li class=additional-name>
-  <p class=js-preview></p>
-  <button aria-label='Edit this Language Name' class='button js-edit-button transparent' type=button>
-    <svg><use href=#edit-line></use></svg>
-  </button>
-  <button aria-label='Delete this Language Name' class='button js-delete-button transparent' type=button>
-    <svg><use href=#trash></use></svg>
-  </button>
-  <fieldset class='js-editor' hidden>
+
+  <header class=additional-name__header>
+
+    <p class='additional-name__preview js-additional-name__preview'></p>
+
+    <div class='additional-name__buttons additional-name__header-buttons'>
+      <button aria-label='Edit this Language Name' class='additional-name__button button js-additional-name__edit-button transparent' type=button>
+        <svg><use href=#edit-line></use></svg>
+      </button>
+      <button aria-label='Delete this Language Name' class='additional-name__button button js-additional-name__delete-button transparent' type=button>
+        <svg><use href=#trash></use></svg>
+      </button>
+    </div>
+
+  </header>
+  
+  <fieldset class='additional-name__editor js-additional-name__editor' hidden>
+    
     <div class=input-group>
-      <label class=required data-bind=for:nameID>Name</label>
+      <label class='additional-name__legend legend required' data-bind=for:nameID>Name</label>
       <div>
         <input
           autocomplete=off
-          class='js-name-input line-input txn'
+          class='additional-name__lang-input js-additional-name__name-input line-input txn'
           data-bind=id:nameID;value:name
           inputmode=text
           placeholder='e.g. espagnol'
@@ -20,27 +30,30 @@
           type=text
           required
         >
-        <p class=help-text>An additional name for this language.</p>
+        <p class='additional-name__help-text help-text'>An additional name for this language.</p>
       </div>
     </div>
+    
     <div class=input-group>
-      <label data-bind=for:langID>Language</label>
+      <label class='additional-name__legend legend' data-bind=for:langID>Language</label>
       <div>
         <input
           autocomplete=off
-          class='js-lang-input line-input'
+          class='additional-name__lang-input js-additional-name__lang-input line-input'
           data-bind=id:langID;value:language
           inputmode=text
           placeholder='e.g. French'
           spellcheck=false
           type=text
         >
-        <p class=help-text>The language of this additional name.</p>
+        <p class='additional-name__help-text help-text'>The language of this additional name.</p>
       </div>
     </div>
-    <div class=buttons>
-      <button class='button js-cancel-button' type=button>Cancel</button>
-      <button class='button blue js-save-button' type=button>Save</button>
+
+    <div class=additional-name__buttons>
+      <button class='additional-name__button button js-additional-name__cancel-button' type=button>Cancel</button>
+      <button class='additional-name__button button blue js-additional-name__save-button' type=button>Save</button>
     </div>
+  
   </fieldset>
 </li>
