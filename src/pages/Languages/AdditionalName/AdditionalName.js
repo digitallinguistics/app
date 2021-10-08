@@ -41,10 +41,7 @@ export default class AdditionalName extends View {
           return this.hideEditor();
         }
 
-        // TODO: Set custom validity messages.
-      
         this.nameInput.reportValidity();
-        this.langInput.reportValidity();
 
       }
 
