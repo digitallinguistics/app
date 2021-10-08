@@ -124,7 +124,7 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
     const oldList = this.el.querySelector(`.js-language-editor__names-list`);
-    
+
     const listView = new List(this.language.additionalNames, {
       classes:  oldList.classList,
       template: this.renderAdditionalName,
@@ -133,9 +133,9 @@ export default class LanguageEditor extends View {
     const newList = listView.render();
 
     if (!this.language.additionalNames.length) {
-      newList.style.border = `none`; 
+      newList.style.border = `none`;
     }
-    
+
     oldList.replaceWith(newList);
     newList.addEventListener(`click`, this.handleNamesUpdate.bind(this));
 
@@ -198,10 +198,10 @@ export default class LanguageEditor extends View {
 
   async updateName(name, value) {
 
-    const form = this.el.querySelector(`form`);
-    this.checkNameValidity();
-    const isValid = form.checkValidity();
-    form.reportValidity();
+    const nameInput     = this.el.querySelector(`.js-additional-name__name-input`);
+    nameInput.checkNameValidity();
+    const isValid = nameInput.checkValidity();
+    nameInput.reportValidity();
     if (!isValid) return;
 
     const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
