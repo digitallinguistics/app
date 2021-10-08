@@ -7,6 +7,7 @@ describe(`Languages`, () => {
     cy.get(`#main[data-page=Home]`);
     cy.contains(`#nav li`, `Languages`).click();
     cy.contains(`.language-editor button`, `Add a Language`).click();
+    // cy.focused().should(`have.class`, `js-name??`);
     cy.contains(`.languages-nav li`, `{ new language }`);
     cy.window().then(win => {
       cy.stub(win, `prompt`).returns(`YES`);
@@ -43,7 +44,7 @@ describe(`Languages`, () => {
 
     cy.get(`.additional-names`)
     .within(() => {
-      
+
       cy.get(`.names-list`)
       .children()
       .should(`have.lengthOf`, 1);
@@ -54,7 +55,7 @@ describe(`Languages`, () => {
       cy.get(`.names-list`)
       .children()
       .should(`have.lengthOf`, 0);
-    
+
     });
 
     // edit language name
@@ -72,7 +73,7 @@ describe(`Languages`, () => {
 
       cy.get(`.js-save-button`)
       .click();
-    
+
     });
 
     // edit the remaining data
@@ -84,9 +85,9 @@ describe(`Languages`, () => {
 
       cy.get(`input[name=abbreviation]`)
       .type(`chiti`);
-      
+
     });
-    
+
     cy.tick(delay); // wait for debounce
 
     // switch page and back to check that the changes were saved
