@@ -1,11 +1,19 @@
+@import 'Link/Link';
+
 .banner {
 
-  background-color:  var(--blue);
-  flex-direction:    row;
-  position:          sticky;
+  background-color : var(--blue);
+  flex-direction   : row;
+  position         : sticky;
   inset-block-start: 0;
+  z-index          : 2;
 
-  svg {
+  .help-menu {
+    position        : absolute;
+    inset-inline-end: 0;
+  }
+
+  .lotus {
     fill:   white;
     height: 2em;
     margin: var(--space-xs) auto;

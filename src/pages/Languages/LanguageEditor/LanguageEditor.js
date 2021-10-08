@@ -67,7 +67,18 @@ export default class LanguageEditor extends View {
 
   }
 
-  handleNamesUpdate({ target }) {
+  async handleNamesUpdate({ target }) {
+
+    if (target.classList.contains(`js-additional-name__cancel-button`)) {
+      const item = target.closest(`.additional-name`);
+      const name = item.querySelector(`.js-additional-name__name-input`).value;
+      const lang = item.querySelector(`.js-additional-name__lang-input`).value;
+      if (name || lang) return;
+      const index = item.dataset.id;
+      this.language.additionalNames.splice(index, 1);
+      await this.save();
+      this.renderAdditionalNames();
+    }
 
     if (target.classList.contains(`js-additional-name__delete-button`)) {
       const confirmDelete = confirm(`Are you sure you want to delete this Additional Language Name? This action cannot be undone. Click 'OK' to confirm deletion.`);
@@ -112,12 +123,13 @@ export default class LanguageEditor extends View {
 
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
+    const oldList = this.el.querySelector(`.js-language-editor__names-list`);
+    
     const listView = new List(this.language.additionalNames, {
-      classes:  [`js-language-editor__names-list`, `list`],
+      classes:  oldList.classList,
       template: this.renderAdditionalName,
     });
 
-    const oldList = this.el.querySelector(`.js-language-editor__names-list`);
     const newList = listView.render();
 
     if (!this.language.additionalNames.length) {
