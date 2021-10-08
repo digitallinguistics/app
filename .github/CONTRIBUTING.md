@@ -619,6 +619,10 @@ E2E tests do not use Storybook components. Instead they run directly on the app 
 
 To write an E2E test, first visit the app page using `cy.visit('/')`, and then use Cypress to interact with the app like a user would. For example, you could use `cy.get()` to look for text on a page rather than IDs or class names. See the `Languages.e2e.js` file for a good example of what this looks like.
 
+#### Miscellaneous Notes on Testing
+
+* Use "if/when ..., then ..." format whenever appropriate.
+
 ## Build Process
 
 Running `npm run build` triggers a number of build steps. Each of these steps can also be run individually with the following commands. Build scripts are all located in `build/`.
