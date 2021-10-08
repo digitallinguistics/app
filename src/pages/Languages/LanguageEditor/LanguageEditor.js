@@ -70,10 +70,10 @@ export default class LanguageEditor extends View {
   async handleNamesUpdate({ target }) {
 
     if (target.classList.contains(`js-additional-name__cancel-button`)) {
-      const item = target.closest(`.additional-name`);
-      const name = item.querySelector(`.js-additional-name__name-input`).value;
-      const lang = item.querySelector(`.js-additional-name__lang-input`).value;
-      if (name || lang) return;
+      const item     = target.closest(`.additional-name`);
+      const { view } = item;
+      const name     = view.nameInput.value;
+      if (name) return;
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
       await this.save();

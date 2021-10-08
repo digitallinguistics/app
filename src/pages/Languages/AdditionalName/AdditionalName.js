@@ -5,21 +5,16 @@ export default class AdditionalName extends View {
 
   template = document.getElementById(`additional-name-template`);
 
-  constructor({
-    language = ``,
-    name = ``,
-    notes = [],
-  } = {}, index) {
+  constructor(additionalName = {}, index) {
 
     super();
 
-    this.index    = index;
-    this.language = language;
-    this.name     = name;
-    this.notes    = [];
-
-    this.langID = `additional-name-lang-${ index }`;
-    this.nameID = `additional-name-name-${ index }`;
+    this.additionalName            = additionalName; 
+    this.additionalName.name     ??= ``;
+    this.additionalName.language ||= `English`;
+    this.index                     = index;
+    this.langID                    = `additional-name-lang-${ index }`;
+    this.nameID                    = `additional-name-name-${ index }`;
 
   }
 
@@ -28,35 +23,40 @@ export default class AdditionalName extends View {
     this.el.addEventListener(`click`, ({ target }) => {
 
       if (target.classList.contains(`js-additional-name__cancel-button`)) {
-        this.nameValue     = this.name;
-        this.languageValue = this.language;
-        this.updatePreview(this.nameValue, this.languageValue);
+        this.nameInput.value = this.additionalName.name;
+        this.langInput.value = this.additionalName.language;
+        this.updatePreview(this.additionalName.name, this.additionalName.language);
         return this.hideEditor();
       }
 
-      if (target.classList.contains(`js-additional-name__edit-button`)) return this.showEditor();
+      if (target.classList.contains(`js-additional-name__edit-button`)) {
+        return this.showEditor();
+      }
 
       if (target.classList.contains(`js-additional-name__save-button`)) {
-        if (document.getElementById(this.nameID).checkValidity()
-        && document.getElementById(this.langID).checkValidity()) {
-          this.name     = this.nameValue;
-          this.language = this.languageValue;
-          this.updatePreview(this.nameValue, this.languageValue);
+
+        if (this.nameInput.checkValidity()) {
+          this.save();
+          this.updatePreview(this.additionalName.name, this.additionalName.language);
           return this.hideEditor();
         }
-        document.getElementById(this.nameID).reportValidity();
-        document.getElementById(this.langID).reportValidity();
+
+        // TODO: Set custom validity messages.
+      
+        this.nameInput.reportValidity();
+        this.langInput.reportValidity();
+
       }
 
     });
 
-    this.el.addEventListener(`input`, () => this.updatePreview(this.nameValue, this.languageValue));
+    this.el.addEventListener(`input`, () => this.updatePreview(this.nameInput.value, this.langInput.value));
 
   }
 
   hideEditor() {
-    this.el.querySelector(`.js-additional-name__editor`).hidden      = true;
-    this.el.querySelector(`.js-additional-name__edit-button`).hidden = false;
+    this.editor.hidden     = true;
+    this.editButton.hidden = false;
   }
 
   render() {
@@ -65,8 +65,20 @@ export default class AdditionalName extends View {
     this.el.view       = this;
     this.el.dataset.id = this.index;
 
-    this.updatePreview(this.name, this.language);
-    this.hydrate();
+    this.editButton = this.el.querySelector(`.js-additional-name__edit-button`);
+    this.editor     = this.el.querySelector(`.js-additional-name__editor`);
+    this.nameInput  = this.el.querySelector(`.js-additional-name__name-input`);
+    this.langInput  = this.el.querySelector(`.js-additional-name__lang-input`);
+
+    this.nameInput.id    = this.nameID;
+    this.nameInput.value = this.additionalName.name;
+    this.langInput.id    = this.langID;
+    this.langInput.value = this.additionalName.language;
+
+    this.el.querySelector(`.js-additional-name__name-legend`).setAttribute(`for`, this.nameID);
+    this.el.querySelector(`.js-additional-name__lang-legend`).setAttribute(`for`, this.langID);
+
+    this.updatePreview(this.additionalName.name, this.additionalName.language);
     this.addEventListeners();
     this.renderNotes();
     
@@ -82,32 +94,21 @@ export default class AdditionalName extends View {
     el.setAttribute(`aria-expanded`, false);
     this.el.appendChild(el);
   }
+
+  save() {
+    this.additionalName.name     = this.nameInput.value;
+    this.additionalName.language = this.langInput.value || `English`;
+  }
   
   showEditor() {
-    this.el.querySelector(`.js-additional-name__editor`).hidden      = false;
-    this.el.querySelector(`.js-additional-name__edit-button`).hidden = true;
-    this.el.querySelector(`.js-additional-name__name-input`).focus();
+    this.editor.hidden     = false;
+    this.editButton.hidden = true;
+    this.nameInput.focus();
   }
 
   updatePreview(name, language) {
     this.el.querySelector(`.js-additional-name__preview`)
     .innerHTML = `<span class=txn>${ name }</span> (${ language })`;
-  }
-
-  get languageValue() {
-    return this.el.querySelector(`.js-additional-name__lang-input`).value;
-  }
-
-  set languageValue(value) {
-    this.el.querySelector(`.js-additional-name__lang-input`).value = value;
-  }
-
-  get nameValue() {
-    return this.el.querySelector(`.js-additional-name__name-input`).value;
-  }
-
-  set nameValue(value) {
-    this.el.querySelector(`.js-additional-name__name-input`).value = value;
   }
 
 }
