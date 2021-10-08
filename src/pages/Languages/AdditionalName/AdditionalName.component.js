@@ -8,16 +8,16 @@ describe(`Additional Name`, function() {
 
     cy.get(`.js-additional-name__editor`)
     .should(`not.be.visible`);
-    
+
     cy.get(`.js-additional-name__edit-button`)
     .click();
-    
+
     cy.get(`.js-additional-name__editor`)
     .should(`be.visible`);
-    
+
     cy.focused()
     .should(`have.class`, `js-additional-name__name-input`);
-    
+
     cy.contains(`button`, `Cancel`)
     .click();
 
@@ -27,7 +27,7 @@ describe(`Additional Name`, function() {
   });
 
   it(`updates the preview text`, function() {
-    
+
     cy.get(`.js-additional-name__edit-button`)
     .click();
 
@@ -49,13 +49,26 @@ describe(`Additional Name`, function() {
     .click();
 
     cy.contains(`p`, `espagnol (French)`);
-  
+
   });
 
-  it(`saves updates`, function() {
-
+  it(`does not save without a name`, function() {
     cy.get(`.js-additional-name__edit-button`)
     .click();
+
+    cy.get(`.js-additional-name__name-input`)
+    .clear();
+
+    cy.contains(`button`, `Save`)
+    .click();
+
+    cy.get(`.js-additional-name__name-input`).then(([input]) => {
+      expect(input.validationMessage).to.be.a(`string`);
+    });
+  });
+
+
+  it(`saves updates`, function() {
 
     cy.get(`.js-additional-name__name-input`)
     .clear()
