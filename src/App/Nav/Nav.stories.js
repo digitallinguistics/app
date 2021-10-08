@@ -2,7 +2,8 @@ import './Nav.css';
 import Nav       from './Nav.js';
 
 export default {
-  title: `App/Main Nav`,
+  parameters: { layout: `fullscreen` },
+  title:      `App/Main Nav`,
 };
 
 
@@ -11,5 +12,7 @@ export const MainNav = () => {
   const root = document.getElementById(`root`);
   root.append(template.content.cloneNode(true).firstElementChild);
   const navView = new Nav();
-  return navView.render(`Home`);
+  const el = navView.render(`Home`);
+  el.style.minHeight = `inherit`;
+  return el;
 };
