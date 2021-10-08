@@ -66,6 +66,7 @@ describe(`Languages`, () => {
       .type(`Shetimachas`);
 
       cy.get(`.js-additional-name__lang-input`)
+      .clear()
       .type(`French`);
 
       cy.get(`.js-additional-name__save-button`)
