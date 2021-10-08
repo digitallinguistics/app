@@ -29,7 +29,7 @@ export default class LanguagesPage extends View {
     app.settings.language = language.cid;
     this.renderNav(language.cid);
     this.renderEditor(language.cid);
-    this.el.querySelector(`.language-editor input`).focus();
+
   }
 
   async deleteLanguage(languageCID) {
@@ -41,8 +41,6 @@ export default class LanguagesPage extends View {
     this.languages.splice(i, 1);
     this.renderNav();
     this.renderEditor();
-    const navLink = this.el.querySelector(`.languages-nav a`);
-    if (navLink) navLink.focus();
   }
 
   /**
@@ -91,7 +89,7 @@ export default class LanguagesPage extends View {
     editorView.events.once(`add`, this.addLanguage.bind(this));
     editorView.events.on(`delete`, this.deleteLanguage.bind(this));
     editorView.events.on(`update:name`, this.renderNav.bind(this));
-
+    this.el.querySelector(`.language-editor input`).focus();
   }
 
   /**
