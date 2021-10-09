@@ -12,17 +12,17 @@ export default class NoteView extends View {
   }
 
   addEventListeners() {
-    this.el.querySelector(`.js-cancel-button`).addEventListener(`click`, () => {
+    this.el.querySelector(`.js-note__cancel-button`).addEventListener(`click`, () => {
       this.updatePreview();
       this.hideEditor();
     });
-    this.el.querySelector(`.js-edit-button`).addEventListener(`click`, this.showEditor.bind(this));
-    this.el.querySelector(`.js-save-button`).addEventListener(`click`, () => {
+    this.el.querySelector(`.js-note__edit-button`).addEventListener(`click`, this.showEditor.bind(this));
+    this.el.querySelector(`.js-note__save-button`).addEventListener(`click`, () => {
       this.save();
       this.updatePreview();
       this.hideEditor();
     });
-    this.el.querySelector(`.js-text-preview`).addEventListener(`click`, this.showEditor.bind(this));
+    this.el.querySelector(`.js-note__text-preview`).addEventListener(`click`, this.showEditor.bind(this));
   }
 
   hideEditor() {
@@ -33,8 +33,8 @@ export default class NoteView extends View {
 
     this.el        = this.cloneTemplate();
     this.el.view   = this;
-    this.textInput = this.el.querySelector(`.js-text-input`);
-    this.srcInput  = this.el.querySelector(`.js-src-input`);
+    this.textInput = this.el.querySelector(`.js-note__text-input`);
+    this.srcInput  = this.el.querySelector(`.js-note__src-input`);
 
     this.updatePreview();
     this.hydrate();
@@ -66,10 +66,10 @@ export default class NoteView extends View {
     });
 
     // preview
-    this.el.querySelector(`.js-date-created`).textContent  = dateCreated;
-    this.el.querySelector(`.js-date-modified`).textContent = dateModified;
-    this.el.querySelector(`.js-src-preview`).textContent   = this.note.source;
-    this.el.querySelector(`.js-text-preview`).innerHTML    = this.note.text || `<i style='font-style: italic;'>(no text)</i>`;
+    this.el.querySelector(`.js-note__date-created`).textContent  = dateCreated;
+    this.el.querySelector(`.js-note__date-modified`).textContent = dateModified;
+    this.el.querySelector(`.js-note__src-preview`).textContent   = this.note.source;
+    this.el.querySelector(`.js-note__text-preview`).innerHTML    = this.note.text || `<i style='font-style: italic;'>(no text)</i>`;
   
     // editor
     this.srcInput.value  = this.note.source;

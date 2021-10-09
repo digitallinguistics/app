@@ -1,24 +1,21 @@
+@import (reference) 'utilities';
 @import (reference) 'variables';
 
 .note {
-  
+
   background-color: white;
   border          : var(--border);
   border-radius   : var(--border-radius);
   box-shadow      : var(--box-shadow);
   position        : relative;
 
-  button {
-    margin: var(--space-xxxs);
-  }
-
-  .buttons {
+  &__buttons {
     align-items: center;
     flex-flow  : row nowrap;
   }
 
   // index card styling
-  .content {
+  &__content {
     background-image   : repeating-linear-gradient(white 0, white 1.65em, teal 1.75em);
     border-block-start : 0.2em solid rgba(255, 0, 0, 0.6);
     border-radius      : 0 0 var(--border-radius) var(--border-radius);
@@ -26,24 +23,40 @@
     padding-block-start: 0.125em;
   }
 
-  .date + .date {
+  &__date {
+    font-size: small;
+  }
+
+  &__date-field + &__date-field {
     // large screens
     @media (min-width: @breakpoint) {
       margin-inline-start: var(--space);
     }
   }
 
+  &__editor {
+    background-color: white;
+    border          : var(--border);
+    border-radius   : var(--border-radius);
+    margin          : var(--space-xs);
+    padding         : var(--space-xs);
+  }
+
+  &__editor-buttons {
+    .align-end;
+  }
+
   &.editing {
 
-    .js-editor {
+    .note__editor {
       display: flex;
     }
 
-    .js-edit-button {
+    .note__edit-button {
       display: none;
     }
 
-    .text-preview {
+    .note__text-preview {
       display: none;
     }
 
@@ -51,40 +64,21 @@
 
   &:not(.editing) {
 
-    .js-editor {
+    .note__editor {
       display: none;
     }
 
-    .js-edit-button {
+    .note__edit-button {
       display: block;
     }
 
-    .text-preview {
+    .note__text-preview {
       display: block;
     }
 
   }
 
-  // NOTE: Don't use .input-group here.
-  .field-group {
-    margin-block-end: var(--space-sm);
-  }
-
-  fieldset {
-
-    background-color: white;
-    border          : var(--border);
-    border-radius   : var(--border-radius);
-    margin          : var(--space-xs);
-    padding         : var(--space-xs);
-
-    .buttons {
-      align-self: flex-end;
-    }
-
-  }
-
-  header {
+  &__header {
 
     align-items      : baseline;
     flex-direction   : row;
@@ -103,22 +97,40 @@
 
   }
 
-  .help-text {
-    padding-block-end: var(--text-block-padding);
+  &__header-button {
+    margin: var(--space-xxxs);
   }
 
-  .note-buttons {
+  &__header-buttons {
+
     inset-block-start  : 0;
     inset-inline-end   : 0;
     position           : absolute;
     margin-inline-start: auto;
+
+    .note__delete-button {
+      margin-inline-start: 0;
+    }
+
   }
 
-  .src-preview:not(:empty) {
+  &__help-text {
+    padding-block-end: var(--text-block-padding);
+  }
+
+  &__input-group {
+    margin-block-end: var(--space-sm);
+  }
+
+  &__save-button {
+    margin-inline-start: var(--space-xs);
+  }
+
+  &__src-preview:not(:empty) {
 
     margin-inline-end: var(--space);
 
-    & .date {
+    & .note__date-field {
       // small screens
       @media (max-width: @breakpoint) {
         margin-block-start: var(--space-xxs);
@@ -127,22 +139,18 @@
 
   }
 
-  .text-input {
+  &__text-input {
     resize: vertical;
   }
 
-  .text-preview {
+  &__text-preview {
     cursor        : pointer;
     line-height   : 1.75;
     padding-inline: var(--space-xs);
   }
 
-  .text-preview:not(:empty) + fieldset {
+  &__text-preview:not(:empty) + &__editor {
     margin-block-start: var(--space-sm);
-  }
-
-  time {
-    font-size: small;
   }
 
 }

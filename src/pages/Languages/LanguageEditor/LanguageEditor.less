@@ -1,3 +1,5 @@
+@import (reference) 'utilities';
+
 .language-editor {
 
   flex-grow:     1;
@@ -5,55 +7,62 @@
   max-width:     var(--measure);
   padding:       var(--space);
 
-  .add-language-button {
-    margin: auto;
-  }
 
-  .add-name-button {
-    margin-block:        var(--space-sm);
-    margin-inline-start: var(--space);
-  }
+  &.placeholder {
 
-  .additional-names {
+    .language-editor__buttons {
+      .align-center;
+    }
 
-    align-items: stretch;
+    form > :not(.language-editor__buttons) {
+      display: none;
+    }
 
-    header {
-      flex-direction:  row;
-      flex-wrap:       nowrap;
-      justify-content: space-between;
+    .language-editor__delete-language-button {
+      display: none;
     }
 
   }
 
-  &__date {
+  &__add-name-button {
+    margin-inline-start: var(--space);
+  }
+
+  &__additional-names {
+    align-items: stretch;
+  }
+
+  &__additional-names-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
+  }
+
+  &__buttons {
+    .align-end;
+    align-items   : center;
+    flex-direction: row;
+    margin-block  : var(--space-xxxs);
   }
 
   &__date-field + &__date-field {
     margin-inline-start: var(--space);
   }
 
+  &__delete-language-button {
+    margin-inline-start: var(--space-sm);
+  }
+
+  &__fieldset {
+    margin-block: var(--space-xs);
+  }
+
   &__metadata {
     flex-flow: row wrap;
   }
 
-  .delete-language-button {
-    align-self:   flex-end;
-    margin-block: var(--space);
-  }
-
-  .fieldset {
-    margin-block: var(--space-xs);
-  }
-
-  .right {
-    align-self: flex-end;
-  }
-
-  .input-group {
-    .label {
-      width: 7.5em;
-    }
+  &__names-list:not(:empty) {
+    margin-block-start: var(--space-xs);
   }
 
 }
