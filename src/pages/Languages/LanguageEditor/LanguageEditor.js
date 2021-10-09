@@ -32,9 +32,10 @@ export default class LanguageEditor extends View {
 
   }
 
-  save() {
+  async save() {
     this.language.dateModified = new Date;
-    return app.db.languages.put(this.language);
+    await app.db.languages.put(this.language);
+    this.renderMetadata();
   }
 
   // Handlers

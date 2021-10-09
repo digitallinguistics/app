@@ -33,7 +33,7 @@ describe(`Languages`, () => {
   
   });
 
-  it(`adds / switches / edits a language`, function() {
+  it.only(`adds / switches / edits a language`, function() {
 
     // setup
     cy.visit(`/`);
@@ -42,7 +42,7 @@ describe(`Languages`, () => {
     .click();
     cy.contains(`.languages-nav button`, `Add a Language`)
     .click();
-    cy.clock();
+    cy.clock(new Date);
 
     // edit the language name
     cy.get(`.js-language-editor__name input[name=name-eng]`)
@@ -58,6 +58,8 @@ describe(`Languages`, () => {
 
     cy.contains(`.language-editor button`, `Add a Language Name`)
     .click();
+
+    // add an additional language name
 
     cy.get(`.language-editor__additional-names`)
     .within(() => {
@@ -89,24 +91,29 @@ describe(`Languages`, () => {
     cy.tick(delay); // wait for debounce
 
     // switch page and back to check that the changes were saved
-    cy.contains(`#nav li`, `Home`).click();
+    cy.contains(`#nav li`, `Home`)
+    .click();
     cy.get(`#main[data-page=Home]`);
-    cy.contains(`#nav li`, `Languages`).click();
-
+    cy.contains(`#nav li`, `Languages`)
+    .click();
+    
     // NOTE: The previous language should be loaded automatically.
     cy.get(`.language-editor`)
     .within(() => {
-
+      
       cy.get(`.js-language-editor__name input[name=name-eng]`)
       .should(`have.value`, `Chitimacha`);
-
+      
       cy.get(`.js-language-editor__autonym input[name=autonym-default]`)
       .should(`have.value`, `Sitimaxa`);
-
+      
       cy.get(`input[name=abbreviation]`)
       .should(`have.value`, `chiti`);
-
+      
       cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
+      
+      cy.get(`.js-language-editor__date-modified`)
+      .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
 
     });
 
