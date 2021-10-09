@@ -45,12 +45,24 @@
     margin-block  : var(--space-xxxs);
   }
 
+  &__date {
+    font-size: small;
+  }
+
+  &__date-field + &__date-field {
+    margin-inline-start: var(--space);
+  }
+
   &__delete-language-button {
     margin-inline-start: var(--space-sm);
   }
 
   &__fieldset {
     margin-block: var(--space-xs);
+  }
+
+  &__metadata {
+    flex-flow: row wrap;
   }
 
   &__names-list:not(:empty) {

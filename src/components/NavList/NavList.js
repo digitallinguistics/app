@@ -52,6 +52,8 @@ export default class NavList extends List {
 
       const currentItem = items.find(item => item.dataset.id === id);
 
+      if (!currentItem) return;
+
       currentItem.setAttribute(`aria-current`, this.name);
       currentItem.classList.add(`current`);
 

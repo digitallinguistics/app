@@ -66,7 +66,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => (item instanceof this.Model ? item : new this.Model(item)));
+      .map(item => item instanceof this.Model ? item : new this.Model(item));
 
       const txn = this.idb.transaction(this.storeName, `readwrite`);
 
@@ -184,7 +184,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.Model ? item : new this.Model(item));
+      .map(item => (item instanceof this.Model ? item : new this.Model(item)));
 
       const txn = this.idb.transaction(this.storeName, `readwrite`);
 

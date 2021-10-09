@@ -32,7 +32,7 @@ describe(`Language Editor`, function() {
 
   });
 
-  it(`when editing is canceled on an empty additional name, the name is deleted`, function() {
+  it(`deletes an empty Additional Name when editing is canceled`, function() {
 
     cy.contains(`button`, `Add a Language Name`)
     .click();
@@ -44,6 +44,23 @@ describe(`Language Editor`, function() {
     .children()
     .should(`have.lengthOf`, 0);
     
+  });
+
+  it(`updates the metadata fields on save`, function() {
+
+    const delay = 500;
+    const date  = new Date;  // random date
+
+    cy.clock(date);
+
+    cy.get(`.js-language-editor__name input`)
+    .type(`Chitimacha`);
+
+    cy.tick(delay);
+
+    cy.get(`.js-language-editor__date-modified`)
+    .should(`have.text`, date.toLocaleDateString(undefined, { dateStyle: `short` }));
+
   });
 
 });
