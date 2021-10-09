@@ -32,21 +32,6 @@ export default class LanguageEditor extends View {
 
   }
 
-  /**
-   * Checks that the name field has text for at least one language.
-   * At least 1 name input must be non-empty.
-   */
-  checkNameValidity() {
-
-    const nameInputs = Array.from(this.el.querySelectorAll(`input[name|="name"]`));
-    const hasText    = nameInputs.some(input => input.value.trim().length);
-    const firstInput = nameInputs.shift();
-
-    if (hasText) firstInput.setCustomValidity(``);
-    else firstInput.setCustomValidity(`The language name must be provided in at least one language.`);
-
-  }
-
   save() {
     return app.db.languages.put(this.language);
   }
@@ -70,10 +55,10 @@ export default class LanguageEditor extends View {
   async handleNamesUpdate({ target }) {
 
     if (target.classList.contains(`js-additional-name__cancel-button`)) {
-      const item = target.closest(`.additional-name`);
-      const name = item.querySelector(`.js-additional-name__name-input`).value;
-      const lang = item.querySelector(`.js-additional-name__lang-input`).value;
-      if (name || lang) return;
+      const item     = target.closest(`.additional-name`);
+      const { view } = item;
+      const name     = view.nameInput.value;
+      if (name) return;
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
       await this.save();
@@ -124,7 +109,7 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
     const oldList = this.el.querySelector(`.js-language-editor__names-list`);
-    
+
     const listView = new List(this.language.additionalNames, {
       classes:  oldList.classList,
       template: this.renderAdditionalName,
@@ -133,9 +118,9 @@ export default class LanguageEditor extends View {
     const newList = listView.render();
 
     if (!this.language.additionalNames.length) {
-      newList.style.border = `none`; 
+      newList.style.border = `none`;
     }
-    
+
     oldList.replaceWith(newList);
     newList.addEventListener(`click`, this.handleNamesUpdate.bind(this));
 
@@ -198,11 +183,15 @@ export default class LanguageEditor extends View {
 
   async updateName(name, value) {
 
-    const form = this.el.querySelector(`form`);
-    this.checkNameValidity();
-    const isValid = form.checkValidity();
-    form.reportValidity();
-    if (!isValid) return;
+    const nameInputs  = Array.from(this.el.querySelectorAll(`input[name|="name"]`));
+    const filledInput = nameInputs.find(input => input.value.trim().length);
+
+    if (!filledInput) {
+      const [firstInput] = nameInputs;
+      firstInput.setCustomValidity(`The language name must be provided in at least one language.`);
+      firstInput.reportValidity();
+      return;
+    }
 
     const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
     this.language.name.set(abbr, value);

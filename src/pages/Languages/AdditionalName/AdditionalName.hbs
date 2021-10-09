@@ -18,14 +18,14 @@
   <fieldset class='additional-name__editor js-additional-name__editor' hidden>
     
     <div class=input-group>
-      <label class='additional-name__legend legend' data-bind=for:nameID>Name</label>
+      <label class='additional-name__legend js-additional-name__name-legend legend required' data-bind=for:nameID>Name</label>
       <div>
         <input
           autocomplete=off
           class='additional-name__lang-input js-additional-name__name-input line-input txn'
-          data-bind=id:nameID;value:name
           inputmode=text
           placeholder='e.g. espagnol'
+          required
           spellcheck=false
           type=text
         >
@@ -34,12 +34,11 @@
     </div>
     
     <div class=input-group>
-      <label class='additional-name__legend legend' data-bind=for:langID>Language</label>
+      <label class='additional-name__legend js-additional-name__lang-legend legend' data-bind=for:langID>Language</label>
       <div>
         <input
           autocomplete=off
           class='additional-name__lang-input js-additional-name__lang-input line-input'
-          data-bind=id:langID;value:language
           inputmode=text
           placeholder='e.g. French'
           spellcheck=false
