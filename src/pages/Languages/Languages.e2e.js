@@ -33,7 +33,7 @@ describe(`Languages`, () => {
   
   });
 
-  it.only(`adds / switches / edits a language`, function() {
+  it(`adds / switches / edits a language`, function() {
 
     // setup
     cy.visit(`/`);
