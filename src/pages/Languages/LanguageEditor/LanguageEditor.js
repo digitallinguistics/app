@@ -32,21 +32,6 @@ export default class LanguageEditor extends View {
 
   }
 
-  /**
-   * Checks that the name field has text for at least one language.
-   * At least 1 name input must be non-empty.
-   */
-  checkNameValidity() {
-
-    const nameInputs = Array.from(this.el.querySelectorAll(`input[name|="name"]`));
-    const hasText    = nameInputs.some(input => input.value.trim().length);
-    const firstInput = nameInputs.shift();
-
-    if (hasText) firstInput.setCustomValidity(``);
-    else firstInput.setCustomValidity(`The language name must be provided in at least one language.`);
-
-  }
-
   save() {
     return app.db.languages.put(this.language);
   }
@@ -198,11 +183,15 @@ export default class LanguageEditor extends View {
 
   async updateName(name, value) {
 
-    const nameInput     = this.el.querySelector(`.js-additional-name__name-input`);
-    nameInput.checkNameValidity();
-    const isValid = nameInput.checkValidity();
-    nameInput.reportValidity();
-    if (!isValid) return;
+    const nameInputs  = Array.from(this.el.querySelectorAll(`input[name|="name"]`));
+    const filledInput = nameInputs.find(input => input.value.trim().length);
+
+    if (!filledInput) {
+      const [firstInput] = nameInputs;
+      firstInput.setCustomValidity(`The language name must be provided in at least one language.`);
+      firstInput.reportValidity();
+      return;
+    }
 
     const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
     this.language.name.set(abbr, value);

@@ -53,6 +53,7 @@ describe(`Additional Name`, function() {
   });
 
   it(`does not save without a name`, function() {
+
     cy.get(`.js-additional-name__edit-button`)
     .click();
 
@@ -65,8 +66,8 @@ describe(`Additional Name`, function() {
     cy.get(`.js-additional-name__name-input`).then(([input]) => {
       expect(input.validationMessage).to.be.a(`string`);
     });
+    
   });
-
 
   it(`saves updates`, function() {
 
