@@ -40,14 +40,15 @@ export default class MultiLangStringEditor extends View {
 
     for (const [lang, text] of strings) {
 
-      const label = View.fromHTML(`<label class=label>${ lang }</label>`);
+      const id    = `${ this.fieldName }-${ lang }`;
+      const label = View.fromHTML(`<label class=label for='${ id }'>${ lang }</label>`);
 
       const input = View.fromHTML(`<input
         autocomplete=off
         class='line-input txn'
         inputmode=text
         lang='${ lang }'
-        name='${ this.fieldName }-${ lang }'
+        name='${ id }'
         placeholder='${ this.placeholder }'
         spellcheck=false
         type=text
