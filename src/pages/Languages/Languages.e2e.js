@@ -55,12 +55,10 @@ describe(`Languages`, () => {
     cy.contains(`.languages-nav li`, `Chitimacha`);
 
     // add a language name
-
     cy.contains(`.language-editor button`, `Add a Language Name`)
     .click();
 
     // add an additional language name
-
     cy.get(`.language-editor__additional-names`)
     .within(() => {
 
@@ -85,6 +83,9 @@ describe(`Languages`, () => {
 
       cy.get(`input[name=abbreviation]`)
       .type(`chiti`);
+
+      cy.get(`input[name=glottocode]`)
+      .type(`chit1248`);
       
     });
     

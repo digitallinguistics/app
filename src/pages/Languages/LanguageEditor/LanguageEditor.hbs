@@ -14,7 +14,7 @@
     </fieldset>
 
     <div class=input-group>
-      <label class=legend for=abbreviation>Abbreviation</label>
+      <label class='language-editor__legend legend' for=abbreviation>Abbreviation</label>
       <div>
         <input
           autocomplete=off
@@ -29,6 +29,24 @@
           type=text
         >
         <p class=help-text>An abbreviation for this language variety. May only contain letters and numbers.</p>
+      </div>
+    </div>
+
+    <div class=input-group>
+      <label class='language-editor__legend legend' for=language-editor__glottocode-input>Glottocode</label>
+      <div>
+        <input
+          autocomplete=off
+          class=line-input
+          id=language-editor__glottocode-input
+          inputmode=text
+          name=glottocode
+          pattern=[a-z]{4}[0-9]{4}
+          placeholder='e.g. stan1288'
+          spellcheck=false
+          type=text
+        >
+        <p class=help-text>The Glottolog code ("Glottocode") for this language variety. <a href=https://glottolog.org/glottolog/language target=_blank>Search for the language code here.</a></p>
       </div>
     </div>
 
