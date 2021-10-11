@@ -11,13 +11,14 @@
   }
 
   .current::before {
-    background-color:   var(--blue-4);
-    inset-block-end:    calc(-0.5 * var(--border-width));
-    content:            '';
+    background-color  : var(--blue-4);
+    inset-block-end   : calc(-0.5 * var(--border-width));
+    content           : '';
     inset-inline-start: 0;
-    position:           absolute;
-    inset-block-start:  0;
-    width:              0.25em;
+    position          : absolute;
+    inset-block-start : 0;
+    width             : 0.25em;
+    z-index           : 1;
   }
 
   .current:first-child::before {
@@ -26,6 +27,10 @@
 
   .current:last-child::before {
     border-end-start-radius: var(--border-radius);
+  }
+
+  li {
+    padding: var(--text-padding);
   }
 
   li:hover {

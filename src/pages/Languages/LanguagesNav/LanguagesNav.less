@@ -1,24 +1,19 @@
+@import (reference) 'utilities';
 @import (reference) 'variables';
 
 .languages-nav {
 
   align-items: stretch;
-  
-  .add-language-button {
-    margin: var(--space);
+
+  &__add-language-button {
+    .align-center;
+    margin    : var(--space);
   }
-  
+
   .list {
     margin-inline: var(--space);
   }
-  
-  // small screens
-  @media (max-width: @breakpoint) {
-    .add-language-button {
-      align-self: center;
-    }
-  }
-  
+
   // large screens
   @media (min-width: @breakpoint) {
     width: 20em;

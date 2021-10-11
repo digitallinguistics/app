@@ -56,17 +56,6 @@ export default class LanguagesPage extends View {
     return this.el;
   }
 
-  renderBlankEditor() {
-    const oldEditor = this.el.querySelector(`.language-editor`);
-    const newEditor = View.fromHTML(`<section class=language-editor>
-      <button class='add-language-button button green' type=button>Add a Language</button>
-    </section>`);
-    oldEditor.view?.events.stop();
-    oldEditor.replaceWith(newEditor);
-    newEditor.querySelector(`button`)
-    .addEventListener(`click`, this.addLanguage.bind(this));
-  }
-
   /**
    * Render the Language Editor.
    * @param {String} languageCID
@@ -74,22 +63,35 @@ export default class LanguagesPage extends View {
   renderEditor(languageCID) {
 
     const language = this.languages.find(lang => lang.cid === languageCID);
+    let newEditor;
 
-    if (!language) {
+    if (language) {
+
+      // render full editor
+      const editorView = new LanguageEditor(language);
+      editorView.events.once(`add`, this.addLanguage.bind(this));
+      editorView.events.on(`delete`, this.deleteLanguage.bind(this));
+      editorView.events.on(`update:name`, this.renderNav.bind(this));
+      newEditor = editorView.render();
+      this.el.querySelector(`.language-editor input`).focus();
+
+    } else {
+
+      // render placeholder editor
       app.settings.language = null;
-      return this.renderBlankEditor();
+      const template = document.getElementById(`language-editor-template`);
+      newEditor = template.content.cloneNode(true).firstElementChild;
+      newEditor.classList.add(`placeholder`);
+      newEditor.querySelector(`.js-language-editor__add-language-button`)
+      .addEventListener(`click`, this.addLanguage.bind(this));
+
     }
 
-    const editorView = new LanguageEditor(language);
-    const newEditor  = editorView.render();
     const oldEditor  = this.el.querySelector(`.language-editor`);
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
-    editorView.events.once(`add`, this.addLanguage.bind(this));
-    editorView.events.on(`delete`, this.deleteLanguage.bind(this));
-    editorView.events.on(`update:name`, this.renderNav.bind(this));
-    this.el.querySelector(`.language-editor input`).focus();
+
   }
 
   /**
