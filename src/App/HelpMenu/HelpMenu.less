@@ -17,6 +17,25 @@
     z-index     : -1;
   }
 
+  a {
+    align-items   : center;
+    display       : flex;
+    flex-direction: row;
+  }
+
+  svg {
+    --icon-size: 1.25em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : var(--space-xs);
+  }
+
+  .link {
+    svg {
+      color: black;
+    }
+  }
+
   .dropdown-content {
     background-color: white;
     border          : var(--border);
@@ -26,6 +45,10 @@
     min-inline-size : max-content;
     position        : absolute;
     z-index         : 2;
+  }
+
+  span {
+    white-space: nowrap;
   }
 
   li:hover {
@@ -40,42 +63,6 @@
       border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
-    // also make external link icon solid black when <li> is hovered
-    // (not just when the <span> is hovered)
-    .external-link::after {
-      background-color: transparent;
-      background-image: url('@{external-link}');
-    }
-
-  }
-
-  .link {
-
-    align-items      : center;
-    display          : flex;
-    flex-direction   : row;
-    inline-size      : 100%;
-
-    &::after {
-      // do not display external link icon
-      display: none !important;
-    }
-
-    svg {
-      color: black;
-    }
-
-  }
-
-  span {
-    white-space: nowrap;
-  }
-
-  svg {
-    --icon-size: 1.25em;
-    block-size : var(--icon-size);
-    inline-size: var(--icon-size);
-    margin     : var(--space-xs);
   }
 
   summary {
