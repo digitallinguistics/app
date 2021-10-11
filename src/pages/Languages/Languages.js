@@ -73,7 +73,6 @@ export default class LanguagesPage extends View {
       editorView.events.on(`delete`, this.deleteLanguage.bind(this));
       editorView.events.on(`update:name`, this.renderNav.bind(this));
       newEditor = editorView.render();
-      this.el.querySelector(`.language-editor input`).focus();
 
     } else {
 
@@ -91,6 +90,7 @@ export default class LanguagesPage extends View {
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
+    this.el.querySelector(`.language-editor input`).focus();
 
   }
 
