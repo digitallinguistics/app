@@ -463,6 +463,10 @@ Views should only listen for events on their children / subcomponents.
 
 Be sure to document your JavaScript code using [JSDoc][JSDoc] code comments.
 
+## Keyboard Shortcuts
+
+The Lotus app supports keyboard shortcuts using the [Mousetrap] library. A Mousetrap instance is saved at `app.shortcuts`, allowing you to register / deregister keyboard shortcuts there. See the [Mousetrap documentation][Mousetrap] for complete details.
+
 ## Testing the App
 
 The Lotus project includes a collection of tests that you can run to ensure that everything in the app is functioning correctly. Before you make a pull request, you should run the tests for the app to check that your changes did not break any existing functionality. (Instructions for how to run the tests are below.) If the tests fail, you should either fix the code or update the tests to reflect the new functionality.
@@ -692,6 +696,7 @@ Some older versions of styles for the app are located [here](https://github.com/
 [maintainers]:     https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md
 [Mandala]:         https://audio-video.shanti.virginia.edu/video/gurung-man-describes-otar-village
 [Mocha]:           https://mochajs.org/
+[Mousetrap]:       https://craig.is/killing/mice
 [MSTodo]:          https://to-do.live.com/
 [new-issue]:       https://github.com/digitallinguistics/app/issues/new
 [Node]:            https://nodejs.org/en/
