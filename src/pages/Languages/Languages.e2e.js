@@ -94,6 +94,11 @@ describe(`Languages`, () => {
     
     cy.get(`input[name=abbreviation]`)
     .type(`chiti`);
+
+    cy.tick(delay); // wait for debounce
+    
+    cy.get(`input[name=iso]`)
+    .type(`ctm`);
     
     cy.tick(delay); // wait for debounce
     
@@ -122,6 +127,9 @@ describe(`Languages`, () => {
       
     cy.get(`input[name=abbreviation]`)
     .should(`have.value`, `chiti`);
+
+    cy.get(`input[name=iso]`)
+    .should(`have.value`, `ctm`);
 
     cy.get(`input[name=glottocode]`)
     .should(`have.value`, `chit1248`);
