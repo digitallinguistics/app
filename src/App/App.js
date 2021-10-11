@@ -1,7 +1,8 @@
-import Database from '../services/Database.js';
-import Nav      from './Nav/Nav.js';
-import Settings from '../services/Settings.js';
-import View     from '../core/View.js';
+import Database  from '../services/Database.js';
+import Mousetrap from '../../node_modules/mousetrap/mousetrap.min.js';
+import Nav       from './Nav/Nav.js';
+import Settings  from '../services/Settings.js';
+import View      from '../core/View.js';
 
 /**
  * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
@@ -46,6 +47,11 @@ class App extends View {
    * @type {Settings}
    */
   settings = new Settings(JSON.parse(localStorage.getItem(`settings`) ?? `{}`));
+
+  /**
+   * An object for registering/unregistering keyboard shortcuts. See {@link https://craig.is/killing/mice} for complete documentation. The `shortcuts` property is a Mousetrap instance.
+   */
+  shortcuts = Mousetrap;
 
   // APP METHODS
 
