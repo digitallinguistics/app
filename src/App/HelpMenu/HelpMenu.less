@@ -17,12 +17,6 @@
     z-index     : -1;
   }
 
-  a {
-    align-items   : center;
-    display       : flex;
-    flex-direction: row;
-  }
-
   svg {
     --icon-size: 1.25em;
     block-size : var(--icon-size);
@@ -31,9 +25,19 @@
   }
 
   .link {
+
+    align-items   : center;
+    display       : flex;
+    flex-direction: row;
+
     svg {
       color: black;
     }
+
+    &::after {
+      position: relative !important;
+    }
+
   }
 
   .dropdown-content {
