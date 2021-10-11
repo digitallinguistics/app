@@ -172,6 +172,7 @@ export default class LanguageEditor extends View {
 
   renderSimpleFields() {
     this.el.querySelector(`#language-editor__abbreviation-input`).value = this.language.abbreviation ?? ``;
+    this.el.querySelector(`#language-editor__iso-input`).value          = this.language.iso ?? ``;
     this.el.querySelector(`#language-editor__glottocode-input`).value   = this.language.glottocode ?? ``;
   }
 
