@@ -90,7 +90,7 @@ export default class LanguagesPage extends View {
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
-    this.el.querySelector(`.language-editor input`).focus();
+    if (language) this.el.querySelector(`.language-editor input`).focus();
 
   }
 
