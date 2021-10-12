@@ -153,7 +153,7 @@ export default class LanguageEditor extends View {
 
     this.el.querySelector(`.js-language-editor__date-created`).textContent  = dateCreated;
     this.el.querySelector(`.js-language-editor__date-modified`).textContent = dateModified;
-    
+
   }
 
   renderName() {
@@ -223,6 +223,10 @@ export default class LanguageEditor extends View {
   }
 
   updateProperty(name, value) {
+    const input = this.el.querySelector(`input[name="${ name }"]`);
+    const isValid = input.checkValidity();
+    input.reportValidity();
+    if (!isValid) return;
     this.language[name] = value;
     return this.save();
   }
