@@ -36,8 +36,12 @@ export default class NoteView extends View {
     this.textInput = this.el.querySelector(`.js-note__text-input`);
     this.srcInput  = this.el.querySelector(`.js-note__src-input`);
 
+    this.textInput.setAttribute(`id`, this.textID);
+    this.srcInput.setAttribute(`id`, this.sourceID);
+    this.el.querySelector(`.js-note__text-legend`).setAttribute(`for`, this.textID);
+    this.el.querySelector(`.js-note__src-legend`).setAttribute(`for`, this.sourceID);
+
     this.updatePreview();
-    this.hydrate();
     this.addEventListeners();
 
     return this.el;
