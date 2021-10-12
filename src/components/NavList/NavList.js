@@ -5,6 +5,8 @@ import List from '../List/List.js';
  */
 export default class NavList extends List {
 
+  stylesPath = `./components/NavList/NavList.css`;
+
   constructor(data, options) {
     super(data, options);
     this.name = options.name ?? `item`;

@@ -21,6 +21,11 @@ export default class List extends View {
   el;
 
   /**
+   * Path to the List styles.
+   */
+  stylesPath = `./components/List/List.css`;
+
+  /**
    * Create a new List View
    * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
    * @param {Object}   [options={}]              An optional options hash
@@ -42,7 +47,7 @@ export default class List extends View {
 
   async render() {
 
-    await this.loadStyles(`./components/List/List.css`);
+    await this.loadStyles();
 
     this.el      = document.createElement(`ul`);
     this.el.view = this;

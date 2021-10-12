@@ -27,6 +27,12 @@ export default class View {
   template;
 
   /**
+   * The path to the CSS stylesheet for this component.
+   * @type {String}
+   */
+  stylesPath;
+
+  /**
    * Attaches event listeners to the element or its children. This method is typically called near the end of the {@link View#render} method. This method should be overwritten by view instances.
    * @abstract
    */
@@ -55,16 +61,15 @@ export default class View {
 
   /**
    * Loads the styles for this component as a `<style>` tag in the page header. Does not load the styles if the `<style>` tag for this component is already present on the page.
-   * @param {String} stylesPath The path to the CSS file for this component.
    */
-  async loadStyles(stylesPath) {
+  async loadStyles() {
 
     const id       = `${ this.constructor.name }-styles`;
     let   styleTag = document.getElementById(id);
 
     if (styleTag) return;
 
-    const response = await fetch(stylesPath);
+    const response = await fetch(this.stylesPath);
     const css      = await response.text();
 
     styleTag = document.createElement(`style`);
