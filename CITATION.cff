@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: If you use the Lotus app in your work, please consider citing it as follows.
+authors:
+- family-names: Hieber
+  given-names:  Daniel W.
+  orcid:        https://orcid.org/0000-0002-1411-3773
+title:         Lotus
+version:       0.1.0
+doi:           https://github.com/digitallinguistics/app
+date-released: '2021-10-11'
+url:           https://github.com/digitallinguistics/app
+license:       MIT
