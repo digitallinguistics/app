@@ -1,4 +1,4 @@
-import buildCSS from '../buildCSS.js';
-import ora      from 'ora';
+import buildCSS       from '../buildCSS.js';
+import { oraPromise } from 'ora';
 
-ora.promise(buildCSS().catch(console.error), `Build CSS`);
+oraPromise(buildCSS().catch(console.error), `Build CSS`);

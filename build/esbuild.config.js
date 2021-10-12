@@ -1,39 +1,44 @@
-import { fileURLToPath } from 'url';
-import recurse           from 'readdirp';
+import browserslist                  from 'browserslist';
+import { esbuildPluginBrowserslist } from 'esbuild-plugin-browserslist';
+import { fileURLToPath }             from 'url';
+import { lessLoader }                from 'esbuild-plugin-less';
+import lessOptions                   from './lessOptions.js';
+import recurse                       from 'readdirp';
 
 import {
   dirname as getDirname,
-  extname as getExt,
   join    as joinPath,
 } from 'path';
 
 const currentDir  = getDirname(fileURLToPath(import.meta.url));
 const env         = process.env.GITHUB_EVENT_NAME === `release` ? `production` : `development`;
 const srcDir      = joinPath(currentDir, `../src`);
-const entryPoints = [joinPath(srcDir, `App/App.js`)];
-const pageScripts = await recurse(joinPath(srcDir, `pages`), { depth: 1 });
+const entryPoints = [joinPath(srcDir, `index.js`)];
+const pageScripts = await recurse(joinPath(srcDir, `pages`), {
+  depth:      1,
+  fileFilter: `*.js`,
+});
 
-for await (const entry of pageScripts) {
-  const ext = getExt(entry.basename);
-  if (ext !== `.js`) continue;
-  if (entry.basename.includes(`.test.js`)) continue;
-  if (entry.basename.includes(`.unit.js`)) continue;
-  if (entry.basename.includes(`.component.js`)) continue;
-  entryPoints.push(entry.fullPath);
+for await (const { basename, fullPath } of pageScripts) {
+  if (basename.includes(`.component.js`)) continue;
+  if (basename.includes(`.e2e.js`)) continue;
+  if (basename.includes(`.integration.js`)) continue;
+  if (basename.includes(`.stories.js`)) continue;
+  if (basename.includes(`.test.js`)) continue;
+  if (basename.includes(`.unit.js`)) continue;
+  entryPoints.push(fullPath);
 }
 
 export default {
-  bundle:      true,
+  bundle:    true,
   entryPoints,
-  format:      `esm`,
-  minify:      env === `production`,
-  outbase:     srcDir,
-  outdir:      joinPath(currentDir, `../dist`),
-  sourcemap:   env === `production` ? true : `inline`,
-  target:      [
-    `chrome91`,
-    `edge91`,
-    `firefox89`,
-    `safari14`,
+  format:    `esm`,
+  minify:    env === `production`,
+  outbase:   srcDir,
+  outdir:    joinPath(currentDir, `../dist`),
+  plugins:   [
+    esbuildPluginBrowserslist(browserslist()),
+    lessLoader(lessOptions),
   ],
+  sourcemap: env === `production` ? true : `inline`,
 };

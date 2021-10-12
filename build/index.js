@@ -1,4 +1,5 @@
 import buildCache        from './buildCache.js';
+import buildCSS          from './buildCSS.js';
 import buildJS           from './buildJS.js';
 import buildPages        from './buildPages.js';
 import buildStories      from './buildStories.js';
@@ -26,6 +27,7 @@ console.info(`Building app.`);
 
 await oraPromise(emptyDir(distDir), `Empty /dist directory`);
 await oraPromise(buildPages(), `Build page content`);
+await oraPromise(buildCSS(), `Build CSS`);
 await oraPromise(buildJS(), `Build JS`);
 await oraPromise(copyAssets(), `Copy static assets`);
 await oraPromise(buildCache(), `Create cache list`);
