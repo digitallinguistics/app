@@ -681,7 +681,6 @@ Some older versions of styles for the app are located [here](https://github.com/
 [Cypress]:         https://www.cypress.io/
 [cypress-ct]:      https://docs.cypress.io/guides/component-testing/introduction
 [developers]:      https://developer.digitallinguistics.io/app
-[ESBuild]:         https://esbuild.github.io/
 [ESLint]:          https://eslint.org/
 [Feather]:         https://feathericons.com/
 [Flaticon]:        https://www.flaticon.com/
