@@ -42,25 +42,28 @@ jobs:
 
       - name: install dependencies
         run:  npm install
+      
+      - name: run stop-only test
+        run:  npm run stop-only
 
       - name: build app
         run:  npm run build
-
+      
+      - name: run tests
+        run:  npm test
+      
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
-      - name: run Cypress tests
-        uses: cypress-io/github-action@v2
-        with:
-          config-file:     test/cypress.e2e.json
-          headless:        true
-          parallel:        true
-          record:          true
-          start:           npm start
-          wait-on:         'http://localhost:3000'
-          wait-on-timeout: 10
-        env:
-          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
-          GITHUB_TOKEN:       ${{secrets.GITHUB_TOKEN}}
-
-      - name: run stop-only test
-        run:  npm run stop-only
+      # - name: run Cypress E2E tests
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     config-file:     test/cypress.e2e.json
+      #     headless:        true
+      #     parallel:        true
+      #     record:          true
+      #     start:           npm start
+      #     wait-on:         'http://localhost:3000'
+      #     wait-on-timeout: 10
+      #   env:
+      #     CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+      #     GITHUB_TOKEN:       ${{secrets.GITHUB_TOKEN}}
