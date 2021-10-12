@@ -36,7 +36,7 @@
     "cypress-it-run": "cypress run --config-file test/cypress.integration.json",
     "quick-build": "node build/quickBuild.js",
     "start": "node build/bin/startServer.js",
-    "start:storybook": "start-storybook -p 6006 -s dist --ci",
+    "start:storybook": "start-storybook --quiet -p 6006 -s dist --ci",
     "stop-only": "stop-only -f test,src",
     "storybook": "start-storybook -p 6006",
     "test:storybook": "npm run cypress-ct-run && npm run cypress-it-run",
