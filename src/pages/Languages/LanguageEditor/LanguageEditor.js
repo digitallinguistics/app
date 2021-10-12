@@ -88,12 +88,11 @@ export default class LanguageEditor extends View {
     this.el.view             = this;
     this.el.dataset.language = this.language.cid;
 
-    this.hydrate(); // must precede other rendering methods to avoid hydrating subviews
-
     this.renderName();
     this.renderAutonym();
     this.renderAdditionalNames();
     this.renderMetadata();
+    this.renderSimpleFields();
 
     this.addEventListeners();
 
@@ -169,6 +168,12 @@ export default class LanguageEditor extends View {
 
     nameField.appendChild(mlsEditor.render());
 
+  }
+
+  renderSimpleFields() {
+    this.el.querySelector(`#language-editor__abbreviation-input`).value = this.language.abbreviation ?? ``;
+    this.el.querySelector(`#language-editor__iso-input`).value          = this.language.iso ?? ``;
+    this.el.querySelector(`#language-editor__glottocode-input`).value   = this.language.glottocode ?? ``;
   }
 
   // Update Methods

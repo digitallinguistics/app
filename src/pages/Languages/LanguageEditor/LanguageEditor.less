@@ -1,4 +1,5 @@
 @import (reference) 'utilities';
+@import (reference) 'variables';
 
 .language-editor {
 
@@ -6,7 +7,6 @@
   margin-inline: auto;
   max-width:     var(--measure);
   padding:       var(--space);
-
 
   &.placeholder {
 
@@ -58,7 +58,37 @@
   }
 
   &__fieldset {
-    margin-block: var(--space-xs);
+    margin-block-end: var(--space);
+  }
+
+  &__input-group {
+
+    // small screens
+    @media (max-width: @breakpoint) {
+      flex-direction: column;
+    }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      flex-direction: row;
+    }
+
+  }
+
+  &__legend {
+
+    min-inline-size: 7em;
+
+    // small screens
+    @media (max-width: @breakpoint) {
+      text-align: left;
+    }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      text-align: right;
+    }
+
   }
 
   &__metadata {
