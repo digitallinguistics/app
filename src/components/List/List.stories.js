@@ -19,9 +19,9 @@ const template = (item, i) => {
   return li;
 };
 
-export const List = () => {
+export const List = async () => {
   const listView = new ListView(items, { template });
-  const el       = listView.render();
+  const el       = await listView.render();
   el.classList.add(`list`);
   return el;
 };

@@ -14,7 +14,7 @@ describe(`List View`, function() {
       const collection = [1, 2, 3];
       const list       = new List(collection, { template });
 
-      expect(() => list.render()).not.to.throw();
+      expect(() => list.render()).not.to.be.rejected;
 
     });
 
@@ -63,27 +63,27 @@ describe(`List View`, function() {
 
     describe(`render`, function() {
 
-      it(`defaults to an empty list`, function() {
+      it(`defaults to an empty list`, async function() {
 
         const list = new List;
-        const ul   = list.render();
+        const ul   = await list.render();
 
         expect(ul.children).to.have.lengthOf(0);
 
       });
 
-      it(`defaults to empty <li>s`, function() {
+      it(`defaults to empty <li>s`, async function() {
 
         const collection = [1, 2, 3];
         const list       = new List(collection);
-        const ul         = list.render();
+        const ul         = await list.render();
 
         expect(ul.children).to.have.lengthOf(3);
         Array.from(ul.children).forEach(li => expect(li.children).to.have.lengthOf(0));
 
       });
 
-      it(`renders the template once for each item`, function() {
+      it(`renders the template once for each item`, async function() {
 
         const collection = [1, 2, 3];
 
@@ -94,7 +94,7 @@ describe(`List View`, function() {
         }
 
         const list = new List(collection, { template });
-        const ul   = list.render();
+        const ul   = await list.render();
 
         expect(ul.children).to.have.lengthOf(3);
 

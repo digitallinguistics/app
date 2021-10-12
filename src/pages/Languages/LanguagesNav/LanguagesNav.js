@@ -11,7 +11,7 @@ export default class LanguagesNav extends View {
     this.languages = languages;
   }
 
-  render(languageCID) {
+  async render(languageCID) {
 
     this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
@@ -24,7 +24,7 @@ export default class LanguagesNav extends View {
     this.el       = this.cloneTemplate();
     this.el.view  = this;
     const oldList = this.el.querySelector(`.languages-list`);
-    const newList = listView.render(languageCID);
+    const newList = await listView.render(languageCID);
 
     oldList.view?.events.stop();
     if (!this.languages.length) newList.style.border = `none`;

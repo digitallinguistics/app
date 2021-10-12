@@ -9,7 +9,7 @@ export default class AdditionalName extends View {
 
     super();
 
-    this.additionalName            = additionalName; 
+    this.additionalName            = additionalName;
     this.additionalName.name     ??= ``;
     this.additionalName.language ||= `English`;
     this.index                     = index;
@@ -56,7 +56,7 @@ export default class AdditionalName extends View {
     this.editButton.hidden = false;
   }
 
-  render() {
+  async render() {
 
     this.el            = this.cloneTemplate();
     this.el.view       = this;
@@ -77,17 +77,17 @@ export default class AdditionalName extends View {
 
     this.updatePreview(this.additionalName.name, this.additionalName.language);
     this.addEventListeners();
-    this.renderNotes();
-    
+    await this.renderNotes();
+
     return this.el;
 
   }
 
-  renderNotes() {
+  async renderNotes() {
     const list = new NotesList(this.notes, {
       border: false,
     });
-    const el = list.render();
+    const el = await list.render();
     el.setAttribute(`aria-expanded`, false);
     this.el.appendChild(el);
   }
@@ -96,7 +96,7 @@ export default class AdditionalName extends View {
     this.additionalName.name     = this.nameInput.value;
     this.additionalName.language = this.langInput.value || `English`;
   }
-  
+
   showEditor() {
     this.editor.hidden     = false;
     this.editButton.hidden = true;

@@ -27,15 +27,15 @@ export default class NotesList extends View {
     });
 
     this.el.addEventListener(`click`, ev => {
-      
+
       const { target } = ev;
 
-      if (target.classList.contains(`js-notes-list__add-note-button`)) { 
-        this.addNote(); 
+      if (target.classList.contains(`js-notes-list__add-note-button`)) {
+        this.addNote();
       }
 
       if (target.classList.contains(`js-note__cancel-button`)) {
-        
+
         const note   = target.closest(`.js-notes-list__note-item`);
         const text   = note.querySelector(`.js-note__text-input`).value;
         const source = note.querySelector(`.js-note__src-input`).value;
@@ -45,9 +45,9 @@ export default class NotesList extends View {
         const { id } = note.dataset;
         if (!id) return; // ID is still a string here
         this.deleteNote(Number(id));
-      
+
       }
-      
+
       if (target.classList.contains(`js-note__delete-button`)) {
         const confirmed = confirm(`Are you sure you want to delete this note? This action cannot be undone.`);
         if (!confirmed) return;
@@ -64,26 +64,26 @@ export default class NotesList extends View {
 
   }
 
-  addNote() {
+  async addNote() {
     this.notes.unshift(new Note);
     this.updateHeading();
-    this.renderList();
-    this.save();
+    await this.renderList();
     const noteView = this.el.querySelector(`.js-notes-list__notes .js-notes-list__note-item:first-child .note`).view;
     noteView.showEditor();
+    return this.save();
   }
 
-  deleteNote(i) {
+  async deleteNote(i) {
     this.notes.splice(i, 1);
     this.updateHeading();
-    this.renderList();
-    this.save();
+    await this.renderList();
+    return this.save();
   }
 
   itemTemplate(data, i) {
 
     const li = View.fromHTML(`<li class='js-notes-list__note-item notes-list__note-item' data-id='${ i }'></li>`);
-    
+
     const button = View.fromHTML(`<button
       aria-label='Show note'
       class='button js-notes-list__note-button notes-list__note-button transparent'
@@ -95,15 +95,15 @@ export default class NotesList extends View {
 
     const view = new NoteView(data, i);
     const el   = view.render();
-    
+
     li.appendChild(button);
     li.appendChild(el);
-    
+
     return li;
-  
+
   }
 
-  render() {
+  async render() {
 
     this.template = document.getElementById(`notes-list-template`);
     this.el       = this.cloneTemplate();
@@ -112,14 +112,14 @@ export default class NotesList extends View {
     if (this.border) this.el.classList.add(`bordered`);
 
     this.updateHeading();
-    this.renderList();
+    await this.renderList();
     this.addEventListeners();
-    
+
     return this.el;
-  
+
   }
 
-  renderList() {
+  async renderList() {
 
     const listOptions = {
       classes:  [`js-notes-list__notes`, `notes-list__notes`],
@@ -128,15 +128,15 @@ export default class NotesList extends View {
     };
 
     const listView = new List(this.notes, listOptions);
-    const newList = listView.render();
-    const oldList = this.el.querySelector(`.js-notes-list__notes`);
+    const newList  = await listView.render();
+    const oldList  = this.el.querySelector(`.js-notes-list__notes`);
     oldList.view?.events.stop();
     oldList.replaceWith(newList);
 
   }
 
   save() {
-    this.events.emit(`update`);
+    return this.events.emit(`update`);
   }
 
   toggle() {

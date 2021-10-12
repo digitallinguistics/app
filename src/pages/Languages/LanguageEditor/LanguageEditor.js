@@ -63,7 +63,7 @@ export default class LanguageEditor extends View {
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
       await this.save();
-      this.renderAdditionalNames();
+      return this.renderAdditionalNames();
     }
 
     if (target.classList.contains(`js-additional-name__delete-button`)) {
@@ -81,7 +81,7 @@ export default class LanguageEditor extends View {
 
   // Rendering Methods
 
-  render() {
+  async render() {
 
     this.template            = document.getElementById(`language-editor-template`);
     this.el                  = this.cloneTemplate();
@@ -90,7 +90,7 @@ export default class LanguageEditor extends View {
 
     this.renderName();
     this.renderAutonym();
-    this.renderAdditionalNames();
+    await this.renderAdditionalNames();
     this.renderMetadata();
     this.renderSimpleFields();
 
@@ -105,7 +105,7 @@ export default class LanguageEditor extends View {
     return nameView.render();
   }
 
-  renderAdditionalNames() {
+  async renderAdditionalNames() {
 
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
@@ -116,7 +116,7 @@ export default class LanguageEditor extends View {
       template: this.renderAdditionalName,
     });
 
-    const newList = listView.render();
+    const newList = await listView.render();
 
     if (!this.language.additionalNames.length) {
       newList.style.border = `none`;
@@ -153,7 +153,7 @@ export default class LanguageEditor extends View {
 
     this.el.querySelector(`.js-language-editor__date-created`).textContent  = dateCreated;
     this.el.querySelector(`.js-language-editor__date-modified`).textContent = dateModified;
-    
+
   }
 
   renderName() {
@@ -237,7 +237,7 @@ export default class LanguageEditor extends View {
     });
 
     await this.save();
-    this.renderAdditionalNames();
+    await this.renderAdditionalNames();
 
     const nameView = this.el.querySelector(`.js-language-editor__names-list .additional-name:first-child`).view;
 
@@ -248,7 +248,7 @@ export default class LanguageEditor extends View {
   async deleteName(i) {
     this.language.additionalNames.splice(i, 1);
     await this.save();
-    this.renderAdditionalNames();
+    return this.renderAdditionalNames();
   }
 
 }

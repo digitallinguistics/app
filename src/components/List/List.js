@@ -40,7 +40,9 @@ export default class List extends View {
 
   }
 
-  render() {
+  async render() {
+
+    await this.loadStyles(`./components/List/List.css`);
 
     this.el      = document.createElement(`ul`);
     this.el.view = this;
@@ -49,9 +51,8 @@ export default class List extends View {
       this.el.classList.add(className);
     }
 
-    this.collection
-    .map(this.template.bind(this))
-    .forEach(item => this.el.appendChild(item));
+    const items = await Promise.all(this.collection.map(this.template.bind(this)));
+    items.forEach(item => this.el.appendChild(item));
 
     return this.el;
 
