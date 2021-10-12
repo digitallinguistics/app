@@ -130,7 +130,7 @@ class App extends View {
     let newPage;
 
     switch (this.settings.page) {
-        case `Home`: newPage = this.#renderHomePage(); break;
+        case `Home`: newPage = await this.#renderHomePage(); break;
         case `Languages`: newPage = await this.#renderLanguagesPage(); break;
         default: break;
     }

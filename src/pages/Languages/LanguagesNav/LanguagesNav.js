@@ -4,6 +4,8 @@ import View    from '../../../core/View.js';
 
 export default class LanguagesNav extends View {
 
+  stylesPath = `./pages/Languages/LanguagesNav/LanguagesNav.css`;
+
   template = document.getElementById(`languages-nav-template`);
 
   constructor(languages) {
@@ -13,6 +15,7 @@ export default class LanguagesNav extends View {
 
   async render(languageCID) {
 
+    await this.loadStyles();
     this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
     const listView = new NavList(this.languages, {

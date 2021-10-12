@@ -8,6 +8,8 @@ import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
+  stylesPath = `./pages/Languages/LanguageEditor/LanguageEditor.css`;
+
   constructor(language) {
     super();
     this.language     = language;
@@ -82,6 +84,8 @@ export default class LanguageEditor extends View {
   // Rendering Methods
 
   async render() {
+
+    await this.loadStyles();
 
     this.template            = document.getElementById(`language-editor-template`);
     this.el                  = this.cloneTemplate();

@@ -3,6 +3,8 @@ import View      from '../../../core/View.js';
 
 export default class AdditionalName extends View {
 
+  stylesPath = `./pages/Languages/AdditionalName/AdditionalName.css`;
+
   template = document.getElementById(`additional-name-template`);
 
   constructor(additionalName = {}, index) {
@@ -57,6 +59,8 @@ export default class AdditionalName extends View {
   }
 
   async render() {
+
+    await this.loadStyles();
 
     this.el            = this.cloneTemplate();
     this.el.view       = this;

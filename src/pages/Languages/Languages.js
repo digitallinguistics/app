@@ -12,6 +12,12 @@ export default class LanguagesPage extends View {
   languages;
 
   /**
+   * Path to the Languages page styles.
+   * @type {String}
+   */
+  stylesPath = `./pages/Languages/Languages.css`;
+
+  /**
    * Create a new Languages Page view.
    * @param {Array<models#Language>} [languages=[]]
    */
@@ -47,6 +53,7 @@ export default class LanguagesPage extends View {
    * @return {HTMLMainElement}
    */
   async render(languageCID) {
+    await this.loadStyles();
     this.template = document.getElementById(`languages-template`);
     this.el       = this.cloneTemplate();
     this.el.view  = this;
