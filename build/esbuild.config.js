@@ -1,8 +1,6 @@
 import browserslist                  from 'browserslist';
 import { esbuildPluginBrowserslist } from 'esbuild-plugin-browserslist';
 import { fileURLToPath }             from 'url';
-import { lessLoader }                from 'esbuild-plugin-less';
-import lessOptions                   from './lessOptions.js';
 import recurse                       from 'readdirp';
 
 import {
@@ -36,9 +34,6 @@ export default {
   minify:    env === `production`,
   outbase:   srcDir,
   outdir:    joinPath(currentDir, `../dist`),
-  plugins:   [
-    esbuildPluginBrowserslist(browserslist()),
-    lessLoader(lessOptions),
-  ],
+  plugins:   [esbuildPluginBrowserslist(browserslist())],
   sourcemap: env === `production` ? true : `inline`,
 };
