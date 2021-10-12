@@ -1,4 +1,3 @@
-import './Note.css';
 import Note     from '../../models/Note.js';
 import NoteView from './Note.js';
 
@@ -14,14 +13,14 @@ export default {
   title: `Components/Note`,
 };
 
-export const Blank = () => {
+export const Blank = async () => {
   const view = new NoteView(new Note, 0);
-  const el   = view.render();
+  const el   = await view.render();
   return el;
 };
 
-export const Populated = () => {
+export const Populated = async () => {
   const view = new NoteView(new Note(data), 1);
-  const el   = view.render();
+  const el   = await view.render();
   return el;
 };

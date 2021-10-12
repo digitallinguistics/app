@@ -1,4 +1,3 @@
-import './NotesList.css';
 import Note      from '../../models/Note.js';
 import NotesList from "./NotesList";
 

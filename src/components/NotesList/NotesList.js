@@ -5,6 +5,8 @@ import View     from '../../core/View.js';
 
 export default class NotesList extends View {
 
+  stylesPath = `./components/NotesList/NotesList.css`;
+
   constructor(
     notes = [],
     {
@@ -80,7 +82,7 @@ export default class NotesList extends View {
     return this.save();
   }
 
-  itemTemplate(data, i) {
+  async itemTemplate(data, i) {
 
     const li = View.fromHTML(`<li class='js-notes-list__note-item notes-list__note-item' data-id='${ i }'></li>`);
 
@@ -94,7 +96,7 @@ export default class NotesList extends View {
     </button>`);
 
     const view = new NoteView(data, i);
-    const el   = view.render();
+    const el   = await view.render();
 
     li.appendChild(button);
     li.appendChild(el);
@@ -104,6 +106,8 @@ export default class NotesList extends View {
   }
 
   async render() {
+
+    await this.loadStyles();
 
     this.template = document.getElementById(`notes-list-template`);
     this.el       = this.cloneTemplate();

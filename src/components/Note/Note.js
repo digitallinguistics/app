@@ -2,8 +2,10 @@ import View from '../../core/View.js';
 
 export default class NoteView extends View {
 
+  stylesPath = `./components/Note/Note.css`;
+
   template = document.getElementById(`note-template`);
-  
+
   constructor(note, index) {
     super();
     this.note     = note;
@@ -29,7 +31,9 @@ export default class NoteView extends View {
     this.el.classList.remove(`editing`);
   }
 
-  render() {
+  async render() {
+
+    await this.loadStyles();
 
     this.el        = this.cloneTemplate();
     this.el.view   = this;
@@ -41,7 +45,7 @@ export default class NoteView extends View {
     this.addEventListeners();
 
     return this.el;
-  
+
   }
 
   save() {
@@ -70,7 +74,7 @@ export default class NoteView extends View {
     this.el.querySelector(`.js-note__date-modified`).textContent = dateModified;
     this.el.querySelector(`.js-note__src-preview`).textContent   = this.note.source;
     this.el.querySelector(`.js-note__text-preview`).innerHTML    = this.note.text || `<i style='font-style: italic;'>(no text)</i>`;
-  
+
     // editor
     this.srcInput.value  = this.note.source;
     this.textInput.value = this.note.text;
