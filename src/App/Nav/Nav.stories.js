@@ -1,5 +1,4 @@
-import './Nav.css';
-import Nav       from './Nav.js';
+import Nav from './Nav.js';
 
 export default {
   parameters: { layout: `fullscreen` },
