@@ -114,7 +114,6 @@ dist
 src/**/*.css
 /dist
 /docs
-App.css
 screenshots
 nodemon.json
 .DS_Store
