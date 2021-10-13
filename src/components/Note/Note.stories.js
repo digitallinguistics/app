@@ -13,14 +13,14 @@ export default {
   title: `Components/Note`,
 };
 
-export const Blank = async () => {
+export const Blank = () => {
   const view = new NoteView(new Note, 0);
-  const el   = await view.render();
+  const el   = view.render();
   return el;
 };
 
-export const Populated = async () => {
+export const Populated = () => {
   const view = new NoteView(new Note(data), 1);
-  const el   = await view.render();
+  const el   = view.render();
   return el;
 };

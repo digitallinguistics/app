@@ -1,4 +1,4 @@
-import '../../dist/App/App.css';
+import '../../dist/index.css';
 
 export default {
   parameters: { layout: `fullscreen` },

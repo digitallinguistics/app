@@ -5,7 +5,7 @@ export default {
   title: `Languages/Additional Name`,
 };
 
-export const AdditionalName = async () => {
+export const AdditionalName = () => {
 
   const ul = html2element(`<ul class=list></ul>`);
 
@@ -14,7 +14,7 @@ export const AdditionalName = async () => {
     name:     `espagnol`,
   }, 1);
 
-  const el = await nameView.render();
+  const el = nameView.render();
 
   ul.appendChild(el);
   return ul;

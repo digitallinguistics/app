@@ -14,10 +14,7 @@ module.exports = {
     builder: `webpack5`,
   },
   stories: [
-    // `../src/**/*.stories.mdx`,
-    // `../src/**/*.stories.@(js|jsx|ts|tsx)`,
-    `../src/pages/Home/Home.stories.js`,
-    `../src/pages/Languages/Languages.stories.js`,
+    `../src/**/*.stories.js`,
   ],
   async webpackFinal(config) {
 

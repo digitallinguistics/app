@@ -8,9 +8,9 @@ export default {
 const data = [{ text: `Note A` }, { text: `Note B` }, { text: `Note C` }]
 .map(item => new Note(item));
 
-const Template = async ({ border, headingLevel, notes, open }) => {
+const Template = ({ border, headingLevel, notes, open }) => {
   const list     = new NotesList(notes, { border, headingLevel });
-  const el       = await list.render();
+  const el       = list.render();
   el.style.width = `30em`;
   el.setAttribute(`aria-expanded`, Boolean(open));
   return el;

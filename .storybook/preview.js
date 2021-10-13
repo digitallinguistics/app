@@ -1,9 +1,11 @@
-// require(`../dist/index.css`);
-// require(`./storybook.css`);
+import './storybook.css';
+import App from '../src/App/App.js';
 
-// const App = require(`../src/App/App.js`);
-// window.app = new App;
-// window.app.initialize();
+window.app = new App;
+
+window.addEventListener(`load`, async () => {
+  await window.app.initialize();
+});
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,6 +15,7 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  layout: `centered`,
   options: {
     storySort: {
       includeName: true,
