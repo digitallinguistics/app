@@ -27,10 +27,10 @@ export default class View {
   template;
 
   /**
-   * The path to the CSS stylesheet for this component.
+   * The CSS styles this component (as a String).
    * @type {String}
    */
-  stylesPath;
+  styles;
 
   /**
    * Attaches event listeners to the element or its children. This method is typically called near the end of the {@link View#render} method. This method should be overwritten by view instances.
@@ -62,25 +62,22 @@ export default class View {
   /**
    * Loads the styles for this component as a `<style>` tag in the page header. Does not load the styles if the `<style>` tag for this component is already present on the page.
    */
-  async loadStyles() {
+  loadStyles() {
 
     const id       = `${ this.constructor.name }-styles`;
     let   styleTag = document.getElementById(id);
 
     if (styleTag) return;
 
-    const response = await fetch(this.stylesPath);
-    const css      = await response.text();
-
     styleTag = document.createElement(`style`);
     styleTag.setAttribute(`id`, id);
-    styleTag.innerHTML = css;
+    styleTag.innerHTML = this.styles;
     document.head.appendChild(styleTag);
 
   }
 
   /**
-   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. Views should however attach event listeners to their elements by calling {@link View#addEventListeners}. This method should be overwritten by view instances.
+   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. Views should however attach event listeners to their elements by calling {@link View#addEventListeners}. They typically also call `loadStyles()` to load their CSS styles into the `<head>` tag. The `render()` method should be overwritten by view instances.
    * @abstract
    */
   render() { /* no-op */ }

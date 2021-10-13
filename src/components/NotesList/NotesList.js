@@ -1,11 +1,12 @@
 import List     from '../../components/List/List.js';
 import Note     from '../../models/Note.js';
 import NoteView from '../Note/Note.js';
+import styles   from './NotesList.less';
 import View     from '../../core/View.js';
 
 export default class NotesList extends View {
 
-  stylesPath = `./components/NotesList/NotesList.css`;
+  styles = styles;
 
   constructor(
     notes = [],
@@ -66,23 +67,23 @@ export default class NotesList extends View {
 
   }
 
-  async addNote() {
+  addNote() {
     this.notes.unshift(new Note);
     this.updateHeading();
-    await this.renderList();
+    this.renderList();
     const noteView = this.el.querySelector(`.js-notes-list__notes .js-notes-list__note-item:first-child .note`).view;
     noteView.showEditor();
     return this.save();
   }
 
-  async deleteNote(i) {
+  deleteNote(i) {
     this.notes.splice(i, 1);
     this.updateHeading();
-    await this.renderList();
+    this.renderList();
     return this.save();
   }
 
-  async itemTemplate(data, i) {
+  itemTemplate(data, i) {
 
     const li = View.fromHTML(`<li class='js-notes-list__note-item notes-list__note-item' data-id='${ i }'></li>`);
 
@@ -96,7 +97,7 @@ export default class NotesList extends View {
     </button>`);
 
     const view = new NoteView(data, i);
-    const el   = await view.render();
+    const el   = view.render();
 
     li.appendChild(button);
     li.appendChild(el);
@@ -105,9 +106,9 @@ export default class NotesList extends View {
 
   }
 
-  async render() {
+  render() {
 
-    await this.loadStyles();
+    this.loadStyles();
 
     this.template = document.getElementById(`notes-list-template`);
     this.el       = this.cloneTemplate();
@@ -116,14 +117,14 @@ export default class NotesList extends View {
     if (this.border) this.el.classList.add(`bordered`);
 
     this.updateHeading();
-    await this.renderList();
+    this.renderList();
     this.addEventListeners();
 
     return this.el;
 
   }
 
-  async renderList() {
+  renderList() {
 
     const listOptions = {
       classes:  [`js-notes-list__notes`, `notes-list__notes`],
@@ -132,7 +133,7 @@ export default class NotesList extends View {
     };
 
     const listView = new List(this.notes, listOptions);
-    const newList  = await listView.render();
+    const newList  = listView.render();
     const oldList  = this.el.querySelector(`.js-notes-list__notes`);
     oldList.view?.events.stop();
     oldList.replaceWith(newList);

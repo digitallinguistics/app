@@ -1,6 +1,7 @@
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import LanguagesNav   from './LanguagesNav/LanguagesNav.js';
+import styles         from './Languages.less';
 import View           from '../../core/View.js';
 
 export default class LanguagesPage extends View {
@@ -12,10 +13,9 @@ export default class LanguagesPage extends View {
   languages;
 
   /**
-   * Path to the Languages page styles.
-   * @type {String}
+   * The Languages page styles.
    */
-  stylesPath = `./pages/Languages/Languages.css`;
+  styles = styles;
 
   /**
    * Create a new Languages Page view.
@@ -33,7 +33,7 @@ export default class LanguagesPage extends View {
     language = await app.db.languages.add(language);
     this.languages.push(language);
     app.settings.language = language.cid;
-    await this.renderNav(language.cid);
+    this.renderNav(language.cid);
     return this.renderEditor(language.cid);
   }
 
@@ -44,7 +44,7 @@ export default class LanguagesPage extends View {
     app.settings.language = null;
     const i = this.languages.findIndex(lang => lang.cid === languageCID);
     this.languages.splice(i, 1);
-    await this.renderNav();
+    this.renderNav();
     return this.renderEditor();
   }
 
@@ -52,13 +52,13 @@ export default class LanguagesPage extends View {
    * Render the Languages Page.
    * @return {HTMLMainElement}
    */
-  async render(languageCID) {
-    await this.loadStyles();
+  render(languageCID) {
+    this.loadStyles();
     this.template = document.getElementById(`languages-template`);
     this.el       = this.cloneTemplate();
     this.el.view  = this;
-    await this.renderNav(languageCID);
-    await this.renderEditor(languageCID);
+    this.renderNav(languageCID);
+    this.renderEditor(languageCID);
     return this.el;
   }
 
@@ -66,7 +66,7 @@ export default class LanguagesPage extends View {
    * Render the Language Editor.
    * @param {String} languageCID
    */
-  async renderEditor(languageCID) {
+  renderEditor(languageCID) {
 
     const language = this.languages.find(lang => lang.cid === languageCID);
     let newEditor;
@@ -78,7 +78,7 @@ export default class LanguagesPage extends View {
       editorView.events.once(`add`, this.addLanguage.bind(this));
       editorView.events.on(`delete`, this.deleteLanguage.bind(this));
       editorView.events.on(`update:name`, this.renderNav.bind(this));
-      newEditor = await editorView.render();
+      newEditor = editorView.render();
 
     } else {
 
@@ -105,7 +105,7 @@ export default class LanguagesPage extends View {
    * Render the Languages Nav.
    * @param {String} [languageCID] The client ID of the language to show as selected when the nav list renders.
    */
-  async renderNav(languageCID) {
+  renderNav(languageCID) {
 
     const nav = new LanguagesNav(this.languages);
 
@@ -113,7 +113,7 @@ export default class LanguagesPage extends View {
     nav.events.on(`change`, this.renderEditor.bind(this));
 
     const oldNav = this.el.querySelector(`.languages-nav`);
-    const newNav = await nav.render(languageCID);
+    const newNav = nav.render(languageCID);
 
     oldNav.view?.events.stop();
     oldNav.replaceWith(newNav);

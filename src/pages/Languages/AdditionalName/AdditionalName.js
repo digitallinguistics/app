@@ -1,9 +1,10 @@
 import NotesList from '../../../components/NotesList/NotesList.js';
+import styles    from './AdditionalName.less';
 import View      from '../../../core/View.js';
 
 export default class AdditionalName extends View {
 
-  stylesPath = `./pages/Languages/AdditionalName/AdditionalName.css`;
+  styles = styles;
 
   template = document.getElementById(`additional-name-template`);
 
@@ -58,9 +59,9 @@ export default class AdditionalName extends View {
     this.editButton.hidden = false;
   }
 
-  async render() {
+  render() {
 
-    await this.loadStyles();
+    this.loadStyles();
 
     this.el            = this.cloneTemplate();
     this.el.view       = this;
@@ -81,17 +82,17 @@ export default class AdditionalName extends View {
 
     this.updatePreview(this.additionalName.name, this.additionalName.language);
     this.addEventListeners();
-    await this.renderNotes();
+    this.renderNotes();
 
     return this.el;
 
   }
 
-  async renderNotes() {
+  renderNotes() {
     const list = new NotesList(this.notes, {
       border: false,
     });
-    const el = await list.render();
+    const el = list.render();
     el.setAttribute(`aria-expanded`, false);
     this.el.appendChild(el);
   }

@@ -3,12 +3,13 @@ import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import styles                from './LanguageEditor.less';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
-  stylesPath = `./pages/Languages/LanguageEditor/LanguageEditor.css`;
+  styles = styles;
 
   constructor(language) {
     super();
@@ -83,9 +84,9 @@ export default class LanguageEditor extends View {
 
   // Rendering Methods
 
-  async render() {
+  render() {
 
-    await this.loadStyles();
+    this.loadStyles();
 
     this.template            = document.getElementById(`language-editor-template`);
     this.el                  = this.cloneTemplate();
@@ -94,7 +95,7 @@ export default class LanguageEditor extends View {
 
     this.renderName();
     this.renderAutonym();
-    await this.renderAdditionalNames();
+    this.renderAdditionalNames();
     this.renderMetadata();
     this.renderSimpleFields();
 
@@ -109,7 +110,7 @@ export default class LanguageEditor extends View {
     return nameView.render();
   }
 
-  async renderAdditionalNames() {
+  renderAdditionalNames() {
 
     this.language.additionalNames.sort((a, b) => compare(a.name, b.name));
 
@@ -120,7 +121,7 @@ export default class LanguageEditor extends View {
       template: this.renderAdditionalName,
     });
 
-    const newList = await listView.render();
+    const newList = listView.render();
 
     if (!this.language.additionalNames.length) {
       newList.style.border = `none`;
@@ -241,7 +242,7 @@ export default class LanguageEditor extends View {
     });
 
     await this.save();
-    await this.renderAdditionalNames();
+    this.renderAdditionalNames();
 
     const nameView = this.el.querySelector(`.js-language-editor__names-list .additional-name:first-child`).view;
 

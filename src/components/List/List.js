@@ -1,4 +1,5 @@
-import View from '../../core/View.js';
+import styles from './List.less';
+import View   from '../../core/View.js';
 
 /**
  * A class representing an view for a list of items
@@ -21,9 +22,9 @@ export default class List extends View {
   el;
 
   /**
-   * Path to the List styles.
+   * List styles.
    */
-  stylesPath = `./components/List/List.css`;
+  styles = styles;
 
   /**
    * Create a new List View
@@ -45,9 +46,9 @@ export default class List extends View {
 
   }
 
-  async render() {
+  render() {
 
-    await this.loadStyles();
+    this.loadStyles();
 
     this.el      = document.createElement(`ul`);
     this.el.view = this;
@@ -56,8 +57,9 @@ export default class List extends View {
       this.el.classList.add(className);
     }
 
-    const items = await Promise.all(this.collection.map(this.template.bind(this)));
-    items.forEach(item => this.el.appendChild(item));
+    this.collection
+    .map(this.template.bind(this))
+    .forEach(item => this.el.appendChild(item));
 
     return this.el;
 

@@ -1,11 +1,12 @@
+import styles  from './Home.less';
 import View from '../../core/View.js';
-
-import less from './Home.less';
-console.log(less);
 
 export default class HomePage extends View {
 
-  stylesPath = `./pages/Home/Home.css`;
+  /**
+   * The Home page styles.
+   */
+  styles = styles;
 
   /**
    * A reference to the Home page `<template>` tag.
@@ -17,8 +18,8 @@ export default class HomePage extends View {
    * Render the Home Page.
    * @return {HTMLMainElement}
    */
-  async render() {
-    await this.loadStyles();
+  render() {
+    this.loadStyles();
     this.template = document.getElementById(`home-template`);
     this.el       = this.cloneTemplate();
     this.el.view  = this;

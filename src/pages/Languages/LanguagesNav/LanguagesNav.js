@@ -1,10 +1,11 @@
 import compare from '../../../utilities/compare.js';
 import NavList from '../../../components/NavList/NavList.js';
+import styles  from './LanguagesNav.less';
 import View    from '../../../core/View.js';
 
 export default class LanguagesNav extends View {
 
-  stylesPath = `./pages/Languages/LanguagesNav/LanguagesNav.css`;
+  styles = styles;
 
   template = document.getElementById(`languages-nav-template`);
 
@@ -13,9 +14,9 @@ export default class LanguagesNav extends View {
     this.languages = languages;
   }
 
-  async render(languageCID) {
+  render(languageCID) {
 
-    await this.loadStyles();
+    this.loadStyles();
     this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
     const listView = new NavList(this.languages, {
@@ -27,7 +28,7 @@ export default class LanguagesNav extends View {
     this.el       = this.cloneTemplate();
     this.el.view  = this;
     const oldList = this.el.querySelector(`.languages-list`);
-    const newList = await listView.render(languageCID);
+    const newList = listView.render(languageCID);
 
     oldList.view?.events.stop();
     if (!this.languages.length) newList.style.border = `none`;

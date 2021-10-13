@@ -1,8 +1,9 @@
-import View from '../../core/View.js';
+import styles from './Note.less';
+import View   from '../../core/View.js';
 
 export default class NoteView extends View {
 
-  stylesPath = `./components/Note/Note.css`;
+  styles = styles;
 
   template = document.getElementById(`note-template`);
 
@@ -31,9 +32,9 @@ export default class NoteView extends View {
     this.el.classList.remove(`editing`);
   }
 
-  async render() {
+  render() {
 
-    await this.loadStyles();
+    this.loadStyles();
 
     this.el        = this.cloneTemplate();
     this.el.view   = this;
