@@ -20,8 +20,6 @@ const distDir    = joinPath(currentDir, `../dist`);
 const cachePath  = joinPath(currentDir, `../dist/cache.json`);
 
 const disallowList = [
-  `App.css`,
-  `index.css`,
   `index.html`,
   `offline-worker.js`,
 ];
@@ -29,7 +27,7 @@ const disallowList = [
 export default async function buildCache() {
 
   const assets          = [];
-  const distFilesStream = await recurse(distDir);
+  const distFilesStream = await recurse(distDir, { fileFilter: `!*.css` });
 
   for await (const entry of distFilesStream) {
 

@@ -1,5 +1,5 @@
 import Note      from '../../models/Note.js';
-import NotesList from "./NotesList";
+import NotesList from "./NotesList.js";
 
 export default {
   title: `Components/Notes List`,

@@ -1,4 +1,4 @@
-import html2element from '../../../utilities/html2element';
+import html2element from '../../../utilities/html2element.js';
 import Name         from './AdditionalName.js';
 
 export default {

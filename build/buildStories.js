@@ -1,3 +1,4 @@
+import buildCSS          from './buildCSS.js';
 import { fileURLToPath } from 'url';
 import hbs               from 'handlebars';
 import registerPartials  from './registerPartials.js';
@@ -30,5 +31,9 @@ export default async function buildStories() {
   const previewBodyHTML     = buildPreviewBody();
 
   await writeFile(joinPath(currentDir, `../.storybook/preview-body.html`), previewBodyHTML, `utf8`);
+
+  // build standalone CSS files
+
+  await buildCSS();
 
 }

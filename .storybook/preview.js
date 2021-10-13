@@ -1,10 +1,9 @@
-import '../dist/index.css';
-import './storybook.css';
-import App from '../src/App/App.js';
+// require(`../dist/index.css`);
+// require(`./storybook.css`);
 
-window.app = new App;
-
-window.app.initialize();
+// const App = require(`../src/App/App.js`);
+// window.app = new App;
+// window.app.initialize();
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
