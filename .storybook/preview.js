@@ -2,10 +2,7 @@ import './storybook.css';
 import App from '../src/App/App.js';
 
 window.app = new App;
-
-window.addEventListener(`load`, async () => {
-  await window.app.initialize();
-});
+window.app.initialize();
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
