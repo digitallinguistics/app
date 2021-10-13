@@ -12,7 +12,7 @@ import {
 const currentDir  = getDirname(fileURLToPath(import.meta.url));
 const env         = process.env.GITHUB_EVENT_NAME === `release` ? `production` : `development`;
 const srcDir      = joinPath(currentDir, `../src`);
-const entryPoints = [joinPath(srcDir, `index.js`)];
+const entryPoints = [joinPath(srcDir, `App/App.js`)];
 const pageScripts = await recurse(joinPath(srcDir, `pages`), {
   depth:      1,
   fileFilter: `*.js`,
