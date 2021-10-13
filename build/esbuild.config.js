@@ -1,5 +1,6 @@
 import browserslist                  from 'browserslist';
 import { esbuildPluginBrowserslist } from 'esbuild-plugin-browserslist';
+import esbuildPluginLESS             from './esbuildPluginLESS.js';
 import { fileURLToPath }             from 'url';
 import recurse                       from 'readdirp';
 
@@ -31,9 +32,15 @@ export default {
   bundle:    true,
   entryPoints,
   format:    `esm`,
+  loader: {
+    '.css': `text`,
+  },
   minify:    env === `production`,
   outbase:   srcDir,
   outdir:    joinPath(currentDir, `../dist`),
-  plugins:   [esbuildPluginBrowserslist(browserslist())],
+  plugins:   [
+    esbuildPluginBrowserslist(browserslist()),
+    esbuildPluginLESS,
+  ],
   sourcemap: env === `production` ? true : `inline`,
 };

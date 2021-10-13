@@ -1,4 +1,4 @@
-import '../src/index.css';
+import '../dist/index.css';
 import './storybook.css';
 import App from '../src/App/App.js';
 

@@ -1,4 +1,4 @@
-import './Fieldset.css';
+import '../../../dist/components/Fieldset/Fieldset.css';
 
 export default {
   title: `Components/Fieldset`,

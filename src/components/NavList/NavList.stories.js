@@ -1,4 +1,4 @@
-import './NavList.css';
+import '../../../dist/components/NavList/NavList.css';
 import NavListView from './NavList.js';
 
 export default {

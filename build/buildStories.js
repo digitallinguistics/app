@@ -1,7 +1,5 @@
-import convertLESS       from './convertLESS.js';
 import { fileURLToPath } from 'url';
 import hbs               from 'handlebars';
-import recurse           from 'readdirp';
 import registerPartials  from './registerPartials.js';
 
 import {
@@ -22,16 +20,6 @@ export default async function buildStories() {
 
   const currentDir = getDirname(fileURLToPath(import.meta.url));
   const srcDir     = joinPath(currentDir, `../src`);
-
-  // build individual CSS files
-
-  const lessFiles = await recurse(srcDir, { fileFilter: `*.less` });
-
-  for await (const entry of lessFiles) {
-    const less = await readFile(entry.fullPath, `utf8`);
-    const css  = await convertLESS(less);
-    await writeFile(entry.fullPath.replace(`.less`, `.css`), css, `utf8`);
-  }
 
   // build all the templates into the preview body
 

@@ -1,4 +1,4 @@
-import './Transcription.css';
+import '../../../dist/components/Transcription/Transcription.css';
 
 export default {
   title: `Components/Transcription`,

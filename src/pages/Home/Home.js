@@ -1,5 +1,8 @@
 import View from '../../core/View.js';
 
+import less from './Home.less';
+console.log(less);
+
 export default class HomePage extends View {
 
   stylesPath = `./pages/Home/Home.css`;

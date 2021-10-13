@@ -1,4 +1,4 @@
-import './Button.css';
+import '../../../dist/components/Button/Button.css';
 
 export default {
   layout: `centered`,

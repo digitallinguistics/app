@@ -1,4 +1,4 @@
-import './BoxInput.css';
+import '../../../dist/components/BoxInput/BoxInput.css';
 
 export default {
   title: `Components/Box Input`,

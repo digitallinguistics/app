@@ -20,6 +20,8 @@ const distDir    = joinPath(currentDir, `../dist`);
 const cachePath  = joinPath(currentDir, `../dist/cache.json`);
 
 const disallowList = [
+  `App.css`,
+  `index.css`,
   `index.html`,
   `offline-worker.js`,
 ];

@@ -1,4 +1,4 @@
-import '../../.storybook/App.css';
+import '../../dist/App/App.css';
 
 export default {
   parameters: { layout: `fullscreen` },

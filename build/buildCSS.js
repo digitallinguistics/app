@@ -37,7 +37,8 @@ async function convertFile(inputPath, outputPath) {
 }
 
 export default async function buildCSS() {
-  await convertFile(joinPath(srcDir, `App/App.less`), joinPath(currentDir, `../.storybook/App.css`));
+  await convertFile(joinPath(srcDir, `App/App.less`), joinPath(distDir, `App/App.css`)); // for Storybook
+  await convertFile(joinPath(srcDir, `index.less`), joinPath(distDir, `index.css`)); // for Storybook
   await convertDir(joinPath(srcDir, `components`), joinPath(distDir, `components`));
   await convertDir(joinPath(srcDir, `pages`), joinPath(distDir, `pages`));
 }
