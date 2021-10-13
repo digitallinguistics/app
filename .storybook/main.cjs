@@ -1,3 +1,5 @@
+const webpackConfig = require(`../build/webpack.config.cjs`);
+
 module.exports = {
   async babel(options) {
     // This prevents Storybook from using this projects .browserslistrc file,
@@ -12,23 +14,7 @@ module.exports = {
     `../src/**/*.stories.js`,
   ],
   async webpackFinal(config) {
-
-    const { default: lessOptions } = await import(`../build/lessOptions.js`);
-
-    config.module.rules.push({
-      test: /\.less$/u,
-      use: [
-        `css-loader`,
-        {
-          loader: `less-loader`,
-          options: {
-            lessOptions,
-          },
-        }
-      ],
-    });
-
+    config.module.rules.push(...webpackConfig.module.rules);
     return config;
-
   },
 };

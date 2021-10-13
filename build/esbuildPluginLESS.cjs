@@ -3,17 +3,17 @@
  * allowing LESS files to be imported directly as JavaScript modules.
  */
 
-import convertLESS  from './convertLESS.js';
-import { readFile } from 'fs/promises';
+const { readFile } = require(`fs/promises`);
 
-export default {
+module.exports = {
   name: `less-file`,
   setup(build) {
 
     build.onLoad({ filter: /\.less$/u }, async args => {
 
-      const less = await readFile(args.path, `utf8`);
-      const css  = await convertLESS(less);
+      const { default: convertLESS } = await import(`./convertLESS.js`);
+      const less                     = await readFile(args.path, `utf8`);
+      const css                      = await convertLESS(less);
 
       return {
         contents: css,

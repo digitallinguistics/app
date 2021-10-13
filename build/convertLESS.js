@@ -1,6 +1,6 @@
 import CleanCSS    from 'clean-css';
 import less        from 'less';
-import lessOptions from './lessOptions.js';
+import lessOptions from './lessOptions.cjs';
 
 const minifier = new CleanCSS;
 
