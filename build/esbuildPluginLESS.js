@@ -1,3 +1,8 @@
+/**
+ * A custom ESBuild plugin to convert LESS files to CSS and return the CSS as a string,
+ * allowing LESS files to be imported directly as JavaScript modules.
+ */
+
 import convertLESS  from './convertLESS.js';
 import { readFile } from 'fs/promises';
 
