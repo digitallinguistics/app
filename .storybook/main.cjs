@@ -1,9 +1,4 @@
 module.exports = {
-  addons: [
-    // `@storybook/addon-actions`,
-    // `@storybook/addon-links`,
-    // `@storybook/addon-essentials`,
-  ],
   async babel(options) {
     // This prevents Storybook from using this projects .browserslistrc file,
     // which breaks the Storybook build for some reason.

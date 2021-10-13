@@ -5,7 +5,6 @@ export default {
   title:      `App/Main Nav`,
 };
 
-
 export const MainNav = () => {
   const template = document.getElementById(`main-nav-template`);
   const root = document.getElementById(`root`);
