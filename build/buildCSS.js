@@ -1,3 +1,8 @@
+/**
+ * Create standalone versions of CSS files for Storybook.
+ * This is NOT needed by the app itself, since styles are now imported directly by the JavaScript views.
+ */
+
 import convertLESS       from './convertLESS.js';
 import { fileURLToPath } from 'url';
 import fs                from 'fs-extra';
