@@ -12,6 +12,7 @@ export const MainNav = () => {
   root.append(template.content.cloneNode(true).firstElementChild);
   const navView = new Nav();
   const el = navView.render(`Home`);
+  el.style.width     = `fit-content`;
   el.style.minHeight = `inherit`;
   return el;
 };
