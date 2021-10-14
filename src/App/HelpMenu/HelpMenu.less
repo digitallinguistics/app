@@ -74,6 +74,10 @@
     cursor        : pointer;
     display       : flex;
     flex-direction: row;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
   }
 
   @media (max-width: @breakpoint) {
