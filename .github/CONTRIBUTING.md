@@ -429,7 +429,7 @@ In LESS, this can be written much more tersely:
 
 **Where to import component styles**
 
-* Global styles and and declarations that apply across the app are located in `index.less`.
+* Global styles and declarations that apply across the app are located in `index.less`.
 
 * Styling for the app shell is located in `App/App.less`.
 
