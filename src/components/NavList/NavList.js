@@ -30,7 +30,7 @@ export default class NavList extends List {
   }
 
   render(id) {
-    super.render();
+    super.render(); // calls this.loadStyles() internally
     this.el.classList.add(`nav-list`);
     if (id) this.setCurrentItem(id);
     this.addEventListeners();
