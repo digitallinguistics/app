@@ -32,12 +32,11 @@
     <fieldset class='note__editor js-note__editor'>
 
       <div class=note__input-group>
-        <label class=legend data-bind=for:textID>Note Text</label>
+        <label class='legend js-note__text-legend'>Note Text</label>
         <p class=help-text note__help-text>The text of the note.</p>
         <textarea
           autocomplete=off
           class='box-input js-note__text-input note__text-input'
-          data-bind=id:textID
           inputmode=text
           placeholder='Type your note here.'
           rows=4
@@ -45,12 +44,11 @@
       </div>
       
       <div class=note__input-group>
-        <label class=legend data-bind=for:sourceID>Source</label>
+        <label class='legend js-note__src-legend'>Source</label>
         <p class=help-text note__help-text>The source of this note (person, bibliographic item, etc.).</p>
         <input
           autocomplete=off
           class='box-input js-note__src-input note__src-input'
-          data-bind=id:sourceID
           inputmode=text
           placeholder='e.g. DWH'
           spellcheck=false
