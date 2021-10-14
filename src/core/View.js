@@ -47,19 +47,6 @@ export default class View {
   }
 
   /**
-   * Sets the attributes for any elements within the DOM tree for this view based on the value of the `data-bind` attribute. The value of the `data-bind` attribute should be `{attr}:{prop}`, where `attr` is the name of the attribute to set on the element, and `prop` is the property on the view that contains the value to use for that attribute. For example, if the view has a property `inputName: 'cid'`, using `data-bind=name:inputName` will set the `name` attribute of the element to `'cid'`. Multiple `data-bind` directives may be separated by semicolons.
-   */
-  hydrate() {
-    for (const el of this.el.querySelectorAll(`[data-bind]`)) {
-      const attributes = el.dataset.bind.split(/\s*;\s*/u).filter(Boolean);
-      for (const attribute of attributes) {
-        const [attr, prop] = attribute.split(/\s*:\s*/u);
-        if (typeof this[prop] !== `undefined`) el.setAttribute(attr, this[prop]);
-      }
-    }
-  }
-
-  /**
    * Loads the styles for this component as a `<style>` tag in the page header. Does not load the styles if the `<style>` tag for this component is already present on the page.
    */
   loadStyles() {
