@@ -1,8 +1,11 @@
 import compare from '../../../utilities/compare.js';
 import NavList from '../../../components/NavList/NavList.js';
+import styles  from './LanguagesNav.less';
 import View    from '../../../core/View.js';
 
 export default class LanguagesNav extends View {
+
+  styles = styles;
 
   template = document.getElementById(`languages-nav-template`);
 
@@ -13,6 +16,7 @@ export default class LanguagesNav extends View {
 
   render(languageCID) {
 
+    this.loadStyles();
     this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
     const listView = new NavList(this.languages, {

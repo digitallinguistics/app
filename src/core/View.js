@@ -13,7 +13,7 @@ export default class View {
    * @type {HTMLElement}
    */
   el;
-  
+
   /**
    * The event emitter for this view.
    * @type {EventEmitter}
@@ -27,13 +27,19 @@ export default class View {
   template;
 
   /**
-   * Attach event listeners to the element or its children. This method is typically called near the end of the {@link View#render} method. This method should be overwritten by view instances.
+   * The CSS styles this component (as a String).
+   * @type {String}
+   */
+  styles;
+
+  /**
+   * Attaches event listeners to the element or its children. This method is typically called near the end of the {@link View#render} method. This method should be overwritten by view instances.
    * @abstract
    */
   addEventListeners() { /* no-op */ }
 
   /**
-   * Clone the content of the `<template>` element referenced by the {@link View#template} property and returns it. This method should only be called if the value of the {@link View#template} property is a reference to an HTML `<template>` element.
+   * Clones the content of the `<template>` element referenced by the {@link View#template} property and returns it. This method should only be called if the value of the {@link View#template} property is a reference to an HTML `<template>` element.
    * @returns {HTMLElement}
    */
   cloneTemplate() {
@@ -41,7 +47,24 @@ export default class View {
   }
 
   /**
-   * Compile the DOM tree for this view, set the value of `this.el` to the element for this view, and return that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. Views should however attach event listeners to their elements by calling {@link View#addEventListeners}. This method should be overwritten by view instances.
+   * Loads the styles for this component as a `<style>` tag in the page header. Does not load the styles if the `<style>` tag for this component is already present on the page.
+   */
+  loadStyles() {
+
+    const id       = `${ this.constructor.name }-styles`;
+    let   styleTag = document.getElementById(id);
+
+    if (styleTag) return;
+
+    styleTag = document.createElement(`style`);
+    styleTag.setAttribute(`id`, id);
+    styleTag.innerHTML = this.styles;
+    document.head.appendChild(styleTag);
+
+  }
+
+  /**
+   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. Views should however attach event listeners to their elements by calling {@link View#addEventListeners}. They typically also call `loadStyles()` to load their CSS styles into the `<head>` tag. The `render()` method should be overwritten by view instances.
    * @abstract
    */
   render() { /* no-op */ }

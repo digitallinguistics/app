@@ -1,4 +1,5 @@
-import View from '../../core/View.js';
+import styles from './List.less';
+import View   from '../../core/View.js';
 
 /**
  * A class representing an view for a list of items
@@ -21,6 +22,11 @@ export default class List extends View {
   el;
 
   /**
+   * List styles.
+   */
+  styles = styles;
+
+  /**
    * Create a new List View
    * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
    * @param {Object}   [options={}]              An optional options hash
@@ -41,6 +47,8 @@ export default class List extends View {
   }
 
   render() {
+
+    this.loadStyles();
 
     this.el      = document.createElement(`ul`);
     this.el.view = this;

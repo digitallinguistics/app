@@ -1,6 +1,7 @@
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import LanguagesNav   from './LanguagesNav/LanguagesNav.js';
+import styles         from './Languages.less';
 import View           from '../../core/View.js';
 
 export default class LanguagesPage extends View {
@@ -10,6 +11,11 @@ export default class LanguagesPage extends View {
    * @type {Array}
    */
   languages;
+
+  /**
+   * The Languages page styles.
+   */
+  styles = styles;
 
   /**
    * Create a new Languages Page view.
@@ -28,7 +34,7 @@ export default class LanguagesPage extends View {
     this.languages.push(language);
     app.settings.language = language.cid;
     this.renderNav(language.cid);
-    this.renderEditor(language.cid);
+    return this.renderEditor(language.cid);
   }
 
   async deleteLanguage(languageCID) {
@@ -39,7 +45,7 @@ export default class LanguagesPage extends View {
     const i = this.languages.findIndex(lang => lang.cid === languageCID);
     this.languages.splice(i, 1);
     this.renderNav();
-    this.renderEditor();
+    return this.renderEditor();
   }
 
   /**
@@ -47,6 +53,7 @@ export default class LanguagesPage extends View {
    * @return {HTMLMainElement}
    */
   render(languageCID) {
+    this.loadStyles();
     this.template = document.getElementById(`languages-template`);
     this.el       = this.cloneTemplate();
     this.el.view  = this;
@@ -60,10 +67,10 @@ export default class LanguagesPage extends View {
    * @param {String} languageCID
    */
   renderEditor(languageCID) {
-    
+
     const language = this.languages.find(lang => lang.cid === languageCID);
     let newEditor;
-    
+
     if (language) {
 
       // render full editor
@@ -72,9 +79,9 @@ export default class LanguagesPage extends View {
       editorView.events.on(`delete`, this.deleteLanguage.bind(this));
       editorView.events.on(`update:name`, this.renderNav.bind(this));
       newEditor = editorView.render();
-    
+
     } else {
-    
+
       // render placeholder editor
       app.settings.language = null;
       const template = document.getElementById(`language-editor-template`);
@@ -82,13 +89,15 @@ export default class LanguagesPage extends View {
       newEditor.classList.add(`placeholder`);
       newEditor.querySelector(`.js-language-editor__add-language-button`)
       .addEventListener(`click`, this.addLanguage.bind(this));
-    
+
     }
 
-    const oldEditor  = this.el.querySelector(`.language-editor`);
+    const oldEditor = this.el.querySelector(`.language-editor`);
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
+
+    return newEditor;
 
   }
 

@@ -1,5 +1,5 @@
 import Database  from '../services/Database.js';
-import Mousetrap from '../../node_modules/mousetrap/mousetrap.min.js';
+import Mousetrap from 'mousetrap';
 import Nav       from './Nav/Nav.js';
 import Settings  from '../services/Settings.js';
 import View      from '../core/View.js';

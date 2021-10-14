@@ -1,4 +1,4 @@
-import './Legend.css';
+import '../../../dist/components/Legend/Legend.css';
 
 export default {
   title: `Components/Legend`,

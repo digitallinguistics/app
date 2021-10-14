@@ -1,5 +1,3 @@
-import './Banner.css';
-
 export default {
   parameters: { layout: `fullscreen` },
   title:      `App/Banner`,

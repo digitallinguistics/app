@@ -1,4 +1,4 @@
-import './Abbreviation.css';
+import '../../../dist/components/Abbreviation/Abbreviation.css';
 
 export default {
   title: `Components/Abbreviation`,

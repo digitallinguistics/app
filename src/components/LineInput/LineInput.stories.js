@@ -1,4 +1,4 @@
-import './LineInput.css';
+import '../../../dist/components/LineInput/LineInput.css';
 
 export default {
   title: `Components/Line Input`,

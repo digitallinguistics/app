@@ -17,7 +17,7 @@ import {
   basename as getBasename,
   dirname  as getDirname,
   join     as joinPath,
-}                    from 'path';
+} from 'path';
 
 const currentDir = getDirname(fileURLToPath(import.meta.url));
 const srcDir     = joinPath(currentDir, `../src`);

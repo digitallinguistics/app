@@ -1,5 +1,3 @@
-import './Skip-Link.css';
-
 export default {
   parameters: { layout: `fullscreen` },
   title:      `App/Skip Link`,

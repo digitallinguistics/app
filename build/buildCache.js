@@ -27,7 +27,7 @@ const disallowList = [
 export default async function buildCache() {
 
   const assets          = [];
-  const distFilesStream = await recurse(distDir);
+  const distFilesStream = await recurse(distDir, { fileFilter: `!*.css` });
 
   for await (const entry of distFilesStream) {
 

@@ -1,7 +1,10 @@
 import NotesList from '../../../components/NotesList/NotesList.js';
+import styles    from './AdditionalName.less';
 import View      from '../../../core/View.js';
 
 export default class AdditionalName extends View {
+
+  styles = styles;
 
   template = document.getElementById(`additional-name-template`);
 
@@ -9,7 +12,7 @@ export default class AdditionalName extends View {
 
     super();
 
-    this.additionalName            = additionalName; 
+    this.additionalName            = additionalName;
     this.additionalName.name     ??= ``;
     this.additionalName.language ||= `English`;
     this.index                     = index;
@@ -58,6 +61,8 @@ export default class AdditionalName extends View {
 
   render() {
 
+    this.loadStyles();
+
     this.el            = this.cloneTemplate();
     this.el.view       = this;
     this.el.dataset.id = this.index;
@@ -78,7 +83,7 @@ export default class AdditionalName extends View {
     this.updatePreview(this.additionalName.name, this.additionalName.language);
     this.addEventListeners();
     this.renderNotes();
-    
+
     return this.el;
 
   }
@@ -96,7 +101,7 @@ export default class AdditionalName extends View {
     this.additionalName.name     = this.nameInput.value;
     this.additionalName.language = this.langInput.value || `English`;
   }
-  
+
   showEditor() {
     this.editor.hidden     = false;
     this.editButton.hidden = true;
