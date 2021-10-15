@@ -41,9 +41,10 @@
           inputmode=text
           placeholder='Type your note here.'
           rows=4
+          autocapitalize=sentences
         ></textarea>
       </div>
-      
+
       <div class=note__input-group>
         <label class=legend data-bind=for:sourceID>Source</label>
         <p class=help-text note__help-text>The source of this note (person, bibliographic item, etc.).</p>
@@ -55,16 +56,17 @@
           placeholder='e.g. DWH'
           spellcheck=false
           type=text
+          autocapitalize=off
         >
       </div>
-      
+
       <div class='note__buttons note__editor-buttons'>
         <button class='button js-note__cancel-button' type=button>Cancel</button>
         <button class='blue button js-note__save-button note__save-button' type=button>Save</button>
       </div>
-    
+
     </fieldset>
-  
+
   </div>
 
 </article>
