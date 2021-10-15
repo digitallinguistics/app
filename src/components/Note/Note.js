@@ -39,10 +39,9 @@ export default class NoteView extends View {
 
     // TEMP
 
-    const templateString = template();
-    const templateNode   = document.createElement(`template`);
+    const templateNode = document.createElement(`template`);
 
-    templateNode.innerHTML = templateString;
+    templateNode.innerHTML = template;
     this.template          = templateNode;
 
     // END TEMP
