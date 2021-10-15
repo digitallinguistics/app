@@ -1,5 +1,6 @@
-import styles from './Note.less';
-import View   from '../../core/View.js';
+import styles   from './Note.less';
+import template from './Note.hbs';
+import View     from '../../core/View.js';
 
 export default class NoteView extends View {
 
@@ -35,6 +36,16 @@ export default class NoteView extends View {
   render() {
 
     this.loadStyles();
+
+    // TEMP
+
+    const templateString = template();
+    const templateNode   = document.createElement(`template`);
+
+    templateNode.innerHTML = templateString;
+    this.template          = templateNode;
+
+    // END TEMP
 
     this.el        = this.cloneTemplate();
     this.el.view   = this;
