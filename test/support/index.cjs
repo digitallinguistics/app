@@ -14,7 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands.js';
+
+require(`./commands.cjs`);
 
 Cypress.on(`window:before:load`, win => {
   win.indexedDB.deleteDatabase(`Lotus`);
