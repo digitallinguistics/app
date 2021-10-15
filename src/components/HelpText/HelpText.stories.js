@@ -1,4 +1,4 @@
-import './HelpText.css';
+import '../../../dist/components/HelpText/HelpText.css';
 
 export default {
   title: `Components/Help Text`,

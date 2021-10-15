@@ -1,5 +1,4 @@
-import './AdditionalName.css';
-import html2element from '../../../utilities/html2element';
+import html2element from '../../../utilities/html2element.js';
 import Name         from './AdditionalName.js';
 
 export default {
@@ -16,7 +15,7 @@ export const AdditionalName = () => {
   }, 1);
 
   const el = nameView.render();
-  
+
   ul.appendChild(el);
   return ul;
 

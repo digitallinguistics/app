@@ -3,10 +3,13 @@ import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import styles                from './LanguageEditor.less';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
+
+  styles = styles;
 
   constructor(language) {
     super();
@@ -63,7 +66,7 @@ export default class LanguageEditor extends View {
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
       await this.save();
-      this.renderAdditionalNames();
+      return this.renderAdditionalNames();
     }
 
     if (target.classList.contains(`js-additional-name__delete-button`)) {
@@ -82,6 +85,8 @@ export default class LanguageEditor extends View {
   // Rendering Methods
 
   render() {
+
+    this.loadStyles();
 
     this.template            = document.getElementById(`language-editor-template`);
     this.el                  = this.cloneTemplate();
@@ -153,7 +158,7 @@ export default class LanguageEditor extends View {
 
     this.el.querySelector(`.js-language-editor__date-created`).textContent  = dateCreated;
     this.el.querySelector(`.js-language-editor__date-modified`).textContent = dateModified;
-    
+
   }
 
   renderName() {
@@ -248,7 +253,7 @@ export default class LanguageEditor extends View {
   async deleteName(i) {
     this.language.additionalNames.splice(i, 1);
     await this.save();
-    this.renderAdditionalNames();
+    return this.renderAdditionalNames();
   }
 
 }

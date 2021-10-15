@@ -1,4 +1,3 @@
-import './LanguageEditor.css';
 import Editor    from './LanguageEditor.js';
 import Language  from '../../../models/Language.js';
 import languages from '../../../../test/fixtures/languages.json';

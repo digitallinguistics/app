@@ -5,7 +5,7 @@
   "fixturesFolder"   : "test/fixtures",
   "integrationFolder": "src",
   "nodeVersion"      : "system",
-  "pluginsFile"      : false,
+  "pluginsFile"      : "test/plugins/index.cjs",
   "screenshotsFolder": "test/screenshots",
   "supportFile"      : "test/support/index.js",
   "testFiles"        : "**/*.e2e.js",

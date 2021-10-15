@@ -1,9 +1,7 @@
-import '../src/index.css';
 import './storybook.css';
 import App from '../src/App/App.js';
 
 window.app = new App;
-
 window.app.initialize();
 
 export const parameters = {
@@ -14,6 +12,7 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  layout: `centered`,
   options: {
     storySort: {
       includeName: true,

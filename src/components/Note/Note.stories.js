@@ -1,4 +1,3 @@
-import './Note.css';
 import Note     from '../../models/Note.js';
 import NoteView from './Note.js';
 

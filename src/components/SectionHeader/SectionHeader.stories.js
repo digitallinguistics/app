@@ -1,4 +1,4 @@
-import './SectionHeader.css';
+import '../../../dist/components/SectionHeader/SectionHeader.css';
 
 export default {
   title: `Components/Section Header`,

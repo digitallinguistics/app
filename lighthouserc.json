@@ -11,6 +11,8 @@
         "splash-screen"                    : "off",
         "themed-omnibox"                   : "off",
         "unminified-javascript"            : "off",
+        "unused-javascript"                : "off",
+        "uses-long-cache-ttl"              : "off",
         "uses-text-compression"            : "off"
       }
     },

@@ -1,9 +1,12 @@
-import List from '../List/List.js';
+import List   from '../List/List.js';
+import styles from './NavList.less';
 
 /**
  * A class that extends the basic List view with a current item indicator.
  */
 export default class NavList extends List {
+
+  styles = styles;
 
   constructor(data, options) {
     super(data, options);
@@ -27,8 +30,7 @@ export default class NavList extends List {
   }
 
   render(id) {
-    super.render();
-    this.el.classList.add(`list`);
+    super.render(); // calls this.loadStyles() internally
     this.el.classList.add(`nav-list`);
     if (id) this.setCurrentItem(id);
     this.addEventListeners();

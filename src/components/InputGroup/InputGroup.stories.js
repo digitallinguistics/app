@@ -1,4 +1,4 @@
-import './InputGroup.css';
+import '../../../dist/components/InputGroup/InputGroup.css';
 
 export default {
   title: `Components/Input Group`,
