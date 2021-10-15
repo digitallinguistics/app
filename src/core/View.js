@@ -33,17 +33,31 @@ export default class View {
   styles;
 
   /**
+   * Create a new View.
+   * @param {Object} [options={}]          An options Object.
+   * @param {String} [options.styles=``]   CSS styles for this view.
+   * @param {String} [options.template=``] The HTML template for this view.
+   */
+  constructor({ styles = ``, template = `` } = {}) {
+    this.styles             = styles;
+    this.template           = document.createElement(`template`);
+    this.template.innerHTML = template;
+  }
+
+  /**
    * Attaches event listeners to the element or its children. This method is typically called near the end of the {@link View#render} method. This method should be overwritten by view instances.
    * @abstract
    */
   addEventListeners() { /* no-op */ }
 
   /**
-   * Clones the content of the `<template>` element referenced by the {@link View#template} property and returns it. This method should only be called if the value of the {@link View#template} property is a reference to an HTML `<template>` element.
+   * Clones the content of the `<template>` element referenced by the {@link View#template} property and sets it to `this.el`, as well as returns it. This method should only be called if the value of the {@link View#template} property is a reference to an HTML `<template>` element.
    * @returns {HTMLElement}
    */
   cloneTemplate() {
-    return this.template.content.cloneNode(true).firstElementChild;
+    this.el = this.template.content.cloneNode(true).firstElementChild;
+    this.el.view = this;
+    return this.el;
   }
 
   /**

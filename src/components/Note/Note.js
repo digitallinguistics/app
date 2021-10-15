@@ -4,12 +4,8 @@ import View     from '../../core/View.js';
 
 export default class NoteView extends View {
 
-  styles = styles;
-
-  template = document.getElementById(`note-template`);
-
   constructor(note, index) {
-    super();
+    super({ styles, template });
     this.note     = note;
     this.sourceID = `note-source-${ index }`;
     this.textID   = `note-text-${ index }`;
@@ -36,18 +32,8 @@ export default class NoteView extends View {
   render() {
 
     this.loadStyles();
+    this.cloneTemplate();
 
-    // TEMP
-
-    const templateNode = document.createElement(`template`);
-
-    templateNode.innerHTML = template;
-    this.template          = templateNode;
-
-    // END TEMP
-
-    this.el        = this.cloneTemplate();
-    this.el.view   = this;
     this.textInput = this.el.querySelector(`.js-note__text-input`);
     this.srcInput  = this.el.querySelector(`.js-note__src-input`);
 

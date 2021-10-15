@@ -1,5 +1,6 @@
-import styles  from './Home.less';
-import View from '../../core/View.js';
+import styles   from './Home.less';
+import template from './Home.hbs';
+import View     from '../../core/View.js';
 
 export default class HomePage extends View {
 
@@ -9,10 +10,11 @@ export default class HomePage extends View {
   styles = styles;
 
   /**
-   * A reference to the Home page `<template>` tag.
-   * @type {HTMLTemplateElement}
+   * Create a new Home page.
    */
-  template;
+  constructor() {
+    super({ styles, template });
+  }
 
   /**
    * Render the Home Page.
@@ -20,9 +22,7 @@ export default class HomePage extends View {
    */
   render() {
     this.loadStyles();
-    this.template = document.getElementById(`home-template`);
-    this.el       = this.cloneTemplate();
-    this.el.view  = this;
+    this.cloneTemplate();
     if (window.installEvent) this.showInstallPrompt();
     return this.el;
   }

@@ -4,15 +4,14 @@ import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import styles                from './LanguageEditor.less';
+import template              from './LanguageEditor.hbs';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
-  styles = styles;
-
   constructor(language) {
-    super();
+    super({ styles, template });
     this.language     = language;
     this.abbreviation = this.language.abbreviation;
   }
@@ -87,10 +86,8 @@ export default class LanguageEditor extends View {
   render() {
 
     this.loadStyles();
+    this.cloneTemplate();
 
-    this.template            = document.getElementById(`language-editor-template`);
-    this.el                  = this.cloneTemplate();
-    this.el.view             = this;
     this.el.dataset.language = this.language.cid;
 
     this.renderName();
