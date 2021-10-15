@@ -1,15 +1,6 @@
-import CleanCSS from 'clean-css';
-import less     from 'less';
-
-const lessOptions = {
-  paths: [
-    `src`,
-    `src/App`,
-    `src/components`,
-    `src/pages`,
-    `src/styles`,
-  ],
-};
+import CleanCSS    from 'clean-css';
+import less        from 'less';
+import lessOptions from './lessOptions.cjs';
 
 const minifier = new CleanCSS;
 

@@ -1,4 +1,3 @@
-import './LanguagesNav.css';
 import Language  from '../../../models/Language.js';
 import languages from '../../../../test/fixtures/languages.json';
 import Nav       from './LanguagesNav.js';

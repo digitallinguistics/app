@@ -1,4 +1,3 @@
-import './List.css';
 import ListView from './List.js';
 
 export default {

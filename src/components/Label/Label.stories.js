@@ -1,4 +1,4 @@
-import './Label.css';
+import '../../../dist/components/Label/Label.css';
 
 export default {
   title: `Components/Label`,
