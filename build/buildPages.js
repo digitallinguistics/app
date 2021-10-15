@@ -25,16 +25,10 @@ const distDir    = joinPath(currentDir, `../dist`);
 const pagesDir   = joinPath(srcDir, `pages`);
 
 /**
- * Builds the HTML and CSS for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp). The CSS is inserted in a `<style>` tag just inside the opening `<main>` tag.
+ * Builds the HTML for a single page, given an file entry returned [readdirp](https://www.npmjs.com/package/readdirp). The CSS is inserted in a `<style>` tag just inside the opening `<main>` tag.
  * @param {String} page
  */
 async function buildPageContent(page) {
-
-  const lessPath = joinPath(pagesDir, page, `${ page }.less`);
-  const less     = await readFile(lessPath, `utf8`);
-  const css      = await convertLESS(less);
-
-  hbs.registerPartial(`${ page.toLowerCase() }-css`, `<style>${ css }</style>`);
 
   const templates = await recurse(joinPath(pagesDir, page), { fileFilter: `*.hbs` });
 
@@ -77,7 +71,7 @@ export default async function buildPages() {
 
   await writeFile(joinPath(distDir, `index.html`), appHTML, `utf8`);
 
-  // build the HTML + CSS for individual pages
+  // build the HTML for individual pages
   const pages = await readDir(pagesDir);
 
   for (const page of pages) {
