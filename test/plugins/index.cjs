@@ -2,7 +2,7 @@ const { build }         = require(`esbuild`);
 const esbuildPluginLESS = require(`../../build/esbuildPluginLESS.cjs`);
 
 module.exports = (on, config) => {
-  on(`file:preprocessor`, async ({ filePath, outputPath, shouldWatch }) => {
+  on(`file:preprocessor`, async ({ filePath, outputPath }) => {
 
     await build({
       bundle:      true,
