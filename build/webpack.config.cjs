@@ -1,11 +1,15 @@
-const lessOptions = require(`./lessOptions.cjs`);
+const { join:joinPath } = require(`path`);
+const lessOptions       = require(`./lessOptions.cjs`);
 
 module.exports = {
   module: {
     rules: [
       {
-        loader: `handlebars-loader`,
         test:   /\.hbs$/u,
+        use:  [
+          `html-loader`,
+          joinPath(__dirname, `./handlebarsLoader.cjs`),
+        ],
       },
       {
         test: /\.less$/u,
