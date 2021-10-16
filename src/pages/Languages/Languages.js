@@ -78,11 +78,9 @@ export default class LanguagesPage extends View {
 
       // render placeholder editor
       app.settings.language = null;
-      const template = document.getElementById(`language-editor-template`);
-      newEditor = template.content.cloneNode(true).firstElementChild;
-      newEditor.classList.add(`placeholder`);
-      newEditor.querySelector(`.js-language-editor__add-language-button`)
-      .addEventListener(`click`, this.addLanguage.bind(this));
+      const editorView = new LanguageEditor;
+      editorView.events.on(`add`, this.addLanguage.bind(this));
+      newEditor = editorView.render();
 
     }
 

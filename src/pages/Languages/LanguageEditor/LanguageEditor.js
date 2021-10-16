@@ -14,8 +14,7 @@ export default class LanguageEditor extends View {
 
   constructor(language) {
     super({ styles, template });
-    this.language     = language;
-    this.abbreviation = this.language.abbreviation;
+    this.language = language;
   }
 
   addEventListeners() {
@@ -70,6 +69,12 @@ export default class LanguageEditor extends View {
 
     this.loadStyles();
     this.cloneTemplate();
+
+    if (!this.language) {
+      this.el.classList.add(`placeholder`);
+      this.addEventListeners();
+      return this.el;
+    }
 
     this.el.dataset.language = this.language.cid;
 
@@ -160,6 +165,7 @@ export default class LanguageEditor extends View {
   }
 
   renderSimpleFields() {
+
     const abbreviation = this.el.querySelector(`#language-editor__abbreviation-input`);
     abbreviation.value = this.language.abbreviation ?? ``;
     abbreviation.addEventListener(`input`, debounce(() => this.updateProperty(abbreviation), this.delay));
