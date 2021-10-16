@@ -1,13 +1,12 @@
-import Database from '../../src/services/Database.js';
-
 /**
  * Sets up an object store prior to a test
  * @param  {String} storeName  The name of the object store to set up
  * @param  {Array}  [items=[]] An array of items to add to the store
  * @return {Promise<Array>}
  */
-export default async function setupStore(storeName, items = []) {
+module.exports = async function setupStore(storeName, items = []) {
 
+  const { default: Database } = await import(`../../src/services/Database.js`);
   const db = new Database;
   await db.initialize();
 
@@ -18,7 +17,7 @@ export default async function setupStore(storeName, items = []) {
     const store   = txn.objectStore(storeName);
 
     txn.oncomplete = () => resolve(items);
-    txn.onerror    = () => reject();
+    txn.onerror    = e => reject(e);
 
     store.clear();
 
@@ -28,4 +27,4 @@ export default async function setupStore(storeName, items = []) {
 
   });
 
-}
+};

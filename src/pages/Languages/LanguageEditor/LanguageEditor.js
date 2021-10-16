@@ -10,6 +10,8 @@ import View                  from '../../../core/View.js';
 
 export default class LanguageEditor extends View {
 
+  delay = 500;
+
   constructor(language) {
     super({ styles, template });
     this.language     = language;
@@ -17,11 +19,6 @@ export default class LanguageEditor extends View {
   }
 
   addEventListeners() {
-
-    const delay = 500;
-
-    this.el.addEventListener(`change`, debounce(this.handleFormUpdate.bind(this), delay));
-    this.el.addEventListener(`input`, debounce(this.handleFormUpdate.bind(this), delay));
 
     this.el.querySelector(`.js-language-editor__add-language-button`)
     .addEventListener(`click`, () => this.events.emit(`add`));
@@ -40,20 +37,6 @@ export default class LanguageEditor extends View {
   }
 
   // Handlers
-
-  handleFormUpdate(ev) {
-
-    ev.preventDefault(); // prevent form from submitting data to the server
-
-    const { name, value } = ev.target;
-    const isAutonymUpdate = name.startsWith(`autonym`);
-    const isNameUpdate    = name.startsWith(`name`);
-
-    if (isAutonymUpdate) return this.updateAutonym(name, value);
-    if (isNameUpdate) return this.updateName(name, value);
-    return this.updateProperty(name, value);
-
-  }
 
   async handleNamesUpdate({ target }) {
 
@@ -141,6 +124,8 @@ export default class LanguageEditor extends View {
 
     autonymField.appendChild(txnEditor.render());
 
+    autonymField.addEventListener(`input`, debounce(this.updateAutonym.bind(this), this.delay));
+
   }
 
   renderMetadata() {
@@ -170,12 +155,23 @@ export default class LanguageEditor extends View {
 
     nameField.appendChild(mlsEditor.render());
 
+    nameField.addEventListener(`input`, debounce(this.updateName.bind(this), this.delay));
+
   }
 
   renderSimpleFields() {
-    this.el.querySelector(`#language-editor__abbreviation-input`).value = this.language.abbreviation ?? ``;
-    this.el.querySelector(`#language-editor__iso-input`).value          = this.language.iso ?? ``;
-    this.el.querySelector(`#language-editor__glottocode-input`).value   = this.language.glottocode ?? ``;
+    const abbreviation = this.el.querySelector(`#language-editor__abbreviation-input`);
+    abbreviation.value = this.language.abbreviation ?? ``;
+    abbreviation.addEventListener(`input`, debounce(() => this.updateProperty(abbreviation), this.delay));
+
+    const iso = this.el.querySelector(`#language-editor__iso-input`);
+    iso.value = this.language.iso ?? ``;
+    iso.addEventListener(`input`, debounce(() => this.updateProperty(iso), this.delay));
+
+    const glottocode = this.el.querySelector(`#language-editor__glottocode-input`);
+    glottocode.value   = this.language.glottocode ?? ``;
+    glottocode.addEventListener(`input`, debounce(() => this.updateProperty(glottocode), this.delay));
+
   }
 
   // Update Methods
@@ -199,13 +195,16 @@ export default class LanguageEditor extends View {
 
   }
 
-  updateAutonym(name, value) {
+  updateAutonym(ev) {
+    const { name, value } = ev.target;
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
     this.language.autonym.set(abbr, value);
     return this.save();
   }
 
-  async updateName(name, value) {
+  async updateName(ev) {
+
+    const { name, value } = ev.target;
 
     const nameInputs  = Array.from(this.el.querySelectorAll(`input[name|="name"]`));
     const filledInput = nameInputs.find(input => input.value.trim().length);
@@ -224,7 +223,11 @@ export default class LanguageEditor extends View {
 
   }
 
-  updateProperty(name, value) {
+  updateProperty(input) {
+    const { name, value } = input;
+    const isValid = input.checkValidity();
+    input.reportValidity();
+    if (!isValid) return;
     this.language[name] = value;
     return this.save();
   }
