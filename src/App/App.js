@@ -32,8 +32,7 @@ class App extends View {
    * @prop {HTMLElement} templates - a `<div>` containing page templates
    */
   #nodes = {
-    info:      document.getElementById(`info`),
-    templates: document.getElementById(`templates`),
+    info: document.getElementById(`info`),
   }
 
   /**
@@ -78,20 +77,8 @@ class App extends View {
    * @param {String} page the page to load: `Home`, `Languages`, etc.
    */
   async #loadPage(page) {
-
-    // load page view
     const { default: PageView } = await import(`../pages/${ page }/${ page }.js`);
     this.#pages.set(page, PageView);
-
-    // load HTML
-    const response = await fetch(`../pages/${ page }/${ page }.html`);
-    const html     = await response.text();
-    const div      = document.createElement(`div`);
-
-    div.setAttribute(`id`, `${ page.toLowerCase() }-page-templates`);
-    div.innerHTML = html;
-    this.#nodes.templates.appendChild(div);
-
   }
 
   /**
