@@ -182,7 +182,7 @@ export default App;
 // JSDoc Virtual Comments
 
 /**
- * The custom JavaScript framework used by the Lotus app.
+ * The custom vanilla JavaScript framework used by the Lotus app.
  * @namespace Core
  */
 

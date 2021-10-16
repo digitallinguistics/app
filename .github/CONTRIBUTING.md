@@ -222,7 +222,7 @@ The `src/` folder contains the following:
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell. |
 | `components/`       | Components that are shared across pages (but not part of the app shell).                                                                            |
-| `core/`             | High-level JavaScript modules whose functionality is shared across components. These files are essentially a custom JavaScript framework.           |
+| `core/`             | The app's JavaScript framework (a custom framework written in vanilla JavaScript).                                                                  |
 | `fonts/`            | Font files.                                                                                                                                         |
 | `images/`           | Images and icons used in the app.                                                                                                                   |
 | `models/`           | Data models (e.g. Language, Text, etc.).                                                                                                            |
