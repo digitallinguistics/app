@@ -47,6 +47,8 @@
 
     // display Note when edit button is clicked
     .editing {
+      // The !important declaration here is necessary to override the higher specificity of
+      // the .note { display: none; } below.
       display           : block !important;
       inline-size       : 95%;
       inset-block-end   : var(--space-xs);

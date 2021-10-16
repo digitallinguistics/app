@@ -57,6 +57,8 @@
     }
 
     &::after {
+      // The !important declaration here is necessary to override the very high specificity
+      // of the external link selector within the .link class.
       position: relative !important;
     }
 
