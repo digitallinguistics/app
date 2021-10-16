@@ -5,7 +5,7 @@ import html2element from '../utilities/html2element.js';
  * A base class for Views. Most components should extend the View class. The View class itself does not have much functionality. Instead it documents conventions for how Views should operate. Views in the Lotus app also function as Controllers.
  * @memberof Core
  */
-export default class View {
+class View {
 
   /**
    * A reference to the HTML element for this view.
@@ -91,3 +91,5 @@ export default class View {
   static fromHTML = html2element;
 
 }
+
+export default View;

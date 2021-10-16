@@ -173,31 +173,6 @@ To use Storybook:
 
 The [Storybook documentation][Storybook] explains how to write stories for components.
 
-If a story relies on a template, you will need to include that template in `.storybook/preview-body.hbs`, like so:
-
-```hbs
-<!-- .storybook/preview-body.hbs -->
-
-<template id=help-menu-template>
-  {{> HelpMenu }}
-</template>
-
-<template id=language-editor-template>
-  {{> LanguageEditor }}
-</template>
-
-<!-- etc. -->
-```
-
-You can then use that template in your story in a similar way to the following:
-
-```js
-export const HelpMenu = () => {
-  const template = document.getElementById(`help-menu-template`);
-  return template.content.cloneNode(true).firstElementChild;
-};
-```
-
 ## Organization
 
 This section explains the organization of the project and the app code.
@@ -239,11 +214,23 @@ The `src/` folder contains the following:
 
 The Lotus app follows a typical [app shell model][app-shell-model]. A lightweight HTML + CSS + JS skeleton with minimal content is delivered to the browser, and everything else is then loaded dynamically or lazy-loaded. Think of the app shell as your development environment—it makes certain global features and variables available for you to work with, such as predefined HTML regions, global CSS variables, and a global `app` object with methods for updating settings, accessing the database, etc. etc.
 
-- **HTML:** Each section of the app's HTML shell is documented with inline comments in `src/index.hbs`.
+- **HTML:** Each section of the app's HTML shell is documented with inline comments in `src/index.hbs`. However, the areas where content can be rendered are as follows:
+
+  ```html
+  <body id=app>
+    <header id=banner><!-- Main banner at top of page, with a few app-level controls and menus. Sticky positioning. -->
+    <div id=wrapper><!-- Wrapper for laying out the main app sections. -->
+      <nav id=nav><!-- Main navigation for the app. Collapsible. -->
+      <main id=main><!-- Where main page content is rendered. -->
+      <aside id=sidebar><!-- Sidebar for ancillary page components. Collapsible. NOTE: Not yet implemented. -->
+    </div>
+    <footer id=footer><!-- Status / information bar. Sticky positioning. NOTE: Not yet implemented. -->
+  </body>
+  ```
 
 - **CSS / LESS:** Global styles and utilities are located in `src/styles/`. Styling for the app shell is located in `src/App/App.less`. Styles for individual components are located alongside their components, in `{ComponentName}.less`.
 
-- **JavaScript:** Many single-page apps use a JavaScript framework such as Vue or React. The Lotus app uses its own simple, vanilla JavaScript framework instead, consisting of base `View` and `Model` classes, among others. In addition, all modules have access to the global `app` object.
+- **JavaScript:** Many single-page apps use a JavaScript framework such as Vue or React. The Lotus app uses its own simple, vanilla JavaScript framework instead, consisting of base `View`, `Model`, and `EventEmitter` classes, among others. In addition, all modules have access to the global `app` object.
 
   The documentation for the app's JavaScript framework is available at https://developer.digitallinguistics.io/app. It shows all the methods available on the global `App` object, as well as documents how to use other shared modules such as the `View` and `EventEmitter` classes.
 
@@ -292,7 +279,28 @@ This section provides guidelines for writing components.
 
 The HTML for each component is written in [Handlebars], an HTML templating language. This allows you to embed components within components using `{{> ComponentName }}`.
 
-The compiled HTML for each component is also injected into the page inside a `<template id={component-name}-template>` tag, which allows the JavaScript controller to copy and reuse that template as many times as needed. [See the MDN documentation on using `<template>` tags][templates].
+You can import Handlebars templates directly into your component's Javascript, and use the View to clone the template using the `cloneTemplate()` method. This method clones the template and sets it to the View's `el` property.
+
+```js
+import styles   from './View.less';
+import template from './View.hbs';
+
+class List extends View {
+
+  constructor() {
+    super({ styles, template });
+  }
+
+  render() {
+    this.loadStyles();
+    this.cloneTemplate(); // sets this.el
+    /* other rendering code */
+    this.addEventListeners();
+    return this.el;
+  }
+
+}
+```
 
 #### CSS / LESS
 
@@ -433,20 +441,24 @@ In LESS, this can be written much more tersely:
 
 * Styling for the app shell is located in `App/App.less`.
 
-* Styles for individual JavaScript components should be imported by their component, and then added to the page with the View's `loadStyles()` method. For example, the Home page component imports and loads its styles like so:
+* Styles for individual JavaScript components should be imported by their component, and then added to the page with the View's `loadStyles()` method, which adds a `<style>` tag to the page's `<head>` containing that component's styles.
 
   ```js
-  import styles from './Home.less';
+  import styles   from './View.less';
+  import template from './View.hbs';
 
-  export default class HomePage extends View {
+  class List extends View {
 
-    styles = styles;
-
-    // other code for the HomePage class
+    constructor() {
+      super({ styles, template });
+    }
 
     render() {
       this.loadStyles();
-      // other rendering code
+      this.cloneTemplate();
+      /* other rendering code */
+      this.addEventListeners();
+      return this.el;
     }
 
   }
@@ -470,19 +482,26 @@ export default class List extends View { /* ... */ }
 
 The `View` class has some utilities for controllers, and documents the conventions that should be followed by view instances. *Be sure to read the source code comments in `src/core/View.js`.*
 
-Each view should have a `render()` method which compiles the DOM element for that component. The `render()` method should return a single DOM element. Components for entire pages must always return a `<main id=main class=main data-page={PageName}>` element.
+Each view should have a `render()` method which creates the DOM element for that component. The `render()` method should do several things:
 
-*Components should never insert themselves into the DOM.* This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguagesNav component. Each component is responsible for loading its immediate subcomponents.
+1. Load its styles (using `View.prototype.loadStyles()`).
+2. Create an element from its template, if needed (using `View.prototype.cloneTemplate()`).
+3. Attach event listeners (by adding an `addEventListeners()` method).
+4. Return the new HTML element for the View.
 
-Controllers *should* add their own event listeners. This is usually done at the end of the `render()` method.
+##### Notes
 
-Controllers *should* add their own CSS to the page. See [Writing Components > CSS / LESS](#css--less) above for details.
+- Components for entire pages must always return a `<main id=main class=main data-page={PageName}>` element.
 
-Sometimes components will need to listen for events on other components. For example, clicking a button in one component might cause another component to update. To alert other components of an event, use `{view}.events.emit('{event name}', data)`. To subscribe to events on another component, use `{view}.events.on('{event name}', callbackFunction)`. When an event is emitted, the data for that event is passed to the callback function. Event listeners can be synchronous or asynchronous. See the source code for the `EventEmitter` class in `src/core/EventEmitter.js` for more details.
+- *Components should never insert themselves into the DOM.* This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguagesNav component. Each component is responsible for loading its immediate subcomponents.
 
-Views should only listen for events on their children / subcomponents.
+- Controllers *should* add their own event listeners. This is usually done at the end of the `render()` method.
 
-Be sure to document your JavaScript code using [JSDoc][JSDoc] code comments.
+- Controllers *should* add their own CSS to the page. See [Writing Components > CSS / LESS](#css--less) above for details.
+
+- Be sure to document your JavaScript code using [JSDoc][JSDoc] code comments.
+
+Sometimes components will need to listen for events on other components. For example, clicking a button in one component might cause another component to update. To alert other components of an event, use `{view}.events.emit('{event name}', data)`. To subscribe to events on another component, use `{view}.events.on('{event name}', callbackFunction)`. When an event is emitted, the data for that event is passed to the callback function. Event listeners can be synchronous or asynchronous. See the source code for the `EventEmitter` class in `src/core/EventEmitter.js` for more details. Views should only listen for events on their children / subcomponents.
 
 ## Keyboard Shortcuts
 
@@ -537,7 +556,7 @@ You can run the various types of tests with the following commands:
 | performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
 | performance | —                 | programmatic | `test:perf`                       |
 
-Alternatively, you can open both Storybook + Cypress manually, which is sometimes easier for development. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively.
+You can also open Storybook + Cypress individually. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively. However, it is typically easier to just run one of the commands in the table above.
 
 ### Writing Tests
 
@@ -650,20 +669,21 @@ To write an E2E test, first visit the app page using `cy.visit('/')`, and then u
 
 ## Build Process
 
-Running `npm run build` triggers a number of build steps. Each of these steps can also be run individually with the following commands. Build scripts are all located in `build/`.
+You can build the app, its tests, and all its documentation with `npm run build`. (Remember that you can also use [nodemon] to automatically rerun this command when files change.)
+
+Running `npm run build` triggers a number of build steps. Many of these steps can also be run individually with the following commands. Build scripts are all located in `build/`.
 
 - `npm run build:cache`: builds a list of assets to cache offline
 - `npm run build:copy`: copies static assets to `dist/`
 - `npm run build:docs`: builds the developer documentation
 - `npm run build:js`: builds transpiled JS files
-- `npm run build:page`: builds the HTML + CSS for the app skeleton and individual pages
 - `npm run build:stories`: builds assets required by Storybook
 
 You can skip building the docs and Storybook stories by running `npm run quick-build`.
 
 ### Offline Functionality
 
-The Lotus app is designed to be an offline web app. As such, all assets required to run the app must be available offline. This functionality is achieved via the `src/offline-worker.js` file. This file caches all the required assets for the app. It uses the file `dist/cache.json` to determine which files need to be cached. `cache.json` is generated during the build process (by `buildCache.js`) by creating a list of all files present in the `dist/` folder (except for `offline-worker.js` itself).
+The Lotus app is designed to be an offline web app. As such, all assets required to run the app must be available offline. This functionality is achieved via the `src/offline-worker.js` file. This file caches all the required assets for the app. It uses the file `dist/cache.json` to determine which files need to be cached. The `cache.json` file is generated during the build process (by `buildCache.js`) by creating a list of all files present in the `dist/` folder (except for `offline-worker.js` itself).
 
 ## Resources
 
