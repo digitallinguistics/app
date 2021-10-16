@@ -53,7 +53,9 @@
       inset-inline-start: calc(-1 * var(--border-width) + 2.5%);
       position          : absolute;
       transform         : translateY(100%);
-      z-index           : 2;
+      // This z-index only needs to be relative to the Notes List.
+      // Do not add to z-indexes.less;
+      z-index: 1;
     }
 
     .notes-list__closed-icon {

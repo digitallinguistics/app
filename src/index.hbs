@@ -49,16 +49,13 @@
 
   <body id=app class=app>
 
-    {{!-- skip link --}}
-    {{> Skip-Link}}
-
     {{!-- the main banner for the app, containing the app logo and high-level app controls --}}
-    {{> Banner}}
+    {{> Banner }}
 
     <div id=wrapper class=wrapper>
 
       {{!-- main navigation --}}
-      {{> Nav}}
+      {{> Nav }}
 
       {{!-- the main content of the page (should always be a `<main id={page}>` element --}}
       <main id=main class=main></main>
@@ -69,7 +66,7 @@
     <p id=info hidden aria-live=polite></p>
 
     {{!-- SVG sprites, which can be reused across the app with the <use> tag --}}
-    {{> sprites}}
+    {{> sprites }}
 
     {{!-- template tags for pages and components will get populated here --}}
     <div id=templates hidden>
