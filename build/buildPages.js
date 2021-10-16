@@ -1,3 +1,4 @@
+import buildTemplate     from './buildTemplate.js';
 import convertLESS       from './convertLESS.js';
 import createSprites     from './createSprites.js';
 import { fileURLToPath } from 'url';
@@ -35,12 +36,13 @@ async function buildPageContent(page) {
   let html = ``;
 
   for await (const entry of templates) {
-    const template      = await readFile(entry.fullPath, `utf8`);
-    const buildHTML     = hbs.compile(template);
-    const templateHTML  = buildHTML();
+
+    const templateHTML  = await buildTemplate(hbs, entry.fullPath);
     const componentName = getBasename(entry.basename, `.hbs`);
     const templateID    = `${ paramCase(componentName) }-template`;
-    html               += `<template id=${ templateID }>${ templateHTML }</template>\n`;
+
+    html += `<template id=${ templateID }>${ templateHTML }</template>\n`;
+
   }
 
   await writeFile(joinPath(distDir, `pages`, `${ page }/${ page }.html`), html, `utf8`);
@@ -51,24 +53,20 @@ export default async function buildPages() {
 
   // register SVG partial
   const sprites = await createSprites();
-
   hbs.registerPartial(`sprites`, sprites);
 
   // register critical CSS partial
   const appStylesPath = joinPath(srcDir, `index.less`);
   const criticalLESS  = await readFile(appStylesPath, `utf8`);
   const criticalCSS   = await convertLESS(criticalLESS);
-
   hbs.registerPartial(`critical-css`, `${ criticalCSS }\n`);
 
   // register HTML partials
   await registerPartials(hbs, srcDir);
 
   // build the app shell
-  const appTemplate = await readFile(joinPath(srcDir, `index.hbs`), `utf8`);
-  const buildApp    = hbs.compile(appTemplate);
-  const appHTML     = buildApp();
-
+  const appTemplatePath = joinPath(srcDir, `index.hbs`);
+  const appHTML         = await buildTemplate(hbs, appTemplatePath);
   await writeFile(joinPath(distDir, `index.html`), appHTML, `utf8`);
 
   // build the HTML for individual pages
