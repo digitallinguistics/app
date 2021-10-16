@@ -5,11 +5,6 @@ import View     from '../../core/View.js';
 export default class HomePage extends View {
 
   /**
-   * The Home page styles.
-   */
-  styles = styles;
-
-  /**
    * Create a new Home page.
    */
   constructor() {
