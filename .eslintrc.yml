@@ -136,6 +136,7 @@ rules:
         - name
         - resolve
         - reject
+        - Text
   no-tabs: warn
   no-template-curly-in-string: warn
   no-throw-literal: error
