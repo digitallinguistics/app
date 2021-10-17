@@ -37,7 +37,7 @@
     "start:storybook" : "start-storybook --quiet -p 6006 -s dist --ci",
     "stop-only"       : "stop-only -f test,src",
     "storybook"       : "start-storybook -p 6006 -s dist",
-    "test"            : "npm run test:unit && start-server-and-test start:storybook 6006 test:storybook && npm run test:e2e && npm run test:perf",
+    "test"            : "npm run test:unit && start-server-and-test start:storybook 6006 && npm run test:e2e && npm run test:perf",
     "test:component"  : "start-server-and-test start:storybook 6006 cypress-ct-run",
     "test:e2e"        : "start-server-and-test start 3000 cypress-e2e-run",
     "test:perf"       : "lhci autorun && rimraf .lighthouseci",
