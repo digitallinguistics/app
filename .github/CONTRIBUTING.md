@@ -22,38 +22,37 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 
 <!-- TOC -->
 
-- [Contributor Guidelines](#contributor-guidelines)
-  - [Quick Links](#quick-links)
-  - [Contents](#contents)
-  - [Project Principles](#project-principles)
-  - [Setting up the Development Environment](#setting-up-the-development-environment)
-  - [Developer Tools](#developer-tools)
-    - [nodemon](#nodemon)
-    - [ESLint & Stylelint](#eslint--stylelint)
-    - [Storybook](#storybook)
-  - [Organization](#organization)
-    - [Project Structure](#project-structure)
-    - [Directory Structure](#directory-structure)
-    - [App Structure](#app-structure)
-  - [Components](#components)
-    - [Types of Components](#types-of-components)
-    - [Writing Components](#writing-components)
-      - [HTML / Handlebars](#html--handlebars)
-      - [CSS / LESS](#css--less)
-      - [JavaScript](#javascript)
-  - [Testing the App](#testing-the-app)
-    - [Types of Tests](#types-of-tests)
-    - [Writing Tests](#writing-tests)
-      - [Unit Tests](#unit-tests)
-      - [Component Tests](#component-tests)
-      - [Integration Tests](#integration-tests)
-      - [End-to-End Tests (E2E)](#end-to-end-tests-e2e)
-  - [Build Process](#build-process)
-    - [Offline Functionality](#offline-functionality)
-  - [Resources](#resources)
-    - [Images](#images)
-    - [Accessibility](#accessibility)
-    - [Inspiration](#inspiration)
+- [Project Principles](#project-principles)
+- [Setting up the Development Environment](#setting-up-the-development-environment)
+- [Developer Tools](#developer-tools)
+  - [nodemon](#nodemon)
+  - [ESLint & Stylelint](#eslint--stylelint)
+  - [Storybook](#storybook)
+- [Organization](#organization)
+  - [Project Structure](#project-structure)
+  - [Directory Structure](#directory-structure)
+  - [App Structure](#app-structure)
+- [Components](#components)
+  - [Types of Components](#types-of-components)
+  - [Writing Components](#writing-components)
+    - [HTML / Handlebars](#html--handlebars)
+    - [CSS / LESS](#css--less)
+    - [JavaScript](#javascript)
+      - [Notes](#notes)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Testing the App](#testing-the-app)
+  - [Types of Tests](#types-of-tests)
+  - [Writing Tests](#writing-tests)
+    - [Unit Tests](#unit-tests)
+    - [Component Tests](#component-tests)
+    - [End-to-End Tests (E2E)](#end-to-end-tests-e2e)
+    - [Miscellaneous Notes on Testing](#miscellaneous-notes-on-testing)
+- [Build Process](#build-process)
+  - [Offline Functionality](#offline-functionality)
+- [Resources](#resources)
+  - [Images](#images)
+  - [Accessibility](#accessibility)
+  - [Inspiration](#inspiration)
 
 <!-- /TOC -->
 
@@ -244,7 +243,6 @@ Each component can have several types of files associated with it. Not all compo
 
 - `.component.js`: Component tests for this component.
 - `.e2e.js`: End-to-end tests for this component.
-- `.integration.js`: Integration tests for this component.
 - `.hbs`: The HTML template for the component, written in [Handlebars].
 - `.less`: The styling for the component, written in [LESS].
 - `.js`: The JavaScript controller that manages this view's functionality.
@@ -521,8 +519,6 @@ There are several types of tests in this project:
 
 - **component tests:** These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc. These tests are run with a combination of [Storybook] + [Cypress] and have a `.component.js` extension.
 
-- **integration tests:** These tests check that different components interact properly with each other when used together in the app. For example, clicking a button in one component should open a menu in another. These tests should not generally depend on databases or servers. These tests are run with a combination of [Storybook] + [Cypress] and have an `.integration.js` extension.
-
 - **end-to-end (E2E) tests:** These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks, and depend on databases, servers, etc. These typically only test the "happy path", rather than various errors. These tests are run with [Cypress] and have a `.e2e.js` extension.
 
 - **performance tests:** These tests check the app's performance in terms of speed and other metrics. These tests are run with [Lighthouse].
@@ -532,12 +528,12 @@ There are several types of tests in this project:
 The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.
 
 ```
-fast / cheap <----------------------------> slow / expensive
+fast / cheap <------------> slow / expensive
 
-unit <--- component --- integration --- E2E ---> performance
+unit <--- component --- E2E ---> performance
 ```
 
-Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the "testing pyramid", with many tiny unit / component tests, fewer integration tests, and a small number of E2E / performance tests.
+Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the "testing pyramid", with many tiny unit / component tests and a small number of E2E / performance tests.
 
 Cypress tests can either be run programmatically (from the command line), or by using an interactive interface which allows you to watch the tests interact with the app, rerun, and debug those tests.
 
@@ -549,14 +545,12 @@ You can run the various types of tests with the following commands:
 | unit        | `.unit.js`        | programmatic | `test:unit`                       |
 | component   | `.component.js`   | interactive  | `cypress-ct`                      |
 | component   | `.component.js`   | programmatic | `test:component`                  |
-| integration | `.integration.js` | interactive  | `cypress-it`                      |
-| integration | `.integration.js` | programmatic | `test:integration`                |
 | E2E         | `.e2e.js`         | interactive  | `cypress-e2e`                     |
 | E2E         | `.e2e.js`         | programmatic | `test:e2e`                        |
 | performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
 | performance | —                 | programmatic | `test:perf`                       |
 
-You can also open Storybook + Cypress individually. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`, `npm run cypress-e2e-open`, or `npm run cypress-it-open` depending on whether you want to run component, E2E, or integration tests respectively. However, it is typically easier to just run one of the commands in the table above.
+You can also open Storybook + Cypress individually. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`. However, it is typically easier to just run one of the commands in the table above.
 
 ### Writing Tests
 
@@ -646,14 +640,6 @@ describe(`List`, function() {
 
 });
 ```
-
-#### Integration Tests
-
-Integration tests check that different components interact as expected. For example, clicking an item in a list might render the view for that item.
-
-Integration tests are written exactly like component tests, except that they have the `.integration.js` extension instead. Integration tests should not generally involve interactions with a database or calls to a server. Whenever possible, they should work in insolation, without needing the rest of the app framework in place.
-
-Integration tests are generally only written for pages, to check that the various components within the page interact as expected. Tests that need to switch pages or interact with the app shell should be part of end-to-end tests instead.
 
 #### End-to-End Tests (E2E)
 
