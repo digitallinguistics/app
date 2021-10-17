@@ -72,16 +72,6 @@ class App extends View {
   }
 
   /**
-   * Asynchronously load the HTML template (including CSS) for a page and insert it as a `<template id={Page}-template>` in the app shell for repeated use. Also load the JavaScript module for the page, and store it in {@link App##pages} Map for repeated use.
-   * @async
-   * @param {String} page the page to load: `Home`, `Languages`, etc.
-   */
-  async #loadPage(page) {
-    const { default: PageView } = await import(`../pages/${ page }/${ page }.js`);
-    this.#pages.set(page, PageView);
-  }
-
-  /**
    * Render the Main Nav and last visited page. {@link App#initialize} must be called first.
    * @returns {Promise<HTMLElement>}
    */
@@ -111,7 +101,8 @@ class App extends View {
     this.#nav.setPage(this.settings.page);
 
     if (!this.#pages.has(page)) {
-      await this.#loadPage(page);
+      const { default: PageView } = await import(`../pages/${ page }/${ page }.js`);
+      this.#pages.set(page, PageView);
     }
 
     let newPage;
@@ -119,6 +110,7 @@ class App extends View {
     switch (this.settings.page) {
         case `Home`: newPage = this.#renderHomePage(); break;
         case `Languages`: newPage = await this.#renderLanguagesPage(); break;
+        case `Lexicon`: newPage = await this.#renderLexiconPage(); break;
         default: break;
     }
 
@@ -151,6 +143,12 @@ class App extends View {
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
     return languagesPage.render(this.settings.language);
+  }
+
+  #renderLexiconPage() {
+    const LexiconPage = this.#pages.get(`Lexicon`);
+    const lexiconPage = new LexiconPage;
+    return lexiconPage.render();
   }
 
   // STATIC
