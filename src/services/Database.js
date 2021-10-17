@@ -99,7 +99,7 @@ export default class Database {
 
       store.createIndex(`abbreviation`, `abbreviation`, { unique: false });
       store.createIndex(`dateModified`, `dateModified`, { unique: false });
-      store.createIndex(`language`, `language.cid`, { unique: false });
+      store.createIndex(`language`, `language`, { unique: false });
 
     }
 
