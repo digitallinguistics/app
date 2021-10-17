@@ -34,7 +34,7 @@ class App extends View {
   #nodes = {
     info:      document.getElementById(`info`),
     templates: document.getElementById(`templates`),
-  }
+  };
 
   /**
    * A Map of page Views, loaded dynamically when the page is requested.
@@ -130,9 +130,9 @@ class App extends View {
     let newPage;
 
     switch (this.settings.page) {
-        case `Home`: newPage = this.#renderHomePage(); break;
-        case `Languages`: newPage = await this.#renderLanguagesPage(); break;
-        default: break;
+    case `Home`: newPage = this.#renderHomePage(); break;
+    case `Languages`: newPage = await this.#renderLanguagesPage(); break;
+    default: break;
     }
 
     const oldPage = document.getElementById(`main`);
@@ -173,7 +173,7 @@ class App extends View {
    */
   static #defaultSettings = {
     page: `Home`,
-  }
+  };
 
 }
 
