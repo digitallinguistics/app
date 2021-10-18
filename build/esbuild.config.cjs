@@ -13,6 +13,7 @@ module.exports = {
     joinPath(srcDir, `App/App.js`),
     joinPath(srcDir, `pages/Home/Home.js`),
     joinPath(srcDir, `pages/Languages/Languages.js`),
+    joinPath(srcDir, `pages/Lexicon/Lexicon.js`),
   ],
   format:    `esm`,
   minify:    env === `production`,
