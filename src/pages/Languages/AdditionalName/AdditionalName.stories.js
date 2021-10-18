@@ -1,4 +1,3 @@
-import './AdditionalName.css';
 import html2element from '../../../utilities/html2element.js';
 import Name         from './AdditionalName.js';
 

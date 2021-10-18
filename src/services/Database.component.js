@@ -1,5 +1,5 @@
-import Database from './Database.js';
-import Language from '../models/Language.js';
+import Database  from './Database.js';
+import Language  from '../models/Language.js';
 
 describe(`Database`, function() {
 
@@ -114,7 +114,14 @@ describe(`Database`, function() {
 
       txn.oncomplete = () => {
 
-        const stub = cy.stub();
+        // For unknown reasons, transpiling this code with ESBuild breaks
+        // Cypress + Sinon stubs, and `to.have.been.calledTwice` isn't recognized.
+        // Need to use custom stubbing here instead.
+        let count = 0;
+
+        const stub = () => {
+          count++;
+        };
 
         this.db.onexportupdate = stub;
 
@@ -123,7 +130,7 @@ describe(`Database`, function() {
           expect(langExport.cid).to.equal(lang.cid);
           expect(textExport.cid).to.equal(text.cid);
           expect(textExport.tags.test).to.be.true;
-          expect(stub).to.have.been.calledTwice;
+          expect(count).to.equal(2);
           resolve();
         })
         .catch(reject);

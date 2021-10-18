@@ -1,4 +1,3 @@
-import './HelpMenu.css';
 import html2element from '../../utilities/html2element.js';
 
 export default {
@@ -9,7 +8,7 @@ export default {
 };
 
 export const HelpMenu = () => {
-  
+
   const banner = html2element(`<header id=help-menu-banner>
     <style>
       #help-menu-banner {
@@ -23,7 +22,7 @@ export const HelpMenu = () => {
 
   const template = document.getElementById(`help-menu-template`);
   const menu     = template.content.cloneNode(true).firstElementChild;
-  
+
   banner.appendChild(menu);
   return banner;
 

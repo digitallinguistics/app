@@ -1,4 +1,4 @@
-import './PageTitle.css';
+import '../../../dist/components/PageTitle/PageTitle.css';
 
 export default {
   title: `Components/Page Title`,

@@ -1,4 +1,4 @@
-import './TranscriptionGroup.css';
+import '../../../dist/components/TranscriptionGroup/TranscriptionGroup.css';
 
 export default {
   title: `Components/Transcription Group`,

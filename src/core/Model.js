@@ -14,9 +14,9 @@ export default class Model {
     data = {},
     { type } = {},
   ) {
-      
+
     Object.assign(this, data);
-      
+
     Object.defineProperties(this, {
 
       /**
@@ -40,7 +40,7 @@ export default class Model {
         enumerable: true,
         value:      this.dateCreated ? new Date(this.dateCreated) : new Date,
       },
-    
+
     });
 
     /**
@@ -60,7 +60,7 @@ export default class Model {
       enumerable: true,
       value:      this.type ?? type,
     });
-  
+
   }
 
 }

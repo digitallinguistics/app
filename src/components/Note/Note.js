@@ -1,9 +1,12 @@
-import View from '../../core/View.js';
+import styles from './Note.less';
+import View   from '../../core/View.js';
 
 export default class NoteView extends View {
 
+  styles = styles;
+
   template = document.getElementById(`note-template`);
-  
+
   constructor(note, index) {
     super();
     this.note     = note;
@@ -31,17 +34,23 @@ export default class NoteView extends View {
 
   render() {
 
+    this.loadStyles();
+
     this.el        = this.cloneTemplate();
     this.el.view   = this;
     this.textInput = this.el.querySelector(`.js-note__text-input`);
     this.srcInput  = this.el.querySelector(`.js-note__src-input`);
 
+    this.textInput.setAttribute(`id`, this.textID);
+    this.srcInput.setAttribute(`id`, this.sourceID);
+    this.el.querySelector(`.js-note__text-legend`).setAttribute(`for`, this.textID);
+    this.el.querySelector(`.js-note__src-legend`).setAttribute(`for`, this.sourceID);
+
     this.updatePreview();
-    this.hydrate();
     this.addEventListeners();
 
     return this.el;
-  
+
   }
 
   save() {
@@ -70,7 +79,7 @@ export default class NoteView extends View {
     this.el.querySelector(`.js-note__date-modified`).textContent = dateModified;
     this.el.querySelector(`.js-note__src-preview`).textContent   = this.note.source;
     this.el.querySelector(`.js-note__text-preview`).innerHTML    = this.note.text || `<i style='font-style: italic;'>(no text)</i>`;
-  
+
     // editor
     this.srcInput.value  = this.note.source;
     this.textInput.value = this.note.text;

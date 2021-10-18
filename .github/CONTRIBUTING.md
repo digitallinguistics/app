@@ -222,7 +222,7 @@ The `src/` folder contains the following:
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell. |
 | `components/`       | Components that are shared across pages (but not part of the app shell).                                                                            |
-| `core/`             | High-level JavaScript modules whose functionality is shared across components. These files are essentially a custom JavaScript framework.           |
+| `core/`             | The app's JavaScript framework (a custom framework written in vanilla JavaScript).                                                                  |
 | `fonts/`            | Font files.                                                                                                                                         |
 | `images/`           | Images and icons used in the app.                                                                                                                   |
 | `models/`           | Data models (e.g. Language, Text, etc.).                                                                                                            |
@@ -433,7 +433,26 @@ In LESS, this can be written much more tersely:
 
 * Styling for the app shell is located in `App/App.less`.
 
-* Styles for individual components should be imported into any page that uses those components. For example, the `LineInput` class is used by the Languages page and the Lexicon page, but not the Home page, so `Languages.less` and `Home.less` import `LineInput.less`, but `Home.less` does not.
+* Styles for individual JavaScript components should be imported by their component, and then added to the page with the View's `loadStyles()` method. For example, the Home page component imports and loads its styles like so:
+
+  ```js
+  import styles from './Home.less';
+
+  export default class HomePage extends View {
+
+    styles = styles;
+
+    // other code for the HomePage class
+
+    render() {
+      this.loadStyles();
+      // other rendering code
+    }
+
+  }
+  ```
+
+* Styles for CSS-only components should be added to each page that uses that component. Component styles should *not* be added to the global styles in `index.less`. For example, the `LineInput` class is used by the Languages page and the Lexicon page, but not the Home page, so `Languages.less` and `Home.less` import `LineInput.less`, but `Home.less` does not.
 
 #### JavaScript
 
@@ -456,6 +475,8 @@ Each view should have a `render()` method which compiles the DOM element for tha
 *Components should never insert themselves into the DOM.* This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguagesNav component. Each component is responsible for loading its immediate subcomponents.
 
 Controllers *should* add their own event listeners. This is usually done at the end of the `render()` method.
+
+Controllers *should* add their own CSS to the page. See [Writing Components > CSS / LESS](#css--less) above for details.
 
 Sometimes components will need to listen for events on other components. For example, clicking a button in one component might cause another component to update. To alert other components of an event, use `{view}.events.emit('{event name}', data)`. To subscribe to events on another component, use `{view}.events.on('{event name}', callbackFunction)`. When an event is emitted, the data for that event is passed to the callback function. Event listeners can be synchronous or asynchronous. See the source code for the `EventEmitter` class in `src/core/EventEmitter.js` for more details.
 
@@ -681,7 +702,6 @@ Some older versions of styles for the app are located [here](https://github.com/
 [Cypress]:         https://www.cypress.io/
 [cypress-ct]:      https://docs.cypress.io/guides/component-testing/introduction
 [developers]:      https://developer.digitallinguistics.io/app
-[ESBuild]:         https://esbuild.github.io/
 [ESLint]:          https://eslint.org/
 [Feather]:         https://feathericons.com/
 [Flaticon]:        https://www.flaticon.com/

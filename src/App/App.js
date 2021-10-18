@@ -1,5 +1,5 @@
 import Database  from '../services/Database.js';
-import Mousetrap from '../../node_modules/mousetrap/mousetrap.min.js';
+import Mousetrap from 'mousetrap';
 import Nav       from './Nav/Nav.js';
 import Settings  from '../services/Settings.js';
 import View      from '../core/View.js';
@@ -182,7 +182,7 @@ export default App;
 // JSDoc Virtual Comments
 
 /**
- * The custom JavaScript framework used by the Lotus app.
+ * The custom vanilla JavaScript framework used by the Lotus app.
  * @namespace Core
  */
 

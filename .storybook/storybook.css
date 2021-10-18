@@ -1,3 +1,5 @@
+/* Apply #app styles to #root. */
+
 #root {
   font-family: var(--font);
   font-size:   100%;
