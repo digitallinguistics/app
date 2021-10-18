@@ -31,16 +31,16 @@ class DatabaseCollection {
   constructor(objectStoreName, Model, database) {
 
     Object.defineProperties(this, {
-      idb: {
-        configurable: true,
-        enumerable:   true,
-        value:        database,
-        writable:     false,
-      },
       Model: {
         configurable: true,
         enumerable:   true,
         value:        Model,
+        writable:     false,
+      },
+      idb: {
+        configurable: true,
+        enumerable:   true,
+        value:        database,
         writable:     false,
       },
       storeName: {
@@ -66,7 +66,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.Model ? item : new this.Model(item));
+      .map(item => (item instanceof this.Model ? item : new this.Model(item)));
 
       const txn = this.idb.transaction(this.storeName, `readwrite`);
 
@@ -184,7 +184,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => (item instanceof this.Model ? item : new this.Model(item)));
+      .map(item => item instanceof this.Model ? item : new this.Model(item));
 
       const txn = this.idb.transaction(this.storeName, `readwrite`);
 
