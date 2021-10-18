@@ -1,12 +1,9 @@
 import buildCSS          from './buildCSS.js';
+import buildTemplate     from './buildTemplate.js';
 import { fileURLToPath } from 'url';
 import hbs               from 'handlebars';
 import registerPartials  from './registerPartials.js';
-
-import {
-  readFile,
-  writeFile,
-} from 'fs/promises';
+import { writeFile } from 'fs/promises';
 
 import {
   dirname as getDirname,
@@ -26,11 +23,11 @@ export default async function buildStories() {
 
   await registerPartials(hbs, srcDir);
 
-  const previewBodyTemplate = await readFile(joinPath(currentDir, `../.storybook/preview-body.hbs`), `utf8`);
-  const buildPreviewBody    = hbs.compile(previewBodyTemplate);
-  const previewBodyHTML     = buildPreviewBody();
+  const previewBodyTemplatePath = joinPath(currentDir, `../.storybook/preview-body.hbs`);
+  const previewBodyHTMLPath     = joinPath(currentDir, `../.storybook/preview-body.html`);
+  const html                    = await buildTemplate(hbs, previewBodyTemplatePath);
 
-  await writeFile(joinPath(currentDir, `../.storybook/preview-body.html`), previewBodyHTML, `utf8`);
+  await writeFile(previewBodyHTMLPath, html, `utf8`);
 
   // build standalone CSS files
 
