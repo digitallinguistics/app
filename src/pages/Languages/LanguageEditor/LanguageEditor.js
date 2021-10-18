@@ -4,6 +4,7 @@ import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import styles                from './LanguageEditor.less';
+import template              from './LanguageEditor.hbs';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
 
@@ -11,12 +12,9 @@ export default class LanguageEditor extends View {
 
   delay = 500;
 
-  styles = styles;
-
   constructor(language) {
-    super();
-    this.language     = language;
-    this.abbreviation = this.language.abbreviation;
+    super({ styles, template });
+    this.language = language;
   }
 
   addEventListeners() {
@@ -70,10 +68,14 @@ export default class LanguageEditor extends View {
   render() {
 
     this.loadStyles();
+    this.cloneTemplate();
 
-    this.template            = document.getElementById(`language-editor-template`);
-    this.el                  = this.cloneTemplate();
-    this.el.view             = this;
+    if (!this.language) {
+      this.el.classList.add(`placeholder`);
+      this.addEventListeners();
+      return this.el;
+    }
+
     this.el.dataset.language = this.language.cid;
 
     this.renderName();
@@ -120,9 +122,9 @@ export default class LanguageEditor extends View {
     const autonymField = this.el.querySelector(`.js-language-editor__autonym`);
 
     const txnEditor = new TranscriptionEditor(this.language.autonym, {
-      lang:        this.language.iso,
-      placeholder: `e.g. español`,
-      prefix:      `autonym`,
+      inputAttributes: { autocapitalize: `words`, placeholder: `e.g. español` },
+      lang:            this.language.iso,
+      prefix:          `autonym`,
     });
 
     autonymField.appendChild(txnEditor.render());
@@ -151,9 +153,10 @@ export default class LanguageEditor extends View {
     const nameField = this.el.querySelector(`.js-language-editor__name`);
 
     const mlsEditor = new MultiLangStringEditor(this.language.name, {
-      fieldName:   `name`,
-      id:          `name`,
-      placeholder: `e.g. Spanish`,
+      fieldName:       `name`,
+      id:              `name`,
+      inputAttributes: { autocapitalize: `words`, placeholder: `e.g. Spanish` },
+
     });
 
     nameField.appendChild(mlsEditor.render());
@@ -163,6 +166,7 @@ export default class LanguageEditor extends View {
   }
 
   renderSimpleFields() {
+
     const abbreviation = this.el.querySelector(`#language-editor__abbreviation-input`);
     abbreviation.value = this.language.abbreviation ?? ``;
     abbreviation.addEventListener(`input`, debounce(() => this.updateProperty(abbreviation), this.delay));

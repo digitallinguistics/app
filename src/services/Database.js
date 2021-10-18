@@ -1,5 +1,6 @@
 import Collection from './DatabaseCollection.js';
 import Language   from '../models/Language.js';
+import Lexeme     from '../models/Lexeme.js';
 import Text       from '../models/Text.js';
 
 const IndexedDB = window.indexedDB;
@@ -45,6 +46,10 @@ export default class Database {
       Model:     Language,
       storeName: `languages`,
     },
+    Lexeme: {
+      Model:     Lexeme,
+      storeName: `Lexemes`,
+    },
     Text:     {
       Model:     Text,
       storeName: `texts`,
@@ -58,6 +63,12 @@ export default class Database {
    * @type {DatabaseCollection}
    */
   languages;
+
+  /**
+   * The Lexemes collection.
+   * @type {DatabaseCollection}
+   */
+  lexemes;
 
   /**
    * The Texts collection.
@@ -88,8 +99,13 @@ export default class Database {
 
       store.createIndex(`abbreviation`, `abbreviation`, { unique: false });
       store.createIndex(`dateModified`, `dateModified`, { unique: false });
-      store.createIndex(`language`, `language.cid`, { unique: false });
+      store.createIndex(`language`, `language`, { unique: false });
 
+    }
+
+    if (!this.idb.objectStoreNames.contains(`lexemes`)) {
+      const store = this.idb.createObjectStore(`lexemes`, { keyPath: `cid` });
+      store.createIndex(`key`, `key`, { unique: false });
     }
 
   }

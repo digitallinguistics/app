@@ -14,9 +14,9 @@
     </div>
 
   </header>
-  
+
   <fieldset class='additional-name__editor js-additional-name__editor' hidden>
-    
+
     <div class=input-group>
       <label class='additional-name__legend js-additional-name__name-legend legend required' data-bind=for:nameID>Name</label>
       <div>
@@ -28,11 +28,12 @@
           required
           spellcheck=false
           type=text
+          autocapitalize=words
         >
         <p class='additional-name__help-text help-text'>An additional name for this language.</p>
       </div>
     </div>
-    
+
     <div class=input-group>
       <label class='additional-name__legend js-additional-name__lang-legend legend' data-bind=for:langID>Language</label>
       <div>
@@ -43,6 +44,7 @@
           placeholder='e.g. French'
           spellcheck=false
           type=text
+          autocapitalize=words
         >
         <p class='additional-name__help-text help-text'>The language of this additional name.</p>
       </div>
@@ -52,6 +54,6 @@
       <button class='additional-name__button button js-additional-name__cancel-button' type=button>Cancel</button>
       <button class='additional-name__button button blue js-additional-name__save-button' type=button>Save</button>
     </div>
-  
+
   </fieldset>
 </li>

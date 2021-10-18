@@ -1,16 +1,13 @@
 import NotesList from '../../../components/NotesList/NotesList.js';
 import styles    from './AdditionalName.less';
+import template  from './AdditionalName.hbs';
 import View      from '../../../core/View.js';
 
 export default class AdditionalName extends View {
 
-  styles = styles;
-
-  template = document.getElementById(`additional-name-template`);
-
   constructor(additionalName = {}, index) {
 
-    super();
+    super({ styles, template });
 
     this.additionalName            = additionalName;
     this.additionalName.name     ??= ``;
@@ -62,15 +59,13 @@ export default class AdditionalName extends View {
   render() {
 
     this.loadStyles();
+    this.cloneTemplate();
 
-    this.el            = this.cloneTemplate();
-    this.el.view       = this;
     this.el.dataset.id = this.index;
-
-    this.editButton = this.el.querySelector(`.js-additional-name__edit-button`);
-    this.editor     = this.el.querySelector(`.js-additional-name__editor`);
-    this.nameInput  = this.el.querySelector(`.js-additional-name__name-input`);
-    this.langInput  = this.el.querySelector(`.js-additional-name__lang-input`);
+    this.editButton    = this.el.querySelector(`.js-additional-name__edit-button`);
+    this.editor        = this.el.querySelector(`.js-additional-name__editor`);
+    this.nameInput     = this.el.querySelector(`.js-additional-name__name-input`);
+    this.langInput     = this.el.querySelector(`.js-additional-name__lang-input`);
 
     this.nameInput.id    = this.nameID;
     this.nameInput.value = this.additionalName.name;
