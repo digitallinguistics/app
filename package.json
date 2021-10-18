@@ -44,8 +44,6 @@
     "test:unit"       : "mocha --bail src/**/*.unit.js test/*.unit.js"
   },
   "devDependencies": {
-    "@babel/core"                 : "^7.15.5",
-    "@babel/eslint-parser"        : "^7.15.7",
     "@lhci/cli"                   : "^0.8.1",
     "@storybook/builder-webpack5" : "^6.3.12",
     "@storybook/cli"              : "^6.3.12",
