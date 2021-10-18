@@ -120,9 +120,9 @@ export default class LanguageEditor extends View {
     const autonymField = this.el.querySelector(`.js-language-editor__autonym`);
 
     const txnEditor = new TranscriptionEditor(this.language.autonym, {
-      lang:        this.language.iso,
-      placeholder: `e.g. español`,
-      prefix:      `autonym`,
+      inputAttributes: { autocapitalize: `words`, placeholder: `e.g. español` },
+      lang:            this.language.iso,
+      prefix:          `autonym`,
     });
 
     autonymField.appendChild(txnEditor.render());
@@ -151,9 +151,10 @@ export default class LanguageEditor extends View {
     const nameField = this.el.querySelector(`.js-language-editor__name`);
 
     const mlsEditor = new MultiLangStringEditor(this.language.name, {
-      fieldName:   `name`,
-      id:          `name`,
-      placeholder: `e.g. Spanish`,
+      fieldName:       `name`,
+      id:              `name`,
+      inputAttributes: { autocapitalize: `words`, placeholder: `e.g. Spanish` },
+
     });
 
     nameField.appendChild(mlsEditor.render());
