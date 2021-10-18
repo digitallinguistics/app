@@ -13,7 +13,7 @@
     "exclude": [
       "./src/vendor"
     ],
-    "excludePattern": "(\\.component\\.|\\.e2e\\.|\\.integration\\.|\\.test\\.|\\.unit\\.)",
+    "excludePattern": "(\\.component\\.|\\.e2e\\.|\\.unit\\.)",
     "include": [
       "./src/App/App.js",
       "./src/core/",
