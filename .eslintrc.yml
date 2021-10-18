@@ -68,6 +68,7 @@ rules:
     - error
     - 2
     - MemberExpression: 0
+      SwitchCase: 2
   key-spacing:
     - error
     - align: value
