@@ -19,7 +19,7 @@ describe(`Lexicon`, function() {
 
   });
 
-  it.only(`when no language is selected, it renders the Language Chooser and selects a language`, function() {
+  it(`when no language is selected, it renders the Language Chooser and selects a language`, function() {
 
     cy.contains(`#nav li`, `Lexicon`)
     .click();
@@ -38,7 +38,7 @@ describe(`Lexicon`, function() {
     cy.contains(`#nav li`, `Languages`)
     .click();
 
-    cy.contains(`.languages-list li`, `Chitimacha`)
+    cy.contains(`.js-languages-page__languages-list li`, `Chitimacha`)
     .click();
 
     cy.get(`#name-eng`)
