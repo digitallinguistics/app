@@ -1,8 +1,9 @@
-import Database  from '../services/Database.js';
-import Mousetrap from 'mousetrap';
-import Nav       from './Nav/Nav.js';
-import Settings  from '../services/Settings.js';
-import View      from '../core/View.js';
+import Database        from '../services/Database.js';
+import LanguageChooser from '../components/LanguageChooser/LanguageChooser.js';
+import Mousetrap       from 'mousetrap';
+import Nav             from './Nav/Nav.js';
+import Settings        from '../services/Settings.js';
+import View            from '../core/View.js';
 
 /**
  * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
@@ -150,10 +151,20 @@ class App extends View {
     return languagesPage.render(this.settings.language);
   }
 
-  #renderLexiconPage() {
+  async #renderLexiconPage() {
+
+    if (!this.settings.language) {
+      const languages       = await this.db.languages.getAll();
+      const languageChooser = new LanguageChooser(languages);
+      return languageChooser.render();
+    }
+
     const LexiconPage = this.#pages.get(`Lexicon`);
-    const lexiconPage = new LexiconPage;
+    const language    = await this.db.languages.get(this.settings.language);
+    const lexiconPage = new LexiconPage(language);
+
     return lexiconPage.render();
+
   }
 
   // STATIC
