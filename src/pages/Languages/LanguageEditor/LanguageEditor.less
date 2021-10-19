@@ -24,6 +24,10 @@
 
   }
 
+  &__add-analysis-lang-button {
+    margin-inline-start: var(--space);
+  }
+
   &__add-name-button {
     margin-inline-start: var(--space);
   }
@@ -36,6 +40,29 @@
     flex-direction:  row;
     flex-wrap:       nowrap;
     justify-content: space-between;
+  }
+
+  &__analysis-languages {
+    align-items: stretch;
+  }
+
+  &__analysis-langs-list:not(:empty) {
+    margin-block-start: var(--space-xs);
+  }
+
+  &__analysis-lang-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
+  }
+
+  &__analysis-lang-key {
+    flex-direction: row;
+    justify-content: space-evenly;
+    // small screens
+    @media (max-width: @breakpoint) {
+      .visually-hidden;
+    }
   }
 
   &__buttons {
