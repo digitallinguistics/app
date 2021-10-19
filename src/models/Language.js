@@ -1,6 +1,6 @@
-import Model           from '../core/Model.js';
-import MultiLangString from './MultiLangString.js';
-import Transcription   from './Transcription.js';
+import Model            from '../core/Model.js';
+import MultiLangString  from './MultiLangString.js';
+import Transcription    from './Transcription.js';
 
 /**
  * A data model for languages.
@@ -8,21 +8,28 @@ import Transcription   from './Transcription.js';
  * @memberof Models
  */
 class Language extends Model {
-  
+
   /**
    * Create a new Language.
    * @param {Object} data The data for this Language model.
    */
   constructor(data = {}) {
-    
+
     super(data, { type: `Language` });
-    
+
     /**
      * An Array of additional names for this language.
      * @default []
      * @type {AdditionalName[]}
      */
     this.additionalNames ??= [];
+
+    /**
+     * An array of analysis languages for this language.
+     * @default [English]
+     * @type {AnalysisLanguage[]}
+     */
+    this.analysisLanguages ??= [{ abbr: `en`, lang: `English`, tag: `en` }]; // new AnalysisLanguage()
 
     /**
      * The autonym for this language, as a Transcription.
