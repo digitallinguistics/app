@@ -1,4 +1,4 @@
-import NavList  from '../NavList/NavList.js';
+import NavList  from '../../components/NavList/NavList.js';
 import styles   from './LanguageChooser.less';
 import template from './LanguageChooser.hbs';
 import View     from '../../core/View.js';

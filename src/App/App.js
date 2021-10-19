@@ -1,6 +1,6 @@
 import Database        from '../services/Database.js';
 import Language        from '../models/Language.js';
-import LanguageChooser from '../components/LanguageChooser/LanguageChooser.js';
+import LanguageChooser from './LanguageChooser/LanguageChooser.js';
 import Mousetrap       from 'mousetrap';
 import Nav             from './Nav/Nav.js';
 import Settings        from '../services/Settings.js';
