@@ -25,7 +25,7 @@ export default class LanguagesPage extends View {
 
   addEventListeners() {
     this.el.querySelector(`.js-languages-page__nav-add-lang-button`)
-    .addEventListener(`click`, () => this.events.emite(`add`));
+    .addEventListener(`click`, () => this.events.emit(`add`));
   }
 
   async deleteLanguage(languageCID) {
