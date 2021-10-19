@@ -8,7 +8,7 @@ class Transcription extends Map {
    * Create a new Transcription.
    * @param {Object} [data={}]
    * @param {Object} [options={}]
-   * @param {Object} [options.defaultOrthography]
+   * @param {String} [options.defaultOrthography]
    */
   constructor(data = {}, { defaultOrthography } = {}) {
 
