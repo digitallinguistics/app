@@ -193,7 +193,7 @@ describe(`Database`, function() {
     });
   });
 
-  it.only(`iterates over all items in a store`, function() {
+  it(`iterates over all items in a store`, function() {
     return new Promise((resolve, reject) => {
 
       const stub  = cy.stub();

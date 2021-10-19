@@ -189,7 +189,8 @@ class App extends View {
 
     const LexiconPage = this.#pages.get(`Lexicon`);
     const language    = await this.db.languages.get(this.settings.language);
-    const lexiconPage = new LexiconPage(language);
+    const lexemes     = await this.db.lexemes.getAll();
+    const lexiconPage = new LexiconPage(language, lexemes);
 
     return lexiconPage.render();
 

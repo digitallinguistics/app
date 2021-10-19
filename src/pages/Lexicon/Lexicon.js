@@ -4,9 +4,10 @@ import View     from '../../core/View.js';
 
 export default class LexiconPage extends View {
 
-  constructor(language) {
+  constructor(language, lexemes = []) {
     super({ styles, template });
     this.language = language;
+    this.lexemes  = lexemes;
   }
 
   itemTemplate({ cid, name }) {
@@ -17,7 +18,24 @@ export default class LexiconPage extends View {
     this.loadStyles();
     this.cloneTemplate();
     this.el.querySelector(`.js-lexicon__title`).textContent = this.language.name.default;
+    this.renderList();
     return this.el;
+  }
+
+  renderList() {
+
+    this.el.querySelector(`.js-lexicon__lexemes-list`).innerHTML = ``;
+
+    for (const lexeme of this.lexemes) {
+      this.renderListItem(lexeme);
+    }
+
+  }
+
+  async renderListItem(lexeme) {
+
+    console.log(lexeme);
+
   }
 
 }

@@ -48,7 +48,7 @@ export default class Database {
     },
     Lexeme: {
       Model:     Lexeme,
-      storeName: `Lexemes`,
+      storeName: `lexemes`,
     },
     Text:     {
       Model:     Text,
