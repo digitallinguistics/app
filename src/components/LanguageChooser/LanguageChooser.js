@@ -16,7 +16,7 @@ export default class LanguageChooser extends View {
   }
 
   itemTemplate({ cid, name }) {
-    return View.fromHTML(`<li class="txn" data-id='${ cid }'>${ name.default }</li>`);
+    return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#>${ name.default }</a></li>`);
   }
 
   render() {
