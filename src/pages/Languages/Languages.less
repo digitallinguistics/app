@@ -1,4 +1,5 @@
 // Globals
+@import (reference) 'utilities.less';
 @import (reference) 'variables.less';
 
 // Shared Components
@@ -18,6 +19,26 @@
 @import 'TranscriptionGroup/TranscriptionGroup';
 
 .languages-page {
+
+  &__languages-list {
+    margin-inline: var(--space);
+  }
+
+  &__nav {
+
+    align-items: stretch;
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      width: 20em;
+    }
+
+  }
+
+  &__nav-add-lang-button {
+    .align-center;
+    margin: var(--space);
+  }
 
   // small screens
   @media (max-width: @breakpoint) {

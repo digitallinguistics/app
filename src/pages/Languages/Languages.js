@@ -1,6 +1,7 @@
+import compare        from '../../utilities/compare.js';
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
-import LanguagesNav   from './LanguagesNav/LanguagesNav.js';
+import NavList        from '../../components/NavList/NavList.js';
 import styles         from './Languages.less';
 import template       from './Languages.hbs';
 import View           from '../../core/View.js';
@@ -20,6 +21,11 @@ export default class LanguagesPage extends View {
   constructor(languages = []) {
     super({ styles, template });
     this.languages = languages;
+  }
+
+  addEventListeners() {
+    this.el.querySelector(`.js-languages-page__nav-add-lang-button`)
+    .addEventListener(`click`, this.addLanguage.bind(this));
   }
 
   async addLanguage() {
@@ -44,6 +50,10 @@ export default class LanguagesPage extends View {
     return this.renderEditor();
   }
 
+  itemTemplate({ cid, name }) {
+    return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#language-editor>${ name.default }</a></li>`);
+  }
+
   /**
    * Render the Languages Page.
    * @return {HTMLMainElement}
@@ -53,6 +63,7 @@ export default class LanguagesPage extends View {
     this.cloneTemplate();
     this.renderNav(languageCID);
     this.renderEditor(languageCID);
+    this.addEventListeners();
     return this.el;
   }
 
@@ -99,18 +110,27 @@ export default class LanguagesPage extends View {
    */
   renderNav(languageCID) {
 
-    const nav = new LanguagesNav(this.languages);
+    this.languages.sort((a, b) => compare(a.name.default, b.name.default));
 
-    nav.events.on(`add`, this.addLanguage.bind(this));
-    nav.events.on(`change`, this.renderEditor.bind(this));
+    const oldList = this.el.querySelector(`.js-languages-page__languages-list`);
+    const classes = Array.from(oldList.classList);
 
-    const oldNav = this.el.querySelector(`.languages-nav`);
-    const newNav = nav.render(languageCID);
+    const listView = new NavList(this.languages, {
+      classes,
+      name:     `language`,
+      template: this.itemTemplate,
+    });
 
-    oldNav.view?.events.stop();
-    oldNav.replaceWith(newNav);
+    const newList = listView.render(languageCID);
 
-    return newNav;
+    oldList.view?.events.stop();
+    if (!this.languages.length) newList.style.border = `none`;
+    oldList.replaceWith(newList);
+
+    listView.events.on(`change`, cid => {
+      app.settings.language = cid;
+      this.renderEditor(cid);
+    });
 
   }
 
