@@ -17,6 +17,6 @@
 
 require(`./commands.cjs`);
 
-Cypress.on(`test:before:run`, win => {
+Cypress.on(`window:before:load`, win => {
   win.indexedDB.deleteDatabase(`Lotus`);
 });
