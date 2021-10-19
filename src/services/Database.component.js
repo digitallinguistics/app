@@ -170,7 +170,7 @@ describe(`Database`, function() {
   it(`gets all items from a store`, function() {
     return new Promise((resolve, reject) => {
 
-      const txn = this.db.idb.transaction(`languages`, `readwrite`);
+      const txn   = this.db.idb.transaction(`languages`, `readwrite`);
       const store = txn.objectStore(`languages`);
 
       txn.oncomplete = () => {
@@ -185,6 +185,32 @@ describe(`Database`, function() {
           resolve();
         })
         .catch(reject);
+      };
+
+      store.add({ cid: 1, customProp: true });
+      store.add({ cid: 2, customProp: false });
+
+    });
+  });
+
+  it.only(`iterates over all items in a store`, function() {
+    return new Promise((resolve, reject) => {
+
+      const stub  = cy.stub();
+      const txn   = this.db.idb.transaction(`languages`, `readwrite`);
+      const store = txn.objectStore(`languages`);
+
+      txn.onerror = reject;
+
+      txn.oncomplete = () => {
+
+        this.db.languages.iterate(stub)
+        .then(() => {
+          expect(stub).to.have.been.calledTwice;
+          resolve();
+        })
+        .catch(reject);
+
       };
 
       store.add({ cid: 1, customProp: true });

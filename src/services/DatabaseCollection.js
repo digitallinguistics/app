@@ -8,19 +8,19 @@ class DatabaseCollection {
    * A reference to the IndexedDB database instance
    * @type {IDBDatabase}
    */
-  idb;
+  #idb;
 
   /**
    * The class that serves as the model for each instance in this collection.
    * @type {Function}
    */
-  Model;
+  #Model;
 
   /**
    * The name of the object store that this collection corresponds to.
    * @type {String}
    */
-  storeName;
+  #storeName;
 
   /**
    * Create a new Collection
@@ -29,28 +29,9 @@ class DatabaseCollection {
    * @param {IDBDatabase} database        The instance of the IndexedDB database to create transactions on.
    */
   constructor(objectStoreName, Model, database) {
-
-    Object.defineProperties(this, {
-      Model: {
-        configurable: true,
-        enumerable:   true,
-        value:        Model,
-        writable:     false,
-      },
-      idb: {
-        configurable: true,
-        enumerable:   true,
-        value:        database,
-        writable:     false,
-      },
-      storeName: {
-        configurable: true,
-        enumerable:   true,
-        value:        objectStoreName,
-        writable:     false,
-      },
-    });
-
+    this.#idb       = database;
+    this.#Model     = Model;
+    this.#storeName = objectStoreName;
   }
 
   // CRUD OPERATIONS
@@ -66,15 +47,15 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => (item instanceof this.Model ? item : new this.Model(item)));
+      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
 
-      const txn = this.idb.transaction(this.storeName, `readwrite`);
+      const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
       txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve(isArrayInput ? items : items[0]);
       txn.onerror    = () => reject(txn.error);
 
-      const store = txn.objectStore(this.storeName);
+      const store = txn.objectStore(this.#storeName);
 
       items.forEach(item => {
         item.dateModified = new Date;
@@ -94,13 +75,13 @@ class DatabaseCollection {
 
       const isArrayInput = Array.isArray(clientIDs);
       const cids         = isArrayInput ? clientIDs : [clientIDs];
-      const txn          = this.idb.transaction(this.storeName, `readwrite`);
+      const txn          = this.#idb.transaction(this.#storeName, `readwrite`);
 
       txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve();
       txn.onerror    = () => reject(txn.error);
 
-      const store = txn.objectStore(this.storeName);
+      const store = txn.objectStore(this.#storeName);
 
       for (const cid of cids) {
 
@@ -124,18 +105,18 @@ class DatabaseCollection {
   get(key) {
     return new Promise((resolve, reject) => {
 
-      const txn = this.idb.transaction(this.storeName);
+      const txn = this.#idb.transaction(this.#storeName);
       let result;
 
       txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve(result);
       txn.onerror    = () => reject(txn.error);
 
-      txn.objectStore(this.storeName)
+      txn.objectStore(this.#storeName)
       .get(key)
       .onsuccess = ev => {
         ({ result } = ev.target);
-        result = result ? new this.Model(result) : null;
+        result = result ? new this.#Model(result) : null;
       };
 
     });
@@ -144,30 +125,61 @@ class DatabaseCollection {
   /**
    * Retrieve all the items from the collection.
    * @param  {Object}             [options={}]
-   * @param  {Integer}            [options.count]         The number of items to return if more than 1 is found.
-   * @param  {Boolean}            [options.deleted=false] Whether to include deleted items in the results.
-   * @param  {String|IDBKeyRange} [options.query]         The client ID (cid) or an IDBKeyRange to limit the results to.
-   * @return {Promise<Array>}                             Returns a Promise that resolves to an Array of items in the collection.
+   * @param  {Integer}            [options.count]                The number of items to return if more than 1 is found.
+   * @param  {Boolean}            [options.includeDeleted=false] Whether to include deleted items in the results.
+   * @param  {String|IDBKeyRange} [options.query]                The client ID (cid) or an IDBKeyRange to limit the results to.
+   * @return {Promise<Array>}                                    Returns a Promise that resolves to an Array of items in the collection.
    */
   getAll({
     query,
     count,
-    deleted = false,
+    includeDeleted = false,
   } = {}) {
     return new Promise((resolve, reject) => {
 
-      const txn = this.idb.transaction(this.storeName);
+      const txn = this.#idb.transaction(this.#storeName);
       let result;
 
       txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve(result);
       txn.onerror    = () => reject(txn.error);
 
-      txn.objectStore(this.storeName)
+      txn.objectStore(this.#storeName)
       .getAll(query, count)
       .onsuccess = ev => {
-        result = ev.target.result.map(item => new this.Model(item));
-        if (!deleted) result = result.filter(item => !item.deleted);
+        result = ev.target.result.map(item => new this.#Model(item));
+        if (!includeDeleted) result = result.filter(item => !item.deleted);
+      };
+
+    });
+  }
+
+  /**
+   * Run a callback for each item in the collection. Useful for retrieving very large collections asynchronously.
+   * @param   {Function} cb                       The callback function to call on each returned item.
+   * @param   {Object}   [options={}]             Options
+   * @param   {Boolean}  [options.includeDeleted] Whether to include deleted items in the results.
+   * @returns {Promise}
+   */
+  iterate(cb, { includeDeleted = false } = {}) {
+    return new Promise((resolve, reject) => {
+
+      const txn = this.#idb.transaction(this.#storeName);
+
+      txn.onabort    = () => reject(txn.error);
+      txn.oncomplete = () => resolve();
+      txn.onerror    = () => reject(txn.error);
+
+      txn.objectStore(this.#storeName)
+      .openCursor()
+      .onsuccess = ev => {
+        const cursor = ev.target.result;
+        if (!cursor) return;
+        const data = cursor.value;
+        if (!includeDeleted && data.deleted) return;
+        const model = new this.#Model(data);
+        cb(model);
+        cursor.continue();
       };
 
     });
@@ -184,15 +196,15 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.Model ? item : new this.Model(item));
+      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
 
-      const txn = this.idb.transaction(this.storeName, `readwrite`);
+      const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
       txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve(isArrayInput ? items : items[0]);
       txn.onerror    = () => reject(txn.error);
 
-      const store = txn.objectStore(this.storeName);
+      const store = txn.objectStore(this.#storeName);
 
       items.forEach(item => {
         item.dateModified = new Date;
