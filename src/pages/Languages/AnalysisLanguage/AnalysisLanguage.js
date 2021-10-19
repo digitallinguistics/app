@@ -42,12 +42,14 @@ export default class AnalysisLanguage extends View {
       if (target.classList.contains(`js-analysis-language__save-button`)) {
 
         if (this.tagInput.checkValidity()) {
+          this.tagInput.disabled = true;
           this.save();
           this.updatePreview(
             this.analysisLanguage.lang,
             this.analysisLanguage.abbr,
             this.analysisLanguage.tag,
           );
+
           return this.hideEditor();
         }
 

@@ -65,11 +65,10 @@ describe(`Languages`, () => {
     // check that Languages List was updated
     cy.contains(`.languages-nav li`, `Chitimacha`);
 
-    // add a language name
+    // add an additional language name
     cy.contains(`.language-editor button`, `Add a Language Name`)
     .click();
 
-    // add an additional language name
     cy.get(`.language-editor__additional-names`)
     .within(() => {
 
@@ -83,6 +82,27 @@ describe(`Languages`, () => {
       cy.get(`.js-additional-name__save-button`)
       .click();
 
+    });
+
+    // add an analysis language
+    cy.contains(`.language-editor button`, `Add an Analysis Language`)
+    .click();
+
+    cy.get(`.language-editor__analysis-languages`)
+    .within(() => {
+      cy.get(`.js-analysis-language__lang-input:visible`)
+      .type(`French`);
+
+      cy.get(`.js-analysis-language__abbr-input:visible`)
+      .clear()
+      .type(`fre`);
+
+      cy.get(`.js-analysis-language__tag-input:visible`)
+      .clear()
+      .type(`fr`);
+
+      cy.get(`.js-analysis-language__save-button:visible`)
+      .click();
     });
 
     // edit the remaining data
@@ -135,6 +155,8 @@ describe(`Languages`, () => {
     .should(`have.value`, `chit1248`);
 
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
+
+    cy.contains(`.language-editor__analysis-languages`, `French fre fr`);
 
     cy.get(`.js-language-editor__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
