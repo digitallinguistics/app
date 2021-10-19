@@ -1,6 +1,13 @@
 [
   {
     "abbreviation": "nuu",
+    "analysisLanguages": [
+      {
+        "abbreviation": "eng",
+        "language":     "Enlgish",
+        "tag":          "en"
+      }
+    ],
     "autonym":      "Nuučaan̓uɫ",
     "cid":          "1",
     "glottocode":   "nuuc1236",
@@ -18,6 +25,18 @@
       {
         "language": "English",
         "name":     "Shetimasha"
+      }
+    ],
+    "analysisLanguages": [
+      {
+        "abbreviation": "eng",
+        "language":     "Enlgish",
+        "tag":          "en"
+      },
+      {
+        "abbreviation": "fre",
+        "language":     "French",
+        "tag":          "fr"
       }
     ],
     "autonym": {
