@@ -1,4 +1,5 @@
 import AdditionalName        from '../AdditionalName/AdditionalName.js';
+import AnalysisLanguage      from '../AnalysisLanguage/AnalysisLanguage.js';
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
@@ -24,6 +25,9 @@ export default class LanguageEditor extends View {
 
     this.el.querySelector(`.js-language-editor__add-name-button`)
     .addEventListener(`click`, this.addName.bind(this));
+
+    this.el.querySelector(`.js-language-editor__add-analysis-lang-button`)
+    .addEventListener(`click`, this.addAnalysisLang.bind(this));
 
     this.el.querySelector(`.js-language-editor__delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
@@ -63,6 +67,36 @@ export default class LanguageEditor extends View {
 
   }
 
+  async handleAnalysisLangsUpdate({ target }) {
+    if (target.classList.contains(`js-analysis-language__cancel-button`)) {
+      const item     = target.closest(`.analysis-language`);
+      const { view } = item;
+      const tag     = view.tagInput.value;
+      if (tag) return;
+
+      const index = item.dataset.id;
+      this.language.analysisLanguages.splice(index, 1);
+      await this.save();
+      return this.renderAnalysisLangs();
+    }
+
+    if (target.classList.contains(`js-analysis-language__delete-button`)) {
+      if(this.language.analysisLanguages.length === 1) {
+        alert(`There must be at least one analysis language.`);
+        return;
+      }
+      const confirmDelete = confirm(`Are you sure you want to delete this Analysis Language? This action cannot be undone. Click 'OK' to confirm deletion.`);
+      if (!confirmDelete) return;
+      const i = Number(target.closest(`.analysis-language`).dataset.id);
+      return this.deleteAnalysisLang(i);
+    }
+
+    if (target.classList.contains(`js-analysis-language__save-button`)) {
+      return this.updateAnalysisLangs();
+    }
+
+  }
+
   // Rendering Methods
 
   render() {
@@ -81,6 +115,7 @@ export default class LanguageEditor extends View {
     this.renderName();
     this.renderAutonym();
     this.renderAdditionalNames();
+    this.renderAnalysisLangs();
     this.renderMetadata();
     this.renderSimpleFields();
 
@@ -115,6 +150,31 @@ export default class LanguageEditor extends View {
     oldList.replaceWith(newList);
     newList.addEventListener(`click`, this.handleNamesUpdate.bind(this));
 
+  }
+
+  renderAnalysisLang(lang, index) {
+    const langView = new AnalysisLanguage(lang, index);
+    return langView.render();
+  }
+
+  renderAnalysisLangs() {
+    this.language.analysisLanguages.sort((a, b) => compare(a.tag, b.tag));
+
+    const oldList = this.el.querySelector(`.js-language-editor__analysis-langs-list`);
+
+    const listView = new List(this.language.analysisLanguages, {
+      classes:  oldList.classList,
+      template: this.renderAnalysisLang,
+    });
+
+    const newList = listView.render();
+
+    if (!this.language.analysisLanguages.length) {
+      newList.style.border = `none`;
+    }
+
+    oldList.replaceWith(newList);
+    newList.addEventListener(`click`, this.handleAnalysisLangsUpdate.bind(this));
   }
 
   renderAutonym() {
@@ -202,6 +262,24 @@ export default class LanguageEditor extends View {
 
   }
 
+  updateAnalysisLangs() {
+
+    const listItems = this.el.querySelectorAll(`.analysis-language`);
+    const tags      = [];
+
+    for (const li of listItems) {
+
+      const lang = li.querySelector(`.js-analysis-language__lang-input`).value;
+      const tag = li.querySelector(`.js-analysis-language__tag-input`).value;
+      const abbr = li.querySelector(`.js-analysis-language__abbr-input`).value;
+
+      tags.push({ lang, tag, abbr });
+    }
+
+    this.language.analysisLanguages = tags;
+    return this.save();
+  }
+
   updateAutonym(ev) {
     const { name, value } = ev.target;
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
@@ -261,6 +339,29 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.splice(i, 1);
     await this.save();
     return this.renderAdditionalNames();
+  }
+
+  // Analysis Languages
+
+  async addAnalysisLang() {
+    this.language.analysisLanguages.push({
+      abbr: ``,
+      lang: ``,
+      tag:  ``,
+    });
+
+    await this.save();
+    this.renderAnalysisLangs();
+
+    const langView = this.el.querySelector(`.js-language-editor__analysis-langs-list .analysis-language:first-child`).view;
+
+    langView.showEditor();
+  }
+
+  async deleteAnalysisLang(i) {
+    this.language.analysisLanguages.splice(i, 1);
+    await this.save();
+    return this.renderAnalysisLangs();
   }
 
 }
