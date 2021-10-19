@@ -6,7 +6,7 @@ describe(`Lexicon`, function() {
     cy.get(`#nav[data-loaded=true]`);
   });
 
-  it.only(`when no language is selected, it renders the Language Chooser and creates a new language`, function() {
+  it(`when no language is selected, it renders the Language Chooser and creates a new language`, function() {
 
     cy.contains(`#nav li`, `Lexicon`)
     .click();
@@ -19,7 +19,17 @@ describe(`Lexicon`, function() {
 
   });
 
-  it(`when no language is selected, it renders the Language Chooser and selectes a language`);
+  it.only(`when no language is selected, it renders the Language Chooser and selects a language`, function() {
+
+    cy.contains(`#nav li`, `Lexicon`)
+    .click();
+
+    cy.contains(`li`, `Nuuchahnulth`)
+    .click();
+
+    cy.contains(`.lexicon h1`, `Nuuchahnulth`);
+
+  });
 
   it(`renders the page for the current language`, function() {
 

@@ -106,7 +106,7 @@ class App extends View {
 
     languageChooser.events.on(`select`, cid => {
       this.settings.language = cid;
-      this.renderPage(this.settings.page);
+      this.#renderPage(this.settings.page);
     });
 
     return languageChooser.render();
