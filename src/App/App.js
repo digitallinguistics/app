@@ -1,4 +1,5 @@
 import Database        from '../services/Database.js';
+import Language        from '../models/Language.js';
 import LanguageChooser from '../components/LanguageChooser/LanguageChooser.js';
 import Mousetrap       from 'mousetrap';
 import Nav             from './Nav/Nav.js';
@@ -56,6 +57,18 @@ class App extends View {
   // APP METHODS
 
   /**
+   * Add a new language and show the Language Editor.
+   */
+  async #addLanguage() {
+    let language = new Language;
+    language.autonym.set(`default`, ``);
+    language.name.set(`eng`, `{ new language }`);
+    language = await app.db.languages.add(language);
+    this.settings.language = language.cid;
+    return this.#renderPage(`Languages`);
+  }
+
+  /**
    * Announce text to screen readers by updating an ARIA live region.
    * @param {String} text the text to announce to screen readers
    */
@@ -84,6 +97,22 @@ class App extends View {
     return this.el;
   }
 
+  async #renderLanguageChooser() {
+
+    const languages       = await this.db.languages.getAll();
+    const languageChooser = new LanguageChooser(languages);
+
+    languageChooser.events.on(`add`, this.#addLanguage.bind(this));
+
+    languageChooser.events.on(`select`, cid => {
+      this.settings.language = cid;
+      this.renderPage(this.settings.page);
+    });
+
+    return languageChooser.render();
+
+  }
+
   /**
    * Render the Main Nav.
    */
@@ -93,7 +122,7 @@ class App extends View {
   }
 
   /**
-   * Render a specific page.
+   * Render a specific page. This is the only method that should call page-rendering methods.
    * @param {String} page the page to render (`Home`, `Languages`, etc.)
    */
   async #renderPage(page) {
@@ -148,15 +177,14 @@ class App extends View {
     const LanguagesPage = this.#pages.get(`Languages`);
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
+    languagesPage.events.on(`add`, this.#addLanguage.bind(this));
     return languagesPage.render(this.settings.language);
   }
 
   async #renderLexiconPage() {
 
     if (!this.settings.language) {
-      const languages       = await this.db.languages.getAll();
-      const languageChooser = new LanguageChooser(languages);
-      return languageChooser.render();
+      return this.#renderLanguageChooser();
     }
 
     const LexiconPage = this.#pages.get(`Lexicon`);

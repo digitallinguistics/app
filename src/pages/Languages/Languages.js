@@ -25,18 +25,7 @@ export default class LanguagesPage extends View {
 
   addEventListeners() {
     this.el.querySelector(`.js-languages-page__nav-add-lang-button`)
-    .addEventListener(`click`, this.addLanguage.bind(this));
-  }
-
-  async addLanguage() {
-    let language = new Language;
-    language.autonym.set(`default`, ``);
-    language.name.set(`eng`, `{ new language }`);
-    language = await app.db.languages.add(language);
-    this.languages.push(language);
-    app.settings.language = language.cid;
-    this.renderNav(language.cid);
-    this.renderEditor(language.cid);
+    .addEventListener(`click`, () => this.events.emite(`add`));
   }
 
   async deleteLanguage(languageCID) {
@@ -80,7 +69,7 @@ export default class LanguagesPage extends View {
 
       // render full editor
       const editorView = new LanguageEditor(language);
-      editorView.events.once(`add`, this.addLanguage.bind(this));
+      editorView.events.once(`add`, () => this.events.emit(`add`));
       editorView.events.on(`delete`, this.deleteLanguage.bind(this));
       editorView.events.on(`update:name`, this.renderNav.bind(this));
       newEditor = editorView.render();
@@ -90,7 +79,7 @@ export default class LanguagesPage extends View {
       // render placeholder editor
       app.settings.language = null;
       const editorView = new LanguageEditor;
-      editorView.events.on(`add`, this.addLanguage.bind(this));
+      editorView.events.on(`add`, () => this.events.emit(`add`));
       newEditor = editorView.render();
 
     }

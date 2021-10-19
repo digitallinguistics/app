@@ -14,7 +14,8 @@ describe(`Lexicon`, function() {
     cy.contains(`Add a language`)
     .click();
 
-    cy.contains(`.lexicon`, `Nuuchahnulth`);
+    cy.get(`.language-editor [name=name-eng]`)
+    .should(`have.value`, `{ new language }`);
 
   });
 
