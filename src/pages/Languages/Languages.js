@@ -36,7 +36,7 @@ export default class LanguagesPage extends View {
     this.languages.push(language);
     app.settings.language = language.cid;
     this.renderNav(language.cid);
-    return this.renderEditor(language.cid);
+    this.renderEditor(language.cid);
   }
 
   async deleteLanguage(languageCID) {
