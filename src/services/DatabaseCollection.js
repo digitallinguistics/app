@@ -47,7 +47,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
+      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
@@ -161,7 +161,10 @@ class DatabaseCollection {
    * @param   {Boolean}  [options.includeDeleted] Whether to include deleted items in the results.
    * @returns {Promise}
    */
-  iterate(cb, { includeDeleted = false } = {}) {
+  iterate(cb, {
+    includeDeleted = false,
+    index,
+  } = {}) {
     return new Promise((resolve, reject) => {
 
       const txn = this.#idb.transaction(this.#storeName);
@@ -170,9 +173,13 @@ class DatabaseCollection {
       txn.oncomplete = () => resolve();
       txn.onerror    = () => reject(txn.error);
 
-      txn.objectStore(this.#storeName)
-      .openCursor()
-      .onsuccess = ev => {
+      const store = txn.objectStore(this.#storeName);
+
+      const req = index ?
+        store.index(index).openCursor() :
+        store.openCursor();
+
+      req.onsuccess = ev => {
         const cursor = ev.target.result;
         if (!cursor) return;
         const data = cursor.value;
@@ -196,7 +203,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
+      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 

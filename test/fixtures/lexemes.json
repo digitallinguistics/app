@@ -1,11 +1,27 @@
 [
   {
-    "head": {}
+    "lemma": {
+      "mod": "biisbit",
+      "swad": "bi·sbit"
+    }
   },
   {
-    "head": {}
+    "citationForm": {
+      "mod": "guxti",
+      "swad": "guxti"
+    },
+    "lemma": {
+      "mod": "guxt-",
+      "swad": "guxt-"
+    }
   },
   {
-    "head": {}
+    "head": {
+      "mod": "Dzantem"
+    },
+    "lemma": {
+      "mod": "dzantem",
+      "swad": "ʒantem"
+    }
   }
 ]

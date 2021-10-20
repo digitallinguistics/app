@@ -104,8 +104,12 @@ export default class Database {
     }
 
     if (!this.idb.objectStoreNames.contains(`lexemes`)) {
+
       const store = this.idb.createObjectStore(`lexemes`, { keyPath: `cid` });
+
+      store.createIndex(`displayName`, `displayName`, { unique: false });
       store.createIndex(`key`, `key`, { unique: false });
+
     }
 
   }

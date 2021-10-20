@@ -1,5 +1,6 @@
-import Database  from './Database.js';
-import Language  from '../models/Language.js';
+import Database from './Database.js';
+import Language from '../models/Language.js';
+import Lexeme   from '../models/Lexeme.js';
 
 describe(`Database`, function() {
 
@@ -215,6 +216,48 @@ describe(`Database`, function() {
 
       store.add({ cid: 1, customProp: true });
       store.add({ cid: 2, customProp: false });
+
+    });
+  });
+
+  it(`iterates over an index in a store`, function() {
+    return new Promise((resolve, reject) => {
+
+      // test this using the `displayName` index
+
+      const lexemeData = [
+        { cid: `a`, lemma: `c` },
+        { cid: `b`, lemma: `b` },
+        { cid: `c`, lemma: `a` },
+      ];
+
+      const lexemes = lexemeData.map(data => new Lexeme(data));
+      const results = [];
+
+      const txn   = this.db.idb.transaction(`lexemes`, `readwrite`);
+      const store = txn.objectStore(`lexemes`);
+
+      txn.onerror = reject;
+
+      txn.oncomplete = () => {
+
+        this.db.lexemes
+        .iterate(lexeme => {
+          results.push(lexeme);
+        }, { index: `displayName` })
+        .then(() => {
+          console.log(results);
+          expect(results[0].lemma.default).to.equal(`a`);
+          expect(results[2].lemma.default).to.equal(`c`);
+          expect(results[0].cid).to.equal(`c`);
+          expect(results[2].cid).to.equal(`a`);
+          resolve();
+        })
+        .catch(reject);
+
+      };
+
+      lexemes.forEach(item => store.add(item));
 
     });
   });
