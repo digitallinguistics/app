@@ -5,6 +5,30 @@
   align-items   : stretch;
   flex-direction: column;
 
+  &.editing {
+    .analysis-language__edit-button {
+      display: none;
+    }
+    .analysis-language__preview {
+      margin-inline-end: 2.5em;
+    }
+    .analysis-language__editor {
+      display: flex;
+    }
+  }
+
+  &:not(.editing) {
+    .analysis-language__edit-button {
+      display: block;
+    }
+    .analysis-language__preview {
+      margin-inline-end: 0em;
+    }
+    .analysis-language__editor {
+      display: none;
+    }
+  }
+
   &__abbr-input {
     font: var(--font-mono);
   }
@@ -63,6 +87,10 @@
   }
 
   &__preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-grow: 1;
+    column-gap: var(--text-inline-padding);
     padding: var(--text-padding);
   }
 
