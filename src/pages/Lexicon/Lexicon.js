@@ -1,13 +1,21 @@
-import styles               from './Lexicon.less';
-import template             from './Lexicon.hbs';
-import View                 from '../../core/View.js';
+import styles    from './Lexicon.less';
+import template  from './Lexicon.hbs';
+import View      from '../../core/View.js';
+import WebWorker from '../../core/WebWorker.js';
 
 export default class LexiconPage extends View {
 
   constructor(language, lexemes = []) {
+
     super({ styles, template });
+
+    // The Lexicon page worker is a singleton.
+    LexiconPage.worker ??= new WebWorker(`./pages/Lexicon/LexiconWorker.js`);
+
     this.language = language;
     this.lexemes  = lexemes;
+    this.worker   = LexiconPage.worker;
+
   }
 
   itemTemplate({ cid, name }) {
@@ -23,11 +31,15 @@ export default class LexiconPage extends View {
     return this.el;
   }
 
-  async renderList() {
+  renderList() {
 
     this.list.innerHTML = ``;
 
-    // this.lexemes.sort((a, b) => a.displayName.localeCompare(b.displayName, undefined, { sensitivity: `base` }));
+    this.worker.stream(
+      `renderList`,
+      { language: this.language.cid },
+      this.renderListItem.bind(this),
+    );
 
   }
 

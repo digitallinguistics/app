@@ -11,7 +11,7 @@ export default class WebWorker {
    * @param {String} url The URL of the worker's JavaScript file.
    */
   constructor(url) {
-    this.worker         = new WebWorker(url);
+    this.worker         = new Worker(url);
     this.worker.onerror = console.error;
   }
 
@@ -41,7 +41,7 @@ export default class WebWorker {
   }
 
   /**
-   * Trigger a Web Worker operation and subscribe a callback to its stream of emitted events.
+   * Trigger a web worker operation and subscribe a callback to its stream of emitted events.
    * @param {String}     operation      The operation for the worker to perform.
    * @param {*|Function} dataOrCallback The data to pass to the worker to operate on, or the callback function to call if no data needs to be passed.
    * @param {Function}   [callback]
@@ -70,6 +70,13 @@ export default class WebWorker {
     this.worker.addEventListener(`message`, listener);
     this.worker.postMessage({ data, operation, operationID });
 
+  }
+
+  /**
+   * Terminate the web worker.
+   */
+  terminate() {
+    this.worker.terminate();
   }
 
 }
