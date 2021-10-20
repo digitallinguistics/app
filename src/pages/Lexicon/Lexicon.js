@@ -1,6 +1,6 @@
-import styles   from './Lexicon.less';
-import template from './Lexicon.hbs';
-import View     from '../../core/View.js';
+import styles               from './Lexicon.less';
+import template             from './Lexicon.hbs';
+import View                 from '../../core/View.js';
 
 export default class LexiconPage extends View {
 
@@ -25,23 +25,14 @@ export default class LexiconPage extends View {
 
   async renderList() {
 
-    // don't render if the database isn't initialized
-    // (primarily relevant for testing)
-    if (!app?.db) return;
-
     this.list.innerHTML = ``;
 
-    this.lexemes.sort((a, b) => a.displayName.localeCompare(b.displayName, undefined, { sensitivity: `base` }));
-
-    Promise.all(this.lexemes.map(this.renderListItem.bind(this)));
-
-    // for (const lexeme of this.lexemes) {
-    //   this.renderListItem(lexeme);
-    // }
+    // this.lexemes.sort((a, b) => a.displayName.localeCompare(b.displayName, undefined, { sensitivity: `base` }));
 
   }
 
-  async renderListItem(lexeme) {
+  renderListItem(lexeme) {
+    if (lexeme.language !== this.language.cid) return;
     const li = document.createElement(`li`);
     li.textContent = lexeme.displayName;
     this.list.appendChild(li);

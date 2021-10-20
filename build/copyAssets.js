@@ -18,6 +18,7 @@ export default async function copyAssets() {
   await copy(joinPath(srcDir, `/fonts`), joinPath(distDir, `/fonts`));
   await copy(joinPath(srcDir, `/images`), joinPath(distDir, `/images`));
   await copy(joinPath(srcDir, `favicon.ico`), joinPath(distDir, `favicon.ico`));
+  await copy(joinPath(srcDir, `/pages/Lexicon/LexiconWorker.js`), joinPath(distDir, `/pages/Lexicon/LexiconWorker.js`));
   await copy(joinPath(srcDir, `manifest.json`), joinPath(distDir, `manifest.json`));
   await copy(joinPath(srcDir, `offline-worker.js`), joinPath(distDir, `offline-worker.js`));
 }

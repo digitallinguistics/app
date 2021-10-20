@@ -246,7 +246,6 @@ describe(`Database`, function() {
           results.push(lexeme);
         }, { index: `displayName` })
         .then(() => {
-          console.log(results);
           expect(results[0].lemma.default).to.equal(`a`);
           expect(results[2].lemma.default).to.equal(`c`);
           expect(results[0].cid).to.equal(`c`);

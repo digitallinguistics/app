@@ -82,7 +82,11 @@ class App extends View {
    * @returns {Promise}
    */
   initialize() {
-    return this.db.initialize();
+    return this.db.initialize()
+    .then(() => {
+      const e = new Event(`initialize`);
+      document.body.dispatchEvent(e);
+    });
   }
 
   /**

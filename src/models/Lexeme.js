@@ -31,7 +31,7 @@ class Lexeme extends Model {
     this.defaultForm = defaultForm;
 
     /**
-     * The default display name of the lexeme, as a String.
+     * The default display name of the lexeme, as a String. This property is made enumerable so that it can be indexed.
      * @name Lexeme#displayName
      * @readonly
      * @type {String}

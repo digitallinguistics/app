@@ -1,24 +1,30 @@
 [
   {
+    "cid": "1",
+    "language": "2",
     "lemma": {
       "mod": "biisbit",
       "swad": "bi·sbit"
     }
   },
   {
+    "cid": "2",
     "citationForm": {
       "mod": "guxti",
       "swad": "guxti"
     },
+    "language": "2",
     "lemma": {
       "mod": "guxt-",
       "swad": "guxt-"
     }
   },
   {
+    "cid": "3",
     "head": {
       "mod": "Dzantem"
     },
+    "language": "2",
     "lemma": {
       "mod": "dzantem",
       "swad": "ʒantem"

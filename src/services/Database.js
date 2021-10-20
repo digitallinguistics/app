@@ -14,7 +14,7 @@ export default class Database {
   // PROPERTIES
 
   /**
-   * A reference to the IndexedDB instance.
+   * A reference to the IndexedDB instance. This needs to be a publicly-accessible property for testing purposes.
    * @type {IndexedDB}
    */
   idb;
