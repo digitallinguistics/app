@@ -92,7 +92,7 @@ export default class LanguageEditor extends View {
     }
 
     if (target.classList.contains(`js-analysis-language__save-button`)) {
-      return this.updateAnalysisLangs();
+      return this.save();
     }
 
   }
@@ -260,24 +260,6 @@ export default class LanguageEditor extends View {
     this.language.additionalNames = names;
     return this.save();
 
-  }
-
-  updateAnalysisLangs() {
-
-    const listItems = this.el.querySelectorAll(`.analysis-language`);
-    const tags      = [];
-
-    for (const li of listItems) {
-
-      const lang = li.querySelector(`.js-analysis-language__lang-input`).value;
-      const tag = li.querySelector(`.js-analysis-language__tag-input`).value;
-      const abbr = li.querySelector(`.js-analysis-language__abbr-input`).value;
-
-      tags.push({ lang, tag, abbr });
-    }
-
-    this.language.analysisLanguages = tags;
-    return this.save();
   }
 
   updateAutonym(ev) {
