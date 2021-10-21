@@ -10,7 +10,7 @@ describe(`Language Editor`, function() {
     .children()
     .should(`have.lengthOf`, 0);
 
-    cy.contains(`button`, `Add a Language Name`)
+    cy.contains(`button`, `Add a language name`)
     .click();
 
     cy.get(`.js-language-editor__names-list`)
@@ -18,7 +18,7 @@ describe(`Language Editor`, function() {
     .should(`have.lengthOf`, 1);
 
     cy.get(`.additional-name`);
-  
+
   });
 
   it(`deletes an Additional Name`, function() {
@@ -34,7 +34,7 @@ describe(`Language Editor`, function() {
 
   it(`deletes an empty Additional Name when editing is canceled`, function() {
 
-    cy.contains(`button`, `Add a Language Name`)
+    cy.contains(`button`, `Add a language name`)
     .click();
 
     cy.get(`.js-additional-name__cancel-button`)
@@ -43,7 +43,7 @@ describe(`Language Editor`, function() {
     cy.get(`.js-language-editor__names-list`)
     .children()
     .should(`have.lengthOf`, 0);
-    
+
   });
 
   it(`updates the metadata fields on save`, function() {
