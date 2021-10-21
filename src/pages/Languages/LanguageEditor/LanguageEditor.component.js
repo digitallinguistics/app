@@ -52,7 +52,7 @@ describe(`Language Editor`, function() {
     .children()
     .should(`have.lengthOf`, 1);
 
-    cy.contains(`button`, `Add an Analysis Language`)
+    cy.contains(`button`, `Add an analysis language`)
     .click();
 
     cy.get(`.js-language-editor__analysis-langs-list`)
@@ -78,7 +78,7 @@ describe(`Language Editor`, function() {
 
   it(`deletes an empty Analysis Language when editing is canceled`, function() {
 
-    cy.contains(`button`, `Add an Analysis Language`)
+    cy.contains(`button`, `Add an analysis language`)
     .click();
 
     cy.get(`.js-analysis-language__cancel-button:visible`)

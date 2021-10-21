@@ -85,7 +85,7 @@ describe(`Languages`, () => {
     });
 
     // add an analysis language
-    cy.contains(`.language-editor button`, `Add an Analysis Language`)
+    cy.contains(`.language-editor button`, `Add an analysis language`)
     .click();
 
     cy.get(`.language-editor__analysis-languages`)
