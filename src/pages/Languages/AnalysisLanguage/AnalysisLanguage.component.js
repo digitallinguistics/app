@@ -56,7 +56,7 @@ describe(`Analysis Language`, function() {
 
   });
 
-  it(`does not save without a name`, function() {
+  it(`does not save without a tag`, function() {
 
     cy.get(`.js-analysis-language__edit-button`)
     .click();
@@ -100,6 +100,16 @@ describe(`Analysis Language`, function() {
 
     cy.get(`.js-analysis-language__tag-input`)
     .should(`be.disabled`);
+  });
+
+  it(`sets empty abbreviation to match tag`, function() {
+    cy.get(`.js-analysis-language__abbr-input`)
+    .clear();
+
+    cy.contains(`button`, `Save`)
+    .click();
+
+    cy.contains(`p`, `Spanish es es`);
   });
 
 });
