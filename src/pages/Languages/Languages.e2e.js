@@ -5,38 +5,38 @@ describe(`Languages`, () => {
   it(`adds / deletes a language from the Language Editor`, function() {
 
     // visit Languages page
-    
+
     cy.visit(`/`);
-    
+
     cy.get(`#main[data-page=Home]`);
-    
+
     cy.contains(`#nav li`, `Languages`)
     .click();
-    
+
     // add a language from the editor
-    
-    cy.contains(`.js-language-editor__add-language-button`, `Add a Language`)
+
+    cy.contains(`.js-language-editor__add-language-button`, `Add a language`)
     .click();
-    
+
     cy.contains(`.languages-nav li`, `{ new language }`);
-    
+
     // delete the language
-    
+
     cy.window().then(win => {
-      
+
       cy.stub(win, `prompt`).returns(`YES`);
-      
+
       cy.contains(`Delete this Language`)
       .click();
-      
+
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
       .click();
-      
+
       cy.get(`.languages-nav .languages-list`).children()
       .should(`have.length`, 0);
-      
+
     });
-  
+
   });
 
   it(`adds / switches / edits a language`, function() {
@@ -45,13 +45,13 @@ describe(`Languages`, () => {
     cy.visit(`/`);
 
     cy.get(`#main[data-page=Home]`);
-    
+
     cy.contains(`#nav li`, `Languages`)
     .click();
-    
-    cy.contains(`.languages-nav button`, `Add a Language`)
+
+    cy.contains(`.languages-nav button`, `Add a language`)
     .click();
-    
+
     cy.clock(new Date);
 
     // edit the language name
@@ -66,7 +66,7 @@ describe(`Languages`, () => {
     cy.contains(`.languages-nav li`, `Chitimacha`);
 
     // add a language name
-    cy.contains(`.language-editor button`, `Add a Language Name`)
+    cy.contains(`.language-editor button`, `Add a language name`)
     .click();
 
     // add an additional language name
@@ -82,7 +82,7 @@ describe(`Languages`, () => {
 
       cy.get(`.js-additional-name__save-button`)
       .click();
-    
+
     });
 
     // edit the remaining data
@@ -91,17 +91,17 @@ describe(`Languages`, () => {
     .type(`Sitimaxa`);
 
     cy.tick(delay); // wait for debounce
-    
+
     cy.get(`input[name=abbreviation]`)
     .type(`chiti`);
 
     cy.tick(delay); // wait for debounce
-    
+
     cy.get(`input[name=iso]`)
     .type(`ctm`);
-    
+
     cy.tick(delay); // wait for debounce
-    
+
     cy.get(`input[name=glottocode]`)
     .type(`chit1248`);
 
@@ -116,15 +116,15 @@ describe(`Languages`, () => {
 
     cy.contains(`#nav li`, `Languages`)
     .click();
-    
+
     // NOTE: The previous language should be loaded automatically.
 
     cy.get(`input[name=name-eng]`)
     .should(`have.value`, `Chitimacha`);
-      
+
     cy.get(`input[name=autonym-default]`)
     .should(`have.value`, `Sitimaxa`);
-      
+
     cy.get(`input[name=abbreviation]`)
     .should(`have.value`, `chiti`);
 
@@ -133,9 +133,9 @@ describe(`Languages`, () => {
 
     cy.get(`input[name=glottocode]`)
     .should(`have.value`, `chit1248`);
-      
+
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
-      
+
     cy.get(`.js-language-editor__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
 
