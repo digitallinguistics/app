@@ -13,18 +13,18 @@ export default class MultiLangStringEditor extends View {
    * @param {MultiLangString} data                     The MultiLangString data to render. Must be a MultiLangString (Map) object.
    * @param {Object}          [options={}]             An options hash.
    * @param {String}          [options.fieldName='']   The name for this input field.
-   * @param {String}          [options.placeholder=''] The placeholder text for this input.
+   * @param {Object}          [options.inputAttributes={}] An Object map of attributes to add to each `<input>` element, and the values for those attributes (e.g. `placeholder: 'e.g. Spanish'`).
    */
   constructor(data, {
     fieldName   = ``,
-    placeholder = ``,
+    inputAttributes = {},
   } = {}) {
 
     super();
 
     this.data        = data;
     this.fieldName   = fieldName;
-    this.placeholder = placeholder;
+    this.inputAttributes = inputAttributes;
 
   }
 
@@ -40,19 +40,25 @@ export default class MultiLangStringEditor extends View {
 
     for (const [lang, text] of strings) {
 
-      const label = View.fromHTML(`<label class=label>${ lang }</label>`);
+      const id    = `${ this.fieldName }-${ lang }`;
+      const label = View.fromHTML(`<label class=label for='${ id }'>${ lang }</label>`);
 
       const input = View.fromHTML(`<input
         autocomplete=off
         class='line-input txn'
+        id='${ id }'
         inputmode=text
         lang='${ lang }'
-        name='${ this.fieldName }-${ lang }'
+        name='${ id }'
         placeholder='${ this.placeholder }'
         spellcheck=false
         type=text
         value='${ text }'
       ></input>`);
+
+      for (const [key, value] of Object.entries(this.inputAttributes)) {
+        input.setAttribute(key, value);
+      }
 
       const div = this.el.querySelector(`div`);
 

@@ -1,4 +1,4 @@
-import './Required.css';
+import '../../../dist/components/Required/Required.css';
 
 export default {
   title: `Components/Required`,

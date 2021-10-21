@@ -1,12 +1,14 @@
 // Styling for specific elements of the app shell
 
-@import 'Banner/Banner';
-@import 'Nav/Nav';
-@import 'Skip-Link/Skip-Link';
-@import (reference) 'variables';
+@import (reference) 'variables.less';
+
+@import 'Banner/Banner.less';
+@import 'Nav/Nav.less';
+@import 'Skip-Link/Skip-Link.less';
+@import 'HelpMenu/HelpMenu.less';
 
 :focus {
-  z-index: 2;
+  z-index: var(--z-focus);
 }
 
 .app {

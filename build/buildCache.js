@@ -27,18 +27,13 @@ const disallowList = [
 export default async function buildCache() {
 
   const assets          = [];
-  const distFilesStream = await recurse(distDir);
+  const distFilesStream = await recurse(distDir, { fileFilter: `!*.css` });
 
   for await (const entry of distFilesStream) {
-
     const filename = getBasename(entry.basename);
-
     if (disallowList.includes(filename)) continue;
-
     const posixPath = entry.path.split(sep).join(posix.sep);
-
     assets.push(`/${ posixPath }`);
-
   }
 
   await writeJSON(cachePath, assets, { spaces: 2 });

@@ -1,0 +1,11 @@
+:root {
+
+  --z-base : 0;
+
+  // focus styles should have the highest z-index of all sub-banner content
+  --z-focus: calc(var(--z-base) + 1);
+
+  // app banner and its children should be above all other <body> content
+  --z-banner: calc(var(--z-focus) + 1);
+
+}

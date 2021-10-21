@@ -1,6 +1,8 @@
+/* Apply #app styles to #root. */
+
 #root {
-  align-items: flex-start;
   font-family: var(--font);
   font-size:   100%;
   line-height: 1.5;
+  min-height: 100vh;
 }

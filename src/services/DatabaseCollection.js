@@ -1,8 +1,8 @@
 /**
  * A utility class for performing methods on an IndexedDB object store.
- * @memberof services#Database
+ * @memberof Services
  */
-export default class Collection {
+class DatabaseCollection {
 
   /**
    * A reference to the IndexedDB database instance
@@ -31,16 +31,16 @@ export default class Collection {
   constructor(objectStoreName, Model, database) {
 
     Object.defineProperties(this, {
-      idb: {
-        configurable: true,
-        enumerable:   true,
-        value:        database,
-        writable:     false,
-      },
       Model: {
         configurable: true,
         enumerable:   true,
         value:        Model,
+        writable:     false,
+      },
+      idb: {
+        configurable: true,
+        enumerable:   true,
+        value:        database,
         writable:     false,
       },
       storeName: {
@@ -56,7 +56,7 @@ export default class Collection {
   // CRUD OPERATIONS
 
   /**
-   * Adds an item to the database
+   * Add an item to the database.
    * @param  {Object|Array}          [data=[]] The data to add.
    * @return {Promise<Object|Array>}           Returns a Promise that resolves to the new database item or an array of the new database items.
    */
@@ -85,7 +85,7 @@ export default class Collection {
   }
 
   /**
-   * Deletes the item or items with the specified client ID(s) (cid(s)) by adding a "deleted" flag to the item.
+   * Delete the item or items with the specified client ID(s) (cid(s)) by adding a "deleted" flag to the item.
    * @param  {String|Array} clientIDs A client ID (cid) or Array of client IDs of the item(s) to delete.
    * @return {Promise}
    */
@@ -117,7 +117,7 @@ export default class Collection {
   }
 
   /**
-   * Retrieves an item from the database by client ID (cid), or an IndexedDB key range.
+   * Retrieve an item from the database by client ID (cid), or an IndexedDB key range.
    * @param  {String|IDBKeyRange}   key The client ID (cid) of the item, or an IDBKeyRange.
    * @return {Promise<Object|null>}     Returns a Promise that resolves to the retrieved item, or null if not found.
    */
@@ -142,12 +142,12 @@ export default class Collection {
   }
 
   /**
-   * Retrieves all the items from the collection.
+   * Retrieve all the items from the collection.
    * @param  {Object}             [options={}]
    * @param  {Integer}            [options.count]         The number of items to return if more than 1 is found.
    * @param  {Boolean}            [options.deleted=false] Whether to include deleted items in the results.
    * @param  {String|IDBKeyRange} [options.query]         The client ID (cid) or an IDBKeyRange to limit the results to.
-   * @return {Promise}                                    Returns a Promise that resolves to an Array of items in the collection.
+   * @return {Promise<Array>}                             Returns a Promise that resolves to an Array of items in the collection.
    */
   getAll({
     query,
@@ -174,7 +174,7 @@ export default class Collection {
   }
 
   /**
-   * Adds or updates one or more items to the collection.
+   * Add or update one or more items to the collection.
    * @param  {Object|Array} [data=[]] An object or array of objects to add to the collection.
    * @return {Promise}                Returns the new object or an array of new objects, with client IDs (cid).
    */
@@ -203,3 +203,5 @@ export default class Collection {
   }
 
 }
+
+export default DatabaseCollection;

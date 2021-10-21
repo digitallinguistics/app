@@ -2,14 +2,13 @@ import EventEmitter from './EventEmitter.js';
 import html2element from '../utilities/html2element.js';
 
 /**
- * A basic View class. The View class does not have much functionality itself. It instead documents certain conventions regarding how the View class should operate.
- * @memberof core
- * @instance
+ * A base class for Views. Most components should extend the View class. The View class itself does not have much functionality. Instead it documents conventions for how Views should operate. Views in the Lotus app also function as Controllers.
+ * @memberof Core
  */
-export default class View {
+class View {
 
   /**
-   * A reference to the HTML element for this View.
+   * A reference to the HTML element for this view.
    * @type {HTMLElement}
    */
   el;
@@ -21,45 +20,76 @@ export default class View {
   events = new EventEmitter;
 
   /**
-   * A reference to the `<template>` tag or templating function for this View.
+   * A reference to the `<template>` tag containing the template for this view, an HTML template string, or a templating function, for use by the {@link View#render} function. This property should be overwritten by view instances. Note that the {@link View#cloneTemplate} method assumes that the value of this property is a `<template>` tag.
    * @type {HTMLTemplateElement}
    */
-  template = `<template></template>`;
+  template;
 
   /**
-   * Use an `addEventListeners()` method to attach listeners to an element. The `addEventListeners()` method of the base View class is a no-op. View subclasses should overwrite this method. This method is typically called at the end of the `render()` method.
+   * The CSS styles for this component (as a String).
+   * @type {String}
+   */
+  styles;
+
+  /**
+   * Create a new View.
+   * @param {Object} [options={}]          An options Object.
+   * @param {String} [options.styles=``]   CSS styles for this view.
+   * @param {String} [options.template=``] The HTML template String for this view.
+   */
+  constructor({ styles = ``, template = `` } = {}) {
+    this.styles             = styles;
+    this.template           = document.createElement(`template`);
+    this.template.innerHTML = template;
+  }
+
+  /**
+   * Attaches event listeners to the element or its children. This method is typically called near the end of the {@link View#render} method. This method should be overwritten by View instances.
+   * @abstract
    */
   addEventListeners() { /* no-op */ }
 
   /**
-   * Clones the content of the `<template>` tag stored in the `template` property and returns it.
+   * Clones the content of the `<template>` element referenced by the {@link View#template} property and sets it to `this.el`, as well as returns the clone. This method should only be called if the value of the {@link View#template} property is a reference to an HTML `<template>` element.
    * @returns {HTMLElement}
    */
   cloneTemplate() {
-    return this.template.content.cloneNode(true).firstElementChild;
+    this.el = this.template.content.cloneNode(true).firstElementChild;
+    this.el.view = this;
+    return this.el;
   }
 
   /**
-   * Within the DOM tree for this view, sets the attributes for any elements with a `data-bind` attribute on them. The value of the `data-bind` attribute should be `{attr}:{prop}`, where `attr` is the name of the attribute to set on the element, and `prop` is the property on the view that contains the value to use for the attribute. Multiple `data-bind` directives may be separated by semicolons.
+   * Loads the styles for this component as a `<style>` tag in the page header. Does not load the styles if the `<style>` tag for this component is already present on the page.
    */
-  hydrate() {
-    for (const el of this.el.querySelectorAll(`[data-bind]`)) {
-      const attributes = el.dataset.bind.split(/\s*;\s*/u).filter(Boolean);
-      for (const attribute of attributes) {
-        const [attr, prop] = attribute.split(/\s*:\s*/u);
-        if (typeof this[prop] !== `undefined`) el.setAttribute(attr, this[prop]);
-      }
-    }
+  loadStyles() {
+
+    const id       = `${ this.constructor.name }-styles`;
+    let   styleTag = document.getElementById(id);
+
+    if (styleTag) return;
+
+    styleTag = document.createElement(`style`);
+    styleTag.setAttribute(`id`, id);
+    styleTag.innerHTML = this.styles;
+    document.head.appendChild(styleTag);
+
   }
 
   /**
-   * The `render()` method of the base View class is a no-op. View subclasses should overwrite this method with one that returns the rendered DOM element or a document fragment, and sets the `el` property on the View. Views should not insert themselves into the DOM—that is the responsibility of their controller. Views should however attach event listeners to their elements.
-   * @return {HTMLElement|DocumentFragment}
+   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. Views should however attach event listeners to their elements by calling {@link View#addEventListeners}. They typically also call `loadStyles()` to load their CSS styles into the `<head>` tag. The `render()` method should be overwritten by View instances.
+   * @abstract
    */
   render() { /* no-op */ }
 
   // UTILITY METHODS
 
+  /**
+   * @static
+   * @type {Utilities.html2element}
+   */
   static fromHTML = html2element;
 
 }
+
+export default View;

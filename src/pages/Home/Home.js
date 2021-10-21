@@ -1,21 +1,23 @@
-import View from '../../core/View.js';
+import styles   from './Home.less';
+import template from './Home.hbs';
+import View     from '../../core/View.js';
 
 export default class HomePage extends View {
 
   /**
-   * A reference to the Home page `<template>` tag.
-   * @type {HTMLTemplateElement}
+   * Create a new Home page.
    */
-  template;
+  constructor() {
+    super({ styles, template });
+  }
 
   /**
    * Render the Home Page.
    * @return {HTMLMainElement}
    */
   render() {
-    this.template = document.getElementById(`home-template`);
-    this.el       = this.cloneTemplate();
-    this.el.view  = this;
+    this.loadStyles();
+    this.cloneTemplate();
     if (window.installEvent) this.showInstallPrompt();
     return this.el;
   }
@@ -23,7 +25,7 @@ export default class HomePage extends View {
   showInstallPrompt() {
     this.el.querySelector(`#install-prompt`).hidden = false;
     this.el.querySelector(`#install-prompt button`).addEventListener(`click`, () => {
-      app.installEvent.prompt();
+      window.installEvent.prompt();
     });
   }
 

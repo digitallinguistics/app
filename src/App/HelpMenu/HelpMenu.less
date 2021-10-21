@@ -1,0 +1,97 @@
+@import (reference) 'utilities.less';
+@import (reference) 'variables.less';
+
+@import 'Link/Link.less';
+
+.help-menu {
+
+  align-self: center;
+  color     : white;
+
+  /* Closes the details when clicking anywhere else */
+  /* source: https://medium.com/an-idea/the-details-of-a-dropdown-a817dc27e545 */
+  &[open] summary::before {
+    content     : '';
+    cursor      : default;
+    inset-block : 0;
+    inset-inline: 0;
+    position    : fixed;
+  }
+
+  .dropdown-content {
+    background-color: white;
+    border          : var(--border);
+    border-radius   : var(--border-radius);
+    box-shadow      : var(--box-shadow);
+    inset-inline-end: var(--space-xs);
+    min-inline-size : max-content;
+    position        : absolute;
+    // This z-index should stay set relative to its stacking context.
+    // The dropdown just needs to be pushed higher than summary::before.
+    // Do not add to z-indexes.less.
+    z-index: 1;
+  }
+
+  li:hover {
+
+    background-color: var(--blue-1);
+
+    &:first-child {
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+  }
+
+  .link {
+
+    align-items   : center;
+    display       : flex;
+    flex-direction: row;
+
+    svg {
+      color: black;
+    }
+
+    &::after {
+      // The !important declaration here is necessary to override the very high specificity
+      // of the external link selector within the .link class.
+      position: relative !important;
+    }
+
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  svg {
+    --icon-size: 1.25em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : var(--space-xs);
+  }
+
+  summary {
+    align-items   : center;
+    cursor        : pointer;
+    display       : flex;
+    flex-direction: row;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  @media (max-width: @breakpoint) {
+
+    &__title {
+      .visually-hidden;
+    }
+
+  }
+
+}

@@ -1,4 +1,4 @@
-import './BlockHeader.css';
+import '../../../dist/components/BlockHeader/BlockHeader.css';
 
 export default {
   title: `Components/Block Header`,

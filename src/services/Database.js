@@ -1,12 +1,13 @@
 import Collection from './DatabaseCollection.js';
 import Language   from '../models/Language.js';
+import Lexeme     from '../models/Lexeme.js';
 import Text       from '../models/Text.js';
 
 const IndexedDB = window.indexedDB;
 
 /**
- * A class representing a local database
- * @memberof services
+ * A class representing a local database.
+ * @memberof Services
  */
 export default class Database {
 
@@ -14,20 +15,23 @@ export default class Database {
 
   /**
    * A reference to the IndexedDB instance.
+   * @type {IndexedDB}
    */
   idb;
 
   /**
-   * The name of the database.
-   * @type {String}
+   * @const
+   * @default "Lotus"
+   * @returns {String}
    */
   get name() {
     return `Lotus`;
   }
 
   /**
-   * The database version number.
-   * @type {Integer}
+   * @const
+   * @default 1
+   * @returns {Integer}
    */
   get version() {
     return 1;
@@ -42,6 +46,10 @@ export default class Database {
       Model:     Language,
       storeName: `languages`,
     },
+    Lexeme: {
+      Model:     Lexeme,
+      storeName: `Lexemes`,
+    },
     Text:     {
       Model:     Text,
       storeName: `texts`,
@@ -52,20 +60,27 @@ export default class Database {
 
   /**
    * The Languages collection.
-   * @type {Collection}
+   * @type {DatabaseCollection}
    */
   languages;
 
   /**
+   * The Lexemes collection.
+   * @type {DatabaseCollection}
+   */
+  lexemes;
+
+  /**
    * The Texts collection.
-   * @type {Collection}
+   * @type {DatabaseCollection}
    */
   texts;
 
   // METHODS
 
   /**
-   * Configures the Lotus database by adding tables and indexes. Can only be run during a open database transaction.
+   * Configure the Lotus database by adding tables and indexes. Can only be run during an IDBOpenDBRequest.
+   * @private
    */
   #configureDatabase() {
 
@@ -84,14 +99,20 @@ export default class Database {
 
       store.createIndex(`abbreviation`, `abbreviation`, { unique: false });
       store.createIndex(`dateModified`, `dateModified`, { unique: false });
-      store.createIndex(`language`, `language.cid`, { unique: false });
+      store.createIndex(`language`, `language`, { unique: false });
 
+    }
+
+    if (!this.idb.objectStoreNames.contains(`lexemes`)) {
+      const store = this.idb.createObjectStore(`lexemes`, { keyPath: `cid` });
+      store.createIndex(`key`, `key`, { unique: false });
     }
 
   }
 
   /**
-   * Creates the collections for performing operations on object stores
+   * Create collections for each database type, for performing operations on object stores.
+   * @private
    */
   #createCollections() {
     Object.entries(this.types).forEach(([, { Model, storeName }]) => {
@@ -100,8 +121,8 @@ export default class Database {
   }
 
   /**
-   * Deletes the database.
-   * @return {Promise}
+   * Delete the database.
+   * @returns {Promise}
    */
   deleteDatabase() {
     return new Promise((resolve, reject) => {
@@ -119,9 +140,9 @@ export default class Database {
   }
 
   /**
-   * Exports all the data in the database and returns an array of JavaScript objects.
-   * @fires Database#onexportupdate
-   * @return {Promise<Array>}
+   * Export all the data in the database and return an Array of JavaScript Objects.
+   * @fires   Database#onexportupdate
+   * @returns {Promise<Array>}
    */
   exportData() {
 
@@ -183,9 +204,9 @@ export default class Database {
   }
 
   /**
-   * Imports one or more items or array of items into the database.
-   * @param  {Object|Array}          [data=[]] An object, an array of of objects, or an array of arrays of objects, to import.
-   * @return {Promise<Object|Array>}           Returns the newly-added item or array of items.
+   * Import one or more items into the database.
+   * @param {Object|Array} [data=[]] An Object, an Array of Objects, or an Array of Arrays of Objects, to import.
+   * @returns {Promise<Object|Array>} Returns the added item or Array of items.
    */
   importData(data = []) {
 
@@ -222,7 +243,7 @@ export default class Database {
   }
 
   /**
-   * Initialize the DLx database
+   * Initialize the database.
    * @return {Promise}
    */
   async initialize() {
@@ -230,6 +251,11 @@ export default class Database {
     this.#createCollections();
   }
 
+  /**
+   * Open the IndexedDB database.
+   * @private
+   * @returns {Promise<IDBDatabase>}
+   */
   #openDatabase() {
     return new Promise((resolve, reject) => {
 
@@ -268,10 +294,11 @@ export default class Database {
 
 }
 
+
 /**
  * onexportupdate event. This event is fired during database export each time an item is retrieved from the database.
  *
- * @event Database#onexportupdate
+ * @event Services.Database#onexportupdate
  * @type {Object}
  * @property {Integer} count - The current total number of items that have been exported so far.
  * @property {Integer} total - The total number of items to export.

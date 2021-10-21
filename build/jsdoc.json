@@ -6,14 +6,21 @@
     "template": "./node_modules/minami"
   },
   "plugins": [
-    "plugins/markdown"
+    "plugins/markdown",
+    "../node_modules/jsdoc-export-default-interop/dist/index"
   ],
   "source": {
     "exclude": [
       "./src/vendor"
     ],
-    "excludePattern": "\\.test\\.",
-    "include": ["./src/"]
+    "excludePattern": "(\\.component\\.|\\.e2e\\.|\\.unit\\.)",
+    "include": [
+      "./src/App/App.js",
+      "./src/core/",
+      "./src/models/",
+      "./src/services/",
+      "./src/utilities/"
+    ]
   },
   "sourceType": "module",
   "templates": {

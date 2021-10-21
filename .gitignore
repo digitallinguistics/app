@@ -110,9 +110,10 @@ dist
 .project
 .vscode
 .project
+.storybook/preview-body.html
 src/**/*.css
 /dist
 /docs
-preview-body.html
 screenshots
 nodemon.json
+.DS_Store

@@ -1,25 +1,26 @@
 <section class=language-editor id=language-editor>
   <form>
-    <p class='help-text right'><span class=required></span> indicates a required field</p>
 
-    <fieldset class='fieldset name'>
+    <p class='align-end help-text'><span class=required></span> indicates a required field</p>
+
+    <fieldset class='fieldset language-editor__fieldset js-language-editor__name'>
       <legend class='legend required'>Language Name</legend>
       <p class=help-text>The canonical / scientific name for this language variety.</p>
     </fieldset>
 
-    <fieldset class='autonym fieldset'>
+    <fieldset class='fieldset js-language-editor__autonym language-editor__fieldset'>
       <legend class=legend>Autonym (Endonym)</legend>
       <p class=help-text>The name of this language in the language itself.</p>
     </fieldset>
 
-    <div class='abbreviation input-group'>
-      <label class=legend for=abbreviation>Abbreviation</label>
+    <div class='input-group language-editor__input-group'>
+      <label class='language-editor__legend legend' for=language-editor__abbreviation-input>Abbreviation</label>
       <div>
         <input
+          autocapitalize=off
           autocomplete=off
           class=line-input
-          data-bind=value:abbreviation
-          id=abbreviation
+          id=language-editor__abbreviation-input
           inputmode=text
           name=abbreviation
           pattern=[(a-z)|(A-Z)|(0-9)]+
@@ -31,16 +32,68 @@
       </div>
     </div>
 
-    <fieldset class='additional-names fieldset'>
+    <div class='input-group language-editor__input-group'>
+      <label class='language-editor__legend' for=language-editor__iso-input>ISO 639-3 Code</label>
+      <div>
+        <input
+          autocapitalize=off
+          autocomplete=off
+          class=line-input
+          id=language-editor__iso-input
+          inputmode=text
+          name=iso
+          pattern=[a-z]{3}
+          placeholder='e.g. spa'
+          type=text
+        >
+        <p class=help-text>The ISO 639-3 code for this language variety. <a class=link href=https://iso639-3.sil.org/code_tables/639/data target=_blank>Search for the language code here.</a></p>
+      </div>
+    </div>
+
+    <div class='input-group language-editor__input-group'>
+      <label class='language-editor__legend legend' for=language-editor__glottocode-input>Glottocode</label>
+      <div>
+        <input
+          autocapitalize=off
+          autocomplete=off
+          class=line-input
+          id=language-editor__glottocode-input
+          inputmode=text
+          name=glottocode
+          pattern=[a-z]{4}[0-9]{4}
+          placeholder='e.g. stan1288'
+          spellcheck=false
+          type=text
+        >
+        <p class=help-text>The Glottolog code ("Glottocode") for this language variety. <a class=link href=https://glottolog.org/glottolog/language target=_blank>Search for the language code here.</a></p>
+      </div>
+    </div>
+
+    <fieldset class='fieldset language-editor__additional-names language-editor__fieldset'>
       <legend class=legend>Additional Names</legend>
-      <header>
+      <header class=language-editor__additional-names-header>
         <p class=help-text>Additional names for this language.</p>
-        <button class='button add-name-button green' type=button>Add a Language Name</button>
+        <button class='button green js-language-editor__add-name-button language-editor__add-name-button' type=button>Add a Language Name</button>
       </header>
-      <ul class=names-list></ul>
+      <ul class='js-language-editor__names-list language-editor__names-list list'></ul>
     </fieldset>
 
-    <button class='button delete-language-button red' type=button>Delete this Language</button>
+    <fieldset class='fieldset language-editor__metadata language-editor__fieldset'>
+      <legend class=legend>Metadata</legend>
+        <div class='language-editor__date-field'>
+          <label class=label>Date Created:</label>
+          <time class='language-editor__date js-language-editor__date-created'></time>
+        </div>
+        <div class='language-editor__date-field'>
+          <label class=label>Date Modified:</label>
+          <time class='language-editor__date js-language-editor__date-modified'></time>
+        </div>
+    </fieldset>
+
+    <div class=language-editor__buttons>
+      <button class='button green js-language-editor__add-language-button language-editor__add-language-button' type=button>Add a Language</button>
+      <button class='button js-language-editor__delete-language-button language-editor__delete-language-button red' type=button>Delete this Language</button>
+    </div>
 
   </form>
 </section>

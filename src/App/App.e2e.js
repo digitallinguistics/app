@@ -1,4 +1,5 @@
 describe(`App`, function() {
+
   it(`updates ARIA live region on page change`, function() {
 
     cy.visit(`/`);
@@ -10,4 +11,5 @@ describe(`App`, function() {
     cy.get(`#info`).should(`contain`, `Languages page`);
 
   });
+
 });

@@ -1,3 +1,6 @@
+@import (reference) 'utilities.less';
+@import (reference) 'variables.less';
+
 .language-editor {
 
   flex-grow:     1;
@@ -5,44 +8,95 @@
   max-width:     var(--measure);
   padding:       var(--space);
 
-  .add-language-button {
-    margin: auto;
+  &.placeholder {
+
+    .language-editor__buttons {
+      .align-center;
+    }
+
+    form > :not(.language-editor__buttons) {
+      display: none;
+    }
+
+    .language-editor__delete-language-button {
+      display: none;
+    }
+
   }
 
-  .add-name-button {
-    margin-block:        var(--space-sm);
+  &__add-name-button {
     margin-inline-start: var(--space);
   }
 
-  .additional-names {
-
+  &__additional-names {
     align-items: stretch;
+  }
 
-    header {
-      flex-direction:  row;
-      flex-wrap:       nowrap;
-      justify-content: space-between;
+  &__additional-names-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
+  }
+
+  &__buttons {
+    .align-end;
+    align-items   : center;
+    flex-direction: row;
+    margin-block  : var(--space-xxxs);
+  }
+
+  &__date {
+    font-size: small;
+  }
+
+  &__date-field + &__date-field {
+    margin-inline-start: var(--space);
+  }
+
+  &__delete-language-button {
+    margin-inline-start: var(--space-sm);
+  }
+
+  &__fieldset {
+    margin-block-end: var(--space);
+  }
+
+  &__input-group {
+
+    // small screens
+    @media (max-width: @breakpoint) {
+      flex-direction: column;
+    }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      flex-direction: row;
     }
 
   }
 
-  .delete-language-button {
-    align-self:   flex-end;
-    margin-block: var(--space);
-  }
+  &__legend {
 
-  .fieldset {
-    margin-block: var(--space-xs);
-  }
+    min-inline-size: 7em;
 
-  .right {
-    align-self: flex-end;
-  }
-
-  .input-group {
-    .label {
-      width: 7.5em;
+    // small screens
+    @media (max-width: @breakpoint) {
+      text-align: left;
     }
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      text-align: right;
+    }
+
+  }
+
+  &__metadata {
+    flex-flow: row wrap;
+  }
+
+  &__names-list:not(:empty) {
+    margin-block-start: var(--space-xs);
   }
 
 }

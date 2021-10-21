@@ -1,10 +1,8 @@
-import '../src/index.css';
 import './storybook.css';
 import App from '../src/App/App.js';
 
 window.app = new App;
-
-window.app.db.initialize();
+window.app.initialize();
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -14,6 +12,7 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  layout: `centered`,
   options: {
     storySort: {
       includeName: true,

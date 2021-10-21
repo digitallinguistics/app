@@ -15,7 +15,6 @@ overrides:
       - '**/*.browser.js'
       - '**/*.component.js'
       - '**/*.e2e.js'
-      - '**/*.integration.js'
       - '**/*.model.js'
       - '**/*.module.js'
       - '**/*.test.js'

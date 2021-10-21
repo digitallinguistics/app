@@ -1,4 +1,3 @@
-import './List.css';
 import ListView from './List.js';
 
 export default {
@@ -12,13 +11,16 @@ const items = [
 ];
 
 const template = (item, i) => {
-  const li       = document.createElement(`li`);
-  li.dataset.id  = i;
-  li.textContent = item;
+  const li         = document.createElement(`li`);
+  li.dataset.id    = i;
+  li.textContent   = item;
+  li.style.padding = `var(--text-padding)`;
   return li;
 };
 
 export const List = () => {
   const listView = new ListView(items, { template });
-  return listView.render();
+  const el       = listView.render();
+  el.classList.add(`list`);
+  return el;
 };

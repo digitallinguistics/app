@@ -1,11 +1,19 @@
+@import 'Link/Link.less';
+
 .banner {
 
-  background-color:  var(--blue);
-  flex-direction:    row;
-  position:          sticky;
+  background-color : var(--blue);
+  flex-direction   : row;
+  position         : sticky;
   inset-block-start: 0;
+  z-index          : var(--z-banner);
 
-  svg {
+  .help-menu {
+    position        : absolute;
+    inset-inline-end: 0;
+  }
+
+  .lotus {
     fill:   white;
     height: 2em;
     margin: var(--space-xs) auto;
