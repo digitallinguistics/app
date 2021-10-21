@@ -1,21 +1,21 @@
+import debounce  from '../../../utilities/debounce.js';
 import styles    from './AnalysisLanguage.less';
 import template  from './AnalysisLanguage.hbs';
 import View      from '../../../core/View.js';
 
 export default class AnalysisLanguage extends View {
 
+  delay = 500;
+
   constructor(analysisLanguage = {}, index) {
 
     super({ styles, template });
 
-    this.analysisLanguage      = analysisLanguage;
-    this.analysisLanguage.lang ??= ``;
-    this.analysisLanguage.abbr ??= this.analysisLanguage.tag;
-    this.analysisLanguage.tag  ??= ``;
-    this.index                 = index;
-    this.langID                = `analysis-language-lang-${ index }`;
-    this.abbrID                = `analysis-language-name-${ index }`;
-    this.tagID                 = `analysis-language-tag-${ index }`;
+    this.analysisLanguage = analysisLanguage;
+    this.index            = index;
+    this.langID           = `analysis-language-lang-${ index }`;
+    this.abbrID           = `analysis-language-name-${ index }`;
+    this.tagID            = `analysis-language-tag-${ index }`;
 
   }
 
@@ -24,12 +24,12 @@ export default class AnalysisLanguage extends View {
     this.el.addEventListener(`click`, ({ target }) => {
 
       if (target.classList.contains(`js-analysis-language__cancel-button`)) {
-        this.langInput.value = this.analysisLanguage.lang;
-        this.abbrInput.value = this.analysisLanguage.abbr;
-        this.tagInput.value = this.analysisLanguage.tag;
+        this.langInput.value = this.analysisLanguage.language;
+        this.abbrInput.value = this.analysisLanguage.abbreviation;
+        this.tagInput.value  = this.analysisLanguage.tag;
         this.updatePreview(
-          this.analysisLanguage.lang,
-          this.analysisLanguage.abbr,
+          this.analysisLanguage.language,
+          this.analysisLanguage.abbreviation,
           this.analysisLanguage.tag,
         );
         return this.hideEditor();
@@ -45,8 +45,8 @@ export default class AnalysisLanguage extends View {
           this.tagInput.disabled = true;
           this.save();
           this.updatePreview(
-            this.analysisLanguage.lang,
-            this.analysisLanguage.abbr,
+            this.analysisLanguage.language,
+            this.analysisLanguage.abbreviation,
             this.analysisLanguage.tag,
           );
 
@@ -65,11 +65,15 @@ export default class AnalysisLanguage extends View {
       this.tagInput.value,
     ));
 
+    this.el.addEventListener(`input`, debounce(ev => {
+      if (ev.target.id === this.tagID) {
+        this.abbrInput.value ||= ev.target.value;
+      }
+    }, this.delay));
   }
 
   hideEditor() {
-    this.editor.hidden     = true;
-    this.editButton.hidden = false;
+    this.el.classList.remove(`editing`);
   }
 
   render() {
@@ -85,9 +89,9 @@ export default class AnalysisLanguage extends View {
     this.tagInput      = this.el.querySelector(`.js-analysis-language__tag-input`);
 
     this.langInput.id    = this.langID;
-    this.langInput.value = this.analysisLanguage.lang;
+    this.langInput.value = this.analysisLanguage.language;
     this.abbrInput.id    = this.abbrID;
-    this.abbrInput.value = this.analysisLanguage.abbr;
+    this.abbrInput.value = this.analysisLanguage.abbreviation;
     this.tagInput.id     = this.tagID;
     this.tagInput.value  = this.analysisLanguage.tag;
 
@@ -98,8 +102,8 @@ export default class AnalysisLanguage extends View {
     this.el.querySelector(`.js-analysis-language__tag-legend`).setAttribute(`for`, this.tagID);
 
     this.updatePreview(
-      this.analysisLanguage.lang,
-      this.analysisLanguage.abbr,
+      this.analysisLanguage.language,
+      this.analysisLanguage.abbreviation,
       this.analysisLanguage.tag,
     );
     this.addEventListeners();
@@ -109,14 +113,13 @@ export default class AnalysisLanguage extends View {
   }
 
   save() {
-    this.analysisLanguage.lang = this.langInput.value;
-    this.analysisLanguage.abbr = this.abbrInput.value;
-    this.analysisLanguage.tag  = this.tagInput.value;
+    this.analysisLanguage.language     = this.langInput.value;
+    this.analysisLanguage.abbreviation = this.abbrInput.value || this.tagInput.value;
+    this.analysisLanguage.tag          = this.tagInput.value;
   }
 
   showEditor() {
-    this.editor.hidden     = false;
-    this.editButton.hidden = true;
+    this.el.classList.add(`editing`);
     this.langInput.focus();
   }
 

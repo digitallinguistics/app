@@ -327,9 +327,9 @@ export default class LanguageEditor extends View {
 
   async addAnalysisLang() {
     this.language.analysisLanguages.push({
-      abbr: ``,
-      lang: ``,
-      tag:  ``,
+      abbreviation: ``,
+      language:     ``,
+      tag:          ``,
     });
 
     await this.save();

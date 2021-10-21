@@ -29,7 +29,7 @@ class Language extends Model {
      * @default [English]
      * @type {AnalysisLanguage[]}
      */
-    this.analysisLanguages ??= [{ abbr: `en`, lang: `English`, tag: `en` }]; // new AnalysisLanguage()
+    this.analysisLanguages ??= [{ abbreviation: `eng`, language: `English`, tag: `eng` }];
 
     /**
      * The autonym for this language, as a Transcription.
@@ -55,3 +55,11 @@ export default Language;
  * @prop {String} name     - The additional name.
  * @prop {Note[]} notes    - An Array of Notes about this additional name.
  */
+
+/**
+  * An Analysis Language for a Language.
+  * @typedef {Object} AnalysisLanguage
+  * @prop {String} abbreviation - The abbreviation for this analysis language.
+  * @prop {String} language - The name of this analysis language.
+  * @prop {String} tag     - An IETF tag for this analysis language.
+  */
