@@ -36,6 +36,18 @@
 
   }
 
+  .link {
+
+    color: black;
+
+    &::after {
+      // The !important declaration here is necessary to override the very high specificity
+      // of the external link selector within the .link class.
+      position: relative !important;
+    }
+
+  }
+
   span {
     padding:     var(--text-padding);
     white-space: nowrap;
@@ -83,6 +95,15 @@
       a {
         width: -moz-fit-content; /* stylelint-disable-line */
         width: fit-content;
+      }
+
+      .link {
+        &:not([href*='app.digitallinguistics.io'], [href^='#']) {
+          margin-inline-end: 0;
+        }
+        &::after {
+          display: none;
+        }
       }
     }
 
