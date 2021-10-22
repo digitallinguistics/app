@@ -26,7 +26,7 @@ describe(`Languages`, () => {
 
       cy.stub(win, `prompt`).returns(`YES`);
 
-      cy.contains(`Delete this Language`)
+      cy.contains(`Delete this language`)
       .click();
 
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
