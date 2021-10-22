@@ -1,3 +1,7 @@
+/**
+ * Copies static assets from src/ to dist/.
+ */
+
 import { copy }          from 'fs-extra';
 import { fileURLToPath } from 'url';
 

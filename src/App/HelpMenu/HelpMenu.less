@@ -9,36 +9,13 @@
   color     : white;
 
   /* Closes the details when clicking anywhere else */
+  /* source: https://medium.com/an-idea/the-details-of-a-dropdown-a817dc27e545 */
   &[open] summary::before {
     content     : '';
     cursor      : default;
     inset-block : 0;
     inset-inline: 0;
     position    : fixed;
-    z-index     : -1;
-  }
-
-  svg {
-    --icon-size: 1.25em;
-    block-size : var(--icon-size);
-    inline-size: var(--icon-size);
-    margin     : var(--space-xs);
-  }
-
-  .link {
-
-    align-items   : center;
-    display       : flex;
-    flex-direction: row;
-
-    svg {
-      color: black;
-    }
-
-    &::after {
-      position: relative !important;
-    }
-
   }
 
   .dropdown-content {
@@ -49,11 +26,10 @@
     inset-inline-end: var(--space-xs);
     min-inline-size : max-content;
     position        : absolute;
-    z-index         : 2;
-  }
-
-  span {
-    white-space: nowrap;
+    // This z-index should stay set relative to its stacking context.
+    // The dropdown just needs to be pushed higher than summary::before.
+    // Do not add to z-indexes.less.
+    z-index: 1;
   }
 
   li:hover {
@@ -68,6 +44,35 @@
       border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
+  }
+
+  .link {
+
+    align-items   : center;
+    display       : flex;
+    flex-direction: row;
+
+    svg {
+      color: black;
+    }
+
+    &::after {
+      // The !important declaration here is necessary to override the very high specificity
+      // of the external link selector within the .link class.
+      position: relative !important;
+    }
+
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  svg {
+    --icon-size: 1.25em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : var(--space-xs);
   }
 
   summary {

@@ -11,13 +11,13 @@ export default class TranscriptionEditor extends View {
    * @param {Object}        options                  A required options object.
    * @param {Array<String>} [options.classes=[]]     An Array of CSS classes to add to the Transcription Editor element.
    * @param {String}        options.lang             The value to use for the HTML `lang` attribute. Must be a valid IETF language tag.
-   * @param {String}        [options.placeholder=``] The placeholder text for the inputs in this Transcription Editor.
+   * @param {Object}        [options.inputAttributes={}] An Object map of attributes to add to each `<input>` element, and the values for those attributes (e.g. `placeholder: 'e.g. Traditional'`).
    * @param {String}        [options.prefix=``]      The prefix to use for the `for` attribute on the `<label>` element, as well as the `id` and `name` attributes of the `<input>` element. The orthography abbreviation will be appended to this prefix.
    */
   constructor(data, {
     classes = [],
     lang,
-    placeholder = ``,
+    inputAttributes = {},
     prefix = ``,
   }) {
 
@@ -26,7 +26,7 @@ export default class TranscriptionEditor extends View {
     this.classes     = classes;
     this.data        = data;
     this.lang        = lang;
-    this.placeholder = placeholder;
+    this.inputAttributes = inputAttributes;
     this.prefix      = prefix;
 
   }
@@ -60,6 +60,10 @@ export default class TranscriptionEditor extends View {
         type=text
         value='${ text }'
       >`);
+
+      for (const [key, value] of Object.entries(this.inputAttributes)) {
+        input.setAttribute(key, value);
+      }
 
       const div = this.el.querySelector(`div`);
 

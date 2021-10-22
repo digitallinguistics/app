@@ -32,9 +32,8 @@ class App extends View {
    * @prop {HTMLElement} templates - a `<div>` containing page templates
    */
   #nodes = {
-    info:      document.getElementById(`info`),
-    templates: document.getElementById(`templates`),
-  }
+    info: document.getElementById(`info`),
+  };
 
   /**
    * A Map of page Views, loaded dynamically when the page is requested.
@@ -73,28 +72,6 @@ class App extends View {
   }
 
   /**
-   * Asynchronously load the HTML template (including CSS) for a page and insert it as a `<template id={Page}-template>` in the app shell for repeated use. Also load the JavaScript module for the page, and store it in {@link App##pages} Map for repeated use.
-   * @async
-   * @param {String} page the page to load: `Home`, `Languages`, etc.
-   */
-  async #loadPage(page) {
-
-    // load page view
-    const { default: PageView } = await import(`../pages/${ page }/${ page }.js`);
-    this.#pages.set(page, PageView);
-
-    // load HTML
-    const response = await fetch(`../pages/${ page }/${ page }.html`);
-    const html     = await response.text();
-    const div      = document.createElement(`div`);
-
-    div.setAttribute(`id`, `${ page.toLowerCase() }-page-templates`);
-    div.innerHTML = html;
-    this.#nodes.templates.appendChild(div);
-
-  }
-
-  /**
    * Render the Main Nav and last visited page. {@link App#initialize} must be called first.
    * @returns {Promise<HTMLElement>}
    */
@@ -124,15 +101,22 @@ class App extends View {
     this.#nav.setPage(this.settings.page);
 
     if (!this.#pages.has(page)) {
-      await this.#loadPage(page);
+      const { default: PageView } = await import(`../pages/${ page }/${ page }.js`);
+      this.#pages.set(page, PageView);
     }
 
     let newPage;
 
     switch (this.settings.page) {
-        case `Home`: newPage = this.#renderHomePage(); break;
-        case `Languages`: newPage = await this.#renderLanguagesPage(); break;
-        default: break;
+        case `Languages`:
+          newPage = await this.#renderLanguagesPage();
+          break;
+        case `Lexicon`:
+          newPage = await this.#renderLexiconPage();
+          break;
+        default:
+          newPage = this.#renderHomePage();
+          break;
     }
 
     const oldPage = document.getElementById(`main`);
@@ -166,6 +150,12 @@ class App extends View {
     return languagesPage.render(this.settings.language);
   }
 
+  #renderLexiconPage() {
+    const LexiconPage = this.#pages.get(`Lexicon`);
+    const lexiconPage = new LexiconPage;
+    return lexiconPage.render();
+  }
+
   // STATIC
 
   /**
@@ -173,7 +163,7 @@ class App extends View {
    */
   static #defaultSettings = {
     page: `Home`,
-  }
+  };
 
 }
 
@@ -182,7 +172,7 @@ export default App;
 // JSDoc Virtual Comments
 
 /**
- * The custom JavaScript framework used by the Lotus app.
+ * The custom vanilla JavaScript framework used by the Lotus app.
  * @namespace Core
  */
 
