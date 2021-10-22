@@ -60,7 +60,9 @@ export default class LanguagesPage extends View {
       const [addedNode] = Array.from(mutation.addedNodes);
 
       if (addedNode.id === `language-editor`) {
-        addedNode.querySelector('[id^="name-"]').focus();
+        const input = addedNode.querySelector('[id^="name-"]');
+        input.focus();
+        input.select();
       }
     });
 
