@@ -49,11 +49,29 @@ export default class LanguagesPage extends View {
    * @return {HTMLMainElement}
    */
   render(languageCID) {
+
     this.loadStyles();
     this.cloneTemplate();
     this.renderNav(languageCID);
-    this.renderEditor(languageCID);
+    const editor = this.renderEditor(languageCID);
+
+    const observer = new MutationObserver(([mutation]) => {
+      if (!mutation.addedNodes.length) return;
+      const [addedNode] = Array.from(mutation.addedNodes);
+
+      // On adding a new language, the observer only sees a languages.nav node
+      // being added/removed from the DOM so the conditional is not executed
+      if (addedNode.id === `language-editor`) {
+        addedNode.querySelector('[id^="name-"]').focus();
+      }
+    });
+
+    observer.observe(this.el, {
+      childList: true,
+    });
+
     return this.el;
+
   }
 
   /**
@@ -88,7 +106,6 @@ export default class LanguagesPage extends View {
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
-    if (language) this.el.querySelector(`.language-editor input`).focus();
 
     return newEditor;
 
