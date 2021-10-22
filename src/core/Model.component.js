@@ -16,9 +16,14 @@ describe(`Model`, () => {
     });
 
     it(`cannot be overwritten`, function() {
-      const model = new Model;
-      const test  = () => { model.cid = `1`; };
-      expect(test).to.throw(`Cannot assign to read only property`);
+
+      const model       = new Model;
+      const originalCID = model.cid;
+
+      model.cid = `1`;
+
+      expect(model.cid).to.equal(originalCID);
+
     });
 
   });
@@ -39,9 +44,14 @@ describe(`Model`, () => {
     });
 
     it(`cannot be overwritten`, function() {
-      const model = new Model;
-      const test  = () => { model.dateCreated = new Date; };
-      expect(test).to.throw(`Cannot assign to read only property`);
+
+      const model        = new Model;
+      const originalDate = model.dateCreated;
+
+      model.dateCreated = new Date;
+
+      expect(model.dateCreated).to.equal(originalDate);
+
     });
 
   });
@@ -59,11 +69,16 @@ describe(`Model`, () => {
     });
 
     it(`cannot be overwritten`, function() {
-      const model = new Model({}, { type: `Test` });
-      const test  = () => { model.type = `OtherType`; };
-      expect(test).to.throw(`Cannot assign to read only property`);
+
+      const model        = new Model({}, { type: `Test` });
+      const originalType = model.type;
+
+      model.type = `OtherType`;
+
+      expect(model.type).to.equal(originalType);
+
     });
-    
+
   });
 
 });

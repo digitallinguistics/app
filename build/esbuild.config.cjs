@@ -1,5 +1,6 @@
 const browserslist                  = require(`browserslist`);
 const { esbuildPluginBrowserslist } = require(`esbuild-plugin-browserslist`);
+const esbuildPluginHandlebars       = require(`./esbuildPluginHandlebars.cjs`);
 const esbuildPluginLESS             = require(`./esbuildPluginLESS.cjs`);
 const { join: joinPath }            = require(`path`);
 
@@ -12,16 +13,15 @@ module.exports = {
     joinPath(srcDir, `App/App.js`),
     joinPath(srcDir, `pages/Home/Home.js`),
     joinPath(srcDir, `pages/Languages/Languages.js`),
+    joinPath(srcDir, `pages/Lexicon/Lexicon.js`),
   ],
   format:    `esm`,
-  loader: {
-    '.css': `text`,
-  },
   minify:    env === `production`,
   outbase:   srcDir,
   outdir:    joinPath(__dirname, `../dist`),
   plugins:   [
     esbuildPluginBrowserslist(browserslist()),
+    esbuildPluginHandlebars,
     esbuildPluginLESS,
   ],
   sourcemap: env === `production` ? true : `inline`,

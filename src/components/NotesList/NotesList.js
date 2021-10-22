@@ -2,11 +2,10 @@ import List     from '../../components/List/List.js';
 import Note     from '../../models/Note.js';
 import NoteView from '../Note/Note.js';
 import styles   from './NotesList.less';
+import template from './NotesList.hbs';
 import View     from '../../core/View.js';
 
 export default class NotesList extends View {
-
-  styles = styles;
 
   constructor(
     notes = [],
@@ -15,7 +14,7 @@ export default class NotesList extends View {
       headingLevel = `h3`,
     } = {},
   ) {
-    super();
+    super({ styles, template });
     this.border       = border;
     this.headingLevel = headingLevel;
     this.notes        = notes;
@@ -109,10 +108,7 @@ export default class NotesList extends View {
   render() {
 
     this.loadStyles();
-
-    this.template = document.getElementById(`notes-list-template`);
-    this.el       = this.cloneTemplate();
-    this.el.view  = this;
+    this.cloneTemplate();
 
     if (this.border) this.el.classList.add(`bordered`);
 
