@@ -29,8 +29,8 @@ export default class LanguagesPage extends View {
     language = await app.db.languages.add(language);
     this.languages.push(language);
     app.settings.language = language.cid;
-    this.renderNav(language.cid);
-    return this.renderEditor(language.cid);
+    this.renderEditor(language.cid);
+    return this.renderNav(language.cid);
   }
 
   async deleteLanguage(languageCID) {
@@ -53,14 +53,12 @@ export default class LanguagesPage extends View {
     this.loadStyles();
     this.cloneTemplate();
     this.renderNav(languageCID);
-    const editor = this.renderEditor(languageCID);
+    this.renderEditor(languageCID);
 
     const observer = new MutationObserver(([mutation]) => {
       if (!mutation.addedNodes.length) return;
       const [addedNode] = Array.from(mutation.addedNodes);
 
-      // On adding a new language, the observer only sees a languages.nav node
-      // being added/removed from the DOM so the conditional is not executed
       if (addedNode.id === `language-editor`) {
         addedNode.querySelector('[id^="name-"]').focus();
       }
