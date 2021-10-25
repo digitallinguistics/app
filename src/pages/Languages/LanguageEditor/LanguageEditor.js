@@ -3,6 +3,7 @@ import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import Orthography           from '../Orthography/Orthography.js';
 import styles                from './LanguageEditor.less';
 import template              from './LanguageEditor.hbs';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
@@ -24,6 +25,9 @@ export default class LanguageEditor extends View {
 
     this.el.querySelector(`.js-language-editor__add-name-button`)
     .addEventListener(`click`, this.addName.bind(this));
+
+    this.el.querySelector(`.js-language-editor__add-orthography-button`)
+    .addEventListener(`click`, this.addOrthography.bind(this));
 
     this.el.querySelector(`.js-language-editor__delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
@@ -63,6 +67,31 @@ export default class LanguageEditor extends View {
 
   }
 
+  async handleOrthographiesUpdate({target}) {
+    if(target.classList.contains(`js-orthography__cancel-button`)) {
+      const item = target.closest(`.orthography`);
+      const {view} = item;
+      const name = view.nameInput.value;
+      if (name) return;
+
+      const index = item.dataset.id;
+      this.language.orthographies.splice(index, 1);
+      await this.save();
+      return this.renderOrthographies();
+    }
+
+    if (target.classList.contains(`js-orthography__delete-button`)) {
+      const confirmDelete = confirm(`Are you sure you want to delete this Orthography? This action cannont be undone. Click 'OK' to confirm deletion.`);
+      if(!confirmDelete) return;
+      const i = Number(target.closest(`.orthography`).dataset.id);
+      return this.deleteOrthography(i);
+    }
+
+    if (target.classList.contains(`js-orthography__save-button`)) {
+      return this.save();
+    }
+  }
+
   // Rendering Methods
 
   render() {
@@ -82,6 +111,7 @@ export default class LanguageEditor extends View {
     this.renderAutonym();
     this.renderAdditionalNames();
     this.renderMetadata();
+    this.renderOrthographies();
     this.renderSimpleFields();
 
     this.addEventListeners();
@@ -163,6 +193,31 @@ export default class LanguageEditor extends View {
 
     nameField.addEventListener(`input`, debounce(this.updateName.bind(this), this.delay));
 
+  }
+
+  renderOrthography(ortho, index) {
+    const orthoView = new Orthography(ortho, index);
+    return orthoView.render();
+  }
+
+  renderOrthographies() {
+    this.language.orthographies.sort((a,b) => compare(a.name, b.name));
+
+    const oldList = this.el.querySelector(`.js-language-editor__orthographies-list`);
+
+    const listView = new List(this.language.orthographies, {
+      classes: oldList.classList,
+      template: this.renderOrthography,
+    });
+
+    const newList = listView.render();
+
+    if(!this.language.orthographies.length) {
+      newList.style.border = `none`;
+    }
+
+    oldList.replaceWith(newList);
+    newList.addEventListener(`click`, this.handleOrthographiesUpdate.bind(this));
   }
 
   renderSimpleFields() {
@@ -261,6 +316,28 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.splice(i, 1);
     await this.save();
     return this.renderAdditionalNames();
+  }
+
+
+  // Orthographies
+
+  async addOrthography() {
+    this.language.orthographies.push({
+      abbreviation: ``,
+      name:         ``,
+    });
+
+    await this.save();
+    this.renderOrthographies();
+
+    const orthoView = this.el.querySelector(`.js-language-editor__orthographies-list .orthography:first-child`).view;
+    orthoView.showEditor();
+  }
+
+  async deleteOrthography(i) {
+    this.language.orthographies.splice(i, 1);
+    await this.save();
+    return this.renderOrthographies();
   }
 
 }
