@@ -8,15 +8,15 @@ import Transcription   from './Transcription.js';
  * @memberof Models
  */
 class Language extends Model {
-  
+
   /**
    * Create a new Language.
    * @param {Object} data The data for this Language model.
    */
   constructor(data = {}) {
-    
+
     super(data, { type: `Language` });
-    
+
     /**
      * An Array of additional names for this language.
      * @default []
@@ -35,6 +35,13 @@ class Language extends Model {
      */
     this.name = new MultiLangString(this.name);
 
+    /**
+     * An Array of orthographies for this language.
+     * @default []
+     * @type {Orthography[]}
+     */
+    this.orthographies ??= [];
+
   }
 
 }
@@ -48,3 +55,11 @@ export default Language;
  * @prop {String} name     - The additional name.
  * @prop {Note[]} notes    - An Array of Notes about this additional name.
  */
+
+/**
+  * An Orthography for a Language.
+  * @typedef {Object} Orthography
+  * @prop {String} name         - The name for this orthography.
+  * @prop {String} abbreviation - The abbreviation for this orthography.
+  * @prop {Note[]} notes        - An Array of Notes about this orthography.
+  */
