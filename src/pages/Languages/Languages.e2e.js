@@ -85,6 +85,23 @@ describe(`Languages`, () => {
 
     });
 
+    // add an orthography
+    cy.contains(`.language-editor button`, `Add an orthography`)
+    .click();
+
+    cy.get(`.language-editor__orthographies`)
+    .within(() => {
+      cy.get(`.js-orthography__name-input:visible`)
+      .type(`English`);
+
+      cy.get(`.js-orthography__abbr-input:visible`)
+      .clear()
+      .type(`eng`);
+
+      cy.get(`.js-orthography__save-button:visible`)
+      .click();
+    });
+
     // edit the remaining data
 
     cy.get(`input[name=autonym-default]`)
@@ -135,6 +152,8 @@ describe(`Languages`, () => {
     .should(`have.value`, `chit1248`);
 
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
+
+    cy.contains(`.language-editor__orthographies`, `English (eng)`);
 
     cy.get(`.js-language-editor__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
