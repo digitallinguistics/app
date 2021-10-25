@@ -28,6 +28,10 @@
     margin-inline-start: var(--space);
   }
 
+  &__add-orthography-button {
+    margin-inline-start: var(--space);
+  }
+
   &__additional-names {
     align-items: stretch;
   }
@@ -97,6 +101,20 @@
 
   &__names-list:not(:empty) {
     margin-block-start: var(--space-xs);
+  }
+
+  &__orthographies {
+    align-items: stretch;
+  }
+
+  &__orthographies-list:not(:empty) {
+    margin-block-start: var(--space-xs);
+  }
+
+  &__orthography-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
   }
 
 }
