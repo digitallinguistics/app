@@ -17,10 +17,14 @@
 
   <fieldset class='orthography__editor js-orthography__editor' hidden>
 
-    <div class=input-group>
-      <label class='orthography__legend js-orthography__name-legend legend required' data-bind=for:nameID>Name</label>
-      <div>
-        <input
+    <fieldset class='fieldset orthography__fieldset js-orthography__name'>
+      <legend class='orthography__legend js-orthography__name-legend legend required'>Name</legend>
+      <p class='orthography__help-text help-text'>An orthography for this language.</p>
+    </fieldset>
+    <!-- <div class=input-group> -->
+      <!-- <label class='orthography__legend js-orthography__name-legend legend required' data-bind=for:nameID>Name</label> -->
+      <!-- <div> -->
+        <!-- <input
           autocomplete=off
           class='orthography__name-input js-orthography__name-input line-input txn'
           inputmode=text
@@ -29,10 +33,10 @@
           spellcheck=false
           type=text
           autocapitalize=words
-        >
-        <p class='orthography__help-text help-text'>An orthography for this language.</p>
-      </div>
-    </div>
+        > -->
+        <!-- <p class='orthography__help-text help-text'>An orthography for this language.</p> -->
+      <!-- </div> -->
+    <!-- </div> -->
 
     <div class=input-group>
       <label class='orthography__legend js-orthography__abbr-legend legend' data-bind=for:abbrID>Abbreviation</label>

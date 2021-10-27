@@ -2,6 +2,7 @@ import AdditionalName        from '../AdditionalName/AdditionalName.js';
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
+import MultiLangString       from '../../../models/MultiLangString.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import Orthography           from '../Orthography/Orthography.js';
 import styles                from './LanguageEditor.less';
@@ -96,6 +97,7 @@ export default class LanguageEditor extends View {
 
   render() {
 
+    // console.log(this.language.cid);
     this.loadStyles();
     this.cloneTemplate();
 
@@ -324,7 +326,7 @@ export default class LanguageEditor extends View {
   async addOrthography() {
     this.language.orthographies.push({
       abbreviation: ``,
-      name:         ``,
+      name:         new MultiLangString(``),
     });
 
     await this.save();

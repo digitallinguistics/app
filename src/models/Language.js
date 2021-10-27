@@ -40,7 +40,7 @@ class Language extends Model {
      * @default []
      * @type {Orthography[]}
      */
-    this.orthographies ??= [];
+    this.orthographies ??= [{ abbreviation: `default`, name: new MultiLangString(`default`) }];
 
   }
 
@@ -59,7 +59,7 @@ export default Language;
 /**
   * An Orthography for a Language.
   * @typedef {Object} Orthography
-  * @prop {String} name         - The name for this orthography.
+  * @prop {Object} name         - The name for this orthography as a MultiLangString.
   * @prop {String} abbreviation - The abbreviation for this orthography.
   * @prop {Note[]} notes        - An Array of Notes about this orthography.
   */
