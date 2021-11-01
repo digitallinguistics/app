@@ -249,15 +249,15 @@ Each component can have several types of files associated with it. Not all compo
 - `.stories.js`: The code for rendering this component in Storybook.
 - `.unit.js`: Unit tests for this component.
 
-All of these files should be located together in the same directory. For example, the `LanguagesNav` directory looks like this:
+All of these files should be located together in the same directory. For example, the `NavList` directory looks like this:
 
 ```
-LanguagesNav/
-  - LanguagesNav.component.js
-  - LanguagesNav.hbs
-  - LanguagesNav.js
-  - LanguagesNav.less
-  - LanguagesNav.stories.js
+NavList/
+  - NavList.component.js
+  - NavList.hbs
+  - NavList.js
+  - NavList.less
+  - NavList.stories.js
 ```
 
 ### Types of Components
@@ -266,7 +266,7 @@ There are four types of components in the app:
 
 * the top-level `App` component (`src/App/`)
 * one component for each page (`src/pages/`), ex. `Languages`
-* components that are specific to a certain page (`src/pages/{Page}/{ComponentName}/`), ex. `LanguagesNav`
+* components that are specific to a certain page (`src/pages/{Page}/{ComponentName}/`), ex. `LanguageEditor`
 * components that are shared across pages (`src/components/{ComponentName}/`), ex. `List`
 
 ### Writing Components
@@ -491,7 +491,7 @@ Each view should have a `render()` method which creates the DOM element for that
 
 - Components for entire pages must always return a `<main id=main class=main data-page={PageName}>` element.
 
-- *Components should never insert themselves into the DOM.* This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguagesNav component. Each component is responsible for loading its immediate subcomponents.
+- *Components should never insert themselves into the DOM.* This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguageEditor component. Each component is responsible for loading its immediate subcomponents.
 
 - Controllers *should* add their own event listeners. This is usually done at the end of the `render()` method.
 
