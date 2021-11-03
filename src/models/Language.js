@@ -1,5 +1,6 @@
 import Model           from '../core/Model.js';
 import MultiLangString from './MultiLangString.js';
+import Orthography     from './Orthography.js';
 import Transcription   from './Transcription.js';
 
 /**
@@ -40,7 +41,9 @@ class Language extends Model {
      * @default []
      * @type {Orthography[]}
      */
-    this.orthographies ??= [{ abbreviation: `default`, name: new MultiLangString(`default`) }];
+
+    this.orthographies ??= [{ abbreviation: `default`, name: `default` }];
+    this.orthographies = this.orthographies.map(orthoData => new Orthography(orthoData));
 
   }
 
@@ -55,11 +58,3 @@ export default Language;
  * @prop {String} name     - The additional name.
  * @prop {Note[]} notes    - An Array of Notes about this additional name.
  */
-
-/**
-  * An Orthography for a Language.
-  * @typedef {Object} Orthography
-  * @prop {Object} name         - The name for this orthography as a MultiLangString.
-  * @prop {String} abbreviation - The abbreviation for this orthography.
-  * @prop {Note[]} notes        - An Array of Notes about this orthography.
-  */
