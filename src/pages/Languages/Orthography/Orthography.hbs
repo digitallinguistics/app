@@ -18,34 +18,19 @@
   <fieldset class='orthography__editor js-orthography__editor' hidden>
 
     <fieldset class='fieldset orthography__fieldset js-orthography__name'>
-      <legend class='orthography__legend js-orthography__name-legend legend required'>Name</legend>
+      <legend class='orthography__legend js-orthography__name-legend legend'>Name</legend>
       <p class='orthography__help-text help-text'>An orthography for this language.</p>
     </fieldset>
-    <!-- <div class=input-group> -->
-      <!-- <label class='orthography__legend js-orthography__name-legend legend required' data-bind=for:nameID>Name</label> -->
-      <!-- <div> -->
-        <!-- <input
-          autocomplete=off
-          class='orthography__name-input js-orthography__name-input line-input txn'
-          inputmode=text
-          placeholder='e.g. Cyrillic'
-          required
-          spellcheck=false
-          type=text
-          autocapitalize=words
-        > -->
-        <!-- <p class='orthography__help-text help-text'>An orthography for this language.</p> -->
-      <!-- </div> -->
-    <!-- </div> -->
 
     <div class=input-group>
-      <label class='orthography__legend js-orthography__abbr-legend legend' data-bind=for:abbrID>Abbreviation</label>
+      <label class='orthography__legend js-orthography__abbr-legend legend required' data-bind=for:abbrID>Abbreviation</label>
       <div>
         <input
           autocomplete=off
           class='orthography__abbr-input js-orthography__abbr-input line-input'
           inputmode=text
           placeholder='e.g. cyr'
+          required
           spellcheck=false
           type=text
         >
