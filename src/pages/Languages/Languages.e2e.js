@@ -91,7 +91,7 @@ describe(`Languages`, () => {
 
     cy.get(`.language-editor__orthographies`)
     .within(() => {
-      cy.get(`.js-orthography__name-input:visible`)
+      cy.get(`[id="orthography-name-0-eng"]:visible`)
       .type(`English`);
 
       cy.get(`.js-orthography__abbr-input:visible`)
@@ -153,7 +153,7 @@ describe(`Languages`, () => {
 
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
 
-    cy.contains(`.language-editor__orthographies`, `English (eng)`);
+    cy.contains(`.language-editor__orthographies`, `Name English Abbreviation eng`);
 
     cy.get(`.js-language-editor__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));

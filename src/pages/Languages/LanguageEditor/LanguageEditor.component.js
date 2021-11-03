@@ -50,14 +50,14 @@ describe(`Language Editor`, function() {
 
     cy.get(`.js-language-editor__orthographies-list`)
     .children()
-    .should(`have.lengthOf`, 0);
+    .should(`have.lengthOf`, 1);
 
     cy.contains(`button`, `Add an orthography`)
     .click();
 
     cy.get(`.js-language-editor__orthographies-list`)
     .children()
-    .should(`have.lengthOf`, 1);
+    .should(`have.lengthOf`, 2);
 
     cy.get(`.orthography`);
 
@@ -72,7 +72,7 @@ describe(`Language Editor`, function() {
 
     cy.get(`.js-language-editor__orthographies-list`)
     .children()
-    .should(`have.lengthOf`, 0);
+    .should(`have.lengthOf`, 1);
 
   });
 
@@ -86,7 +86,19 @@ describe(`Language Editor`, function() {
 
     cy.get(`.js-language-editor__orthographies-list`)
     .children()
-    .should(`have.lengthOf`, 0);
+    .should(`have.lengthOf`, 1);
+
+  });
+
+  it(`does not delete the last Orthography`, function() {
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-orthography__delete-button`)
+      .click();
+    });
+
+    cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
 
   });
 

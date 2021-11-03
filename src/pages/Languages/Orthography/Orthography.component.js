@@ -16,7 +16,7 @@ describe(`Orthography`, function() {
     .should(`be.visible`);
 
     cy.focused()
-    .should(`have.class`, `js-orthography__name-input`);
+    .should(`have.class`, `line-input`);
 
     cy.contains(`button`, `Cancel`)
     .click();
@@ -31,7 +31,7 @@ describe(`Orthography`, function() {
     cy.get(`.js-orthography__edit-button`)
     .click();
 
-    cy.get(`.js-orthography__name-input`)
+    cy.get(`[id="orthography-name-1-eng"]`)
     .clear()
     .type(`English`);
 
@@ -39,7 +39,7 @@ describe(`Orthography`, function() {
     .clear()
     .type(`eng`);
 
-    cy.contains(`p`, `English (eng)`);
+    cy.contains(`p`, `Name English Abbreviation eng`);
 
   });
 
@@ -48,22 +48,22 @@ describe(`Orthography`, function() {
     cy.contains(`button`, `Cancel`)
     .click();
 
-    cy.contains(`p`, `Cyrillic (cyr)`);
+    cy.contains(`p`, `Name Cyrillic Abbreviation cyr`);
 
   });
 
-  it(`does not save without a name`, function() {
+  it(`does not save without an abbreviation`, function() {
 
     cy.get(`.js-orthography__edit-button`)
     .click();
 
-    cy.get(`.js-orthography__name-input`)
+    cy.get(`.js-orthography__abbr-input`)
     .clear();
 
     cy.contains(`button`, `Save`)
     .click();
 
-    cy.get(`.js-orthography__name-input`).then(([input]) => {
+    cy.get(`.js-orthography__abbr-input`).then(([input]) => {
       expect(input.validationMessage).to.be.a(`string`);
     });
 
@@ -71,7 +71,7 @@ describe(`Orthography`, function() {
 
   it(`saves updates`, function() {
 
-    cy.get(`.js-orthography__name-input`)
+    cy.get(`[id="orthography-name-1-eng"]`)
     .clear()
     .type(`English`);
 
@@ -82,7 +82,7 @@ describe(`Orthography`, function() {
     cy.contains(`button`, `Save`)
     .click();
 
-    cy.contains(`p`, `English (eng)`);
+    cy.contains(`p`, `Name English Abbreviation eng`);
 
   });
 
