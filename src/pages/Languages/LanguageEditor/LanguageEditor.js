@@ -4,7 +4,8 @@ import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangString       from '../../../models/MultiLangString.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
-import Orthography           from '../Orthography/Orthography.js';
+import OrthographyView       from '../Orthography/Orthography.js';
+import Orthography           from '../../../models/Orthography.js'
 import styles                from './LanguageEditor.less';
 import template              from './LanguageEditor.hbs';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
@@ -72,8 +73,9 @@ export default class LanguageEditor extends View {
     if(target.classList.contains(`js-orthography__cancel-button`)) {
       const item = target.closest(`.orthography`);
       const {view} = item;
-      const name = view.nameInput.value;
-      if (name) return;
+      const abbr = view.abbrInput.value;
+      if (abbr) return;
+
 
       const index = item.dataset.id;
       this.language.orthographies.splice(index, 1);
@@ -82,6 +84,10 @@ export default class LanguageEditor extends View {
     }
 
     if (target.classList.contains(`js-orthography__delete-button`)) {
+      if(this.language.orthographies.length === 1) {
+         alert(`There must be at least one orthography.`);
+         return;
+       }
       const confirmDelete = confirm(`Are you sure you want to delete this Orthography? This action cannont be undone. Click 'OK' to confirm deletion.`);
       if(!confirmDelete) return;
       const i = Number(target.closest(`.orthography`).dataset.id);
@@ -97,7 +103,6 @@ export default class LanguageEditor extends View {
 
   render() {
 
-    // console.log(this.language.cid);
     this.loadStyles();
     this.cloneTemplate();
 
@@ -198,12 +203,12 @@ export default class LanguageEditor extends View {
   }
 
   renderOrthography(ortho, index) {
-    const orthoView = new Orthography(ortho, index);
+    const orthoView = new OrthographyView(ortho, index);
     return orthoView.render();
   }
 
   renderOrthographies() {
-    this.language.orthographies.sort((a,b) => compare(a.name, b.name));
+    this.language.orthographies.sort((a, b) => compare(a.name.default, b.name.default));
 
     const oldList = this.el.querySelector(`.js-language-editor__orthographies-list`);
 
@@ -324,10 +329,9 @@ export default class LanguageEditor extends View {
   // Orthographies
 
   async addOrthography() {
-    this.language.orthographies.push({
-      abbreviation: ``,
-      name:         new MultiLangString(``),
-    });
+    this.language.orthographies.push(
+      new Orthography({ abbreviation: ``, name: `` }),
+    );
 
     await this.save();
     this.renderOrthographies();
