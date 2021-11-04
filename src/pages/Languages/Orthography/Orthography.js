@@ -99,8 +99,6 @@ export default class Orthography extends View {
     const helpText = this.el.querySelector(`.orthography__help-text`);
 
     nameField.insertBefore(mlsEditor.render(), helpText);
-
-    nameField.addEventListener(`input`, debounce(this.updateName.bind(this), this.delay));
   }
 
   renderNotes() {
@@ -113,6 +111,13 @@ export default class Orthography extends View {
   }
 
   save() {
+    /**
+     * This is a temporary fix since we only have 1 line MLS fields right now
+     */
+    const name = `${ this.nameID }-eng`;
+    const regex = new RegExp(`orthography-name-${ this.index }-(?<abbr>.+)$`, `u`);
+    const abbr = regex.exec(name)?.groups?.abbr;
+    this.orthography.name.set(abbr, this.nameInput.value);
     this.orthography.abbreviation = this.abbrInput.value;
   }
 
@@ -122,19 +127,12 @@ export default class Orthography extends View {
     this.nameInput.select();
   }
 
-  updateName(ev) {
-    const { name, value } = ev.target;
-    const regex = new RegExp(`orthography-name-${ this.index }-(?<abbr>.+)$`, `u`);
-    const abbr = regex.exec(name)?.groups?.abbr;
-    this.orthography.name.set(abbr, value);
-    return this.save();
-  }
-
   updatePreview(name, abbreviation) {
     name ||= `[none]`;
     this.el.querySelector(`.js-orthography__preview`)
-    .innerHTML = `<span><span class=label> Name </span><span class=txn>${ name }</span></span><span><span class=label>Abbreviation
-    </span><span class=orthography__mono>${ abbreviation }</span></span>`;
+    .innerHTML = `<span><span class=label> Name </span><span class=txn>${ name }
+    </span></span><span><span class=label>Abbreviation</span>
+    <span class=orthography__mono>${ abbreviation }</span></span>`;
   }
 
 }
