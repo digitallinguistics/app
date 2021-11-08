@@ -85,26 +85,21 @@
     }
 
     button[aria-expanded=false] + ul {
-      span {
-        .visually-hidden;
-      }
-      li {
-        width: -moz-fit-content; /* stylelint-disable-line */
-        width: fit-content;
-      }
+
       a {
         width: -moz-fit-content; /* stylelint-disable-line */
         width: fit-content;
       }
 
-      .link {
-        &:not([href*='app.digitallinguistics.io'], [href^='#']) {
-          margin-inline-end: 0;
-        }
-        &::after {
-          display: none;
-        }
+      li {
+        width: -moz-fit-content; /* stylelint-disable-line */
+        width: fit-content;
       }
+
+      span {
+        .visually-hidden;
+      }
+
     }
 
   }
