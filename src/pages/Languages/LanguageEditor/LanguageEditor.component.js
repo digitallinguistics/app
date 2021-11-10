@@ -18,7 +18,7 @@ describe(`Language Editor`, function() {
     .should(`have.lengthOf`, 1);
 
     cy.get(`.additional-name`);
-  
+
   });
 
   it(`deletes an Additional Name`, function() {
@@ -43,7 +43,7 @@ describe(`Language Editor`, function() {
     cy.get(`.js-language-editor__names-list`)
     .children()
     .should(`have.lengthOf`, 0);
-    
+
   });
 
   it(`updates the metadata fields on save`, function() {
