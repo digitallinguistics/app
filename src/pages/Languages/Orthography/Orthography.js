@@ -123,6 +123,7 @@ export default class Orthography extends View {
     this.orthography.name.set(abbr, this.nameInput.value);
     this.orthography.abbreviation = this.abbrInput.value;
     this.orthography.notes        = this.notes;
+    this.events.emit(`update`);
   }
 
   showEditor() {

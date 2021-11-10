@@ -93,10 +93,7 @@ export default class LanguageEditor extends View {
       const i = Number(target.closest(`.orthography`).dataset.id);
       return this.deleteOrthography(i);
     }
-
-    if (target.classList.contains(`js-orthography__save-button`)) {
-      return this.save();
-    }
+    
   }
 
   // Rendering Methods
@@ -204,6 +201,7 @@ export default class LanguageEditor extends View {
 
   renderOrthography(ortho, index) {
     const orthoView = new OrthographyView(ortho, index);
+    orthoView.events.on(`update`, this.save.bind(this));
     return orthoView.render();
   }
 
@@ -214,7 +212,7 @@ export default class LanguageEditor extends View {
 
     const listView = new List(this.language.orthographies, {
       classes: oldList.classList,
-      template: this.renderOrthography,
+      template: this.renderOrthography.bind(this),
     });
 
     const newList = listView.render();
