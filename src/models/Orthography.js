@@ -1,5 +1,6 @@
 import Model           from '../core/Model.js';
 import MultiLangString from './MultiLangString.js';
+import Note            from './Note.js';
 
 /**
  * A class representing an orthography.
@@ -29,6 +30,14 @@ class Orthography extends Model {
      * @type {String}
      */
     this.abbreviation ??= ``;
+
+    /**
+     * An array of notes about this orthography.
+     * @default
+     * @type {Note[]}
+     */
+    this.notes ??= [];
+    this.notes = this.notes.map(noteData => new Note(noteData));
 
   }
 

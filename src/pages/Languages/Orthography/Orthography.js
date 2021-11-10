@@ -1,4 +1,3 @@
-import debounce              from '../../../utilities/debounce.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
 import NotesList             from '../../../components/NotesList/NotesList.js';
 import styles                from './Orthography.less';
@@ -57,7 +56,6 @@ export default class Orthography extends View {
   }
 
   render() {
-
     this.loadStyles();
     this.cloneTemplate();
 
@@ -66,9 +64,9 @@ export default class Orthography extends View {
     this.editor        = this.el.querySelector(`.js-orthography__editor`);
 
     this.renderOrthoName();
-    this.nameInput     = this.el.querySelector(`[name^='${ this.nameID }']`);
+    this.nameInput       = this.el.querySelector(`[name^='${ this.nameID }']`);
 
-    this.abbrInput     = this.el.querySelector(`.js-orthography__abbr-input`);
+    this.abbrInput       = this.el.querySelector(`.js-orthography__abbr-input`);
 
     this.abbrInput.id    = this.abbrID;
     this.abbrInput.value = this.orthography.abbreviation;
@@ -77,9 +75,9 @@ export default class Orthography extends View {
     this.el.querySelector(`.js-orthography__abbr-legend`).setAttribute(`for`, this.abbrID);
 
     this.updatePreview(this.orthography.name.default, this.orthography.abbreviation);
-    this.addEventListeners();
-
     this.renderNotes();
+
+    this.addEventListeners();
 
     return this.el;
 
@@ -102,11 +100,16 @@ export default class Orthography extends View {
   }
 
   renderNotes() {
-    const list = new NotesList(this.notes, {
+    const list = new NotesList(this.orthography.notes, {
       border: false,
     });
+
+    this.notes = list.notes;
+    list.events.on(`update`, this.save.bind(this));
     const el = list.render();
+
     el.setAttribute(`aria-expanded`, false);
+    el.classList.add(`js-orthography__notes-list`);
     this.el.appendChild(el);
   }
 
@@ -119,6 +122,7 @@ export default class Orthography extends View {
     const abbr = regex.exec(name)?.groups?.abbr;
     this.orthography.name.set(abbr, this.nameInput.value);
     this.orthography.abbreviation = this.abbrInput.value;
+    this.orthography.notes        = this.notes;
   }
 
   showEditor() {
