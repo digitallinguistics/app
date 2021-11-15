@@ -2,7 +2,7 @@ describe(`Nav`, function() {
 
   it(`expands/collapses`, function() {
 
-    cy.visit(`/`);
+    cy.visit(`http://localhost:6006/iframe.html?id=app-main-nav--main-nav`);
 
     cy.get(`#nav button`)
     .click();
