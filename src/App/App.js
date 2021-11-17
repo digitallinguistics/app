@@ -135,24 +135,27 @@ class App extends View {
       this.#pages.set(page, PageView);
     }
 
-    let newPage;
+    let pageView;
 
     switch (this.settings.page) {
         case `Languages`:
-          newPage = await this.#renderLanguagesPage();
+          pageView = await this.#createLanguagesPage();
           break;
         case `Lexicon`:
-          newPage = await this.#renderLexiconPage();
+          pageView = await this.#createLexiconPage();
           break;
         default:
-          newPage = this.#renderHomePage();
+          pageView = this.#createHomePage();
           break;
     }
 
+    const newPage = pageView.render(this.settings.language);
     const oldPage = document.getElementById(`main`);
 
     oldPage.view?.events.stop();
     oldPage.replaceWith(newPage);
+    pageView.initialize();
+
     this.announce(`${ page } page`);
 
   }
@@ -163,25 +166,24 @@ class App extends View {
    * Render the Home page.
    * @returns {HTMLElement} the Home page element
    */
-  #renderHomePage() {
+  #createHomePage() {
     const HomePage = this.#pages.get(`Home`);
-    const homePage = new HomePage;
-    return homePage.render();
+    return new HomePage;
   }
 
   /**
    * Render the Languages page.
    * @returns {HTMLElement} the Languages page element
    */
-  async #renderLanguagesPage() {
+  async #createLanguagesPage() {
     const LanguagesPage = this.#pages.get(`Languages`);
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
     languagesPage.events.on(`add`, this.#addLanguage.bind(this));
-    return languagesPage.render(this.settings.language);
+    return languagesPage;
   }
 
-  async #renderLexiconPage() {
+  async #createLexiconPage() {
 
     if (!this.settings.language) {
       return this.#renderLanguageChooser();
@@ -189,9 +191,7 @@ class App extends View {
 
     const LexiconPage = this.#pages.get(`Lexicon`);
     const language    = await this.db.languages.get(this.settings.language);
-    const lexiconPage = new LexiconPage(language);
-
-    return lexiconPage.render();
+    return new LexiconPage(language);
 
   }
 
