@@ -48,12 +48,31 @@ export default class LanguagesPage extends View {
    * @return {HTMLMainElement}
    */
   render(languageCID) {
+
     this.loadStyles();
     this.cloneTemplate();
     this.renderNav(languageCID);
     this.renderEditor(languageCID);
+
+    const observer = new MutationObserver(([mutation]) => {
+      if (!mutation.addedNodes.length) return;
+      const [addedNode] = Array.from(mutation.addedNodes);
+
+      if (addedNode.id === `language-editor`) {
+        const input = addedNode.querySelector('[id^="name-"]');
+        input.focus();
+        input.select();
+      }
+    });
+
+    observer.observe(this.el, {
+      childList: true,
+    });
+
     this.addEventListeners();
+
     return this.el;
+
   }
 
   /**

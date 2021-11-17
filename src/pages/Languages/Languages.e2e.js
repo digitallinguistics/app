@@ -18,7 +18,9 @@ describe(`Languages`, () => {
     cy.contains(`.js-language-editor__add-language-button`, `Add a Language`)
     .click();
 
-    cy.contains(`.languages-page__nav li`, `{ new language }`);
+    cy.focused().should(`have.class`, `line-input`);
+
+    cy.contains(`.languages-nav li`, `{ new language }`);
 
     // delete the language
 
