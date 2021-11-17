@@ -1,5 +1,3 @@
-import compare        from '../../utilities/compare.js';
-import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import NavList        from '../../components/NavList/NavList.js';
 import styles         from './Languages.less';
@@ -58,8 +56,8 @@ export default class LanguagesPage extends View {
       if (!mutation.addedNodes.length) return;
       const [addedNode] = Array.from(mutation.addedNodes);
 
-      if (addedNode.id === `language-editor`) {
-        const input = addedNode.querySelector('[id^="name-"]');
+      if (addedNode.id === `language-editor` && addedNode.dataset.language) {
+        const input = addedNode.querySelector(`[id^="name-"]`);
         input.focus();
         input.select();
       }

@@ -1,15 +1,14 @@
 # ESLint v8.0.1
 
 parserOptions:
-  ecmaFeatures:
-    impliedStrict: true
   ecmaVersion: latest
   sourceType: module
 
+env:
+  es2021: true
+
 extends:
   - eslint:recommended
-
-
 
 reportUnusedDisableDirectives: true
 
