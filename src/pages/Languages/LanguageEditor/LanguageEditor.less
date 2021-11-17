@@ -5,7 +5,7 @@
 
   flex-grow:     1;
   margin-inline: auto;
-  max-width:     var(--measure);
+  max-inline-size:     var(--measure);
   padding:       var(--space);
 
   &.placeholder {
@@ -81,12 +81,12 @@
 
     // small screens
     @media (max-width: @breakpoint) {
-      text-align: left;
+      text-align: start;
     }
 
     // large screens
     @media (min-width: @breakpoint) {
-      text-align: right;
+      text-align: end;
     }
 
   }
