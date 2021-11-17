@@ -118,7 +118,9 @@ export default class LanguagesPage extends View {
    */
   renderNav(languageCID) {
 
-    this.languages.sort((a, b) => compare(a.name.default, b.name.default));
+    this.languages.sort((a, b) => a.name.default.localeCompare(b.name.default, undefined, {
+      sensitivity: `base`,
+    }));
 
     const oldList = this.el.querySelector(`.js-languages-page__languages-list`);
     const classes = Array.from(oldList.classList);
