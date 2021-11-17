@@ -17,6 +17,8 @@ export const AnalysisLanguage = () => {
 
   const el = langView.render();
 
+  el.style.border = `var(--border)`;
+
   ul.appendChild(el);
   return ul;
 
