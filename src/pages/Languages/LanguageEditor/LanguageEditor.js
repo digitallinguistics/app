@@ -28,6 +28,7 @@ export default class LanguageEditor extends View {
     this.el.querySelector(`.js-language-editor__delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
 
+    this.el.dataset.ready = true;
   }
 
   async save() {
@@ -63,6 +64,15 @@ export default class LanguageEditor extends View {
 
   }
 
+  initialize() {
+    this.addEventListeners();
+    const input = this.el.querySelector('[id^="name-"]');
+    if(input) {
+      console.log(input);
+      input.focus();
+      input.select();
+    }
+  }
   // Rendering Methods
 
   render() {
@@ -72,7 +82,6 @@ export default class LanguageEditor extends View {
 
     if (!this.language) {
       this.el.classList.add(`placeholder`);
-      this.addEventListeners();
       return this.el;
     }
 
@@ -83,8 +92,6 @@ export default class LanguageEditor extends View {
     this.renderAdditionalNames();
     this.renderMetadata();
     this.renderSimpleFields();
-
-    this.addEventListeners();
 
     return this.el;
 
