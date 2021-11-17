@@ -97,7 +97,7 @@ class App extends View {
     return this.el;
   }
 
-  async #renderLanguageChooser() {
+  async #createLanguageChooser() {
 
     const languages       = await this.db.languages.getAll();
     const languageChooser = new LanguageChooser(languages);
@@ -109,7 +109,7 @@ class App extends View {
       this.#renderPage(this.settings.page);
     });
 
-    return languageChooser.render();
+    return languageChooser;
 
   }
 
@@ -149,12 +149,12 @@ class App extends View {
           break;
     }
 
-    const newPage = pageView.render(this.settings.language);
+    const newPage = pageView.render();
     const oldPage = document.getElementById(`main`);
 
     oldPage.view?.events.stop();
     oldPage.replaceWith(newPage);
-    pageView.initialize();
+    pageView.initialize(this.settings.language);
 
     this.announce(`${ page } page`);
 
@@ -186,7 +186,7 @@ class App extends View {
   async #createLexiconPage() {
 
     if (!this.settings.language) {
-      return this.#renderLanguageChooser();
+      return this.#createLanguageChooser();
     }
 
     const LexiconPage = this.#pages.get(`Lexicon`);
