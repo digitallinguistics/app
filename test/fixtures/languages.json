@@ -51,5 +51,19 @@
       "ctm": "Sitimaxa"
     },
     "type": "Language"
+  },
+  {
+    "cid": "3",
+    "name": {
+      "crk": "nêhiyawêwin"
+    },
+    "type":         "Language"
+  },
+  {
+    "cid": "4",
+    "name": {
+      "eng": "Àhàn"
+    },
+    "type":         "Language"
   }
 ]
