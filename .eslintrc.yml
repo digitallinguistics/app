@@ -9,7 +9,8 @@ parserOptions:
 extends:
   - eslint:recommended
 
-
+env:
+  es2021: true
 
 reportUnusedDisableDirectives: true
 
