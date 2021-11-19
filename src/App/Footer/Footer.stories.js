@@ -7,5 +7,7 @@ export const Footer = () => {
   const template = document.getElementById(`footer-template`);
 
   const el = template.content.cloneNode(true).firstElementChild;
+  el.style.position = `fixed`;
+  el.style.bottom = `0`;
   return el;
 };
