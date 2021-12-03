@@ -1,5 +1,6 @@
+import HelpMenuView from './HelpMenu.js';
 import html2element from '../../utilities/html2element.js';
-import HelpMenuView from './HelpMenu.js'
+
 
 export default {
   parameters: {
@@ -23,12 +24,14 @@ export const HelpMenu = () => {
 
   const template = document.getElementById(`help-menu-template`);
   const menu     = template.content.cloneNode(true).firstElementChild;
-  const helpMenuView = new HelpMenuView();
-  setTimeout(() => {
-    helpMenuView.initialize();
-  }, 500)
+
+  // setTimeout(() => {
+  //
+  // }, 500);
 
   banner.appendChild(menu);
+  const helpMenuView = new HelpMenuView({ el: menu });
+  helpMenuView.initialize();
   return banner;
 
 };
