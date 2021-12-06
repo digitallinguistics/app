@@ -39,6 +39,12 @@ export default class LanguagesPage extends View {
     return this.renderEditor();
   }
 
+  initialize(languageCID) {
+    this.addEventListeners();
+    this.renderEditor(languageCID);
+    this.renderNav(languageCID);
+  }
+
   itemTemplate({ cid, name }) {
     return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#language-editor>${ name.default }</a></li>`);
   }
@@ -47,13 +53,12 @@ export default class LanguagesPage extends View {
    * Render the Languages Page.
    * @return {HTMLMainElement}
    */
-  render(languageCID) {
+  render() {
     this.loadStyles();
     this.cloneTemplate();
-    this.renderNav(languageCID);
-    this.renderEditor(languageCID);
-    this.addEventListeners();
+
     return this.el;
+
   }
 
   /**
@@ -68,19 +73,19 @@ export default class LanguagesPage extends View {
     if (language) {
 
       // render full editor
-      const editorView = new LanguageEditor(language);
-      editorView.events.once(`add`, () => this.events.emit(`add`));
-      editorView.events.on(`delete`, this.deleteLanguage.bind(this));
-      editorView.events.on(`update:name`, this.renderNav.bind(this));
-      newEditor = editorView.render();
+      this.editorView = new LanguageEditor(language);
+      this.editorView.events.once(`add`, () => this.events.emit(`add`));
+      this.editorView.events.on(`delete`, this.deleteLanguage.bind(this));
+      this.editorView.events.on(`update:name`, this.renderNav.bind(this));
+      newEditor = this.editorView.render();
 
     } else {
 
       // render placeholder editor
       app.settings.language = null;
-      const editorView = new LanguageEditor;
-      editorView.events.on(`add`, () => this.events.emit(`add`));
-      newEditor = editorView.render();
+      this.editorView = new LanguageEditor;
+      this.editorView.events.on(`add`, () => this.events.emit(`add`));
+      newEditor = this.editorView.render();
 
     }
 
@@ -88,6 +93,8 @@ export default class LanguagesPage extends View {
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
+
+    this.editorView.initialize();
 
     return newEditor;
 
@@ -99,7 +106,9 @@ export default class LanguagesPage extends View {
    */
   renderNav(languageCID) {
 
-    this.languages.sort((a, b) => compare(a.name.default, b.name.default));
+    this.languages.sort((a, b) => a.name.default.localeCompare(b.name.default, undefined, {
+      sensitivity: `base`,
+    }));
 
     const oldList = this.el.querySelector(`.js-languages-page__languages-list`);
     const classes = Array.from(oldList.classList);
