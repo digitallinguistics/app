@@ -8,6 +8,5 @@ export const Footer = () => {
 
   const el = template.content.cloneNode(true).firstElementChild;
   el.style.position = `fixed`;
-  el.style.bottom = `0`;
   return el;
 };
