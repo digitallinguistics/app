@@ -1,10 +1,12 @@
 import Database        from '../services/Database.js';
+import HelpMenu        from './HelpMenu/HelpMenu.js';
 import Language        from '../models/Language.js';
 import LanguageChooser from './LanguageChooser/LanguageChooser.js';
 import Mousetrap       from 'mousetrap';
 import Nav             from './Nav/Nav.js';
 import Settings        from '../services/Settings.js';
 import View            from '../core/View.js';
+
 
 /**
  * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
@@ -20,6 +22,12 @@ class App extends View {
    * @type {Database}
    */
   db = new Database;
+
+  /**
+   * A reference to the helpmenu controller.
+   * @type {HelpMenu}
+   */
+  #helpMenu = new HelpMenu;
 
   /**
    * A reference to the Main Nav controller.
@@ -82,6 +90,7 @@ class App extends View {
    * @returns {Promise}
    */
   initialize() {
+    this.#helpMenu.initialize();
     return this.db.initialize();
   }
 
