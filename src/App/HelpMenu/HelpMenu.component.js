@@ -9,6 +9,7 @@ before(function() {
 describe(`HelpMenu`, function() {
 
   it(`can be cancelled using esc`, function() {
+
     cy.get(`.help-menu`)
     .click();
 
@@ -16,7 +17,7 @@ describe(`HelpMenu`, function() {
     .should(`be.visible`);
 
     cy.get(`body`)
-    .type(`{esc}`, { force: true });
+    .type(`{esc}`);
 
 
   });

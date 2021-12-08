@@ -1,7 +1,6 @@
 import HelpMenuView from './HelpMenu.js';
 import html2element from '../../utilities/html2element.js';
 
-
 export default {
   parameters: {
     layout: `fullscreen`,
@@ -24,10 +23,6 @@ export const HelpMenu = () => {
 
   const template = document.getElementById(`help-menu-template`);
   const menu     = template.content.cloneNode(true).firstElementChild;
-
-  // setTimeout(() => {
-  //
-  // }, 500);
 
   banner.appendChild(menu);
   const helpMenuView = new HelpMenuView({ el: menu });
