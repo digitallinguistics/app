@@ -3,4 +3,10 @@ export default {
   title:      `App/Skip Link`,
 };
 
-export const SkipLink = () => `<a href=#main class=skip-link>Skip to main content</a>`;
+export const SkipLink = () => {
+
+  const template = document.getElementById(`skip-link-template`);
+
+  const el = template.content.cloneNode(true).firstElementChild;
+  return el;
+};

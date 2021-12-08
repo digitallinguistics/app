@@ -36,6 +36,18 @@
 
   }
 
+  .link {
+
+    color: black;
+
+    &::after {
+      // The !important declaration here is necessary to override the very high specificity
+      // of the external link selector within the .link class.
+      position: relative !important;
+    }
+
+  }
+
   span {
     padding:     var(--text-padding);
     white-space: nowrap;
@@ -45,7 +57,7 @@
     --icon-size: 1.5em;
     height:      var(--icon-size);
     margin:      var(--space-xs);
-    width:       var(--icon-size);
+    inline-size:       var(--icon-size);
   }
 
   // small screens
@@ -73,17 +85,21 @@
     }
 
     button[aria-expanded=false] + ul {
+
+      a {
+        inline-size: -moz-fit-content; /* stylelint-disable-line */
+        inline-size: fit-content;
+      }
+
+      li {
+        inline-size: -moz-fit-content; /* stylelint-disable-line */
+        inline-size: fit-content;
+      }
+
       span {
         .visually-hidden;
       }
-      li {
-        width: -moz-fit-content; /* stylelint-disable-line */
-        width: fit-content;
-      }
-      a {
-        width: -moz-fit-content; /* stylelint-disable-line */
-        width: fit-content;
-      }
+
     }
 
   }
