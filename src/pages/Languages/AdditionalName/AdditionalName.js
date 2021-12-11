@@ -93,8 +93,8 @@ export default class AdditionalName extends View {
   }
 
   save() {
-    this.additionalName.name     = this.nameInput.value;
-    this.additionalName.language = this.langInput.value || `English`;
+    this.additionalName.name     = this.nameInput.value.cleanWhitespace();
+    this.additionalName.language = this.langInput.value.cleanWhitespace() || `English`;
   }
 
   showEditor() {

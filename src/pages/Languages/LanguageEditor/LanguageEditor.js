@@ -43,7 +43,7 @@ export default class LanguageEditor extends View {
     if (target.classList.contains(`js-additional-name__cancel-button`)) {
       const item     = target.closest(`.additional-name`);
       const { view } = item;
-      const name     = view.nameInput.value;
+      const name     = view.nameInput.value.cleanWhitespace();
       if (name) return;
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
@@ -216,7 +216,7 @@ export default class LanguageEditor extends View {
   updateAutonym(ev) {
     const { name, value } = ev.target;
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
-    this.language.autonym.set(abbr, value);
+    this.language.autonym.set(abbr, value.cleanWhitespace());
     return this.save();
   }
 
@@ -246,7 +246,7 @@ export default class LanguageEditor extends View {
     const isValid = input.checkValidity();
     input.reportValidity();
     if (!isValid) return;
-    this.language[name] = value;
+    this.language[name.cleanWhitespace()] = value;
     return this.save();
   }
 

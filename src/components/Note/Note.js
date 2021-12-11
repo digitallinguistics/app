@@ -51,8 +51,8 @@ export default class NoteView extends View {
 
   save() {
     this.note.dateModified = new Date;
-    this.note.text         = this.textInput.value;
-    this.note.source       = this.srcInput.value;
+    this.note.text         = this.textInput.value.cleanWhitespace();
+    this.note.source       = this.srcInput.value.cleanWhitespace();
   }
 
   showEditor() {
