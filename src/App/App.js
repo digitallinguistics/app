@@ -150,10 +150,44 @@ class App extends View {
     }
 
     const newPage = pageView.render();
-    const oldPage = document.getElementById(`main`);
 
-    oldPage.view?.events.stop();
-    oldPage.replaceWith(newPage);
+    const pages = document.getElementsByClassName(`main`);
+    let oldPage;
+    let hidden = -1;
+    let dataPage;
+
+    for (let i = 0; i < pages.length; i++) {
+      //Find previous page
+      if (!pages[i].hasAttribute(`hidden`)) {
+        oldPage = pages[i];
+      }
+      //Check for hidden page match
+      dataPage = pages[i].getAttribute(`data-page`);
+      if (dataPage === page && pages[i].hasAttribute(`hidden`)) {
+        hidden = i;
+      }
+    }
+
+    // oldPage.view?.events.stop(); IS THIS NEEDED?
+
+    if(!oldPage.hasAttribute(`data-page`)) {
+      console.log(`ONLY FIRST TIME`);
+      oldPage.replaceWith(newPage);
+    }
+    else if (oldPage.getAttribute(`data-page`) === page) {
+      console.log(`reload`);
+      oldPage.replaceWith(newPage);
+    }
+    else if (hidden > -1){
+      console.log(`found hidden page`);
+      oldPage.setAttribute(`hidden`, true);
+      pages[hidden].removeAttribute(`hidden`);
+    }
+    else {
+      console.log(`add new page`);
+      oldPage.setAttribute(`hidden`, true);
+      oldPage.before(newPage);
+    }
     pageView.initialize(this.settings.language);
 
     this.announce(`${ page } page`);
