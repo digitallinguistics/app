@@ -4,7 +4,6 @@ export default class HelpMenu extends View {
 
   constructor({ el } = {}) {
     super();
-    console.trace(el);
     this.el = el ?? document.querySelector(`.help-menu`);
   }
 
