@@ -180,18 +180,18 @@ class App extends View {
 
     // oldPage.view?.events.stop(); IS THIS NEEDED?
 
+    // First time only
     if(!oldPage.hasAttribute(`data-page`)) {
-      console.log(`ONLY FIRST TIME`);
       oldPage.replaceWith(newPage);
       pageView.initialize(this.settings.language);
     }
+    // Page being reloaded
     else if (oldPage.getAttribute(`data-page`) === page) {
-      console.log(`reload`);
       oldPage.replaceWith(newPage);
       pageView.initialize(this.settings.language);
     }
+    // Page was hidden
     else if (hidden > -1){
-      console.log(`found hidden page`);
       oldPage.setAttribute(`hidden`, true);
       pages[hidden].removeAttribute(`hidden`);
       // Cleaner way would be to call init but we cant access the view...
@@ -203,13 +203,13 @@ class App extends View {
         }
       }
     }
+    // Add new page
     else {
-      console.log(`add new page`);
       oldPage.setAttribute(`hidden`, true);
       oldPage.before(newPage);
       pageView.initialize(this.settings.language);
     }
-    
+
     this.announce(`${ page } page`);
 
   }
