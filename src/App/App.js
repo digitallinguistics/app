@@ -158,7 +158,8 @@ class App extends View {
           break;
     }
 
-    const newPage = pageView.render();
+    const newPage = pageView.render(); //If this is never added to the DOM
+                                      // should it happen every time or only when needed?
 
     const pages = document.getElementsByClassName(`main`);
     let oldPage;
@@ -182,23 +183,33 @@ class App extends View {
     if(!oldPage.hasAttribute(`data-page`)) {
       console.log(`ONLY FIRST TIME`);
       oldPage.replaceWith(newPage);
+      pageView.initialize(this.settings.language);
     }
     else if (oldPage.getAttribute(`data-page`) === page) {
       console.log(`reload`);
       oldPage.replaceWith(newPage);
+      pageView.initialize(this.settings.language);
     }
     else if (hidden > -1){
       console.log(`found hidden page`);
       oldPage.setAttribute(`hidden`, true);
       pages[hidden].removeAttribute(`hidden`);
+      // Cleaner way would be to call init but we cant access the view...
+      if(page === `Languages`) {
+        const input = this.el.querySelector(`[id^="name-"]`);
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      }
     }
     else {
       console.log(`add new page`);
       oldPage.setAttribute(`hidden`, true);
       oldPage.before(newPage);
+      pageView.initialize(this.settings.language);
     }
-    pageView.initialize(this.settings.language);
-
+    
     this.announce(`${ page } page`);
 
   }
