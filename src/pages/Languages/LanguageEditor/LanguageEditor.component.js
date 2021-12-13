@@ -10,7 +10,7 @@ describe(`Language Editor`, function() {
     .children()
     .should(`have.lengthOf`, 0);
 
-    cy.contains(`button`, `Add a language name`)
+    cy.contains(`.js-language-editor[data-ready] button`, `Add a language name`)
     .click();
 
     cy.get(`.js-language-editor__names-list`)
