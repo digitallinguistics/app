@@ -65,13 +65,18 @@ export default class LanguageEditor extends View {
   }
 
   initialize() {
+
     this.addEventListeners();
-    const input = this.el.querySelector('[id^="name-"]');
-    if(input) {
+
+    const input = this.el.querySelector(`[id^="name-"]`);
+
+    if (input) {
       input.focus();
       input.select();
     }
+
   }
+
   // Rendering Methods
 
   render() {
