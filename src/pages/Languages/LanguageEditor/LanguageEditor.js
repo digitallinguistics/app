@@ -65,7 +65,7 @@ export default class LanguageEditor extends View {
     }
 
     if (target.classList.contains(`js-additional-name__save-button`)) {
-      return this.updateAdditionalNames();
+      return this.save();
     }
 
   }
@@ -136,6 +136,7 @@ export default class LanguageEditor extends View {
 
   renderAdditionalName(name, index) {
     const nameView = new AdditionalName(name, index);
+    nameView.events.on(`update`, this.save.bind(this));
     return nameView.render();
   }
 
@@ -147,7 +148,7 @@ export default class LanguageEditor extends View {
 
     const listView = new List(this.language.additionalNames, {
       classes:  oldList.classList,
-      template: this.renderAdditionalName,
+      template: this.renderAdditionalName.bind(this),
     });
 
     const newList = listView.render();
@@ -253,25 +254,6 @@ export default class LanguageEditor extends View {
 
   // Update Methods
 
-  updateAdditionalNames() {
-
-    const listItems = this.el.querySelectorAll(`.additional-name`);
-    const names     = [];
-
-    for (const li of listItems) {
-
-      const name     = li.querySelector(`.js-additional-name__name-input`).value;
-      const language = li.querySelector(`.js-additional-name__lang-input`).value;
-
-      names.push({ language, name });
-
-    }
-
-    this.language.additionalNames = names;
-    return this.save();
-
-  }
-
   updateAutonym(ev) {
     const { name, value } = ev.target;
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
@@ -318,7 +300,6 @@ export default class LanguageEditor extends View {
       name:     ``,
     });
 
-    await this.save();
     this.renderAdditionalNames();
 
     const nameView = this.el.querySelector(`.js-language-editor__names-list .additional-name:first-child`).view;
