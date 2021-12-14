@@ -11,5 +11,6 @@
   "testFiles"        : "**/*.e2e.js",
   "video"            : false,
   "videosFolder"     : "test/videos",
+  "chromeWebSecurity": false,
   "projectId"        : "t8vr8w"
 }
