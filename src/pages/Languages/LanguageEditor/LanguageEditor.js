@@ -94,6 +94,7 @@ export default class LanguageEditor extends View {
       const i = Number(target.closest(`.orthography`).dataset.id);
       return this.deleteOrthography(i);
     }
+  }
 
   initialize() {
 
