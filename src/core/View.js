@@ -60,6 +60,12 @@ class View {
   }
 
   /**
+   * Add event listeners and complete any rendering logic that requires the element to be attached to the DOM. This should only be called after the `render()` method and after the node is inserted into the DOM. Views should attach event listeners to their elements by calling {@link View#addEventListeners}. The `initialize()` method should be overwritten by View instances.
+   * @abstract
+   */
+  initialize() { /* no-op */ }
+
+  /**
    * Loads the styles for this component as a `<style>` tag in the page header. Does not load the styles if the `<style>` tag for this component is already present on the page.
    */
   loadStyles() {
@@ -77,7 +83,7 @@ class View {
   }
 
   /**
-   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. Views should however attach event listeners to their elements by calling {@link View#addEventListeners}. They typically also call `loadStyles()` to load their CSS styles into the `<head>` tag. The `render()` method should be overwritten by View instances.
+   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. They typically also call `loadStyles()` to load their CSS styles into the `<head>` tag. The `render()` method should be overwritten by View instances.
    * @abstract
    */
   render() { /* no-op */ }

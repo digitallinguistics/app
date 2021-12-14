@@ -12,4 +12,29 @@ describe(`App`, function() {
 
   });
 
+  it(`displays Language Chooser when no language is selected`, function() {
+
+    cy.setupStore(`languages`);
+
+    cy.visit(`/`);
+
+    cy.setupStore(`languages`);
+
+    cy.get(`#main[data-page=Home]`);
+
+    cy.contains(`#nav li`, `Languages`)
+    .click();
+
+    cy.get(`.js-languages-page__languages-list`)
+    .children()
+    .then(items => {
+      const [langA, langB, langC, langD] = items;
+      expect(langA).to.have.text(`Àhàn`);
+      expect(langB).to.have.text(`Chitimacha`);
+      expect(langC).to.have.text(`nêhiyawêwin`);
+      expect(langD).to.have.text(`Nuuchahnulth`);
+    });
+
+  });
+
 });
