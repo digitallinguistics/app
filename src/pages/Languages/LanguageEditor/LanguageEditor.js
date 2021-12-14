@@ -241,7 +241,6 @@ export default class LanguageEditor extends View {
       name:     ``,
     });
 
-    await this.save();
     this.renderAdditionalNames();
 
     const nameView = this.el.querySelector(`.js-language-editor__names-list .additional-name:first-child`).view;
