@@ -63,6 +63,28 @@ describe(`Language Editor`, function() {
 
   });
 
+
+  it(`only saves unique Analysis Languages`, function() {
+
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-analysis-language__lang-input`)
+      .clear()
+      .type(`English`);
+
+      cy.get(`.js-analysis-language__tag-input`)
+      .clear()
+      .type(`en`);
+
+      cy.get(`.js-analysis-language__save-button`)
+      .click();
+
+      cy.on(`window:alert`, alertText => {
+        expect(alertText).to.contains(`This Analysis Language will not be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
+      });
+    });
+
+  });
+
   it(`deletes an Analysis Language`, function() {
 
     cy.get(`[data-id="0"]`).within(() => {
