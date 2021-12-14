@@ -15,10 +15,12 @@ describe(`Languages`, () => {
 
     // add a language from the editor
 
-    cy.contains(`.js-language-editor__add-language-button`, `Add a Language`)
+    cy.contains(`.js-language-editor__add-language-button`, `Add a language`)
     .click();
 
-    cy.contains(`.languages-nav li`, `{ new language }`);
+    cy.focused().should(`have.class`, `line-input`);
+
+    cy.contains(`.languages-page__nav li`, `{ new language }`);
 
     // delete the language
 
@@ -26,13 +28,13 @@ describe(`Languages`, () => {
 
       cy.stub(win, `prompt`).returns(`YES`);
 
-      cy.contains(`Delete this Language`)
+      cy.contains(`Delete this language`)
       .click();
 
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
       .click();
 
-      cy.get(`.languages-nav .languages-list`).children()
+      cy.get(`.js-languages-page__languages-list`).children()
       .should(`have.length`, 0);
 
     });
@@ -49,7 +51,7 @@ describe(`Languages`, () => {
     cy.contains(`#nav li`, `Languages`)
     .click();
 
-    cy.contains(`.languages-nav button`, `Add a Language`)
+    cy.contains(`.js-languages-page__nav-add-lang-button`, `Add a language`)
     .click();
 
     cy.clock(new Date);
@@ -63,10 +65,10 @@ describe(`Languages`, () => {
     cy.tick(delay); // wait for debounce
 
     // check that Languages List was updated
-    cy.contains(`.languages-nav li`, `Chitimacha`);
+    cy.contains(`.languages-page__nav li`, `Chitimacha`);
 
     // add a language name
-    cy.contains(`.language-editor button`, `Add a Language Name`)
+    cy.contains(`.language-editor button`, `Add a language name`)
     .click();
 
     // add an additional language name

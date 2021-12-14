@@ -1,9 +1,11 @@
 <section class=notes-list>
   <header class=notes-list__header>
-    <svg aria-hidden=true class='notes-list__closed-icon notes-list__icon'><use href=#chevron-right></svg>
-    <svg aria-hidden=true class='notes-list__icon notes-list__opened-icon'><use href=#chevron-down></svg>
+    <button class='button notes-list__button notes-list__toggle-button transparent' type='button'>
+      <svg aria-hidden=true class='notes-list__closed-icon notes-list__icon'><use href=#chevron-right></svg>
+      <svg aria-hidden=true class='notes-list__icon notes-list__opened-icon'><use href=#chevron-down></svg>
+    </button>
     <h3 class='notes-list__heading js-notes-list__heading'>Notes</h3>
-    <button aria-label='Add a note' class='notes-list__add-note-button button js-notes-list__add-note-button transparent' type=button>
+    <button aria-label='Add a note' class='button js-notes-list__add-note-button notes-list__button transparent' type=button>
       <svg><use href=#add-doc></svg>
     </button>
   </header>

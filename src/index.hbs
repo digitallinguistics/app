@@ -60,7 +60,10 @@
       {{!-- the main content of the page (should always be a `<main id={page}>` element --}}
       <main id=main class=main></main>
 
-    </div>
+    </div>{{!-- end of wrapper --}}
+
+    {{!-- the app footer, for social media and other links --}}
+    {{> Footer }}
 
     {{!-- an AIRA live region for announcing messages to screen readers --}}
     <p id=info hidden aria-live=polite></p>

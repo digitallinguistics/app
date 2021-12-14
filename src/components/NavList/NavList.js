@@ -8,7 +8,7 @@ export default class NavList extends List {
 
   styles = styles;
 
-  constructor(data, options) {
+  constructor(data, options = {}) {
     super(data, options);
     this.name = options.name ?? `item`;
   }

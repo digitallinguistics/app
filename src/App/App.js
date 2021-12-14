@@ -1,8 +1,12 @@
-import Database  from '../services/Database.js';
-import Mousetrap from 'mousetrap';
-import Nav       from './Nav/Nav.js';
-import Settings  from '../services/Settings.js';
-import View      from '../core/View.js';
+import Database        from '../services/Database.js';
+import HelpMenu        from './HelpMenu/HelpMenu.js';
+import Language        from '../models/Language.js';
+import LanguageChooser from './LanguageChooser/LanguageChooser.js';
+import Mousetrap       from 'mousetrap';
+import Nav             from './Nav/Nav.js';
+import Settings        from '../services/Settings.js';
+import View            from '../core/View.js';
+
 
 /**
  * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
@@ -18,6 +22,12 @@ class App extends View {
    * @type {Database}
    */
   db = new Database;
+
+  /**
+   * A reference to the helpmenu controller.
+   * @type {HelpMenu}
+   */
+  #helpMenu = new HelpMenu;
 
   /**
    * A reference to the Main Nav controller.
@@ -55,6 +65,18 @@ class App extends View {
   // APP METHODS
 
   /**
+   * Add a new language and show the Language Editor.
+   */
+  async #addLanguage() {
+    let language = new Language;
+    language.autonym.set(`default`, ``);
+    language.name.set(`eng`, `{ new language }`);
+    language = await app.db.languages.add(language);
+    this.settings.language = language.cid;
+    return this.#renderPage(`Languages`);
+  }
+
+  /**
    * Announce text to screen readers by updating an ARIA live region.
    * @param {String} text the text to announce to screen readers
    */
@@ -68,6 +90,7 @@ class App extends View {
    * @returns {Promise}
    */
   initialize() {
+    this.#helpMenu.initialize();
     return this.db.initialize();
   }
 
@@ -83,6 +106,22 @@ class App extends View {
     return this.el;
   }
 
+  async #createLanguageChooser() {
+
+    const languages       = await this.db.languages.getAll();
+    const languageChooser = new LanguageChooser(languages);
+
+    languageChooser.events.on(`add`, this.#addLanguage.bind(this));
+
+    languageChooser.events.on(`select`, cid => {
+      this.settings.language = cid;
+      this.#renderPage(this.settings.page);
+    });
+
+    return languageChooser;
+
+  }
+
   /**
    * Render the Main Nav.
    */
@@ -92,7 +131,7 @@ class App extends View {
   }
 
   /**
-   * Render a specific page.
+   * Render a specific page. This is the only method that should call page-rendering methods.
    * @param {String} page the page to render (`Home`, `Languages`, etc.)
    */
   async #renderPage(page) {
@@ -105,24 +144,27 @@ class App extends View {
       this.#pages.set(page, PageView);
     }
 
-    let newPage;
+    let pageView;
 
     switch (this.settings.page) {
         case `Languages`:
-          newPage = await this.#renderLanguagesPage();
+          pageView = await this.#createLanguagesPage();
           break;
         case `Lexicon`:
-          newPage = await this.#renderLexiconPage();
+          pageView = await this.#createLexiconPage();
           break;
         default:
-          newPage = this.#renderHomePage();
+          pageView = this.#createHomePage();
           break;
     }
 
+    const newPage = pageView.render();
     const oldPage = document.getElementById(`main`);
 
     oldPage.view?.events.stop();
     oldPage.replaceWith(newPage);
+    pageView.initialize(this.settings.language);
+
     this.announce(`${ page } page`);
 
   }
@@ -133,27 +175,33 @@ class App extends View {
    * Render the Home page.
    * @returns {HTMLElement} the Home page element
    */
-  #renderHomePage() {
+  #createHomePage() {
     const HomePage = this.#pages.get(`Home`);
-    const homePage = new HomePage;
-    return homePage.render();
+    return new HomePage;
   }
 
   /**
    * Render the Languages page.
    * @returns {HTMLElement} the Languages page element
    */
-  async #renderLanguagesPage() {
+  async #createLanguagesPage() {
     const LanguagesPage = this.#pages.get(`Languages`);
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
-    return languagesPage.render(this.settings.language);
+    languagesPage.events.on(`add`, this.#addLanguage.bind(this));
+    return languagesPage;
   }
 
-  #renderLexiconPage() {
+  async #createLexiconPage() {
+
+    if (!this.settings.language) {
+      return this.#createLanguageChooser();
+    }
+
     const LexiconPage = this.#pages.get(`Lexicon`);
-    const lexiconPage = new LexiconPage;
-    return lexiconPage.render();
+    const language    = await this.db.languages.get(this.settings.language);
+    return new LexiconPage(language);
+
   }
 
   // STATIC

@@ -1,6 +1,7 @@
+import compare        from '../../utilities/compare.js';
 import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
-import LanguagesNav   from './LanguagesNav/LanguagesNav.js';
+import NavList        from '../../components/NavList/NavList.js';
 import styles         from './Languages.less';
 import template       from './Languages.hbs';
 import View           from '../../core/View.js';
@@ -22,15 +23,9 @@ export default class LanguagesPage extends View {
     this.languages = languages;
   }
 
-  async addLanguage() {
-    let language = new Language;
-    language.autonym.set(`default`, ``);
-    language.name.set(`eng`, `{ new language }`);
-    language = await app.db.languages.add(language);
-    this.languages.push(language);
-    app.settings.language = language.cid;
-    this.renderNav(language.cid);
-    return this.renderEditor(language.cid);
+  addEventListeners() {
+    this.el.querySelector(`.js-languages-page__nav-add-lang-button`)
+    .addEventListener(`click`, () => this.events.emit(`add`));
   }
 
   async deleteLanguage(languageCID) {
@@ -44,16 +39,26 @@ export default class LanguagesPage extends View {
     return this.renderEditor();
   }
 
+  initialize(languageCID) {
+    this.addEventListeners();
+    this.renderEditor(languageCID);
+    this.renderNav(languageCID);
+  }
+
+  itemTemplate({ cid, name }) {
+    return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#language-editor>${ name.default }</a></li>`);
+  }
+
   /**
    * Render the Languages Page.
    * @return {HTMLMainElement}
    */
-  render(languageCID) {
+  render() {
     this.loadStyles();
     this.cloneTemplate();
-    this.renderNav(languageCID);
-    this.renderEditor(languageCID);
+
     return this.el;
+
   }
 
   /**
@@ -68,19 +73,19 @@ export default class LanguagesPage extends View {
     if (language) {
 
       // render full editor
-      const editorView = new LanguageEditor(language);
-      editorView.events.once(`add`, this.addLanguage.bind(this));
-      editorView.events.on(`delete`, this.deleteLanguage.bind(this));
-      editorView.events.on(`update:name`, this.renderNav.bind(this));
-      newEditor = editorView.render();
+      this.editorView = new LanguageEditor(language);
+      this.editorView.events.once(`add`, () => this.events.emit(`add`));
+      this.editorView.events.on(`delete`, this.deleteLanguage.bind(this));
+      this.editorView.events.on(`update:name`, this.renderNav.bind(this));
+      newEditor = this.editorView.render();
 
     } else {
 
       // render placeholder editor
       app.settings.language = null;
-      const editorView = new LanguageEditor;
-      editorView.events.on(`add`, this.addLanguage.bind(this));
-      newEditor = editorView.render();
+      this.editorView = new LanguageEditor;
+      this.editorView.events.on(`add`, () => this.events.emit(`add`));
+      newEditor = this.editorView.render();
 
     }
 
@@ -88,6 +93,8 @@ export default class LanguagesPage extends View {
 
     oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
+
+    this.editorView.initialize();
 
     return newEditor;
 
@@ -99,18 +106,29 @@ export default class LanguagesPage extends View {
    */
   renderNav(languageCID) {
 
-    const nav = new LanguagesNav(this.languages);
+    this.languages.sort((a, b) => a.name.default.localeCompare(b.name.default, undefined, {
+      sensitivity: `base`,
+    }));
 
-    nav.events.on(`add`, this.addLanguage.bind(this));
-    nav.events.on(`change`, this.renderEditor.bind(this));
+    const oldList = this.el.querySelector(`.js-languages-page__languages-list`);
+    const classes = Array.from(oldList.classList);
 
-    const oldNav = this.el.querySelector(`.languages-nav`);
-    const newNav = nav.render(languageCID);
+    const listView = new NavList(this.languages, {
+      classes,
+      name:     `language`,
+      template: this.itemTemplate,
+    });
 
-    oldNav.view?.events.stop();
-    oldNav.replaceWith(newNav);
+    const newList = listView.render(languageCID);
 
-    return newNav;
+    oldList.view?.events.stop();
+    if (!this.languages.length) newList.style.border = `none`;
+    oldList.replaceWith(newList);
+
+    listView.events.on(`change`, cid => {
+      app.settings.language = cid;
+      this.renderEditor(cid);
+    });
 
   }
 

@@ -1,10 +1,9 @@
 // Globals
+@import (reference) 'utilities.less';
 @import (reference) 'variables.less';
 
 // Shared Components
-@import 'Button/Button';
 @import 'Fieldset/Fieldset';
-@import 'BlockHeader/BlockHeader';
 @import 'BoxInput/BoxInput';
 @import 'HelpText/HelpText';
 @import 'InputGroup/InputGroup';
@@ -12,12 +11,30 @@
 @import 'Legend/Legend';
 @import 'LineInput/LineInput';
 @import 'List/List';
-@import 'NavList/NavList';
 @import 'Required/Required';
-@import 'Transcription/Transcription';
 @import 'TranscriptionGroup/TranscriptionGroup';
 
 .languages-page {
+
+  &__languages-list {
+    margin-inline: var(--space);
+  }
+
+  &__nav {
+
+    align-items: stretch;
+
+    // large screens
+    @media (min-width: @breakpoint) {
+      inline-size: 20em;
+    }
+
+  }
+
+  &__nav-add-lang-button {
+    .align-center;
+    margin: var(--space);
+  }
 
   // small screens
   @media (max-width: @breakpoint) {
