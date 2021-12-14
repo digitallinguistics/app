@@ -16,7 +16,9 @@ export const Blank = () => {
 
   const language = new Language(data);
   const editor   = new Editor(language);
-  return editor.render();
+  const el = editor.render();
+  setTimeout(() => editor.initialize(), 500);
+  return el;
 
 };
 
@@ -24,5 +26,7 @@ export const Populated = () => {
   const [, chiti]    = languages;
   const language = new Language(chiti);
   const editor   = new Editor(language);
-  return editor.render();
+  const el = editor.render();
+  setTimeout(() => editor.initialize(), 500);
+  return el;
 };

@@ -15,8 +15,10 @@ describe(`Languages`, () => {
 
     // add a language from the editor
 
-    cy.contains(`.js-language-editor__add-language-button`, `Add a Language`)
+    cy.contains(`.js-language-editor__add-language-button`, `Add a language`)
     .click();
+
+    cy.focused().should(`have.class`, `line-input`);
 
     cy.contains(`.languages-page__nav li`, `{ new language }`);
 
@@ -26,7 +28,7 @@ describe(`Languages`, () => {
 
       cy.stub(win, `prompt`).returns(`YES`);
 
-      cy.contains(`Delete this Language`)
+      cy.contains(`Delete this language`)
       .click();
 
       cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
@@ -66,7 +68,7 @@ describe(`Languages`, () => {
     cy.contains(`.languages-page__nav li`, `Chitimacha`);
 
     // add a language name
-    cy.contains(`.language-editor button`, `Add a Language Name`)
+    cy.contains(`.language-editor button`, `Add a language name`)
     .click();
 
     // add an additional language name

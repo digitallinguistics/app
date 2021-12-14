@@ -1,10 +1,12 @@
 import Database        from '../services/Database.js';
+import HelpMenu        from './HelpMenu/HelpMenu.js';
 import Language        from '../models/Language.js';
 import LanguageChooser from './LanguageChooser/LanguageChooser.js';
 import Mousetrap       from 'mousetrap';
 import Nav             from './Nav/Nav.js';
 import Settings        from '../services/Settings.js';
 import View            from '../core/View.js';
+
 
 /**
  * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
@@ -20,6 +22,12 @@ class App extends View {
    * @type {Database}
    */
   db = new Database;
+
+  /**
+   * A reference to the helpmenu controller.
+   * @type {HelpMenu}
+   */
+  #helpMenu = new HelpMenu;
 
   /**
    * A reference to the Main Nav controller.
@@ -82,6 +90,7 @@ class App extends View {
    * @returns {Promise}
    */
   initialize() {
+    this.#helpMenu.initialize();
     return this.db.initialize();
   }
 
@@ -97,7 +106,7 @@ class App extends View {
     return this.el;
   }
 
-  async #renderLanguageChooser() {
+  async #createLanguageChooser() {
 
     const languages       = await this.db.languages.getAll();
     const languageChooser = new LanguageChooser(languages);
@@ -109,7 +118,7 @@ class App extends View {
       this.#renderPage(this.settings.page);
     });
 
-    return languageChooser.render();
+    return languageChooser;
 
   }
 
@@ -135,24 +144,27 @@ class App extends View {
       this.#pages.set(page, PageView);
     }
 
-    let newPage;
+    let pageView;
 
     switch (this.settings.page) {
         case `Languages`:
-          newPage = await this.#renderLanguagesPage();
+          pageView = await this.#createLanguagesPage();
           break;
         case `Lexicon`:
-          newPage = await this.#renderLexiconPage();
+          pageView = await this.#createLexiconPage();
           break;
         default:
-          newPage = this.#renderHomePage();
+          pageView = this.#createHomePage();
           break;
     }
 
+    const newPage = pageView.render();
     const oldPage = document.getElementById(`main`);
 
     oldPage.view?.events.stop();
     oldPage.replaceWith(newPage);
+    pageView.initialize(this.settings.language);
+
     this.announce(`${ page } page`);
 
   }
@@ -163,35 +175,32 @@ class App extends View {
    * Render the Home page.
    * @returns {HTMLElement} the Home page element
    */
-  #renderHomePage() {
+  #createHomePage() {
     const HomePage = this.#pages.get(`Home`);
-    const homePage = new HomePage;
-    return homePage.render();
+    return new HomePage;
   }
 
   /**
    * Render the Languages page.
    * @returns {HTMLElement} the Languages page element
    */
-  async #renderLanguagesPage() {
+  async #createLanguagesPage() {
     const LanguagesPage = this.#pages.get(`Languages`);
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
     languagesPage.events.on(`add`, this.#addLanguage.bind(this));
-    return languagesPage.render(this.settings.language);
+    return languagesPage;
   }
 
-  async #renderLexiconPage() {
+  async #createLexiconPage() {
 
     if (!this.settings.language) {
-      return this.#renderLanguageChooser();
+      return this.#createLanguageChooser();
     }
 
     const LexiconPage = this.#pages.get(`Lexicon`);
     const language    = await this.db.languages.get(this.settings.language);
-    const lexiconPage = new LexiconPage(language);
-
-    return lexiconPage.render();
+    return new LexiconPage(language);
 
   }
 

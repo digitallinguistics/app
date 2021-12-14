@@ -34,6 +34,7 @@ export default class LanguageEditor extends View {
     this.el.querySelector(`.js-language-editor__delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
 
+    this.el.dataset.ready = true;
   }
 
   async save() {
@@ -93,7 +94,18 @@ export default class LanguageEditor extends View {
       const i = Number(target.closest(`.orthography`).dataset.id);
       return this.deleteOrthography(i);
     }
-    
+
+  initialize() {
+
+    this.addEventListeners();
+
+    const input = this.el.querySelector(`[id^="name-"]`);
+
+    if (input) {
+      input.focus();
+      input.select();
+    }
+
   }
 
   // Rendering Methods
@@ -105,7 +117,6 @@ export default class LanguageEditor extends View {
 
     if (!this.language) {
       this.el.classList.add(`placeholder`);
-      this.addEventListeners();
       return this.el;
     }
 
@@ -117,8 +128,6 @@ export default class LanguageEditor extends View {
     this.renderMetadata();
     this.renderOrthographies();
     this.renderSimpleFields();
-
-    this.addEventListeners();
 
     return this.el;
 
