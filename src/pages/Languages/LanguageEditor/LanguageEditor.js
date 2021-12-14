@@ -35,6 +35,12 @@ export default class LanguageEditor extends View {
     this.el.dataset.ready = true;
   }
 
+  // This could become Utility if it is used elsewhere
+  isUnique(objects, property) {
+    const uniqueList = new Set(objects.map(object => object[property]));
+    return [...uniqueList].length === objects.length;
+  }
+
   async save() {
     await app.db.languages.put(this.language);
     this.renderMetadata();
@@ -93,7 +99,17 @@ export default class LanguageEditor extends View {
     }
 
     if (target.classList.contains(`js-analysis-language__save-button`)) {
-      return this.save();
+      const checkAbbr = this.isUnique(this.language.analysisLanguages, `abbreviation`);
+      const checkLang = this.isUnique(this.language.analysisLanguages, `language`);
+      const checkTag = this.isUnique(this.language.analysisLanguages, `tag`);
+      if(checkAbbr && checkLang && checkTag) {
+        return this.save();
+      }
+      alert(`This Analysis Language will not be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
+      const langEl     = target.closest(`.analysis-language`);
+      const { view } = langEl;
+      view.el.classList.add(`editing`);
+      view.el.querySelector(`.js-analysis-language__lang-input`).focus();
     }
 
   }
@@ -343,7 +359,6 @@ export default class LanguageEditor extends View {
       tag:          ``,
     });
 
-    await this.save();
     this.renderAnalysisLangs();
 
     const langView = this.el.querySelector(`.js-language-editor__analysis-langs-list .analysis-language:first-child`).view;
