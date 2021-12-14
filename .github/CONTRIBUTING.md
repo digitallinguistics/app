@@ -364,7 +364,7 @@ The Lotus project partially uses [Block-Element-Modifier (BEM)][BEM] naming conv
 
 For the Lotus app, a "block" is a component, and an "element" is any element within that component. The Lotus app does *not* use the `--modifier` syntax however. Instead it uses a separate modifier class.
 
-As an example, if you have a Languages Nav component which includes a green "Add a Language" button and a red "Delete a Language" button, your HTML and styles might look like this:
+As an example, if you have a Languages Nav component which includes a green "Add a language" button and a red "Delete a language" button, your HTML and styles might look like this:
 
 ```html
 <nav class=lang-nav>
@@ -373,8 +373,8 @@ As an example, if you have a Languages Nav component which includes a green "Add
     <li class=lang-nav__item>Language B</li>
     <li class=lang-nav__item>Language C</li>
   </ul>
-  <button class='btn green lang-nav__btn lang-nav__add-lang-btn'>Add a Language</button>
-  <button class='btn red lang-nav__btn lang-nav__delete-lang-btn'>Delete a Language</button>
+  <button class='btn green lang-nav__btn lang-nav__add-lang-btn'>Add a language</button>
+  <button class='btn red lang-nav__btn lang-nav__delete-lang-btn'>Delete a language</button>
 </nav>
 ```
 
