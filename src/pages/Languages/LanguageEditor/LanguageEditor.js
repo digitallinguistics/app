@@ -341,7 +341,6 @@ export default class LanguageEditor extends View {
       new Orthography({ abbreviation: ``, name: `` }),
     );
 
-    await this.save();
     this.renderOrthographies();
 
     const orthoView = this.el.querySelector(`.js-language-editor__orthographies-list .orthography:first-child`).view;
