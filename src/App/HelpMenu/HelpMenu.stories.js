@@ -1,3 +1,4 @@
+import HelpMenuView from './HelpMenu.js';
 import html2element from '../../utilities/html2element.js';
 
 export default {
@@ -24,6 +25,8 @@ export const HelpMenu = () => {
   const menu     = template.content.cloneNode(true).firstElementChild;
 
   banner.appendChild(menu);
+  const helpMenuView = new HelpMenuView({ el: menu });
+  helpMenuView.initialize();
   return banner;
 
 };
