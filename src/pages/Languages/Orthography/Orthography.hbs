@@ -1,0 +1,48 @@
+<li class=orthography>
+
+  <header class=orthography__header>
+
+    <div class=orthography__preview-div>
+      <p class='orthography__preview js-orthography__preview'></p>
+    </div>
+    <div class='orthography__buttons orthography__header-buttons'>
+      <button aria-label='Edit this orthography' class='orthography__button orthography__edit-button button js-orthography__edit-button transparent' type=button>
+        <svg><use href=#edit-line></use></svg>
+      </button>
+      <button aria-label='Delete this orthography' class='orthography__button button js-orthography__delete-button transparent' type=button>
+        <svg><use href=#trash></use></svg>
+      </button>
+    </div>
+
+  </header>
+
+  <fieldset class='orthography__editor js-orthography__editor' hidden>
+
+    <fieldset class='fieldset orthography__fieldset js-orthography__name'>
+      <legend class='orthography__legend js-orthography__name-legend legend'>Name</legend>
+      <p class='orthography__help-text help-text'>An orthography for this language.</p>
+    </fieldset>
+
+    <div class=input-group>
+      <label class='orthography__legend js-orthography__abbr-legend legend required' data-bind=for:abbrID>Abbreviation</label>
+      <div>
+        <input
+          autocomplete=off
+          class='orthography__abbr-input js-orthography__abbr-input line-input'
+          inputmode=text
+          placeholder='e.g. cyr'
+          required
+          spellcheck=false
+          type=text
+        >
+        <p class='orthography__help-text help-text'>An abbreviation for this orthography.</p>
+      </div>
+    </div>
+
+    <div class=orthography__buttons>
+      <button class='orthography__button button js-orthography__cancel-button' type=button>Cancel</button>
+      <button class='orthography__button button blue js-orthography__save-button' type=button>Save</button>
+    </div>
+
+  </fieldset>
+</li>
