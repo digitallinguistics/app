@@ -125,8 +125,8 @@ export default class AnalysisLanguage extends View {
 
   updatePreview(lang, abbr, tag) {
     this.el.querySelector(`.js-analysis-language__preview`)
-    .innerHTML = `<span>${ lang }</span> <span class=analysis-language__mono>${ abbr }</span>
-      <span class=analysis-language__mono>${ tag }</span>`;
+    .innerHTML = `<span>${ lang }</span> <span class='analysis-language code'>${ abbr }</span>
+      <span class='analysis-language code'>${ tag }</span>`;
   }
 
 }

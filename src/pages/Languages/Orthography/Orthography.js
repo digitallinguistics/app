@@ -137,7 +137,7 @@ export default class Orthography extends View {
     this.el.querySelector(`.js-orthography__preview`)
     .innerHTML = `<span><span class=label> Name </span><span class=txn>${ name }
     </span></span><span><span class=label>Abbreviation</span>
-    <span class=orthography__mono>${ abbreviation }</span></span>`;
+    <span class='orthography code'>${ abbreviation }</span></span>`;
   }
 
 }
