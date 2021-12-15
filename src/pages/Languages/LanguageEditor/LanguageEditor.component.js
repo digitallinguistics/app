@@ -76,6 +76,57 @@ describe(`Language Editor`, function() {
 
   });
 
+  it(`adds an Analysis Language`, function() {
+
+    cy.get(`.js-language-editor__analysis-langs-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+    cy.contains(`button`, `Add an analysis language`)
+    .click();
+
+    cy.get(`.js-language-editor__analysis-langs-list`)
+    .children()
+    .should(`have.lengthOf`, 2);
+
+    cy.get(`.analysis-language`);
+
+  });
+
+  it(`only saves unique Analysis Languages`, function() {
+
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-analysis-language__lang-input`)
+      .clear()
+      .type(`English`);
+
+      cy.get(`.js-analysis-language__tag-input`)
+      .clear()
+      .type(`en`);
+
+      cy.get(`.js-analysis-language__save-button`)
+      .click();
+
+      cy.on(`window:alert`, alertText => {
+        expect(alertText).to.contains(`This Analysis Language cannot be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
+      });
+    });
+
+  });
+
+  it(`deletes an Analysis Language`, function() {
+
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-analysis-language__delete-button`)
+      .click();
+    });
+
+    cy.get(`.js-language-editor__analysis-langs-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+  });
+
   it(`deletes an empty Orthography when editing is canceled`, function() {
 
     cy.contains(`button`, `Add an orthography`)
@@ -90,13 +141,41 @@ describe(`Language Editor`, function() {
 
   });
 
+  it(`deletes an empty Analysis Language when editing is canceled`, function() {
+
+    cy.contains(`button`, `Add an analysis language`)
+    .click();
+
+    cy.get(`.js-analysis-language__cancel-button:visible`)
+    .click();
+
+    cy.get(`.js-language-editor__analysis-langs-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+  });
+
   it(`does not delete the last Orthography`, function() {
+
     cy.get(`[data-id="0"]`).within(() => {
       cy.get(`.js-orthography__delete-button`)
       .click();
     });
 
     cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+  });
+
+  it(`does not delete the last Analysis Language`, function() {
+
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-analysis-language__delete-button`)
+      .click();
+    });
+
+    cy.get(`.js-language-editor__analysis-langs-list`)
     .children()
     .should(`have.lengthOf`, 1);
 
