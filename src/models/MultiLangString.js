@@ -24,9 +24,9 @@ class MultiLangString extends Map {
       enumerable: true,
       value:      `MultiLangString`,
     });
-    
+
   }
-  
+
   /**
    * The default language.
    * @return {String}
@@ -34,7 +34,7 @@ class MultiLangString extends Map {
   get default() {
     return this.get(`en`) ?? this.get(`eng`) ?? Array.from(this.values())[0];
   }
-  
+
   /**
    * Create a version of the data suitable for JSON serialization
    * @return {Object}
@@ -42,7 +42,7 @@ class MultiLangString extends Map {
   toJSON() {
     return Object.fromEntries(this);
   }
-  
+
 }
 
 export default MultiLangString;
