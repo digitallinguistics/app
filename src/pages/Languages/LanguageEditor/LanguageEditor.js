@@ -99,7 +99,7 @@ export default class LanguageEditor extends View {
         alert(`There must be at least one orthography.`);
         return;
       }
-      const confirmDelete = confirm(`Are you sure you want to delete this Orthography? This action cannont be undone. Click 'OK' to confirm deletion.`);
+      const confirmDelete = confirm(`Are you sure you want to delete this Orthography? This action cannot be undone. Click 'OK' to confirm deletion.`);
       if (!confirmDelete) return;
       const i = Number(target.closest(`.orthography`).dataset.id);
       return this.deleteOrthography(i);
