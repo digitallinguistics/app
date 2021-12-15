@@ -105,7 +105,7 @@ export default class LanguageEditor extends View {
       if(checkAbbr && checkLang && checkTag) {
         return this.save();
       }
-      alert(`This Analysis Language will not be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
+      alert(`This Analysis Language cannot be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
       const langEl     = target.closest(`.analysis-language`);
       const { view } = langEl;
       view.el.classList.add(`editing`);
