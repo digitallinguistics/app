@@ -71,7 +71,6 @@ describe(`Languages`, () => {
     cy.contains(`.language-editor button`, `Add a language name`)
     .click();
 
-    // add an additional language name
     cy.get(`.language-editor__additional-names`)
     .within(() => {
 
@@ -83,6 +82,45 @@ describe(`Languages`, () => {
       .type(`French`);
 
       cy.get(`.js-additional-name__save-button`)
+      .click();
+
+    });
+
+    // add an orthography
+    cy.contains(`.language-editor button`, `Add an orthography`)
+    .click();
+
+    cy.get(`.language-editor__orthographies`)
+    .within(() => {
+      cy.get(`[id="orthography-name-0-eng"]:visible`)
+      .type(`English`);
+
+      cy.get(`.js-orthography__abbr-input:visible`)
+      .clear()
+      .type(`eng`);
+
+      cy.get(`.js-orthography__save-button:visible`)
+      .click();
+    });
+
+    // add an analysis language
+    cy.contains(`.language-editor button`, `Add an analysis language`)
+    .click();
+
+    cy.get(`.language-editor__analysis-languages`)
+    .within(() => {
+      cy.get(`.js-analysis-language__lang-input:visible`)
+      .type(`French`);
+
+      cy.get(`.js-analysis-language__abbr-input:visible`)
+      .clear()
+      .type(`fra`);
+
+      cy.get(`.js-analysis-language__tag-input:visible`)
+      .clear()
+      .type(`fr`);
+
+      cy.get(`.js-analysis-language__save-button:visible`)
       .click();
 
     });
@@ -137,6 +175,9 @@ describe(`Languages`, () => {
     .should(`have.value`, `chit1248`);
 
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
+
+    cy.contains(`.language-editor__orthographies`, `Name English Abbreviation eng`);
+    cy.contains(`.language-editor__analysis-languages`, `French fra fr`);
 
     cy.get(`.js-language-editor__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
