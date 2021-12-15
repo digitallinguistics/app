@@ -97,7 +97,7 @@ describe(`Languages`, () => {
 
       cy.get(`.js-analysis-language__abbr-input:visible`)
       .clear()
-      .type(`fre`);
+      .type(`fra`);
 
       cy.get(`.js-analysis-language__tag-input:visible`)
       .clear()
