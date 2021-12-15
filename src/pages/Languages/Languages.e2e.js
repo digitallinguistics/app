@@ -86,6 +86,23 @@ describe(`Languages`, () => {
 
     });
 
+    // add an orthography
+    cy.contains(`.language-editor button`, `Add an orthography`)
+    .click();
+
+    cy.get(`.language-editor__orthographies`)
+    .within(() => {
+      cy.get(`[id="orthography-name-0-eng"]:visible`)
+      .type(`English`);
+
+      cy.get(`.js-orthography__abbr-input:visible`)
+      .clear()
+      .type(`eng`);
+
+      cy.get(`.js-orthography__save-button:visible`)
+      .click();
+    });
+
     // add an analysis language
     cy.contains(`.language-editor button`, `Add an analysis language`)
     .click();
@@ -105,6 +122,7 @@ describe(`Languages`, () => {
 
       cy.get(`.js-analysis-language__save-button:visible`)
       .click();
+
     });
 
     // edit the remaining data
@@ -158,6 +176,7 @@ describe(`Languages`, () => {
 
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
 
+    cy.contains(`.language-editor__orthographies`, `Name English Abbreviation eng`);
     cy.contains(`.language-editor__analysis-languages`, `French fra fr`);
 
     cy.get(`.js-language-editor__date-modified`)

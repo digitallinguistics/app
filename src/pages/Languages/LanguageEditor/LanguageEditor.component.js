@@ -46,6 +46,36 @@ describe(`Language Editor`, function() {
 
   });
 
+  it(`adds an Orthography`, function() {
+
+    cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+    cy.contains(`button`, `Add an orthography`)
+    .click();
+
+    cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 2);
+
+    cy.get(`.orthography`);
+
+  });
+
+  it(`deletes an Orthography`, function() {
+
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-orthography__delete-button`)
+      .click();
+    });
+
+    cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+  });
+
   it(`adds an Analysis Language`, function() {
 
     cy.get(`.js-language-editor__analysis-langs-list`)
@@ -62,7 +92,6 @@ describe(`Language Editor`, function() {
     cy.get(`.analysis-language`);
 
   });
-
 
   it(`only saves unique Analysis Languages`, function() {
 
@@ -98,6 +127,20 @@ describe(`Language Editor`, function() {
 
   });
 
+  it(`deletes an empty Orthography when editing is canceled`, function() {
+
+    cy.contains(`button`, `Add an orthography`)
+    .click();
+
+    cy.get(`.js-orthography__cancel-button:visible`)
+    .click();
+
+    cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+  });
+
   it(`deletes an empty Analysis Language when editing is canceled`, function() {
 
     cy.contains(`button`, `Add an analysis language`)
@@ -112,7 +155,21 @@ describe(`Language Editor`, function() {
 
   });
 
+  it(`does not delete the last Orthography`, function() {
+
+    cy.get(`[data-id="0"]`).within(() => {
+      cy.get(`.js-orthography__delete-button`)
+      .click();
+    });
+
+    cy.get(`.js-language-editor__orthographies-list`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
+  });
+
   it(`does not delete the last Analysis Language`, function() {
+
     cy.get(`[data-id="0"]`).within(() => {
       cy.get(`.js-analysis-language__delete-button`)
       .click();

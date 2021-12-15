@@ -1,6 +1,7 @@
-import Model            from '../core/Model.js';
-import MultiLangString  from './MultiLangString.js';
-import Transcription    from './Transcription.js';
+import Model           from '../core/Model.js';
+import MultiLangString from './MultiLangString.js';
+import Orthography     from './Orthography.js';
+import Transcription   from './Transcription.js';
 
 /**
  * A data model for languages.
@@ -41,6 +42,15 @@ class Language extends Model {
      * The scientific name for this language, as a MultiLangString.
      */
     this.name = new MultiLangString(this.name);
+
+    /**
+     * An Array of orthographies for this language.
+     * @default []
+     * @type {Orthography[]}
+     */
+
+    this.orthographies ??= [{ abbreviation: `default`, name: `default` }];
+    this.orthographies = this.orthographies.map(orthoData => new Orthography(orthoData));
 
   }
 
