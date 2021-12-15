@@ -158,7 +158,7 @@ describe(`Languages`, () => {
 
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
 
-    cy.contains(`.language-editor__analysis-languages`, `French fre fr`);
+    cy.contains(`.language-editor__analysis-languages`, `French fra fr`);
 
     cy.get(`.js-language-editor__date-modified`)
     .should(`have.text`, new Date().toLocaleDateString(undefined, { dateStyle: `short` }));
