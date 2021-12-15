@@ -1,0 +1,79 @@
+<li class=analysis-language>
+
+  <header class=analysis-language__header>
+
+    <p class='analysis-language__preview js-analysis-language__preview'></p>
+
+    <div class='analysis-language__buttons analysis-language__header-buttons'>
+      <button aria-label='Edit this analysis language' class='analysis-language__button analysis-language__edit-button button js-analysis-language__edit-button transparent' type=button>
+        <svg><use href=#edit-line></use></svg>
+      </button>
+      <button aria-label='Delete this analysis language' class='analysis-language__button button js-analysis-language__delete-button transparent' type=button>
+        <svg><use href=#trash></use></svg>
+      </button>
+    </div>
+
+  </header>
+
+  <fieldset class='analysis-language__editor js-analysis-language__editor' hidden>
+
+    <div class=input-group>
+      <div>
+        <label class='analysis-language__legend js-analysis-language__lang-legend legend' data-bind=for:langID>Language</label>
+        <div>
+          <input
+            autocomplete=off
+            class='analysis-language__lang-input js-analysis-language__lang-input line-input'
+            inputmode=text
+            placeholder='e.g. Spanish'
+            spellcheck=false
+            type=text
+            autocapitalize=words
+            >
+            <p class='analysis-language__help-text help-text'>The name of the analysis language.</p>
+          </div>
+      </div>
+    </div>
+
+    <div class=input-group>
+      <div>
+        <label class='analysis-language__legend js-analysis-language__abbr-legend legend' data-bind=for:abbrID>Abbreviation</label>
+        <div>
+          <input
+            autocomplete=off
+            class='analysis-language__abbr-input js-analysis-language__abbr-input line-input'
+            inputmode=text
+            placeholder='e.g. spa'
+            spellcheck=false
+            type=text
+            >
+            <p class='analysis-language__help-text help-text'>The abbreviation for this analysis language.</p>
+          </div>
+      </div>
+    </div>
+
+    <div class=input-group>
+      <div>
+        <label class='analysis-language__legend js-analysis-language__tag-legend legend required' data-bind=for:tagID>Language Tag</label>
+        <div>
+          <input
+            autocomplete=off
+            class='analysis-language__tag-input js-analysis-language__tag-input line-input'
+            inputmode=text
+            placeholder='e.g. es'
+            required
+            spellcheck=false
+            type=text
+            >
+            <p class='analysis-language__help-text help-text'>A valid <a class=link href=https://www.w3.org/International/articles/language-tags/ target=_blank>IETF language tag</a> for this analysis language.</p>
+          </div>
+      </div>
+    </div>
+
+    <div class=analysis-language__buttons>
+      <button class='analysis-language__button button js-analysis-language__cancel-button' type=button>Cancel</button>
+      <button class='analysis-language__button button blue js-analysis-language__save-button' type=button>Save</button>
+    </div>
+
+  </fieldset>
+</li>
