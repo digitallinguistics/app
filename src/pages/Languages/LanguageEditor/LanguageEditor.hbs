@@ -79,13 +79,27 @@
     </fieldset>
 
     <fieldset class='fieldset language-editor__orthographies language-editor__fieldset'>
-       <legend class=legend>Orthographies</legend>
-       <header class=language-editor__orthography-header>
-         <p class=help-text>Orthographies for this language.</p>
-         <button class='button green js-language-editor__add-orthography-button language-editor__add-orthography-button' type=button>Add an orthography</button>
-       </header>
-       <ul class='js-language-editor__orthographies-list language-editor__orthographies-list list'></ul>
-     </fieldset>
+      <legend class=legend>Orthographies</legend>
+      <header class=language-editor__orthography-header>
+        <p class=help-text>Orthographies for this language.</p>
+        <button class='button green js-language-editor__add-orthography-button language-editor__add-orthography-button' type=button>Add an orthography</button>
+      </header>
+      <ul class='js-language-editor__orthographies-list language-editor__orthographies-list list'></ul>
+    </fieldset>
+
+    <fieldset class='fieldset language-editor__analysis-languages language-editor__fieldset'>
+      <legend class=legend>Analysis Languages</legend>
+      <header class=language-editor__analysis-lang-header>
+        <p class=help-text>Analysis languages for this language.</p>
+        <button class='button green js-language-editor__add-analysis-lang-button language-editor__add-analysis-lang-button' type=button>Add an analysis language</button>
+      </header>
+      <div class=language-editor__analysis-lang-key>
+        <label>Language</label>
+        <label>Abbreviation</label>
+        <label>Tag</label>
+      </div>
+      <ul class='js-language-editor__analysis-langs-list language-editor__analysis-langs-list list'></ul>
+    </fieldset>
 
     <fieldset class='fieldset language-editor__metadata language-editor__fieldset'>
       <legend class=legend>Metadata</legend>
