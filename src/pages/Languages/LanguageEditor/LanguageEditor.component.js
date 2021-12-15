@@ -79,7 +79,7 @@ describe(`Language Editor`, function() {
       .click();
 
       cy.on(`window:alert`, alertText => {
-        expect(alertText).to.contains(`This Analysis Language will not be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
+        expect(alertText).to.contains(`This Analysis Language cannot be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
       });
     });
 
