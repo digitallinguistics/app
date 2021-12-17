@@ -9,6 +9,8 @@ export default class LexiconPage extends View {
     this.language = language;
   }
 
+  initialize() {}
+
   itemTemplate({ cid, name }) {
     return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#>${ name.default }</a></li>`);
   }
