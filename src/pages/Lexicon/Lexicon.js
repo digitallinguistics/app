@@ -17,6 +17,7 @@ export default class LexiconPage extends View {
     this.loadStyles();
     this.cloneTemplate();
     this.el.querySelector(`.js-lexicon__title`).textContent = this.language.name.default;
+    this.el.dataset.language = this.language.cid;
     return this.el;
   }
 

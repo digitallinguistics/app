@@ -158,12 +158,70 @@ class App extends View {
           break;
     }
 
-    const newPage = pageView.render();
-    const oldPage = document.getElementById(`main`);
+    const pages = document.getElementsByClassName(`main`);
+    let oldPage;
+    let hidden = -1;
+    let dataPage;
 
-    oldPage.view?.events.stop();
-    oldPage.replaceWith(newPage);
-    pageView.initialize(this.settings.language);
+    for (let i = 0; i < pages.length; i++) {
+      //Find previous page
+      if (!pages[i].hasAttribute(`hidden`)) {
+        oldPage = pages[i];
+      }
+      //Check for hidden page matching new page
+      dataPage = pages[i].getAttribute(`data-page`);
+      if (dataPage === page && pages[i].hasAttribute(`hidden`)) {
+        hidden = i;
+      }
+    }
+
+    // For initial render after app shell is loaded
+    if(!oldPage.hasAttribute(`data-page`)) {
+      const newPage = pageView.render();
+      oldPage.replaceWith(newPage);
+      oldPage.view?.events.stop();
+      pageView.initialize(this.settings.language);
+    }
+    // Current page being reloaded
+    else if (oldPage.getAttribute(`data-page`) === page) {
+      const newPage = pageView.render();
+      oldPage.replaceWith(newPage);
+      oldPage.view?.events.stop();
+      pageView.initialize(this.settings.language);
+    }
+    // New page was already rendered but hidden
+    else if (hidden > -1){
+      // Check if lexicon page needs to be rerendered
+      if (page === `Lexicon` &&
+        pages[hidden].getAttribute(`data-language`) !== this.settings.language) {
+          const newPage = pageView.render();
+          pages[hidden].replaceWith(newPage);
+          pages[hidden].view?.events.stop();
+          pageView.initialize(this.settings.language);
+      }
+     /**
+      * Check if language npage needs to be rerendered (NOT POSSIBLE YET)
+      * if (page === `Language` &&
+      *   pages[hidden]. [call to LanguageEditor] .getAttribute(`data-language`) !== this.settings.language)
+      * {
+      *   const newPage = pageView.render();
+      *   pages[hidden].replaceWith(newPage);
+      *   pages[hidden].view?.events.stop();
+      *   pageView.initialize(this.settings.language);
+      * }
+      */
+
+      oldPage.setAttribute(`hidden`, true);
+      pages[hidden].removeAttribute(`hidden`);
+      pages[hidden].view.initialize(this.settings.language);
+    }
+    // New page has not been rendered
+    else {
+      oldPage.setAttribute(`hidden`, true);
+      const newPage = pageView.render();
+      oldPage.before(newPage);
+      pageView.initialize(this.settings.language);
+    }
 
     this.announce(`${ page } page`);
 
