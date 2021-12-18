@@ -1,4 +1,4 @@
-# ESLint v8.0.1
+# ESLint v8.2.0
 
 parserOptions:
   ecmaFeatures:
@@ -234,6 +234,7 @@ rules:
     - defaultAssignment: false
   no-unreachable-loop: error
   no-unused-expressions: error
+  no-unused-private-class-members: error
   no-use-before-define:
     - warn
     - classes: false
@@ -278,10 +279,11 @@ rules:
     - allowNamedFunctions: true
   prefer-const: error
   prefer-destructuring: warn
+  prefer-exponentiation-operator: warn
   prefer-named-capture-group: warn
   prefer-numeric-literals: warn
+  prefer-object-has-own: warn
   prefer-promise-reject-errors: warn
-  prefer-exponentiation-operator: warn
   prefer-rest-params: warn
   prefer-spread: warn
   prefer-template: warn
