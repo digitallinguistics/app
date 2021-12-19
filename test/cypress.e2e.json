@@ -4,7 +4,6 @@
   "fileServerFolder" : "dist",
   "fixturesFolder"   : "test/fixtures",
   "integrationFolder": "src",
-  "nodeVersion"      : "system",
   "pluginsFile"      : "test/plugins/index.cjs",
   "screenshotsFolder": "test/screenshots",
   "supportFile"      : "test/support/index.cjs",
