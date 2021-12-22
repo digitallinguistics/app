@@ -146,18 +146,25 @@ export default class NotesList extends View {
   }
 
   updateHeading() {
+
     if (this.headingLevel === `h3`) {
+
       const heading = this.el.querySelector(`.js-notes-list__heading`);
       heading.textContent = `Notes (${ this.notes.length })`;
+
     } else {
+
       const oldHeading = this.el.querySelector(`.js-notes-list__heading`);
       const newHeading = View.fromHTML(`
         <${ this.headingLevel } class='notes-list__heading js-notes-list__heading'>
           Notes (${ this.notes.length })
         </${ this.headingLevel }>
       `);
+
       oldHeading.replaceWith(newHeading);
+
     }
+
   }
 
 }

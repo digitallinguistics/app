@@ -5,7 +5,7 @@
 
   flex-grow:     1;
   margin-inline: auto;
-  max-width:     var(--measure);
+  max-inline-size:     var(--measure);
   padding:       var(--space);
 
   &.placeholder {
@@ -24,7 +24,10 @@
 
   }
 
-  &__add-name-button {
+  &__add-analysis-lang-button,
+  &__add-name-button,
+  &__add-orthography-button {
+    align-self: flex-start;
     margin-inline-start: var(--space);
   }
 
@@ -36,6 +39,34 @@
     flex-direction:  row;
     flex-wrap:       nowrap;
     justify-content: space-between;
+  }
+
+  &__analysis-languages {
+    align-items: stretch;
+  }
+
+  &__analysis-langs-list:not(:empty) {
+    margin-block-start: var(--space-xs);
+  }
+
+  &__analysis-lang-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
+  }
+
+  &__analysis-lang-key {
+    border: var(--border);
+    border-color: white;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: var(--text-padding);
+    margin-inline-end: 5em;
+    column-gap: var(--text-inline-padding);
+    // small screens
+    @media (max-width: @breakpoint) {
+      .visually-hidden;
+    }
   }
 
   &__buttons {
@@ -58,7 +89,11 @@
   }
 
   &__fieldset {
-    margin-block-end: var(--space);
+    margin-block-end: var(--space-lg);
+  }
+
+  &__last-in-group {
+    margin-block-end: var(--space-lg);
   }
 
   &__input-group {
@@ -81,12 +116,12 @@
 
     // small screens
     @media (max-width: @breakpoint) {
-      text-align: left;
+      text-align: start;
     }
 
     // large screens
     @media (min-width: @breakpoint) {
-      text-align: right;
+      text-align: end;
     }
 
   }
@@ -97,6 +132,20 @@
 
   &__names-list:not(:empty) {
     margin-block-start: var(--space-xs);
+  }
+
+  &__orthographies {
+    align-items: stretch;
+  }
+
+  &__orthographies-list:not(:empty) {
+    margin-block-start: var(--space-xs);
+  }
+
+  &__orthography-header {
+    flex-direction:  row;
+    flex-wrap:       nowrap;
+    justify-content: space-between;
   }
 
 }

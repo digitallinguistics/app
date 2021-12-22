@@ -84,9 +84,13 @@ export default class AdditionalName extends View {
   }
 
   renderNotes() {
-    const list = new NotesList(this.notes, {
+    const list = new NotesList(this.additionalName.notes, {
       border: false,
     });
+
+    this.notes = list.notes;
+    list.events.on(`update`, this.save.bind(this));
+
     const el = list.render();
     el.setAttribute(`aria-expanded`, false);
     this.el.appendChild(el);
@@ -95,6 +99,8 @@ export default class AdditionalName extends View {
   save() {
     this.additionalName.name     = this.nameInput.value;
     this.additionalName.language = this.langInput.value || `English`;
+    this.additionalName.notes    = this.notes;
+    this.events.emit(`update`);
   }
 
   showEditor() {

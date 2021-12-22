@@ -1,4 +1,5 @@
 import Database        from '../services/Database.js';
+import HelpMenu        from './HelpMenu/HelpMenu.js';
 import Language        from '../models/Language.js';
 import LanguageChooser from './LanguageChooser/LanguageChooser.js';
 import Mousetrap       from 'mousetrap';
@@ -20,6 +21,12 @@ class App extends View {
    * @type {Database}
    */
   db = new Database;
+
+  /**
+   * A reference to the helpmenu controller.
+   * @type {HelpMenu}
+   */
+  #helpMenu = new HelpMenu;
 
   /**
    * A reference to the Main Nav controller.
@@ -82,11 +89,8 @@ class App extends View {
    * @returns {Promise}
    */
   initialize() {
-    return this.db.initialize()
-    .then(() => {
-      const e = new Event(`initialize`);
-      document.body.dispatchEvent(e);
-    });
+    this.#helpMenu.initialize();
+    return this.db.initialize();
   }
 
   /**
@@ -101,7 +105,7 @@ class App extends View {
     return this.el;
   }
 
-  async #renderLanguageChooser() {
+  async #createLanguageChooser() {
 
     const languages       = await this.db.languages.getAll();
     const languageChooser = new LanguageChooser(languages);
@@ -113,7 +117,7 @@ class App extends View {
       this.#renderPage(this.settings.page);
     });
 
-    return languageChooser.render();
+    return languageChooser;
 
   }
 
@@ -139,24 +143,85 @@ class App extends View {
       this.#pages.set(page, PageView);
     }
 
-    let newPage;
+    let pageView;
 
     switch (this.settings.page) {
         case `Languages`:
-          newPage = await this.#renderLanguagesPage();
+          pageView = await this.#createLanguagesPage();
           break;
         case `Lexicon`:
-          newPage = await this.#renderLexiconPage();
+          pageView = await this.#createLexiconPage();
           break;
         default:
-          newPage = this.#renderHomePage();
+          pageView = this.#createHomePage();
           break;
     }
 
-    const oldPage = document.getElementById(`main`);
+    const pages = document.getElementsByClassName(`main`);
+    let oldPage;
+    let hidden = -1;
+    let dataPage;
 
-    oldPage.view?.events.stop();
-    oldPage.replaceWith(newPage);
+    for (let i = 0; i < pages.length; i++) {
+      // Find previous page
+      if (!pages[i].hasAttribute(`hidden`)) {
+        oldPage = pages[i];
+      }
+      // Check for hidden page matching new page
+      dataPage = pages[i].getAttribute(`data-page`);
+      if (dataPage === page && pages[i].hasAttribute(`hidden`)) {
+        hidden = i;
+      }
+    }
+
+    // For initial render after app shell is loaded
+    if (!oldPage.hasAttribute(`data-page`)) {
+      const newPage = pageView.render();
+      oldPage.replaceWith(newPage);
+      oldPage.view?.events.stop();
+      pageView.initialize(this.settings.language);
+    }
+    // Current page being reloaded
+    else if (oldPage.getAttribute(`data-page`) === page) {
+      const newPage = pageView.render();
+      oldPage.replaceWith(newPage);
+      oldPage.view?.events.stop();
+      pageView.initialize(this.settings.language);
+    }
+    // New page was already rendered but hidden
+    else if (hidden > -1) {
+      // Check if lexicon page needs to be rerendered
+      if (page === `Lexicon`
+        && pages[hidden].getAttribute(`data-language`) !== this.settings.language) {
+        const newPage = pageView.render();
+        pages[hidden].replaceWith(newPage);
+        pages[hidden].view?.events.stop();
+        pageView.initialize(this.settings.language);
+      }
+      /**
+      * Check if language npage needs to be rerendered (NOT POSSIBLE YET)
+      * if (page === `Language` &&
+      *   pages[hidden]. [call to LanguageEditor] .getAttribute(`data-language`) !== this.settings.language)
+      * {
+      *   const newPage = pageView.render();
+      *   pages[hidden].replaceWith(newPage);
+      *   pages[hidden].view?.events.stop();
+      *   pageView.initialize(this.settings.language);
+      * }
+      */
+
+      oldPage.setAttribute(`hidden`, true);
+      pages[hidden].removeAttribute(`hidden`);
+      pages[hidden].view.initialize(this.settings.language);
+    }
+    // New page has not been rendered
+    else {
+      oldPage.setAttribute(`hidden`, true);
+      const newPage = pageView.render();
+      oldPage.before(newPage);
+      pageView.initialize(this.settings.language);
+    }
+
     this.announce(`${ page } page`);
 
   }
@@ -167,46 +232,34 @@ class App extends View {
    * Render the Home page.
    * @returns {HTMLElement} the Home page element
    */
-  #renderHomePage() {
+  #createHomePage() {
     const HomePage = this.#pages.get(`Home`);
-    const homePage = new HomePage;
-    return homePage.render();
+    return new HomePage;
   }
 
   /**
    * Render the Languages page.
    * @returns {HTMLElement} the Languages page element
    */
-  async #renderLanguagesPage() {
+  async #createLanguagesPage() {
     const LanguagesPage = this.#pages.get(`Languages`);
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
     languagesPage.events.on(`add`, this.#addLanguage.bind(this));
-    return languagesPage.render(this.settings.language);
+    return languagesPage;
   }
 
-  async #renderLexiconPage() {
+  async #createLexiconPage() {
 
     if (!this.settings.language) {
-      return this.#renderLanguageChooser();
+      return this.#createLanguageChooser();
     }
 
     const LexiconPage = this.#pages.get(`Lexicon`);
     const language    = await this.db.languages.get(this.settings.language);
-    const lexiconPage = new LexiconPage(language);
-
-    return lexiconPage.render();
+    return new LexiconPage(language);
 
   }
-
-  // STATIC
-
-  /**
-   * The default settings for the App.
-   */
-  static #defaultSettings = {
-    page: `Home`,
-  };
 
 }
 

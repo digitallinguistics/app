@@ -18,6 +18,9 @@
 
   &__languages-list {
     margin-inline: var(--space);
+    li {
+      hyphens: auto;
+    }
   }
 
   &__nav {
@@ -26,7 +29,7 @@
 
     // large screens
     @media (min-width: @breakpoint) {
-      width: 20em;
+      inline-size: 20em;
     }
 
   }

@@ -1,6 +1,13 @@
 [
   {
     "abbreviation": "nuu",
+    "analysisLanguages": [
+      {
+        "abbreviation": "eng",
+        "language":     "English",
+        "tag":          "en"
+      }
+    ],
     "autonym":      "Nuučaan̓uɫ",
     "cid":          "1",
     "glottocode":   "nuuc1236",
@@ -20,6 +27,18 @@
         "name":     "Shetimasha"
       }
     ],
+    "analysisLanguages": [
+      {
+        "abbreviation": "eng",
+        "language":     "English",
+        "tag":          "en"
+      },
+      {
+        "abbreviation": "fra",
+        "language":     "French",
+        "tag":          "fr"
+      }
+    ],
     "autonym": {
       "mod": "Sitimaxa",
       "swd": "Sitimaša"
@@ -32,5 +51,19 @@
       "ctm": "Sitimaxa"
     },
     "type": "Language"
+  },
+  {
+    "cid": "3",
+    "name": {
+      "crk": "nêhiyawêwin"
+    },
+    "type":         "Language"
+  },
+  {
+    "cid": "4",
+    "name": {
+      "eng": "Àhàn"
+    },
+    "type":         "Language"
   }
 ]

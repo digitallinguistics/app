@@ -4,12 +4,12 @@
   "fileServerFolder" : "dist",
   "fixturesFolder"   : "test/fixtures",
   "integrationFolder": "src",
-  "nodeVersion"      : "system",
   "pluginsFile"      : "test/plugins/index.cjs",
   "screenshotsFolder": "test/screenshots",
   "supportFile"      : "test/support/index.cjs",
   "testFiles"        : "**/*.e2e.js",
   "video"            : false,
   "videosFolder"     : "test/videos",
+  "chromeWebSecurity": false,
   "projectId"        : "t8vr8w"
 }

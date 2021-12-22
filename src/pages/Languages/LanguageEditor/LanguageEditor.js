@@ -1,12 +1,21 @@
 import AdditionalName        from '../AdditionalName/AdditionalName.js';
+import AnalysisLanguage      from '../AnalysisLanguage/AnalysisLanguage.js';
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
 import MultiLangStringEditor from '../../../components/MultiLangStringEditor/MultiLangStringEditor.js';
+import Orthography           from '../../../models/Orthography.js';
+import OrthographyView       from '../Orthography/Orthography.js';
 import styles                from './LanguageEditor.less';
 import template              from './LanguageEditor.hbs';
 import TranscriptionEditor   from '../../../components/TranscriptionEditor/TranscriptionEditor.js';
 import View                  from '../../../core/View.js';
+
+// This could become Utility if it is used elsewhere
+function isUnique(objects, property) {
+  const uniqueList = new Set(objects.map(object => object[property]));
+  return [...uniqueList].length === objects.length;
+}
 
 export default class LanguageEditor extends View {
 
@@ -25,8 +34,16 @@ export default class LanguageEditor extends View {
     this.el.querySelector(`.js-language-editor__add-name-button`)
     .addEventListener(`click`, this.addName.bind(this));
 
+    this.el.querySelector(`.js-language-editor__add-orthography-button`)
+    .addEventListener(`click`, this.addOrthography.bind(this));
+
+    this.el.querySelector(`.js-language-editor__add-analysis-lang-button`)
+    .addEventListener(`click`, this.addAnalysisLang.bind(this));
+
     this.el.querySelector(`.js-language-editor__delete-language-button`)
     .addEventListener(`click`, () => this.events.emit(`delete`, this.language.cid));
+
+    this.el.dataset.ready = true;
 
   }
 
@@ -58,7 +75,86 @@ export default class LanguageEditor extends View {
     }
 
     if (target.classList.contains(`js-additional-name__save-button`)) {
-      return this.updateAdditionalNames();
+      return this.save();
+    }
+
+  }
+
+  async handleOrthographiesUpdate({ target }) {
+    if (target.classList.contains(`js-orthography__cancel-button`)) {
+      const item = target.closest(`.orthography`);
+      const { view } = item;
+      const abbr = view.abbrInput.value;
+      if (abbr) return;
+
+
+      const index = item.dataset.id;
+      this.language.orthographies.splice(index, 1);
+      await this.save();
+      return this.renderOrthographies();
+    }
+
+    if (target.classList.contains(`js-orthography__delete-button`)) {
+      if (this.language.orthographies.length === 1) {
+        alert(`There must be at least one orthography.`);
+        return;
+      }
+      const confirmDelete = confirm(`Are you sure you want to delete this Orthography? This action cannot be undone. Click 'OK' to confirm deletion.`);
+      if (!confirmDelete) return;
+      const i = Number(target.closest(`.orthography`).dataset.id);
+      return this.deleteOrthography(i);
+    }
+  }
+
+  async handleAnalysisLangsUpdate({ target }) {
+    if (target.classList.contains(`js-analysis-language__cancel-button`)) {
+      const item     = target.closest(`.analysis-language`);
+      const { view } = item;
+      const tag     = view.tagInput.value;
+      if (tag) return;
+
+      const index = item.dataset.id;
+      this.language.analysisLanguages.splice(index, 1);
+      await this.save();
+      return this.renderAnalysisLangs();
+    }
+
+    if (target.classList.contains(`js-analysis-language__delete-button`)) {
+      if (this.language.analysisLanguages.length === 1) {
+        alert(`There must be at least one analysis language.`);
+        return;
+      }
+      const confirmDelete = confirm(`Are you sure you want to delete this Analysis Language? This action cannot be undone. Click 'OK' to confirm deletion.`);
+      if (!confirmDelete) return;
+      const i = Number(target.closest(`.analysis-language`).dataset.id);
+      return this.deleteAnalysisLang(i);
+    }
+
+    if (target.classList.contains(`js-analysis-language__save-button`)) {
+      const checkAbbr = isUnique(this.language.analysisLanguages, `abbreviation`);
+      const checkLang = isUnique(this.language.analysisLanguages, `language`);
+      const checkTag = isUnique(this.language.analysisLanguages, `tag`);
+      if (checkAbbr && checkLang && checkTag) {
+        return this.save();
+      }
+      alert(`This Analysis Language cannot be saved. Analysis languages must have unique names, abbreviations, and IETF language tags.`);
+      const langEl     = target.closest(`.analysis-language`);
+      const { view } = langEl;
+      view.el.classList.add(`editing`);
+      view.el.querySelector(`.js-analysis-language__lang-input`).focus();
+    }
+
+  }
+
+  initialize() {
+
+    this.addEventListeners();
+
+    const input = this.el.querySelector(`[id^="name-"]`);
+
+    if (input) {
+      input.focus();
+      input.select();
     }
 
   }
@@ -72,7 +168,6 @@ export default class LanguageEditor extends View {
 
     if (!this.language) {
       this.el.classList.add(`placeholder`);
-      this.addEventListeners();
       return this.el;
     }
 
@@ -81,10 +176,10 @@ export default class LanguageEditor extends View {
     this.renderName();
     this.renderAutonym();
     this.renderAdditionalNames();
+    this.renderAnalysisLangs();
     this.renderMetadata();
+    this.renderOrthographies();
     this.renderSimpleFields();
-
-    this.addEventListeners();
 
     return this.el;
 
@@ -92,6 +187,7 @@ export default class LanguageEditor extends View {
 
   renderAdditionalName(name, index) {
     const nameView = new AdditionalName(name, index);
+    nameView.events.on(`update`, this.save.bind(this));
     return nameView.render();
   }
 
@@ -103,7 +199,7 @@ export default class LanguageEditor extends View {
 
     const listView = new List(this.language.additionalNames, {
       classes:  oldList.classList,
-      template: this.renderAdditionalName,
+      template: this.renderAdditionalName.bind(this),
     });
 
     const newList = listView.render();
@@ -115,6 +211,31 @@ export default class LanguageEditor extends View {
     oldList.replaceWith(newList);
     newList.addEventListener(`click`, this.handleNamesUpdate.bind(this));
 
+  }
+
+  renderAnalysisLang(lang, index) {
+    const langView = new AnalysisLanguage(lang, index);
+    return langView.render();
+  }
+
+  renderAnalysisLangs() {
+    this.language.analysisLanguages.sort((a, b) => compare(a.tag, b.tag));
+
+    const oldList = this.el.querySelector(`.js-language-editor__analysis-langs-list`);
+
+    const listView = new List(this.language.analysisLanguages, {
+      classes:  oldList.classList,
+      template: this.renderAnalysisLang,
+    });
+
+    const newList = listView.render();
+
+    if (!this.language.analysisLanguages.length) {
+      newList.style.border = `none`;
+    }
+
+    oldList.replaceWith(newList);
+    newList.addEventListener(`click`, this.handleAnalysisLangsUpdate.bind(this));
   }
 
   renderAutonym() {
@@ -165,6 +286,32 @@ export default class LanguageEditor extends View {
 
   }
 
+  renderOrthography(ortho, index) {
+    const orthoView = new OrthographyView(ortho, index);
+    orthoView.events.on(`update`, this.save.bind(this));
+    return orthoView.render();
+  }
+
+  renderOrthographies() {
+    this.language.orthographies.sort((a, b) => compare(a.name.default, b.name.default));
+
+    const oldList = this.el.querySelector(`.js-language-editor__orthographies-list`);
+
+    const listView = new List(this.language.orthographies, {
+      classes:  oldList.classList,
+      template: this.renderOrthography.bind(this),
+    });
+
+    const newList = listView.render();
+
+    if (!this.language.orthographies.length) {
+      newList.style.border = `none`;
+    }
+
+    oldList.replaceWith(newList);
+    newList.addEventListener(`click`, this.handleOrthographiesUpdate.bind(this));
+  }
+
   renderSimpleFields() {
 
     const abbreviation = this.el.querySelector(`#language-editor__abbreviation-input`);
@@ -182,25 +329,6 @@ export default class LanguageEditor extends View {
   }
 
   // Update Methods
-
-  updateAdditionalNames() {
-
-    const listItems = this.el.querySelectorAll(`.additional-name`);
-    const names     = [];
-
-    for (const li of listItems) {
-
-      const name     = li.querySelector(`.js-additional-name__name-input`).value;
-      const language = li.querySelector(`.js-additional-name__lang-input`).value;
-
-      names.push({ language, name });
-
-    }
-
-    this.language.additionalNames = names;
-    return this.save();
-
-  }
 
   updateAutonym(ev) {
     const { name, value } = ev.target;
@@ -248,7 +376,6 @@ export default class LanguageEditor extends View {
       name:     ``,
     });
 
-    await this.save();
     this.renderAdditionalNames();
 
     const nameView = this.el.querySelector(`.js-language-editor__names-list .additional-name:first-child`).view;
@@ -261,6 +388,47 @@ export default class LanguageEditor extends View {
     this.language.additionalNames.splice(i, 1);
     await this.save();
     return this.renderAdditionalNames();
+  }
+
+
+  // Orthographies
+
+  async addOrthography() {
+    this.language.orthographies.push(new Orthography({ abbreviation: ``, name: `` }));
+
+    this.renderOrthographies();
+
+    const orthoView = this.el.querySelector(`.js-language-editor__orthographies-list .orthography:first-child`).view;
+    orthoView.showEditor();
+  }
+
+  async deleteOrthography(i) {
+    this.language.orthographies.splice(i, 1);
+    await this.save();
+    return this.renderOrthographies();
+  }
+
+  // Analysis Languages
+
+  async addAnalysisLang() {
+    this.language.analysisLanguages.push({
+      abbreviation: ``,
+      language:     ``,
+      tag:          ``,
+    });
+
+    this.renderAnalysisLangs();
+
+    const langView = this.el.querySelector(`.js-language-editor__analysis-langs-list .analysis-language:first-child`).view;
+
+    langView.showEditor();
+
+  }
+
+  async deleteAnalysisLang(i) {
+    this.language.analysisLanguages.splice(i, 1);
+    await this.save();
+    return this.renderAnalysisLangs();
   }
 
 }

@@ -1,4 +1,4 @@
-<section class=language-editor id=language-editor>
+<section class='language-editor js-language-editor' id=language-editor>
   <form>
 
     <p class='align-end help-text'><span class=required></span> indicates a required field</p>
@@ -19,7 +19,7 @@
         <input
           autocapitalize=off
           autocomplete=off
-          class=line-input
+          class='line-input code'
           id=language-editor__abbreviation-input
           inputmode=text
           name=abbreviation
@@ -38,7 +38,7 @@
         <input
           autocapitalize=off
           autocomplete=off
-          class=line-input
+          class='line-input code'
           id=language-editor__iso-input
           inputmode=text
           name=iso
@@ -50,13 +50,13 @@
       </div>
     </div>
 
-    <div class='input-group language-editor__input-group'>
+    <div class='input-group language-editor__input-group language-editor__last-in-group'>
       <label class='language-editor__legend legend' for=language-editor__glottocode-input>Glottocode</label>
       <div>
         <input
           autocapitalize=off
           autocomplete=off
-          class=line-input
+          class='line-input code'
           id=language-editor__glottocode-input
           inputmode=text
           name=glottocode
@@ -73,9 +73,32 @@
       <legend class=legend>Additional Names</legend>
       <header class=language-editor__additional-names-header>
         <p class=help-text>Additional names for this language.</p>
-        <button class='button green js-language-editor__add-name-button language-editor__add-name-button' type=button>Add a Language Name</button>
+        <button class='button green js-language-editor__add-name-button language-editor__add-name-button' type=button>Add a language name</button>
       </header>
       <ul class='js-language-editor__names-list language-editor__names-list list'></ul>
+    </fieldset>
+
+    <fieldset class='fieldset language-editor__orthographies language-editor__fieldset'>
+      <legend class=legend>Orthographies</legend>
+      <header class=language-editor__orthography-header>
+        <p class=help-text>Orthographies for this language.</p>
+        <button class='button green js-language-editor__add-orthography-button language-editor__add-orthography-button' type=button>Add an orthography</button>
+      </header>
+      <ul class='js-language-editor__orthographies-list language-editor__orthographies-list list'></ul>
+    </fieldset>
+
+    <fieldset class='fieldset language-editor__analysis-languages language-editor__fieldset'>
+      <legend class=legend>Analysis Languages</legend>
+      <header class=language-editor__analysis-lang-header>
+        <p class=help-text>Analysis languages for this language.</p>
+        <button class='button green js-language-editor__add-analysis-lang-button language-editor__add-analysis-lang-button' type=button>Add an analysis language</button>
+      </header>
+      <div class=language-editor__analysis-lang-key>
+        <label>Language</label>
+        <label>Abbreviation</label>
+        <label>Tag</label>
+      </div>
+      <ul class='js-language-editor__analysis-langs-list language-editor__analysis-langs-list list'></ul>
     </fieldset>
 
     <fieldset class='fieldset language-editor__metadata language-editor__fieldset'>
@@ -91,8 +114,8 @@
     </fieldset>
 
     <div class=language-editor__buttons>
-      <button class='button green js-language-editor__add-language-button language-editor__add-language-button' type=button>Add a Language</button>
-      <button class='button js-language-editor__delete-language-button language-editor__delete-language-button red' type=button>Delete this Language</button>
+      <button class='button green js-language-editor__add-language-button language-editor__add-language-button' type=button>Add a language</button>
+      <button class='button js-language-editor__delete-language-button language-editor__delete-language-button red' type=button>Delete this language</button>
     </div>
 
   </form>
