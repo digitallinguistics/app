@@ -14,10 +14,10 @@ class Settings {
   #defaults = {
     navOpen: true,
     page:    `Home`,
-  }
-  
+  };
+
   /**
-   * 
+   *
    * @param {Object}  [initialSettings={}]           The settings to instantiate the app with.
    * @param {Boolean} [initialSettings.navOpen=true] Whether the main nav is open.
    * @param {String}  [initialSettings.page=`Home`]  The last visited page.
