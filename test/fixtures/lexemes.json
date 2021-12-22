@@ -21,13 +21,10 @@
   },
   {
     "cid": "3",
-    "head": {
-      "mod": "Dzantem"
-    },
     "language": "2",
     "lemma": {
-      "mod": "dzantem",
-      "swad": "ʒantem"
+      "mod": "Dzantem",
+      "swad": "Ʒantem"
     }
   }
 ]

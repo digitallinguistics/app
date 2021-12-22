@@ -4,6 +4,7 @@ import Lexeme     from '../models/Lexeme.js';
 import Text       from '../models/Text.js';
 
 const IndexedDB = window.indexedDB;
+const version   = 1;
 
 /**
  * A class representing a local database.
@@ -30,11 +31,10 @@ export default class Database {
 
   /**
    * @const
-   * @default 1
    * @returns {Integer}
    */
   get version() {
-    return 1;
+    return version;
   }
 
   /**
