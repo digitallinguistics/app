@@ -39,7 +39,7 @@ describe(`Database`, function() {
 
   });
 
-  it.only(`addAnalysisLanguage`, async function() {
+  it(`addAnalysisLanguage`, async function() {
 
     const language = new Language({ name: `Plains Cree` });
 
@@ -69,8 +69,8 @@ describe(`Database`, function() {
     });
 
     // ACTION
-    // Run `addAnalysisLanguage()`.
-    await this.db.addAnalysisLanguage(lexeme.language, newAnalysisLanguage);
+    // Call `addAnalysisLanguage()`.
+    await this.db.addAnalysisLanguage(language.cid, newAnalysisLanguage);
 
     // ASSERTION
     // Check that the Language and its Lexemes have been updated.
@@ -96,7 +96,7 @@ describe(`Database`, function() {
       .get(lexeme.cid)
       .onsuccess = ev => {
         const { result } = ev.target;
-        console.log(result);
+        // TODO: Check that Lexeme has been updated.
       };
 
     });
@@ -169,6 +169,72 @@ describe(`Database`, function() {
     });
   });
 
+  it(`deleteAnalysisLanguage`, async function() {
+
+    const language = new Language({ name: `Plains Cree` });
+
+    const french = {
+      abbreviation: `fra`,
+      language:     `French`,
+      tag:          `fra`,
+    };
+
+    language.analysisLanguages.push(french);
+
+    const lexeme = new Lexeme({
+      language: language.cid,
+    });
+
+    // SETUP
+    // Add a Language and Lexeme to the database.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction([`languages`, `lexemes`], `readwrite`);
+
+      txn.oncomplete = resolve;
+      txn.onerror = reject;
+      txn.onsuccess = resolve;
+
+      txn.objectStore(`languages`).add(language);
+      txn.objectStore(`lexemes`).add(lexeme);
+
+    });
+
+    // ACTION
+    // Call `deleteAnalysisLanguage()`
+    this.db.deleteAnalysisLanguage(language.cid, `fra`);
+
+    // ASSERTION
+    // Check that the Language and the Lexeme have been updated.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction([`languages`, `lexemes`]);
+
+      txn.oncomplete = resolve;
+      txn.onerror = reject;
+      txn.onsuccess = resolve;
+
+      // check Language
+      txn.objectStore(`languages`)
+      .get(language.cid)
+      .onsuccess = ev => {
+        const { result } = ev.target;
+        expect(result.name.get(french.tag)).to.be.undefined;
+        expect(result.orthographies.find(ortho => ortho.name.get(french.tag))).to.be.undefined;
+      };
+
+      // check Lexeme
+      txn.objectStore(`lexemes`)
+      .get(lexeme.cid)
+      .onsuccess = ev => {
+        const { result } = ev.target;
+        expect(result.deleted).to.be.true;
+      };
+
+    });
+
+  });
+
   it(`exportData`, function() {
     return new Promise((resolve, reject) => {
 
@@ -188,7 +254,7 @@ describe(`Database`, function() {
           count++;
         };
 
-        this.db.onexportupdate = stub;
+        this.db.onupdate = stub;
 
         this.db.exportData()
         .then(([langExport, textExport]) => {
@@ -227,7 +293,7 @@ describe(`Database`, function() {
     });
   });
 
-  it(`get (null)`, async function() {
+  it(`get (null result)`, async function() {
     const result = await this.db.languages.get(1);
     expect(result).to.be.null;
   });
