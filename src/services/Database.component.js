@@ -226,9 +226,9 @@ describe(`Database`, function() {
       // test this using the `displayName` index
 
       const lexemeData = [
-        { cid: `a`, lemma: `c` },
-        { cid: `b`, lemma: `b` },
-        { cid: `c`, lemma: `a` },
+        { cid: `a`, displayName: `c`, lemma: `c` },
+        { cid: `b`, displayName: `b`, lemma: `b` },
+        { cid: `c`, displayName: `a`, lemma: `a` },
       ];
 
       const lexemes = lexemeData.map(data => new Lexeme(data));
