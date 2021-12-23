@@ -29,7 +29,7 @@ export const SmallList = () => {
 
   // Delays rendering until after list is added to the DOM.
   new Promise(resolve => {
-    list.render();
+    list.render(`3`);
     resolve();
   });
 
@@ -44,6 +44,7 @@ export const LargeList = () => {
 
   for (let i = 0; i < 25000; i++) {
     lexemes.push({
+      cid:   i,
       lemma: {
         default: getRandomString(),
       },
@@ -57,6 +58,7 @@ export const LargeList = () => {
   // Delays rendering until after list is added to the DOM.
   new Promise(resolve => {
     list.render();
+    list.el.firstElementChild.classList.add(`current`);
     resolve();
   });
 
