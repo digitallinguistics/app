@@ -10,7 +10,7 @@ class Transcription extends Map {
    * @param {Object} [options={}]
    * @param {String} [options.defaultOrthography]
    */
-  constructor(data = {}, { defaultOrthography } = {}) {
+  constructor(data = {}, { defaultOrthography = `default` } = {}) {
 
     let entries;
 
@@ -20,21 +20,21 @@ class Transcription extends Map {
 
     super(entries);
 
+    this.defaultOrthography = defaultOrthography;
+
     Object.defineProperty(this, `type`, {
       enumerable: true,
       value:      `Transcription`,
     });
 
-    this.defaultOrthography = defaultOrthography;
-
   }
 
   /**
-   * Retrieve the default transcription, or first in the set.
+   * Get the transcription in the default orthography, or the first orthography in the object.
    */
   get default() {
     return this.get(this.defaultOrthography ?? `default`)
-    ?? Array.from(this.values())[0];
+      ?? Array.from(this.values())[0];
   }
 
   /**
@@ -42,7 +42,9 @@ class Transcription extends Map {
    * @return {Object}
    */
   toJSON() {
-    return Object.fromEntries(this);
+    const data = Object.fromEntries(this);
+    data.default = this.default;
+    return data;
   }
 
 }
