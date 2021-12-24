@@ -1,4 +1,5 @@
 # Stylelint 14.1.0
+customSyntax: postcss-less
 rules:
 
   # allow lists / regexp
