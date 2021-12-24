@@ -22,6 +22,10 @@ class Lexeme extends Model {
       this.citationForm = new Transcription(this.citationForm);
     }
 
+    if (this.stem) {
+      this.stem = new Transcription(this.stem);
+    }
+
   }
 
 }

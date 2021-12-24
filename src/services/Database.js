@@ -81,35 +81,30 @@ export default class Database {
   /**
    * Configure the Lotus database by adding tables and indexes. Can only be run during an IDBOpenDBRequest.
    * @private
+   * @param {IDBTransaction} txn The onupgradeneeded transaction.
    */
-  #configureDatabase() {
+  #configureDatabase(txn) {
+
+    // Languages
 
     if (!this.idb.objectStoreNames.contains(`languages`)) {
-
-      const store = this.idb.createObjectStore(`languages`, { keyPath: `cid` });
-
-      store.createIndex(`abbreviation`, `abbreviation`, { unique: false });
-      store.createIndex(`dateModified`, `dateModified`, { unique: false });
-
+      this.idb.createObjectStore(`languages`, { keyPath: `cid` });
     }
 
-    if (!this.idb.objectStoreNames.contains(`texts`)) {
-
-      const store = this.idb.createObjectStore(`texts`, { keyPath: `cid` });
-
-      store.createIndex(`abbreviation`, `abbreviation`, { unique: false });
-      store.createIndex(`dateModified`, `dateModified`, { unique: false });
-      store.createIndex(`language`, `language`, { unique: false });
-
-    }
+    // Lexemes
 
     if (!this.idb.objectStoreNames.contains(`lexemes`)) {
+      this.idb.createObjectStore(`lexemes`, { keyPath: `cid` });
+    }
 
-      const store = this.idb.createObjectStore(`lexemes`, { keyPath: `cid` });
+    const lexemesStore = txn.objectStore(`lexemes`);
 
-      store.createIndex(`displayName`, `displayName`, { unique: false });
-      store.createIndex(`key`, `key`, { unique: false });
+    lexemesStore.createIndex(`lemma`, `lemma.default`, { unique: false });
 
+    // Texts
+
+    if (!this.idb.objectStoreNames.contains(`texts`)) {
+      this.idb.createObjectStore(`texts`, { keyPath: `cid` });
     }
 
   }
@@ -270,7 +265,7 @@ export default class Database {
 
       req.onupgradeneeded = () => {
         this.idb = req.result;
-        this.#configureDatabase();
+        this.#configureDatabase(req.transaction);
       };
 
       req.onsuccess = () => {
