@@ -38,6 +38,13 @@ class Transcription extends Map {
   }
 
   /**
+   * Set the value of the default orthography.
+   */
+  set default(val) {
+    this.set(this.defaultOrthography, val);
+  }
+
+  /**
    * Create a version of the data suitable for JSON serialization.
    * @return {Object}
    */
