@@ -23,6 +23,7 @@ class Settings {
    * @param {String}  [initialSettings.page=`Home`]  The last visited page.
    * @returns {Proxy<Object>}
    */
+  /* eslint-disable no-constructor-return */
   constructor(initialSettings = {}) {
 
     const settings = Object.assign(this.#defaults, initialSettings);
