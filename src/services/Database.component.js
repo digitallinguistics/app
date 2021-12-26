@@ -350,45 +350,45 @@ describe(`Database`, function() {
     });
   });
 
-  it(`iterates over an index in a store`, function() {
-    return new Promise((resolve, reject) => {
+  it.skip(`iterates over an index in a store`, async function() {
 
-      // test this using the `displayName` index
+    const data = [
+      { cid: `a`, lemma: `c` },
+      { cid: `b`, lemma: `b` },
+      { cid: `c`, lemma: `a` },
+    ];
 
-      const lexemeData = [
-        { cid: `a`, displayName: `c`, lemma: `c` },
-        { cid: `b`, displayName: `b`, lemma: `b` },
-        { cid: `c`, displayName: `a`, lemma: `a` },
-      ];
+    const lexemes = data.map(item => new Lexeme(item));
 
-      const lexemes = lexemeData.map(data => new Lexeme(data));
-      const results = [];
+    // SETUP
+    // Add lexemes to the database.
+
+    await new Promise((resolve, reject) => {
 
       const txn   = this.db.idb.transaction(`lexemes`, `readwrite`);
       const store = txn.objectStore(`lexemes`);
 
       txn.onerror = reject;
-
-      txn.oncomplete = () => {
-
-        this.db.lexemes
-        .iterate(lexeme => {
-          results.push(lexeme);
-        }, { index: `displayName` })
-        .then(() => {
-          expect(results[0].lemma.default).to.equal(`a`);
-          expect(results[2].lemma.default).to.equal(`c`);
-          expect(results[0].cid).to.equal(`c`);
-          expect(results[2].cid).to.equal(`a`);
-          resolve();
-        })
-        .catch(reject);
-
-      };
+      txn.oncomplete = resolve;
 
       lexemes.forEach(item => store.add(item));
 
     });
+
+    // ACT
+    // Call `.iterate()` on the Lexemes store, using the "lemma" index.
+
+    const results = [];
+
+    // await this.db.iterate(lexeme => results.push(lexeme), { index: `lemma` });
+
+    // ASSERT
+    // Check that all lexemes are returned.
+    //     expect(results[0].lemma.default).to.equal(`a`);
+    //     expect(results[2].lemma.default).to.equal(`c`);
+    //     expect(results[0].cid).to.equal(`c`);
+    //     expect(results[2].cid).to.equal(`a`);
+
   });
 
   it(`updates an item in a store`, function() {
