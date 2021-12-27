@@ -124,16 +124,18 @@ class DatabaseCollection {
 
   /**
    * Retrieve all the items from the collection.
-   * @param  {Object}             [options={}]
-   * @param  {Integer}            [options.count]                The number of items to return if more than 1 is found.
-   * @param  {Boolean}            [options.includeDeleted=false] Whether to include deleted items in the results.
-   * @param  {String|IDBKeyRange} [options.query]                The client ID (cid) or an IDBKeyRange to limit the results to.
-   * @return {Promise<Array>}                                    Returns a Promise that resolves to an Array of items in the collection.
+   * @param  {Object}      [options={}]
+   * @param  {Integer}     [options.count]                The number of items to return if more than 1 is found.
+   * @param  {Boolean}     [options.includeDeleted=false] Whether to include deleted items in the results.
+   * @param  {String}      [options.index]                The name of an index to use.
+   * @param  {IDBKeyRange} [options.query]                An IDBKeyRange to limit the results to.
+   * @return {Promise<Array>}                             Returns a Promise that resolves to an Array of items in the collection.
    */
   getAll({
-    query,
     count,
     includeDeleted = false,
+    index,
+    query,
   } = {}) {
     return new Promise((resolve, reject) => {
 
@@ -144,8 +146,10 @@ class DatabaseCollection {
       txn.oncomplete = () => resolve(result);
       txn.onerror    = () => reject(txn.error);
 
-      txn.objectStore(this.#storeName)
-      .getAll(query, count)
+      let store = txn.objectStore(this.#storeName);
+      store = index ? store.index(index) : store;
+
+      store.getAll(query, count)
       .onsuccess = ev => {
         result = ev.target.result.map(item => new this.#Model(item));
         if (!includeDeleted) result = result.filter(item => !item.deleted);
@@ -219,6 +223,14 @@ class DatabaseCollection {
       });
 
     });
+  }
+
+  /**
+   * Returns the name of the object store for this collection.
+   * @return {String}
+   */
+  get storeName() {
+    return this.#storeName;
   }
 
 }

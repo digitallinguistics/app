@@ -298,10 +298,10 @@ describe(`Database`, function() {
     expect(result).to.be.null;
   });
 
-  it(`getAll`, function() {
+  it.skip(`getAll`, function() {
     return new Promise((resolve, reject) => {
 
-      const txn   = this.db.idb.transaction(`languages`, `readwrite`);
+      const txn = this.db.idb.transaction(`languages`, `readwrite`);
       const store = txn.objectStore(`languages`);
 
       txn.oncomplete = () => {
@@ -322,6 +322,112 @@ describe(`Database`, function() {
       store.add({ cid: 2, customProp: false });
 
     });
+  });
+
+  it(`getAll (unfiltered)`, async function() {
+
+    const langA = `64a7cce1-3630-477e-8449-6af854c8b427`;
+    const langB = `05688754-8ce4-4ab5-b178-6e87fb4445ab`;
+
+    const data = [
+      { cid: `a`, language: langA, lemma: `a` },
+      { cid: `b`, language: langA, lemma: `b` },
+      { cid: `c`, language: langB, lemma: `c` },
+      { cid: `d`, language: langB, lemma: `d` },
+    ];
+
+    const lexemes = data.map(item => new Lexeme(item));
+
+    // SETUP
+    // Add lexemes for multiple languages to the database.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction(`lexemes`, `readwrite`);
+      const store = txn.objectStore(`lexemes`);
+
+      txn.onerror = reject;
+      txn.oncomplete = resolve;
+
+      lexemes.forEach(item => store.add(item));
+
+    });
+
+    // ACTION
+    // Retrieve all lexemes, regardless of language.
+    const results = await this.db.lexemes.getAll();
+
+    // ASSERTION
+    // Check that all languages have been retrieved.
+    expect(results).to.have.length(4);
+
+  });
+
+  it.only(`getAll (filtered)`, async function() {
+
+    const langA = `64a7cce1-3630-477e-8449-6af854c8b427`;
+    const langB = `05688754-8ce4-4ab5-b178-6e87fb4445ab`;
+
+    const data = [
+      { cid: `a`, language: langA, lemma: `a` },
+      { cid: `b`, language: langA, lemma: `b` },
+      { cid: `c`, language: langB, lemma: `c` },
+      { cid: `d`, language: langB, lemma: `d` },
+    ];
+
+    const lexemes = data.map(item => new Lexeme(item));
+
+    // SETUP
+    // Add lexemes for multiple languages to the database.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction(`lexemes`, `readwrite`);
+      const store = txn.objectStore(`lexemes`);
+
+      txn.onerror = reject;
+      txn.oncomplete = resolve;
+
+      lexemes.forEach(item => store.add(item));
+
+    });
+
+    // ACTION
+    // Retrieve only lexemes from one language.
+    const index   = `language`;
+    const query   = IDBKeyRange.only(langA);
+    const results = await this.db.lexemes.getAll({ index, query });
+
+    // ASSERTION
+    // Check for lexemes for that language.
+    // Check that there are no lexemes for the other language.
+    expect(results).to.have.length(2);
+    expect(results.every(item => item.language === langA));
+
+  });
+
+  it(`getAll (count)`, async function() {
+
+    // SETUP
+    // Add 3 languages to the database.
+
+    // ACTION
+    // Retrieve 2 languages from the database.
+
+    // ASSERTION
+    // Check that only 2 languages are returned.
+
+  });
+
+  it(`getAll (deleted)`, async function() {
+
+    // SETUP
+    // Add both deleted and non-deleted languages to the database.
+
+    // ACTION
+    // Retrieve all languages, including deleted ones.
+
+    // ASSERTION
+    // Check that all languages are returned.
+
   });
 
   it(`iterates over all items in a store`, function() {
@@ -368,7 +474,7 @@ describe(`Database`, function() {
       const txn   = this.db.idb.transaction(`lexemes`, `readwrite`);
       const store = txn.objectStore(`lexemes`);
 
-      txn.onerror = reject;
+      txn.onerror    = reject;
       txn.oncomplete = resolve;
 
       lexemes.forEach(item => store.add(item));
