@@ -191,7 +191,7 @@ export default class Database {
     }
 
     if (!lexemesIndexes.includes(`lemma`)) {
-      lexemesStore.createIndex(`lemma`, `lemma.default`, { unique: false });
+      lexemesStore.createIndex(`lemma`, `_lemma`, { unique: false });
     }
 
     // Texts

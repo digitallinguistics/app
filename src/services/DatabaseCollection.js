@@ -160,14 +160,17 @@ class DatabaseCollection {
 
   /**
    * Run a callback for each item in the collection. Useful for retrieving very large collections asynchronously.
-   * @param   {Function} cb                       The callback function to call on each returned item.
-   * @param   {Object}   [options={}]             Options
-   * @param   {Boolean}  [options.includeDeleted] Whether to include deleted items in the results.
+   * @param   {Function}    cb                       The callback function to call on each returned item.
+   * @param   {Object}      [options={}]             Options
+   * @param   {Boolean}     [options.includeDeleted] Whether to include deleted items in the results.
+   * @param   {String}      [options.index]          The name of the index to iterate over.
+   * @param   {IDBKeyRange} [options.query]          An IDBKeyRange to limit the results to.
    * @returns {Promise}
    */
   iterate(cb, {
     includeDeleted = false,
     index,
+    query,
   } = {}) {
     return new Promise((resolve, reject) => {
 
@@ -177,11 +180,9 @@ class DatabaseCollection {
       txn.oncomplete = () => resolve();
       txn.onerror    = () => reject(txn.error);
 
-      const store = txn.objectStore(this.#storeName);
-
-      const req = index ?
-        store.index(index).openCursor() :
-        store.openCursor();
+      let store = txn.objectStore(this.#storeName);
+      store = index ? store.index(index) : store;
+      const req = store.openCursor(query);
 
       req.onsuccess = ev => {
         const cursor = ev.target.result;
