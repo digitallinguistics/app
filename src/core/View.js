@@ -60,12 +60,6 @@ class View {
   }
 
   /**
-   * This method allows the View to do additional rendering after the initial call to the `render()` method. It should be called from within the `render()` method, without using `await`. The `hydrate()` method should be overwritten by View instances.
-   * @abstract
-   */
-  async hydrate() { /* no-op */ }
-
-  /**
    * Complete any rendering logic that requires the view to be attached to the DOM, and add event listeners.. This should be called after the `render()` method. This `initialize()` method should be overridden by View instances.
    */
   initialize() { /* no-op */ }
