@@ -5,8 +5,10 @@ import Lexeme          from '../../models/Lexeme.js';
 import lexemeData      from '../../../test/fixtures/lexemes.json';
 import Page            from './Lexicon.js';
 
+const lexemesArray = [...lexemeData];
+
 for (let i = 0; i < 50; i++) {
-  lexemeData.push({
+  lexemesArray.push({
     cid:   i + 4,
     lemma: {
       default: getRandomString(),
@@ -15,7 +17,6 @@ for (let i = 0; i < 50; i++) {
 }
 
 const [, language] = languageData.map(data => new Language(data));
-const lexemes      = lexemeData.map(data => new Lexeme(data));
 
 export default {
   parameters: {
@@ -24,7 +25,14 @@ export default {
   title:  `Lexicon/Lexicon Page`,
 };
 
-export const LexiconPage = () => {
-  const page = new Page(language, lexemes);
+export const ShortList = () => {
+  const lexemes = lexemeData.map(data => new Lexeme(data));
+  const page    = new Page(language, lexemes);
+  return page.render();
+};
+
+export const LongList = () => {
+  const lexemes = lexemesArray.map(data => new Lexeme(data));
+  const page    = new Page(language, lexemes);
   return page.render();
 };
