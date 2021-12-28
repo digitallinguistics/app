@@ -60,7 +60,7 @@ class View {
   }
 
   /**
-   * Complete any rendering logic that requires the view to be attached to the DOM, and add event listeners.. This should be called after the `render()` method. This `initialize()` method should be overridden by View instances.
+   * Complete any rendering logic that requires the view to be attached to the DOM, and add event listeners. This should be called after the `render()` method. This `initialize()` method should be overridden by View instances.
    */
   initialize() { /* no-op */ }
 
