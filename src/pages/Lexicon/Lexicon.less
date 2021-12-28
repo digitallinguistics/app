@@ -27,8 +27,13 @@
   // large screens
   @media (min-width: @breakpoint-wide) {
 
+    // The `hidden` attribute is overridden by explicitly setting the CSS `display` property.
+    // See: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden
+    &:not([hidden]) {
+      display: grid;
+    }
+
     align-content      : start;
-    display            : grid;
     grid-template-areas:
       "header header"
       "list editor";

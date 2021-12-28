@@ -114,12 +114,12 @@ class App extends View {
     const mains = Array.from(document.getElementsByClassName(`main`));
 
     for (const main of mains) {
-      main.setAttribute(`hidden`, ``);
+      main.hidden = true;
     }
 
     const targetPage = mains.find(main => main.dataset.page === page);
 
-    if (targetPage) targetPage.removeAttribute(`hidden`);
+    if (targetPage) targetPage.hidden = false;
     else await this.renderPage(page);
 
     this.announce(`${ page } page`);
