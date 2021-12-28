@@ -8,7 +8,7 @@ export default class HelpMenu extends View {
   }
 
   addEventListeners() {
-    if (this.el) { // this check is necessary because in Storybook there won't always be a Help Menu element
+    if (window.app && this.el) { // this check is necessary because in Storybook there won't always be a Help Menu element
       app.shortcuts(this.el).bind(`esc`, () => {
         this.el.removeAttribute(`open`);
       });

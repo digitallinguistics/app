@@ -10,4 +10,5 @@ export const Banner = () => {
   const el = template.content.cloneNode(true).firstElementChild;
   el.style.width = `100%`;
   return el;
+
 };
