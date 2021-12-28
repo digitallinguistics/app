@@ -15,8 +15,7 @@ export default class MainNav extends View {
 
     this.pages.addEventListener(`click`, ev => {
 
-      // NOTE: `LI` must be capitalized for `.closest()` to work properly.
-      const { page } = ev.target.closest(`LI`).dataset;
+      const { page } = ev.target.closest(`li`).dataset;
 
       if (page) {
         ev.preventDefault();

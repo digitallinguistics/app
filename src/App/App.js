@@ -4,6 +4,7 @@ import Language        from '../models/Language.js';
 import LanguageChooser from './LanguageChooser/LanguageChooser.js';
 import Mousetrap       from 'mousetrap';
 import Nav             from './Nav/Nav.js';
+import { pascalCase }  from 'pascal-case';
 import Settings        from '../services/Settings.js';
 import View            from '../core/View.js';
 
@@ -26,13 +27,13 @@ class App extends View {
    * A reference to the helpmenu controller.
    * @type {HelpMenu}
    */
-  #helpMenu = new HelpMenu;
+  helpMenu = new HelpMenu;
 
   /**
    * A reference to the Main Nav controller.
    * @type {MainNav}
    */
-  #nav = new Nav;
+  nav = new Nav;
 
   /**
    * A table of references to DOM nodes used by the App controller.
@@ -40,7 +41,7 @@ class App extends View {
    * @prop {HTMLElement} info
    * @prop {HTMLElement} wrapper
    */
-  #nodes = {
+  nodes = {
     info:    document.getElementById(`info`),
     wrapper: document.getElementById(`wrapper`),
   };
@@ -49,7 +50,7 @@ class App extends View {
    * A Map of page Views, loaded dynamically when the page is requested.
    * @type {Map}
    */
-  #pages = new Map;
+  pages = new Map;
 
   /**
    * An object for persisting app/user settings. Saves to Local Storage.
@@ -67,14 +68,14 @@ class App extends View {
   /**
    * Add a new language and show the Language Editor.
    */
-  async #addLanguage() {
+  async addLanguage() {
     let language = new Language;
     language.autonym.set(`default`, ``);
     language.name.set(`eng`, `{ new language }`);
     language = await app.db.languages.add(language);
     this.settings.language = language.cid;
     this.settings.lexeme   = null;
-    return this.#renderPage(`Languages`);
+    return this.displayPage(`Languages`);
   }
 
   /**
@@ -82,14 +83,14 @@ class App extends View {
    * @param {String} text the text to announce to screen readers
    */
   announce(text) {
-    this.#nodes.info.textContent = text;
+    this.nodes.info.textContent = text;
   }
 
   /**
    * Change the current language.
    * @param {String} languageCID The CID of the language to switch to.
    */
-  #changeLanguage(languageCID) {
+  changeLanguage(languageCID) {
 
     this.settings.language = languageCID;
     this.settings.lexeme   = null;
@@ -97,7 +98,7 @@ class App extends View {
     const lexiconPage = document.getElementById(`lexicon-page`);
     if (lexiconPage) lexiconPage.remove();
 
-    this.#displayPage(this.settings.page);
+    this.displayPage(this.settings.page);
 
   }
 
@@ -105,10 +106,10 @@ class App extends View {
    * Display a page, rendering it if necessary.
    * @param {String} page The page to display (in PascalCase).
    */
-  async #displayPage(page) {
+  async displayPage(page) {
 
     this.settings.page = page;
-    this.#nav.setPage(page);
+    this.nav.setPage(page);
 
     const mains = Array.from(document.getElementsByClassName(`main`));
 
@@ -116,14 +117,11 @@ class App extends View {
       main.setAttribute(`hidden`, ``);
     }
 
-    let targetPage = mains.find(main => main.dataset.page === page);
+    const targetPage = mains.find(main => main.dataset.page === page);
 
-    if (!targetPage) {
-      targetPage = await this.#renderPage(page);
-      this.#nodes.wrapper.appendChild(targetPage);
-    }
+    if (targetPage) targetPage.removeAttribute(`hidden`);
+    else await this.renderPage(page);
 
-    targetPage.removeAttribute(`hidden`);
     this.announce(`${ page } page`);
 
   }
@@ -134,7 +132,7 @@ class App extends View {
    * @returns {Promise}
    */
   initialize() {
-    this.#helpMenu.initialize();
+    this.helpMenu.initialize();
     return this.db.initialize();
   }
 
@@ -145,87 +143,100 @@ class App extends View {
   async render() {
     this.el      = document.getElementById(`app`);
     this.el.view = this;
-    this.#renderNav();
-    await this.#renderPage(this.settings.page);
+    this.renderNav();
+    await this.displayPage(this.settings.page);
     return this.el;
   }
 
   /**
    * Render the Main Nav.
    */
-  #renderNav() {
-    this.#nav.render(this.settings.page);
-    this.#nav.events.on(`change`, this.#renderPage.bind(this));
+  renderNav() {
+    this.nav.render(this.settings.page);
+    this.nav.events.on(`change`, this.displayPage.bind(this));
   }
 
   /**
    * Render a specific page. This is the only method that should call page-rendering methods.
    * @param {String} page the page to render (`Home`, `Languages`, etc.)
    */
-  async #renderPage(page) {
+  async renderPage(page) {
 
-    if (!this.#pages.has(page)) {
-      const { default: PageView } = await import(`../pages/${ page }/${ page }.js`);
-      this.#pages.set(page, PageView);
+    if (!this.pages.has(page)) {
+      const Page = pascalCase(page);
+      const { default: PageView } = await import(`../pages/${ Page }/${ Page }.js`);
+      this.pages.set(page, PageView);
     }
 
-    // NOTE: The Home page currently never needs to render; it's present in the app shell.
     switch (page) {
         case `languages`: return this.renderLanguagesPage();
         case `lexicon`: return this.renderLexiconPage();
-        default: break;
+        default: return this.renderHomePage();
     }
 
   }
 
   // PAGES
 
-  async #renderLanguageChooser() {
+  renderHomePage() {
+
+    const HomePage = this.pages.get(`home`);
+    const homePage = new HomePage;
+
+    const oldPage = document.getElementById(`home-page`);
+    const newPage = homePage.render();
+
+    if (oldPage) oldPage.replaceWith(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
+
+  }
+
+  async renderLanguageChooser() {
 
     const languages       = await this.db.languages.getAll();
     const languageChooser = new LanguageChooser(languages);
 
-    languageChooser.events.on(`add`, this.#addLanguage.bind(this));
-    languageChooser.events.on(`select`, this.#changeLanguage.bind(this));
+    languageChooser.events.on(`add`, this.addLanguage.bind(this));
+    languageChooser.events.on(`select`, this.changeLanguage.bind(this));
 
     const oldPage = document.getElementById(`language-chooser`);
     const newPage = languageChooser.render();
 
     if (oldPage) oldPage.replaceWith(newPage);
-    else this.#nodes.wrapper.appendChild(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
 
   }
 
   async renderLanguagesPage() {
 
-    const LanguagesPage = this.#pages.get(`languages`);
+    const LanguagesPage = this.pages.get(`languages`);
     const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
 
-    languagesPage.events.on(`add`, this.#addLanguage.bind(this));
+    languagesPage.events.on(`add`, this.addLanguage.bind(this));
 
     const oldPage = document.getElementById(`languages-page`);
     const newPage = languagesPage.render(this.settings.language);
 
     if (oldPage) oldPage.replaceWith(newPage);
-    else this.#nodes.wrapper.appendChild(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
 
   }
 
   async renderLexiconPage() {
 
     if (!this.settings.language) {
-      return this.#renderLanguageChooser();
+      return this.renderLanguageChooser();
     }
 
-    const LexiconPage = this.#pages.get(`lexicon`);
+    const LexiconPage = this.pages.get(`lexicon`);
     const language    = await this.db.languages.get(this.settings.language);
     const lexiconPage = new LexiconPage(language);
     const oldPage     = document.getElementById(`lexicon-page`);
     const newPage     = lexiconPage.render(this.settings.lexeme);
 
     if (oldPage) oldPage.replaceWith(newPage);
-    else this.#nodes.wrapper.appendChild(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
 
   }
 
