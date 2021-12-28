@@ -231,7 +231,9 @@ class App extends View {
 
     const LexiconPage = this.pages.get(`lexicon`);
     const language    = await this.db.languages.get(this.settings.language);
-    const lexiconPage = new LexiconPage(language);
+    const query       = IDBKeyRange.only(this.language.cid);
+    const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
+    const lexiconPage = new LexiconPage(language, lexemes);
     const oldPage     = document.getElementById(`lexicon-page`);
     const newPage     = lexiconPage.render(this.settings.lexeme);
 

@@ -5,9 +5,10 @@ import View        from '../../core/View.js';
 
 export default class LexiconPage extends View {
 
-  constructor(language) {
+  constructor(language, lexemes) {
     super({ styles, template });
     this.language = language;
+    this.lexemes  = lexemes;
   }
 
   render() {
@@ -24,14 +25,10 @@ export default class LexiconPage extends View {
 
   }
 
-  async renderList() {
-
-    const query       = IDBKeyRange.only(this.language.cid);
-    const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
-    const lexemesList = new LexemesList(lexemes);
-
+  renderList() {
+    const lexemesList = new LexemesList(this.lexemes);
     lexemesList.el = this.el.querySelector(`.js-lexicon__lexemes-list`);
-
+    lexemesList.render();
   }
 
 }

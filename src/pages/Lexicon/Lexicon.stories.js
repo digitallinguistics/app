@@ -1,14 +1,17 @@
-import Language  from '../../models/Language.js';
-import languages from '../../../test/fixtures/languages.json';
-import Page      from './Lexicon.js';
+import Language     from '../../models/Language.js';
+import languageData from '../../../test/fixtures/languages.json';
+import Lexeme       from '../../models/Lexeme.js';
+import lexemeData   from '../../../test/fixtures/lexemes.json';
+import Page         from './Lexicon.js';
 
-const [, language] = languages.map(data => new Language(data));
+const [, language] = languageData.map(data => new Language(data));
+const lexemes      = lexemeData.map(data => new Lexeme(data));
 
 export default {
   title: `Lexicon/Lexicon Page`,
 };
 
 export const LexiconPage = () => {
-  const page = new Page(language);
+  const page = new Page(language, lexemes);
   return page.render();
 };
