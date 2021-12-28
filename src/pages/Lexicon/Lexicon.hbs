@@ -1,13 +1,17 @@
-<main id=lexicon-page class='lexicon main' data-page=lexicon>
+<main id=lexicon-page class='lexicon-page main' data-page=lexicon>
 
-  <header class=lexicon__header>
-    <h1 class='js-lexicon__title page-title'>Lexicon</h1>
+  <header class=lexicon-page__header>
+    <h1 class='js-lexicon-page__title page-title'>Lexicon</h1>
   </header>
 
-  <nav class=lexicon__nav>
+  <nav class=lexicon-page__nav>
     <h2 class=block-header>Entries</h2>
-    <button class='button green'>Add an entry</button>
-    <ol class='js-lexicon__lexemes-list lexemes-list lexicon__lexemes-list'></ol>
+    <button class='button green lexicon-page__add-entry-btn'>Add an entry</button>
+    <ol class='js-lexicon-page__lexemes-list lexemes-list lexicon-page__lexemes-list'></ol>
   </nav>
+
+  <form class=lexeme-editor>
+    <h1 class=block-header>{ Lexeme Editor }</h1>
+  </form>
 
 </main>

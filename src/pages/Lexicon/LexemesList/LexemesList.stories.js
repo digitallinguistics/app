@@ -3,14 +3,11 @@
   no-new,
 */
 
-import data         from '../../../../test/fixtures/lexemes.json';
-import Lexeme       from '../../../models/Lexeme.js';
-import LexemesList  from './LexemesList.js';
-import sortFunction from '../../../utilities/sort.js';
-
-function getRandomString() {
-  return (Math.random() + 1).toString(36).substring(7);
-}
+import data            from '../../../../test/fixtures/lexemes.json';
+import getRandomString from '../../../utilities/getRandomString.js';
+import Lexeme          from '../../../models/Lexeme.js';
+import LexemesList     from './LexemesList.js';
+import sortFunction    from '../../../utilities/sort.js';
 
 export default {
   layout: `fullscreen`,
