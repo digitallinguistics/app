@@ -18,13 +18,19 @@ export default class LexiconPage extends View {
     this.el.dataset.language = this.language.cid;
     this.el.querySelector(`.js-lexicon__title`).textContent = this.language.name.default;
 
-    const query       = IDBKeyRange.only(this.language.cid);
-    const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
-    const lexemesList = new LexemesList;
-
-    lexemesList.el = this.el.querySelector(`.js-lexicon__lexemes-list`);
+    this.renderList(); // starts async rendering of list
 
     return this.el;
+
+  }
+
+  async renderList() {
+
+    const query       = IDBKeyRange.only(this.language.cid);
+    const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
+    const lexemesList = new LexemesList(lexemes);
+
+    lexemesList.el = this.el.querySelector(`.js-lexicon__lexemes-list`);
 
   }
 
