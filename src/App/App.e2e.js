@@ -20,7 +20,7 @@ describe(`App`, function() {
 
     cy.setupStore(`languages`);
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`main[data-page=Home]`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();

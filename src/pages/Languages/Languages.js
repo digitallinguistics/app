@@ -38,12 +38,6 @@ export default class LanguagesPage extends View {
     return this.renderEditor();
   }
 
-  initialize(languageCID) {
-    this.addEventListeners();
-    this.renderEditor(languageCID);
-    this.renderNav(languageCID);
-  }
-
   itemTemplate({ cid, name }) {
     return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#language-editor>${ name.default }</a></li>`);
   }
@@ -52,11 +46,13 @@ export default class LanguagesPage extends View {
    * Render the Languages Page.
    * @return {HTMLMainElement}
    */
-  render() {
+  render(languageCID) {
     this.loadStyles();
     this.cloneTemplate();
+    this.renderEditor(languageCID);
+    this.renderNav(languageCID);
+    this.addEventListeners();
     return this.el;
-
   }
 
   /**

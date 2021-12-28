@@ -82,31 +82,37 @@ export default class LanguageEditor extends View {
 
   async handleOrthographiesUpdate({ target }) {
     if (target.classList.contains(`js-orthography__cancel-button`)) {
+
       const item = target.closest(`.orthography`);
       const { view } = item;
       const abbr = view.abbrInput.value;
       if (abbr) return;
 
-
       const index = item.dataset.id;
       this.language.orthographies.splice(index, 1);
       await this.save();
       return this.renderOrthographies();
+
     }
 
     if (target.classList.contains(`js-orthography__delete-button`)) {
+
       if (this.language.orthographies.length === 1) {
         alert(`There must be at least one orthography.`);
         return;
       }
+
       const confirmDelete = confirm(`Are you sure you want to delete this Orthography? This action cannot be undone. Click 'OK' to confirm deletion.`);
       if (!confirmDelete) return;
       const i = Number(target.closest(`.orthography`).dataset.id);
       return this.deleteOrthography(i);
+
     }
+
   }
 
   async handleAnalysisLangsUpdate({ target }) {
+
     if (target.classList.contains(`js-analysis-language__cancel-button`)) {
       const item     = target.closest(`.analysis-language`);
       const { view } = item;
@@ -148,8 +154,6 @@ export default class LanguageEditor extends View {
 
   initialize() {
 
-    this.addEventListeners();
-
     const input = this.el.querySelector(`[id^="name-"]`);
 
     if (input) {
@@ -180,6 +184,8 @@ export default class LanguageEditor extends View {
     this.renderMetadata();
     this.renderOrthographies();
     this.renderSimpleFields();
+
+    this.addEventListeners();
 
     return this.el;
 
@@ -219,6 +225,7 @@ export default class LanguageEditor extends View {
   }
 
   renderAnalysisLangs() {
+
     this.language.analysisLanguages.sort((a, b) => compare(a.tag, b.tag));
 
     const oldList = this.el.querySelector(`.js-language-editor__analysis-langs-list`);
@@ -236,6 +243,7 @@ export default class LanguageEditor extends View {
 
     oldList.replaceWith(newList);
     newList.addEventListener(`click`, this.handleAnalysisLangsUpdate.bind(this));
+
   }
 
   renderAutonym() {
@@ -369,7 +377,7 @@ export default class LanguageEditor extends View {
 
   // Additional Names
 
-  async addName() {
+  addName() {
 
     this.language.additionalNames.push({
       language: ``,
@@ -393,11 +401,9 @@ export default class LanguageEditor extends View {
 
   // Orthographies
 
-  async addOrthography() {
+  addOrthography() {
     this.language.orthographies.push(new Orthography({ abbreviation: ``, name: `` }));
-
     this.renderOrthographies();
-
     const orthoView = this.el.querySelector(`.js-language-editor__orthographies-list .orthography:first-child`).view;
     orthoView.showEditor();
   }
@@ -410,7 +416,8 @@ export default class LanguageEditor extends View {
 
   // Analysis Languages
 
-  async addAnalysisLang() {
+  addAnalysisLang() {
+
     this.language.analysisLanguages.push({
       abbreviation: ``,
       language:     ``,

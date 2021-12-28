@@ -10,8 +10,6 @@ export default class LexiconPage extends View {
     this.language = language;
   }
 
-  initialize() { /* no-op */ }
-
   render() {
 
     this.loadStyles();
@@ -20,8 +18,8 @@ export default class LexiconPage extends View {
     this.el.dataset.language = this.language.cid;
     this.el.querySelector(`.js-lexicon__title`).textContent = this.language.name.default;
 
-    const keyRange    = IDBKeyRange.only(this.language.cid);
-    const lexemes     = app.db.lexemes.getAll();
+    const query       = IDBKeyRange.only(this.language.cid);
+    const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
     const lexemesList = new LexemesList;
 
     lexemesList.el = this.el.querySelector(`.js-lexicon__lexemes-list`);
