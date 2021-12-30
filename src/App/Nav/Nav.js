@@ -9,6 +9,11 @@ export default class MainNav extends View {
 
   pages = document.querySelector(`#nav ul`);
 
+  constructor({ el } = {}) {
+    super();
+    this.el = el;
+  }
+
   addEventListeners() {
 
     this.button.addEventListener(`click`, this.toggle.bind(this));
@@ -27,10 +32,10 @@ export default class MainNav extends View {
 
   }
 
-  render(page) {
-    this.el = document.getElementById(`nav`);
+  render(page, { open = `true` } = {}) {
+    this.el ??= document.getElementById(`nav`);
     this.addEventListeners();
-    this.button.setAttribute(`aria-expanded`, app.settings.navOpen ?? `true`);
+    this.button.setAttribute(`aria-expanded`, open);
     if (page) this.setPage(page);
     this.el.view           = this;
     this.el.dataset.loaded = true;
@@ -61,7 +66,7 @@ export default class MainNav extends View {
   toggle() {
     const expanded = this.button.getAttribute(`aria-expanded`) === `true`;
     this.button.setAttribute(`aria-expanded`, !expanded);
-    app.settings.navOpen = !expanded;
+    this.events.emit(`toggle`, { expanded: !expanded });
   }
 
 }

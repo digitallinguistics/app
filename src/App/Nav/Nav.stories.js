@@ -10,7 +10,7 @@ export const MainNav = () => {
   const root = document.getElementById(`root`);
   root.append(template.content.cloneNode(true).firstElementChild);
   const navView = new Nav();
-  const el = navView.render(`Home`);
+  const el = navView.render(`home`);
   el.style.width     = `fit-content`;
   el.style.minHeight = `inherit`;
   return el;

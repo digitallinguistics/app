@@ -19,5 +19,4 @@ export default class HelpMenu extends View {
     this.addEventListeners();
   }
 
-
 }

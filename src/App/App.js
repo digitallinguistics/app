@@ -24,6 +24,11 @@ class App extends View {
   db = new Database;
 
   /**
+   * A reference to the app `<body>` tag.
+   */
+  el = document.getElementById(`app`);
+
+  /**
    * A reference to the helpmenu controller.
    * @type {HelpMenu}
    */
@@ -66,13 +71,21 @@ class App extends View {
   // APP METHODS
 
   /**
+   * Attach event listeners to app shell components.
+   */
+  addEventListeners() {
+    this.nav.events.on(`change`, this.displayPage.bind(this));
+    this.nav.events.on(`toggle`, ({ expanded }) => { this.settings.navOpen = expanded; });
+  }
+
+  /**
    * Add a new language and show the Language Editor.
    */
   async addLanguage() {
     let language = new Language;
     language.autonym.set(`default`, ``);
     language.name.set(`eng`, `{ new language }`);
-    language = await app.db.languages.add(language);
+    language = await this.db.languages.add(language);
     this.settings.language = language.cid;
     this.settings.lexeme   = null;
     return this.displayPage(`Languages`);
@@ -127,38 +140,20 @@ class App extends View {
   }
 
   /**
-   * Initialize the App. Must be called before {@link App#render}.
-   * @async
-   * @returns {Promise}
+   * Initialize the App.
    */
   initialize() {
+    this.db.initialize(); // async
     this.helpMenu.initialize();
-    return this.db.initialize();
-  }
-
-  /**
-   * Render the Main Nav and last visited page. {@link App#initialize} must be called first.
-   * @returns {Promise<HTMLElement>}
-   */
-  async render() {
-    this.el      = document.getElementById(`app`);
-    this.el.view = this;
-    this.renderNav();
-    await this.displayPage(this.settings.page);
+    this.nav.render(this.settings.page, { open: this.settings.navOpen });
+    this.displayPage(this.settings.page); // async
+    this.addEventListeners();
     return this.el;
   }
 
   /**
-   * Render the Main Nav.
-   */
-  renderNav() {
-    this.nav.render(this.settings.page);
-    this.nav.events.on(`change`, this.displayPage.bind(this));
-  }
-
-  /**
    * Render a specific page. This is the only method that should call page-rendering methods.
-   * @param {String} page the page to render (`Home`, `Languages`, etc.)
+   * @param {String} page the page to render (`home`, `languages`, etc.)
    */
   async renderPage(page) {
 

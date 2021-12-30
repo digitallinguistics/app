@@ -13,14 +13,14 @@ class Settings {
    */
   #defaults = {
     navOpen: true,
-    page:    `Home`,
+    page:    `home`,
   };
 
   /**
    *
    * @param {Object}  [initialSettings={}]           The settings to instantiate the app with.
    * @param {Boolean} [initialSettings.navOpen=true] Whether the main nav is open.
-   * @param {String}  [initialSettings.page=`Home`]  The last visited page.
+   * @param {String}  [initialSettings.page=`home`]  The last visited page.
    * @returns {Proxy<Object>}
    */
   /* eslint-disable no-constructor-return */
