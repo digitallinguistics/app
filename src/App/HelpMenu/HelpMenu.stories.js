@@ -10,6 +10,7 @@ export default {
 
 export const HelpMenu = () => {
 
+  // Create a mock banner to display the Help Menu against.
   const banner = html2element(`<header id=help-menu-banner>
     <style>
       #help-menu-banner {

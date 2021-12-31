@@ -1,7 +1,11 @@
+import App from './App.js';
+
 export default {
   parameters: { layout: `fullscreen` },
   title:      `App/App Shell`,
 };
+
+window.app = new App;
 
 export const AppShell = () => {
   const template = document.getElementById(`app-template`);

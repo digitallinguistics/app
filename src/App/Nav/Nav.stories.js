@@ -7,9 +7,9 @@ export default {
 
 export const MainNav = () => {
   const template = document.getElementById(`main-nav-template`);
-  const root = document.getElementById(`root`);
+  const root     = document.getElementById(`root`);
   root.append(template.content.cloneNode(true).firstElementChild);
-  const navView = new Nav();
+  const navView = new Nav;
   const el = navView.render(`home`);
   el.style.width     = `fit-content`;
   el.style.minHeight = `inherit`;
