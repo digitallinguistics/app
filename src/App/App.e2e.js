@@ -1,31 +1,21 @@
 describe(`App`, function() {
 
-  it(`updates ARIA live region on page change`, function() {
-
+  it(`updates the ARIA live region on page change`, function() {
     cy.visit(`/`);
-
-    cy.get(`#info`).should(`contain`, `Home page`);
-
+    cy.get(`#info`).should(`contain`, `home page`);
     cy.contains(`#nav li`, `Languages`).click();
-
-    cy.get(`#info`).should(`contain`, `Languages page`);
-
+    cy.get(`#info`).should(`contain`, `languages page`);
   });
 
-  it(`displays Language Chooser when no language is selected`, function() {
-
-    cy.setupStore(`languages`);
+  it(`displays the Language Chooser when no language is selected`, function() {
 
     cy.visit(`/`);
-
     cy.setupStore(`languages`);
 
-    cy.get(`main[data-page=Home]`);
-
-    cy.contains(`#nav li`, `Languages`)
+    cy.contains(`#nav li`, `Lexicon`)
     .click();
 
-    cy.get(`.js-languages-page__languages-list`)
+    cy.get(`#language-chooser .nav-list`)
     .children()
     .then(items => {
       const [langA, langB, langC, langD] = items;

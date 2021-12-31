@@ -4,7 +4,7 @@ describe(`AdditionalName`, function() {
 
     cy.visit(`/`);
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`#home-page`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();
@@ -42,7 +42,7 @@ describe(`AdditionalName`, function() {
     cy.contains(`#nav li`, `Home`)
     .click();
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`#home-page`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();

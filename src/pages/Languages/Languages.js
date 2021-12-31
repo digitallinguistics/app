@@ -62,27 +62,13 @@ export default class LanguagesPage extends View {
   renderEditor(languageCID) {
 
     const language = this.languages.find(lang => lang.cid === languageCID);
-    let newEditor;
 
-    if (language) {
+    this.editorView = new LanguageEditor(language);
+    this.editorView.events.once(`add`, () => this.events.emit(`add`));
+    this.editorView.events.on(`delete`, this.deleteLanguage.bind(this));
+    this.editorView.events.on(`update:name`, this.renderNav.bind(this));
 
-      // render full editor
-      this.editorView = new LanguageEditor(language);
-      this.editorView.events.once(`add`, () => this.events.emit(`add`));
-      this.editorView.events.on(`delete`, this.deleteLanguage.bind(this));
-      this.editorView.events.on(`update:name`, this.renderNav.bind(this));
-      newEditor = this.editorView.render();
-
-    } else {
-
-      // render placeholder editor
-      app.settings.language = null;
-      this.editorView = new LanguageEditor;
-      this.editorView.events.on(`add`, () => this.events.emit(`add`));
-      newEditor = this.editorView.render();
-
-    }
-
+    const newEditor = this.editorView.render();
     const oldEditor = this.el.querySelector(`.language-editor`);
 
     oldEditor.view?.events.stop();

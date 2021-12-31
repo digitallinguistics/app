@@ -6,6 +6,7 @@ import Mousetrap       from 'mousetrap';
 import Nav             from './Nav/Nav.js';
 import { pascalCase }  from 'pascal-case';
 import Settings        from '../services/Settings.js';
+import sort            from '../utilities/sort.js';
 import View            from '../core/View.js';
 
 /**
@@ -88,7 +89,7 @@ class App extends View {
     language = await this.db.languages.add(language);
     this.settings.language = language.cid;
     this.settings.lexeme   = null;
-    return this.displayPage(`Languages`);
+    return this.displayPage(`languages`);
   }
 
   /**
@@ -117,12 +118,14 @@ class App extends View {
 
   /**
    * Display a page, rendering it if necessary.
-   * @param {String} page The page to display (in PascalCase).
+   * @param {String} page The page to display (in lowercase).
    */
   async displayPage(page) {
 
-    this.settings.page = page;
-    this.nav.setPage(page);
+    if (page !== `language-chooser`) {
+      this.settings.page = page;
+      this.nav.setPage(page);
+    }
 
     const mains = Array.from(document.getElementsByClassName(`main`));
 
@@ -142,8 +145,8 @@ class App extends View {
   /**
    * Initialize the App.
    */
-  initialize() {
-    this.db.initialize(); // async
+  async initialize() {
+    await this.db.initialize();
     this.helpMenu.initialize();
     this.nav.render(this.settings.page, { open: this.settings.navOpen });
     this.displayPage(this.settings.page); // async
@@ -156,6 +159,10 @@ class App extends View {
    * @param {String} page the page to render (`home`, `languages`, etc.)
    */
   async renderPage(page) {
+
+    if (page === `language-chooser`) {
+      return this.renderLanguageChooser();
+    }
 
     if (!this.pages.has(page)) {
       const Page = pascalCase(page);
@@ -188,7 +195,10 @@ class App extends View {
 
   async renderLanguageChooser() {
 
-    const languages       = await this.db.languages.getAll();
+    const languages = await this.db.languages.getAll();
+
+    languages.sort((a, b) => sort(a.name.default, b.name.default));
+
     const languageChooser = new LanguageChooser(languages);
 
     languageChooser.events.on(`add`, this.addLanguage.bind(this));
@@ -204,8 +214,13 @@ class App extends View {
 
   async renderLanguagesPage() {
 
+    const languages = await this.db.languages.getAll();
+
+    if (!languages.length) {
+      return this.displayPage(`language-chooser`);
+    }
+
     const LanguagesPage = this.pages.get(`languages`);
-    const languages     = await this.db.languages.getAll();
     const languagesPage = new LanguagesPage(languages);
 
     languagesPage.events.on(`add`, this.addLanguage.bind(this));
@@ -221,7 +236,7 @@ class App extends View {
   async renderLexiconPage() {
 
     if (!this.settings.language) {
-      return this.renderLanguageChooser();
+      return this.displayPage(`language-chooser`);
     }
 
     const LexiconPage = this.pages.get(`lexicon`);

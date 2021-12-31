@@ -8,7 +8,7 @@ describe(`Languages`, () => {
 
     cy.visit(`/`);
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`#home-page`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();
@@ -46,7 +46,7 @@ describe(`Languages`, () => {
     // setup
     cy.visit(`/`);
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`#home-page`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();
@@ -152,7 +152,7 @@ describe(`Languages`, () => {
     cy.contains(`#nav li`, `Home`)
     .click();
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`#home-page`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();
