@@ -37,8 +37,7 @@ export default class MainNav extends View {
     this.addEventListeners();
     this.button.setAttribute(`aria-expanded`, open);
     if (page) this.setPage(page);
-    this.el.view           = this;
-    this.el.dataset.loaded = true;
+    this.el.view = this;
     return this.el;
   }
 

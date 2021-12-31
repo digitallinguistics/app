@@ -47,12 +47,19 @@ export default class LanguagesPage extends View {
    * @return {HTMLMainElement}
    */
   render(languageCID) {
+
     this.loadStyles();
     this.cloneTemplate();
-    this.renderEditor(languageCID);
+
+    if (languageCID) {
+      this.renderEditor(languageCID);
+    }
+
     this.renderNav(languageCID);
     this.addEventListeners();
+
     return this.el;
+
   }
 
   /**

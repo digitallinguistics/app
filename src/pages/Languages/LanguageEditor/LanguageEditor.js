@@ -28,9 +28,6 @@ export default class LanguageEditor extends View {
 
   addEventListeners() {
 
-    this.el.querySelector(`.js-language-editor__add-language-button`)
-    .addEventListener(`click`, () => this.events.emit(`add`));
-
     this.el.querySelector(`.js-language-editor__add-name-button`)
     .addEventListener(`click`, this.addName.bind(this));
 
@@ -169,11 +166,6 @@ export default class LanguageEditor extends View {
 
     this.loadStyles();
     this.cloneTemplate();
-
-    if (!this.language) {
-      this.el.classList.add(`placeholder`);
-      return this.el;
-    }
 
     this.el.dataset.language = this.language.cid;
 

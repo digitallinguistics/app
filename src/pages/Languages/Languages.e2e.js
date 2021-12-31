@@ -2,13 +2,12 @@ const delay = 500;
 
 describe(`Languages`, () => {
 
-  it(`adds / deletes a language from the Language Editor`, function() {
+  it.only(`adds / deletes a language from the Language Editor`, function() {
 
     // visit Languages page
 
     cy.visit(`/`);
-
-    cy.get(`#home-page`);
+    cy.setupStore(`languages`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();
@@ -31,7 +30,7 @@ describe(`Languages`, () => {
       cy.contains(`Delete this language`)
       .click();
 
-      cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
+      cy.get(`#nav li[data-page=Languages]`)
       .click();
 
       cy.get(`.js-languages-page__languages-list`).children()
