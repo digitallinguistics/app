@@ -51,7 +51,7 @@ describe(`List View`, function() {
         const template = () => cy.stub();
         const list     = new List([], { template });
 
-        expect(list.template).to.equal(template);
+        expect(list.renderItem).to.equal(template);
 
       });
 
@@ -63,7 +63,7 @@ describe(`List View`, function() {
 
     describe(`render`, function() {
 
-      it.only(`defaults to an empty list`, function() {
+      it(`defaults to an empty list`, function() {
 
         const list = new List;
         const ul   = list.render();
