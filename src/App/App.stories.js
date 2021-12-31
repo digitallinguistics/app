@@ -6,6 +6,7 @@ export default {
 };
 
 window.app = new App;
+window.app.initialize();
 
 export const AppShell = () => {
   const template = document.getElementById(`app-template`);
