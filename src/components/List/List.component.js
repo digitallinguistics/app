@@ -63,7 +63,7 @@ describe(`List View`, function() {
 
     describe(`render`, function() {
 
-      it(`defaults to an empty list`, function() {
+      it.only(`defaults to an empty list`, function() {
 
         const list = new List;
         const ul   = list.render();

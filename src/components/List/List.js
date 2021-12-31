@@ -43,7 +43,7 @@ export default class List extends View {
     this.classes    = classes;
     this.collection = collection;
 
-    if (template) this.template = template;
+    if (template) this.renderItem = template;
 
   }
 
@@ -59,14 +59,15 @@ export default class List extends View {
     }
 
     this.collection
-    .map(this.template.bind(this))
+    .map(this.renderItem.bind(this))
     .forEach(item => this.el.appendChild(item));
 
     return this.el;
 
   }
 
-  template() {
+  // NOTE: Do not name this "template", because it conflicts with the View's template.
+  renderItem() {
     return document.createElement(`li`);
   }
 
