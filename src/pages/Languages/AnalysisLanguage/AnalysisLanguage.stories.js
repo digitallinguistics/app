@@ -10,10 +10,10 @@ export const AnalysisLanguage = () => {
   const ul = html2element(`<ul class=list></ul>`);
 
   const langView = new Language({
-    abbreviation: ``,
-    language:     ``,
-    tag:          ``,
-  }, 1);
+    abbreviation: `fra`,
+    language:     `French`,
+    tag:          `fra`,
+  });
 
   const el = langView.render();
 
