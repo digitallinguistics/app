@@ -1,7 +1,7 @@
 describe(`Analysis Language`, function() {
 
   before(function() {
-    cy.visit(`http://localhost:6006/iframe.html?id=languages-analysis-language--analysis-language`);
+    cy.visit(`http://localhost:6006/iframe.html?id=languages-analysis-language--blank`);
   });
 
   it(`shows / hides the editor`, function() {
