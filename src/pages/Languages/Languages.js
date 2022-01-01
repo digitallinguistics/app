@@ -78,7 +78,6 @@ export default class LanguagesPage extends View {
     const newEditor = this.editorView.render();
     const oldEditor = this.el.querySelector(`.language-editor`);
 
-    oldEditor.view?.events.stop();
     oldEditor.replaceWith(newEditor);
 
     this.editorView.initialize();
@@ -106,7 +105,6 @@ export default class LanguagesPage extends View {
 
     const newList = listView.render(languageCID);
 
-    oldList.view?.events.stop();
     if (!this.languages.length) newList.style.border = `none`;
     oldList.replaceWith(newList);
 
