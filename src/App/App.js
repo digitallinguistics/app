@@ -80,7 +80,8 @@ class App extends View {
   }
 
   /**
-   * Add a new language and show the Language Editor.
+   * Add a new language and rerender the Languages page.
+   * @return {Promise}
    */
   async addLanguage() {
     let language = new Language;
@@ -89,6 +90,8 @@ class App extends View {
     language = await this.db.languages.add(language);
     this.settings.language = language.cid;
     this.settings.lexeme   = null;
+    const languagesPage = document.getElementById(`languages-page`);
+    if (languagesPage) languagesPage.remove();
     return this.displayPage(`languages`);
   }
 
@@ -108,6 +111,23 @@ class App extends View {
 
     this.settings.language = languageCID;
     this.settings.lexeme   = null;
+
+    const lexiconPage = document.getElementById(`lexicon-page`);
+    if (lexiconPage) lexiconPage.remove();
+
+    this.displayPage(this.settings.page);
+
+  }
+
+  async deleteLanguage(languageCID) {
+
+    await this.db.languages.delete(languageCID);
+
+    this.settings.language = null;
+    this.settings.lexeme   = null;
+
+    const languagesPage = document.getElementById(`languages-page`);
+    if (languagesPage) languagesPage.remove();
 
     const lexiconPage = document.getElementById(`lexicon-page`);
     if (lexiconPage) lexiconPage.remove();
@@ -224,12 +244,15 @@ class App extends View {
     const languagesPage = new LanguagesPage(languages);
 
     languagesPage.events.on(`add`, this.addLanguage.bind(this));
+    languagesPage.events.on(`delete`, this.deleteLanguage.bind(this));
 
     const oldPage = document.getElementById(`languages-page`);
     const newPage = languagesPage.render(this.settings.language);
 
     if (oldPage) oldPage.replaceWith(newPage);
     else this.nodes.wrapper.appendChild(newPage);
+
+    languagesPage.initialize();
 
   }
 

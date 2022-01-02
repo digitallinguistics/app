@@ -2,19 +2,18 @@ const delay = 500;
 
 describe(`Languages`, () => {
 
-  it.only(`adds / deletes a language from the Language Editor`, function() {
+  it(`adds / deletes a language from the Language Editor`, function() {
 
     // visit Languages page
 
     cy.visit(`/`);
-    cy.setupStore(`languages`);
 
-    cy.contains(`#nav li`, `Languages`)
+    cy.contains(`#nav[data-loaded] li`, `Languages`)
     .click();
 
-    // add a language from the editor
+    // add a language
 
-    cy.contains(`.js-language-editor__add-language-button`, `Add a language`)
+    cy.contains(`.js-lang-chooser__button`, `Add a language`)
     .click();
 
     cy.focused().should(`have.class`, `line-input`);
@@ -30,10 +29,7 @@ describe(`Languages`, () => {
       cy.contains(`Delete this language`)
       .click();
 
-      cy.get(`#nav li[data-page=Languages]`)
-      .click();
-
-      cy.get(`.js-languages-page__languages-list`).children()
+      cy.get(`.js-lang-chooser__list`).children()
       .should(`have.length`, 0);
 
     });
@@ -43,19 +39,19 @@ describe(`Languages`, () => {
   it(`adds / switches / edits a language`, function() {
 
     // setup
+
     cy.visit(`/`);
 
-    cy.get(`#home-page`);
-
-    cy.contains(`#nav li`, `Languages`)
+    cy.contains(`#nav[data-loaded] li`, `Languages`)
     .click();
 
-    cy.contains(`.js-languages-page__nav-add-lang-button`, `Add a language`)
+    cy.contains(`.js-lang-chooser__button`, `Add a language`)
     .click();
 
     cy.clock(new Date);
 
     // edit the language name
+
     cy.get(`.js-language-editor__name input[name=name-eng]`)
     .should(`have.value`, `{ new language }`)
     .clear()
@@ -64,9 +60,11 @@ describe(`Languages`, () => {
     cy.tick(delay); // wait for debounce
 
     // check that Languages List was updated
+
     cy.contains(`.languages-page__nav li`, `Chitimacha`);
 
     // add a language name
+
     cy.contains(`.language-editor button`, `Add a language name`)
     .click();
 
@@ -86,6 +84,7 @@ describe(`Languages`, () => {
     });
 
     // add an orthography
+
     cy.contains(`.language-editor button`, `Add an orthography`)
     .click();
 
@@ -103,6 +102,7 @@ describe(`Languages`, () => {
     });
 
     // add an analysis language
+
     cy.contains(`.language-editor button`, `Add an analysis language`)
     .click();
 

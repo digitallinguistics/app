@@ -153,7 +153,7 @@ export default class LanguageEditor extends View {
 
     const input = this.el.querySelector(`[id^="name-"]`);
 
-    if (input) {
+    if (input?.isConnected) {
       input.focus();
       input.select();
     }

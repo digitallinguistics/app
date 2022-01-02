@@ -31,6 +31,7 @@ export default class LanguageChooser extends View {
     const oldList = this.el.querySelector(`.js-lang-chooser__list`);
     const newList = navList.render();
 
+    newList.classList.add(`js-lang-chooser__list`);
     oldList.view?.events.stop();
     navList.events.on(`change`, id => this.events.emit(`select`, id));
     oldList.replaceWith(newList);

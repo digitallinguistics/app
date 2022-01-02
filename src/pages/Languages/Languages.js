@@ -30,16 +30,17 @@ export default class LanguagesPage extends View {
   async deleteLanguage(languageCID) {
     const confirmed = prompt(`Are you sure you want to delete this Language? The data can be recovered at any time by opening the Application tab in Developer Tools, finding this language in IndexedDB, and removing the "deleted" property. Type "YES" to delete.`);
     if (confirmed !== `YES`) return;
-    await app.db.languages.delete(languageCID);
-    app.settings.language = null;
-    const i = this.languages.findIndex(lang => lang.cid === languageCID);
-    this.languages.splice(i, 1);
-    this.renderNav();
-    return this.renderEditor();
+    return this.events.emit(`delete`, languageCID);
   }
 
   itemTemplate({ cid, name }) {
     return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#language-editor>${ name.default }</a></li>`);
+  }
+
+  initialize() {
+    if (this.editorView) {
+      this.editorView.initialize();
+    }
   }
 
   /**
