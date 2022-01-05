@@ -473,7 +473,7 @@ describe(`Database`, function() {
     });
   });
 
-  it(`iterates over an index in a store`, async function() {
+  it.only(`iterates over an index in a store`, async function() {
 
     const data = [
       { cid: `a`, lemma: `a` },
@@ -488,10 +488,10 @@ describe(`Database`, function() {
 
     await new Promise((resolve, reject) => {
 
-      const txn = this.db.idb.transaction(`lexemes`, `readwrite`);
+      const txn   = this.db.idb.transaction(`lexemes`, `readwrite`);
       const store = txn.objectStore(`lexemes`);
 
-      txn.onerror = reject;
+      txn.onerror    = reject;
       txn.oncomplete = resolve;
 
       lexemes.forEach(item => store.add(item));

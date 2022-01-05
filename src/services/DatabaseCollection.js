@@ -176,12 +176,12 @@ class DatabaseCollection {
 
       const txn = this.#idb.transaction(this.#storeName);
 
-      txn.onabort = () => reject(txn.error);
+      txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve();
-      txn.onerror = () => reject(txn.error);
+      txn.onerror    = () => reject(txn.error);
 
       let store = txn.objectStore(this.#storeName);
-      store = index ? store.index(index) : store;
+      store     = index ? store.index(index) : store;
       const req = store.openCursor(query);
 
       req.onsuccess = ev => {
