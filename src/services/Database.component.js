@@ -14,7 +14,7 @@ describe(`Database`, function() {
     indexedDB.deleteDatabase(`Lotus`);
   });
 
-  it(`adds an item to the database`, async function() {
+  it(`add (one item)`, async function() {
 
     const lang = await this.db.languages.add({});
 
@@ -26,7 +26,7 @@ describe(`Database`, function() {
 
   });
 
-  it(`adds multiple items to the database`, async function() {
+  it(`add (multiple items)`, async function() {
 
     const langA = { cid: `1` };
     const langB = { cid: `2` };
@@ -39,7 +39,71 @@ describe(`Database`, function() {
 
   });
 
-  it(`deletes an item from the database`, function() {
+  it(`addAnalysisLanguage`, async function() {
+
+    const language = new Language({ name: `Plains Cree` });
+
+    const newAnalysisLanguage = {
+      abbreviation: `fra`,
+      language:     `French`,
+      tag:          `fra`,
+    };
+
+    const lexeme = new Lexeme({
+      language: language.cid,
+    });
+
+    // SETUP
+    // Add a Language and related Lexeme to the database.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction([`languages`, `lexemes`], `readwrite`);
+
+      txn.oncomplete = resolve;
+      txn.onerror    = reject;
+      txn.onsuccess  = resolve;
+
+      txn.objectStore(`languages`).add(language);
+      txn.objectStore(`lexemes`).add(lexeme);
+
+    });
+
+    // ACTION
+    // Call `addAnalysisLanguage()`.
+    await this.db.addAnalysisLanguage(language.cid, newAnalysisLanguage);
+
+    // ASSERTION
+    // Check that the Language and its Lexemes have been updated.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction([`languages`, `lexemes`]);
+
+      txn.oncomplete = resolve;
+      txn.onerror = reject;
+      txn.onsuccess = resolve;
+
+      // check Language
+      txn.objectStore(`languages`)
+      .get(language.cid)
+      .onsuccess = ev => {
+        const { result } = ev.target;
+        expect(result.name.get(newAnalysisLanguage.tag)).to.equal(``);
+        expect(result.orthographies.every(ortho => ortho.name.get(newAnalysisLanguage.tag) === ``)).to.be.true;
+      };
+
+      // check Lexeme
+      txn.objectStore(`lexemes`)
+      .get(lexeme.cid)
+      .onsuccess = ev => {
+        const { result } = ev.target;
+        // TODO: Check that Lexeme has been updated.
+      };
+
+    });
+
+  });
+
+  it(`delete (one item)`, function() {
     return new Promise((resolve, reject) => {
 
       const cid = 1;
@@ -70,7 +134,7 @@ describe(`Database`, function() {
     });
   });
 
-  it(`deletes multiple items from the database`, function() {
+  it(`delete (multiple items)`, function() {
     return new Promise((resolve, reject) => {
 
       const langA = { cid: 1 };
@@ -105,7 +169,73 @@ describe(`Database`, function() {
     });
   });
 
-  it(`exports data`, function() {
+  it(`deleteAnalysisLanguage`, async function() {
+
+    const language = new Language({ name: `Plains Cree` });
+
+    const french = {
+      abbreviation: `fra`,
+      language:     `French`,
+      tag:          `fra`,
+    };
+
+    language.analysisLanguages.push(french);
+
+    const lexeme = new Lexeme({
+      language: language.cid,
+    });
+
+    // SETUP
+    // Add a Language and Lexeme to the database.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction([`languages`, `lexemes`], `readwrite`);
+
+      txn.oncomplete = resolve;
+      txn.onerror = reject;
+      txn.onsuccess = resolve;
+
+      txn.objectStore(`languages`).add(language);
+      txn.objectStore(`lexemes`).add(lexeme);
+
+    });
+
+    // ACTION
+    // Call `deleteAnalysisLanguage()`
+    this.db.deleteAnalysisLanguage(language.cid, `fra`);
+
+    // ASSERTION
+    // Check that the Language and the Lexeme have been updated.
+    await new Promise((resolve, reject) => {
+
+      const txn = this.db.idb.transaction([`languages`, `lexemes`]);
+
+      txn.oncomplete = resolve;
+      txn.onerror = reject;
+      txn.onsuccess = resolve;
+
+      // check Language
+      txn.objectStore(`languages`)
+      .get(language.cid)
+      .onsuccess = ev => {
+        const { result } = ev.target;
+        expect(result.name.get(french.tag)).to.be.undefined;
+        expect(result.orthographies.find(ortho => ortho.name.get(french.tag))).to.be.undefined;
+      };
+
+      // check Lexeme
+      txn.objectStore(`lexemes`)
+      .get(lexeme.cid)
+      .onsuccess = ev => {
+        const { result } = ev.target;
+        expect(result.deleted).to.be.true;
+      };
+
+    });
+
+  });
+
+  it(`exportData`, function() {
     return new Promise((resolve, reject) => {
 
       const lang = { cid: 1, type: `Language` };
@@ -124,7 +254,7 @@ describe(`Database`, function() {
           count++;
         };
 
-        this.db.onexportupdate = stub;
+        this.db.onupdate = stub;
 
         this.db.exportData()
         .then(([langExport, textExport]) => {
@@ -144,7 +274,7 @@ describe(`Database`, function() {
     });
   });
 
-  it(`gets an item from the database`, function() {
+  it(`get (one item)`, function() {
     return new Promise((resolve, reject) => {
       this.db.idb.transaction(`languages`, `readwrite`)
       .objectStore(`languages`)
@@ -163,12 +293,12 @@ describe(`Database`, function() {
     });
   });
 
-  it(`gets a null result from the database`, async function() {
+  it(`get (null result)`, async function() {
     const result = await this.db.languages.get(1);
     expect(result).to.be.null;
   });
 
-  it(`gets all items from a store`, function() {
+  it(`getAll`, function() {
     return new Promise((resolve, reject) => {
 
       const txn   = this.db.idb.transaction(`languages`, `readwrite`);
@@ -261,7 +391,7 @@ describe(`Database`, function() {
     });
   });
 
-  it(`updates an item in a store`, function() {
+  it(`update (one item)`, function() {
     return new Promise((resolve, reject) => {
 
       // NB: There's no need to test the add-or-update functionality here,
@@ -288,7 +418,7 @@ describe(`Database`, function() {
     });
   });
 
-  it(`updates multiple items in a store`, function() {
+  it(`update (multiple items)`, function() {
     return new Promise((resolve, reject) => {
 
       const langA = { cid: 1 };

@@ -79,6 +79,92 @@ export default class Database {
   // METHODS
 
   /**
+   * Add a new analysis language to the specified Language, and update all of the database items related to the specified language. All properties on the analysis language are required, even if they are empty strings.
+   * @param  {String} languageCID                   The CID of the language to add the new analysis language to.
+   * @param  {Object} analysisLanguage              The analysis language to add to the language.
+   * @param  {String} analysisLanguage.abbreviation The abbreviation for this analysis language.
+   * @param  {String} analysisLanguage.language     The name of this analysis language.
+   * @param  {String} analysisLanguage.tag          The IETF language tag for this analysis language.
+   * @return {Promise<Language>}                    Returns a promise that resolves to the updated Language.
+   */
+  addAnalysisLanguage(languageCID, analysisLanguage) {
+    return new Promise(async (resolve, reject) => { // eslint-disable-line no-async-promise-executor
+
+      // Open a transaction for all the operations in this call.
+      const txn = this.idb.transaction([`languages`, `lexemes`], `readwrite`);
+      let language;
+
+      txn.onabort    = () => reject(txn.error);
+      txn.oncomplete = () => resolve(language);
+      txn.onerror    = () => reject(txn.error);
+
+      // update Language data
+      await new Promise(resolve => {
+
+        const languageStore = txn.objectStore(`languages`);
+        const req           = languageStore.get(languageCID);
+
+        req.onsuccess = () => {
+
+          const { tag } = analysisLanguage;
+          language      = new Language(req.result);
+
+          language.analysisLanguages.push(analysisLanguage);
+          language.name.set(tag, ``);
+
+          for (const orthography of language.orthographies) {
+            orthography.name.set(tag, ``);
+          }
+
+          languageStore.put(language);
+          resolve();
+
+        };
+
+      });
+
+      // update Lexemes for this Language
+      const lexemeStore = txn.objectStore(`lexemes`);
+      const index       = lexemeStore.index(`language`);
+      const keyRange    = IDBKeyRange.only(languageCID);
+      let   progress    = 0;
+
+      const numLexemes = await new Promise(resolve => {
+        const req = index.count(keyRange);
+        req.onsuccess = () => resolve(req.result);
+      });
+
+      await new Promise(resolve => {
+
+        const req = index.openCursor(keyRange);
+
+        req.onsuccess = ev => {
+
+          const cursor = ev.target.result;
+          if (!cursor) return resolve();
+
+          const lexeme = cursor.value;
+          // TODO: Update Lexeme data as appropriate here.
+          cursor.update(lexeme); // this finishes in a separate thread
+          progress++;
+
+          if (this.onupdate) {
+            this.onupdate({
+              count: progress,
+              total: numLexemes,
+            });
+          }
+
+          cursor.continue();
+
+        };
+
+      });
+
+    });
+  }
+
+  /**
    * Configure the Lotus database by adding tables and indexes. Can only be run during an IDBOpenDBRequest.
    * @private
    */
@@ -125,6 +211,87 @@ export default class Database {
   }
 
   /**
+   *
+   * @param {String} languageCID The CID of the language to delete.
+   * @param {String} tag         The IETF language tag to delete from the language.
+   * @return {Promise<Language>} Returns a Promise that resolves to the updated Language.
+   */
+  deleteAnalysisLanguage(languageCID, tag) {
+    return new Promise(async (resolve, reject) => { // eslint-disable-line no-async-promise-executor
+
+      // Open a transaction for all the operations in this call.
+      const txn = this.idb.transaction([`languages`, `lexemes`], `readwrite`);
+      let language;
+
+      txn.onabort = () => reject(txn.error);
+      txn.oncomplete = () => resolve(language);
+      txn.onerror = () => reject(txn.error);
+
+      // update Language data
+      await new Promise(resolve => {
+
+        const languageStore = txn.objectStore(`languages`);
+        const req           = languageStore.get(languageCID);
+
+        req.onsuccess = () => {
+
+          language = new Language(req.result);
+          language.analysisLanguages = language.analysisLanguages.filter(lang => lang.tag !== tag);
+          language.name.delete(tag);
+
+          for (const orthography of language.orthographies) {
+            orthography.name.delete(tag);
+          }
+
+          languageStore.put(language);
+          resolve();
+
+        };
+
+      });
+
+      // update Lexemes for this Language
+      const lexemeStore = txn.objectStore(`lexemes`);
+      const index       = lexemeStore.index(`language`);
+      const keyRange    = IDBKeyRange.only(languageCID);
+      let   progress    = 0;
+
+      const numLexemes = await new Promise(resolve => {
+        const req = index.count(keyRange);
+        req.onsuccess = () => resolve(req.result);
+      });
+
+      await new Promise(resolve => {
+
+        const req = index.openCursor(keyRange);
+
+        req.onsuccess = ev => {
+
+          const cursor = ev.target.result;
+          if (!cursor) return resolve();
+
+          const lexeme = cursor.value;
+          lexeme.deleted = true;
+          cursor.update(lexeme); // this finishes in a separate thread
+          progress++;
+
+          if (this.onupdate) {
+            this.onupdate({
+              count: progress,
+              total: numLexemes,
+            });
+          }
+
+          cursor.continue();
+
+        };
+
+      });
+
+    });
+  }
+
+  /**
    * Delete the database.
    * @returns {Promise}
    */
@@ -145,7 +312,7 @@ export default class Database {
 
   /**
    * Export all the data in the database and return an Array of JavaScript Objects.
-   * @fires   Database#onexportupdate
+   * @fires   Database#onupdate
    * @returns {Promise<Array>}
    */
   exportData() {
@@ -191,8 +358,8 @@ export default class Database {
           data.push(...result);
           exportProgress += ev.target.result.length;
 
-          if (this.onexportupdate) {
-            this.onexportupdate({
+          if (this.onupdate) {
+            this.onupdate({
               count: exportProgress,
               total: numItems,
             });
@@ -298,12 +465,11 @@ export default class Database {
 
 }
 
-
 /**
- * onexportupdate event. This event is fired during database export each time an item is retrieved from the database.
+ * onupdate event. This event is fired during long-running database processes each time an item is added/retrieved/modified/deleted.
  *
- * @event Services.Database#onexportupdate
+ * @event Services.Database#onupdate
  * @type {Object}
- * @property {Integer} count - The current total number of items that have been exported so far.
- * @property {Integer} total - The total number of items to export.
+ * @property {Integer} count - The current total number of items that have been updated so far.
+ * @property {Integer} total - The total number of items to update.
  */
