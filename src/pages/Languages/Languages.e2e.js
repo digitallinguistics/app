@@ -78,18 +78,29 @@ describe(`Languages`, () => {
       .clear()
       .type(`French`);
 
+      cy.get(`.js-notes-list__add-note-button`)
+      .click();
+
+      cy.get(`.js-note__text-input`)
+      .clear()
+      .type(`This is text in a note.`);
+
+      cy.get(`.js-note__save-button`)
+      .click();
+
       cy.get(`.js-additional-name__save-button`)
       .click();
 
     });
 
-    // add an orthography
+    // add an orthography + note
 
     cy.contains(`.language-editor button`, `Add an orthography`)
     .click();
 
     cy.get(`.language-editor__orthographies`)
     .within(() => {
+
       cy.get(`[id="orthography-name-0-eng"]:visible`)
       .type(`English`);
 
@@ -99,15 +110,28 @@ describe(`Languages`, () => {
 
       cy.get(`.js-orthography__save-button:visible`)
       .click();
+
+      cy.get(`.js-notes-list__add-note-button`)
+      .first()
+      .click();
+
+      cy.get(`.js-note__text-input`)
+      .clear()
+      .type(`This is text in a note`);
+
+      cy.get(`.js-note__save-button`)
+      .click();
+
     });
 
-    // add an analysis language
+    // add an analysis language + note
 
     cy.contains(`.language-editor button`, `Add an analysis language`)
     .click();
 
     cy.get(`.language-editor__analysis-languages`)
     .within(() => {
+
       cy.get(`.js-analysis-language__lang-input:visible`)
       .type(`French`);
 
@@ -173,7 +197,13 @@ describe(`Languages`, () => {
     cy.get(`input[name=glottocode]`)
     .should(`have.value`, `chit1248`);
 
+    cy.get(`.language-editor__orthographies .js-notes-list__notes`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
+    cy.get(`.language-editor__additional-names .additional-name .js-notes-list__notes`)
+    .should(`have.lengthOf`, 1);
 
     cy.contains(`.language-editor__orthographies`, `Name English Abbreviation eng`);
     cy.contains(`.language-editor__analysis-languages`, `French fra fr`);
