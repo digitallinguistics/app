@@ -473,7 +473,7 @@ describe(`Database`, function() {
     });
   });
 
-  it.only(`iterates over an index in a store`, async function() {
+  it(`iterates over an index in a store`, async function() {
 
     const data = [
       { cid: `a`, lemma: `a` },
