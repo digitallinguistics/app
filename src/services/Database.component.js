@@ -1,6 +1,6 @@
 import Database from './Database.js';
 import Language from '../models/Language.js';
-import Lexeme from '../models/Lexeme.js';
+import Lexeme   from '../models/Lexeme.js';
 
 describe(`Database`, function() {
 
@@ -450,8 +450,8 @@ describe(`Database`, function() {
   it(`iterates over all items in a store`, function() {
     return new Promise((resolve, reject) => {
 
-      const stub = cy.stub();
-      const txn = this.db.idb.transaction(`languages`, `readwrite`);
+      const stub  = cy.stub();
+      const txn   = this.db.idb.transaction(`languages`, `readwrite`);
       const store = txn.objectStore(`languages`);
 
       txn.onerror = reject;

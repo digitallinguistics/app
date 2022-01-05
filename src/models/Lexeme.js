@@ -1,4 +1,4 @@
-import Model         from '../core/Model.js';
+import Model from '../core/Model.js';
 import Transcription from './Transcription.js';
 
 /**
@@ -25,6 +25,16 @@ class Lexeme extends Model {
     if (this.stem) {
       this.stem = new Transcription(this.stem);
     }
+
+    /**
+     * Create an indexable "_lemma" property.
+     */
+    Object.defineProperty(this, `_lemma`, {
+      enumerable: true,
+      get() {
+        return this.lemma.default;
+      },
+    });
 
   }
 
