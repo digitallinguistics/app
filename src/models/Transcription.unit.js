@@ -48,13 +48,14 @@ describe(`Transcription`, function() {
     expect(txn.default).to.equal(objData.mod);
   });
 
-  it(`serializes as a JSON Object`, function() {
+  it(`serializes as a JSON Object (with default orthography)`, function() {
 
     const txn = new Transcription(objData);
     const obj = JSON.parse(JSON.stringify(txn));
 
     expect(obj.mod).to.equal(objData.mod);
     expect(obj.swd).to.equal(objData.swd);
+    expect(obj.default).to.equal(objData.mod);
 
   });
 
