@@ -49,7 +49,9 @@ class Transcription extends Map {
    * @return {Object}
    */
   toJSON() {
-    return Object.fromEntries(this);
+    const data = Object.fromEntries(this);
+    data.default = this.default;
+    return data;
   }
 
 }

@@ -47,13 +47,13 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
+      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(isArrayInput ? items : items[0]);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       const store = txn.objectStore(this.#storeName);
 
@@ -77,17 +77,17 @@ class DatabaseCollection {
       const cids         = isArrayInput ? clientIDs : [clientIDs];
       const txn          = this.#idb.transaction(this.#storeName, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve();
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       const store = txn.objectStore(this.#storeName);
 
       for (const cid of cids) {
 
         store.get(cid).onsuccess = ev => {
-          const item        = ev.target.result;
-          item.deleted      = true;
+          const item = ev.target.result;
+          item.deleted = true;
           item.dateModified = new Date;
           store.put(item);
         };
@@ -108,9 +108,9 @@ class DatabaseCollection {
       const txn = this.#idb.transaction(this.#storeName);
       let result;
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(result);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       txn.objectStore(this.#storeName)
       .get(key)
@@ -142,9 +142,9 @@ class DatabaseCollection {
       const txn = this.#idb.transaction(this.#storeName);
       let result;
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(result);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       let store = txn.objectStore(this.#storeName);
       store = index ? store.index(index) : store;
@@ -181,7 +181,7 @@ class DatabaseCollection {
       txn.onerror    = () => reject(txn.error);
 
       let store = txn.objectStore(this.#storeName);
-      store = index ? store.index(index) : store;
+      store     = index ? store.index(index) : store;
       const req = store.openCursor(query);
 
       req.onsuccess = ev => {
@@ -208,13 +208,13 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
+      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(isArrayInput ? items : items[0]);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       const store = txn.objectStore(this.#storeName);
 

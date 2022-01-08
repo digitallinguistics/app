@@ -50,7 +50,7 @@ export default class Database {
       Model:     Lexeme,
       storeName: `lexemes`,
     },
-    Text:     {
+    Text: {
       Model:     Text,
       storeName: `texts`,
     },
@@ -321,17 +321,17 @@ export default class Database {
 
     const storeNames = this.idb.objectStoreNames;
 
-    const data           = [];
-    let   numItems       = 0;
-    let   exportProgress = 0;
+    const data = [];
+    let numItems = 0;
+    let exportProgress = 0;
 
     const countItems = () => new Promise((resolve, reject) => {
 
       const txn = this.idb.transaction(Array.from(storeNames));
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(numItems);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       for (const storeName of storeNames) {
         // eslint-disable-next-line no-loop-func
@@ -346,9 +346,9 @@ export default class Database {
 
       const txn = this.idb.transaction(Array.from(storeNames));
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(data);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       for (const storeName of storeNames) {
         // eslint-disable-next-line no-loop-func
@@ -400,9 +400,9 @@ export default class Database {
 
       const txn = this.idb.transaction(objectStoreNames, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(items);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       items.forEach((item, i) => {
         txn.objectStore(this.types[item.type].storeName)
@@ -435,7 +435,7 @@ export default class Database {
       const req = IndexedDB.open(this.name, this.version);
 
       req.onblocked = reject;
-      req.onerror   = reject;
+      req.onerror = reject;
 
       req.onupgradeneeded = () => {
         this.idb = req.result;
