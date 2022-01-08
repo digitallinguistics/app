@@ -9,17 +9,13 @@ export default class LexiconPage extends View {
     this.language = language;
   }
 
-  initialize() {}
-
-  itemTemplate({ cid, name }) {
-    return View.fromHTML(`<li class="txn" data-id='${ cid }'><a href=#>${ name.default }</a></li>`);
-  }
+  initialize() { /* no-op */ }
 
   render() {
     this.loadStyles();
     this.cloneTemplate();
-    this.el.querySelector(`.js-lexicon__title`).textContent = this.language.name.default;
     this.el.dataset.language = this.language.cid;
+    this.el.querySelector(`.js-lexicon__title`).textContent = this.language.name.default;
     return this.el;
   }
 

@@ -1,1 +1,25 @@
+// Globals
+@import (reference) 'utilities.less';
+
+// Shared Components
 @import 'PageTitle/PageTitle.less';
+
+.lexicon {
+
+  &__lexemes-list {
+    contain   : strict;
+    height    : calc(100vh - 12em);
+    overflow-y: scroll;
+  }
+
+  &__lexemes-list-item {
+    cursor : pointer;
+    padding: var(--text-padding);
+  }
+
+  .button {
+    .align-center;
+    margin: var(--space);
+  }
+
+}

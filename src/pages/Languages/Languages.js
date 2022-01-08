@@ -1,7 +1,6 @@
-import compare        from '../../utilities/compare.js';
-import Language       from '../../models/Language.js';
 import LanguageEditor from './LanguageEditor/LanguageEditor.js';
 import NavList        from '../../components/NavList/NavList.js';
+import sort           from '../../utilities/sort.js';
 import styles         from './Languages.less';
 import template       from './Languages.hbs';
 import View           from '../../core/View.js';
@@ -56,7 +55,6 @@ export default class LanguagesPage extends View {
   render() {
     this.loadStyles();
     this.cloneTemplate();
-
     return this.el;
 
   }
@@ -106,9 +104,7 @@ export default class LanguagesPage extends View {
    */
   renderNav(languageCID) {
 
-    this.languages.sort((a, b) => a.name.default.localeCompare(b.name.default, undefined, {
-      sensitivity: `base`,
-    }));
+    this.languages.sort((a, b) => sort(a.name.default, b.name.default));
 
     const oldList = this.el.querySelector(`.js-languages-page__languages-list`);
     const classes = Array.from(oldList.classList);

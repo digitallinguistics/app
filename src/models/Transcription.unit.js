@@ -38,13 +38,24 @@ describe(`Transcription`, function() {
 
   });
 
-  it(`serializes as a JSON Object`, function() {
+  it(`can set a default orthography`, function() {
+    const txn = new Transcription(objData, { defaultOrthography: `mod` });
+    expect(txn.default).to.equal(objData.mod);
+  });
+
+  it(`uses the first orthography as the default when no default is set`, function() {
+    const txn = new Transcription(objData);
+    expect(txn.default).to.equal(objData.mod);
+  });
+
+  it(`serializes as a JSON Object (with default orthography)`, function() {
 
     const txn = new Transcription(objData);
     const obj = JSON.parse(JSON.stringify(txn));
 
     expect(obj.mod).to.equal(objData.mod);
     expect(obj.swd).to.equal(objData.swd);
+    expect(obj.default).to.equal(objData.mod);
 
   });
 

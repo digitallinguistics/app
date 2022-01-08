@@ -1,4 +1,8 @@
 import '../../dist/index.css';
+import App from './App.js';
+
+window.app = new App;
+window.app.initialize();
 
 export default {
   parameters: { layout: `fullscreen` },

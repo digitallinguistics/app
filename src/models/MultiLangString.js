@@ -9,8 +9,10 @@ class MultiLangString extends Map {
   /**
    * Create a new MultiLangString.
    * @param {Object} [data={}]
+   * @param {Object} [options={}]
+   * @param {Object} [options.defaultLanguage]
    */
-  constructor(data = {}) {
+  constructor(data = {}, { defaultLanguage = `eng` } = {}) {
 
     let entries;
 
@@ -25,6 +27,8 @@ class MultiLangString extends Map {
       value:      `MultiLangString`,
     });
 
+    this.defaultLanguage = defaultLanguage;
+
   }
 
   /**
@@ -32,7 +36,10 @@ class MultiLangString extends Map {
    * @return {String}
    */
   get default() {
-    return this.get(`en`) ?? this.get(`eng`) ?? Array.from(this.values())[0];
+    return this.get(this.defaultLanguage)
+    ?? this.get(`eng`)
+    ?? this.get(`en`)
+    ?? Array.from(this.values())[0];
   }
 
   /**

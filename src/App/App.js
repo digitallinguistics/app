@@ -7,7 +7,6 @@ import Nav             from './Nav/Nav.js';
 import Settings        from '../services/Settings.js';
 import View            from '../core/View.js';
 
-
 /**
  * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
  * @extends View
@@ -164,11 +163,11 @@ class App extends View {
     let dataPage;
 
     for (let i = 0; i < pages.length; i++) {
-      //Find previous page
+      // Find previous page
       if (!pages[i].hasAttribute(`hidden`)) {
         oldPage = pages[i];
       }
-      //Check for hidden page matching new page
+      // Check for hidden page matching new page
       dataPage = pages[i].getAttribute(`data-page`);
       if (dataPage === page && pages[i].hasAttribute(`hidden`)) {
         hidden = i;
@@ -176,7 +175,7 @@ class App extends View {
     }
 
     // For initial render after app shell is loaded
-    if(!oldPage.hasAttribute(`data-page`)) {
+    if (!oldPage.hasAttribute(`data-page`)) {
       const newPage = pageView.render();
       oldPage.replaceWith(newPage);
       oldPage.view?.events.stop();
@@ -190,16 +189,16 @@ class App extends View {
       pageView.initialize(this.settings.language);
     }
     // New page was already rendered but hidden
-    else if (hidden > -1){
+    else if (hidden > -1) {
       // Check if lexicon page needs to be rerendered
-      if (page === `Lexicon` &&
-        pages[hidden].getAttribute(`data-language`) !== this.settings.language) {
-          const newPage = pageView.render();
-          pages[hidden].replaceWith(newPage);
-          pages[hidden].view?.events.stop();
-          pageView.initialize(this.settings.language);
+      if (page === `Lexicon`
+        && pages[hidden].getAttribute(`data-language`) !== this.settings.language) {
+        const newPage = pageView.render();
+        pages[hidden].replaceWith(newPage);
+        pages[hidden].view?.events.stop();
+        pageView.initialize(this.settings.language);
       }
-     /**
+      /**
       * Check if language npage needs to be rerendered (NOT POSSIBLE YET)
       * if (page === `Language` &&
       *   pages[hidden]. [call to LanguageEditor] .getAttribute(`data-language`) !== this.settings.language)
@@ -261,15 +260,6 @@ class App extends View {
     return new LexiconPage(language);
 
   }
-
-  // STATIC
-
-  /**
-   * The default settings for the App.
-   */
-  static #defaultSettings = {
-    page: `Home`,
-  };
 
 }
 
