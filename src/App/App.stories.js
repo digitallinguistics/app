@@ -2,15 +2,12 @@ import '../../dist/index.css';
 import App from './App.js';
 
 window.app = new App;
-window.app.initialize();
+window.app.db.initialize();
 
 export default {
   parameters: { layout: `fullscreen` },
   title:      `App/App Shell`,
 };
-
-window.app = new App;
-window.app.db.initialize();
 
 export const AppShell = () => {
   const template = document.getElementById(`app-template`);
