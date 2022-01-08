@@ -94,20 +94,20 @@ export default class Database {
       const txn = this.idb.transaction([`languages`, `lexemes`], `readwrite`);
       let language;
 
-      txn.onabort = () => reject(txn.error);
+      txn.onabort    = () => reject(txn.error);
       txn.oncomplete = () => resolve(language);
-      txn.onerror = () => reject(txn.error);
+      txn.onerror    = () => reject(txn.error);
 
       // update Language data
       await new Promise(resolve => {
 
         const languageStore = txn.objectStore(`languages`);
-        const req = languageStore.get(languageCID);
+        const req           = languageStore.get(languageCID);
 
         req.onsuccess = () => {
 
           const { tag } = analysisLanguage;
-          language = new Language(req.result);
+          language      = new Language(req.result);
 
           language.analysisLanguages.push(analysisLanguage);
           language.name.set(tag, ``);
@@ -125,9 +125,9 @@ export default class Database {
 
       // update Lexemes for this Language
       const lexemeStore = txn.objectStore(`lexemes`);
-      const index = lexemeStore.index(`language`);
-      const keyRange = IDBKeyRange.only(languageCID);
-      let progress = 0;
+      const index       = lexemeStore.index(`language`);
+      const keyRange    = IDBKeyRange.only(languageCID);
+      let   progress    = 0;
 
       const numLexemes = await new Promise(resolve => {
         const req = index.count(keyRange);
@@ -183,7 +183,7 @@ export default class Database {
       this.idb.createObjectStore(`lexemes`, { keyPath: `cid` });
     }
 
-    const lexemesStore = txn.objectStore(`lexemes`);
+    const lexemesStore   = txn.objectStore(`lexemes`);
     const lexemesIndexes = Array.from(lexemesStore.indexNames);
 
     if (!lexemesIndexes.includes(`language`)) {
@@ -233,7 +233,7 @@ export default class Database {
       await new Promise(resolve => {
 
         const languageStore = txn.objectStore(`languages`);
-        const req = languageStore.get(languageCID);
+        const req           = languageStore.get(languageCID);
 
         req.onsuccess = () => {
 
@@ -254,9 +254,9 @@ export default class Database {
 
       // update Lexemes for this Language
       const lexemeStore = txn.objectStore(`lexemes`);
-      const index = lexemeStore.index(`language`);
-      const keyRange = IDBKeyRange.only(languageCID);
-      let progress = 0;
+      const index       = lexemeStore.index(`language`);
+      const keyRange    = IDBKeyRange.only(languageCID);
+      let   progress    = 0;
 
       const numLexemes = await new Promise(resolve => {
         const req = index.count(keyRange);

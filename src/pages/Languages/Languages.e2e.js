@@ -8,14 +8,12 @@ describe(`Languages`, () => {
 
     cy.visit(`/`);
 
-    cy.get(`#main[data-page=Home]`);
-
-    cy.contains(`#nav li`, `Languages`)
+    cy.contains(`#nav[data-loaded] li`, `Languages`)
     .click();
 
-    // add a language from the editor
+    // add a language
 
-    cy.contains(`.js-language-editor__add-language-button`, `Add a language`)
+    cy.contains(`.js-lang-chooser__button`, `Add a language`)
     .click();
 
     cy.focused().should(`have.class`, `line-input`);
@@ -31,10 +29,7 @@ describe(`Languages`, () => {
       cy.contains(`Delete this language`)
       .click();
 
-      cy.get(`#nav[data-loaded=true] li[data-page=Languages]`)
-      .click();
-
-      cy.get(`.js-languages-page__languages-list`).children()
+      cy.get(`.js-lang-chooser__list`).children()
       .should(`have.length`, 0);
 
     });
@@ -44,19 +39,19 @@ describe(`Languages`, () => {
   it(`adds / switches / edits a language`, function() {
 
     // setup
+
     cy.visit(`/`);
 
-    cy.get(`#main[data-page=Home]`);
-
-    cy.contains(`#nav li`, `Languages`)
+    cy.contains(`#nav[data-loaded] li`, `Languages`)
     .click();
 
-    cy.contains(`.js-languages-page__nav-add-lang-button`, `Add a language`)
+    cy.contains(`.js-lang-chooser__button`, `Add a language`)
     .click();
 
     cy.clock(new Date);
 
     // edit the language name
+
     cy.get(`.js-language-editor__name input[name=name-eng]`)
     .should(`have.value`, `{ new language }`)
     .clear()
@@ -65,9 +60,11 @@ describe(`Languages`, () => {
     cy.tick(delay); // wait for debounce
 
     // check that Languages List was updated
+
     cy.contains(`.languages-page__nav li`, `Chitimacha`);
 
     // add a language name
+
     cy.contains(`.language-editor button`, `Add a language name`)
     .click();
 
@@ -81,17 +78,29 @@ describe(`Languages`, () => {
       .clear()
       .type(`French`);
 
+      cy.get(`.js-notes-list__add-note-button`)
+      .click();
+
+      cy.get(`.js-note__text-input`)
+      .clear()
+      .type(`This is text in a note.`);
+
+      cy.get(`.js-note__save-button`)
+      .click();
+
       cy.get(`.js-additional-name__save-button`)
       .click();
 
     });
 
-    // add an orthography
+    // add an orthography + note
+
     cy.contains(`.language-editor button`, `Add an orthography`)
     .click();
 
     cy.get(`.language-editor__orthographies`)
     .within(() => {
+
       cy.get(`[id="orthography-name-0-eng"]:visible`)
       .type(`English`);
 
@@ -101,14 +110,28 @@ describe(`Languages`, () => {
 
       cy.get(`.js-orthography__save-button:visible`)
       .click();
+
+      cy.get(`.js-notes-list__add-note-button`)
+      .first()
+      .click();
+
+      cy.get(`.js-note__text-input`)
+      .clear()
+      .type(`This is text in a note`);
+
+      cy.get(`.js-note__save-button`)
+      .click();
+
     });
 
-    // add an analysis language
+    // add an analysis language + note
+
     cy.contains(`.language-editor button`, `Add an analysis language`)
     .click();
 
     cy.get(`.language-editor__analysis-languages`)
     .within(() => {
+
       cy.get(`.js-analysis-language__lang-input:visible`)
       .type(`French`);
 
@@ -152,7 +175,7 @@ describe(`Languages`, () => {
     cy.contains(`#nav li`, `Home`)
     .click();
 
-    cy.get(`#main[data-page=Home]`);
+    cy.get(`#home-page`);
 
     cy.contains(`#nav li`, `Languages`)
     .click();
@@ -174,7 +197,13 @@ describe(`Languages`, () => {
     cy.get(`input[name=glottocode]`)
     .should(`have.value`, `chit1248`);
 
+    cy.get(`.language-editor__orthographies .js-notes-list__notes`)
+    .children()
+    .should(`have.lengthOf`, 1);
+
     cy.contains(`.language-editor__additional-names`, `Shetimachas (French)`);
+    cy.get(`.language-editor__additional-names .additional-name .js-notes-list__notes`)
+    .should(`have.lengthOf`, 1);
 
     cy.contains(`.language-editor__orthographies`, `Name English Abbreviation eng`);
     cy.contains(`.language-editor__analysis-languages`, `French fra fr`);

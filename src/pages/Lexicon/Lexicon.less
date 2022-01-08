@@ -1,25 +1,62 @@
-// Globals
-@import (reference) 'utilities.less';
-
-// Shared Components
+@import 'Lexicon/LexemesList/LexemesList.less';
 @import 'PageTitle/PageTitle.less';
+@import (reference) 'variables.less';
 
-.lexicon {
+.lexicon-page {
 
-  &__lexemes-list {
-    contain   : strict;
-    height    : calc(100vh - 12em);
-    overflow-y: scroll;
+  position: relative;
+
+  &__add-entry-btn {
+    align-self      : center;
+    margin-inline   : var(--space);
+    margin-block-end: var(--space);
   }
 
-  &__lexemes-list-item {
-    cursor : pointer;
-    padding: var(--text-padding);
+  // small screens
+  @media (max-width: @breakpoint-wide) {
+
+    overflow: hidden;
+
+    .lexeme-editor {
+      background-color: white;
+      inset-block     : 0;
+      inset-inline    : 0;
+      position        : absolute;
+    }
+
   }
 
-  .button {
-    .align-center;
-    margin: var(--space);
+  // large screens
+  @media (min-width: @breakpoint-wide) {
+
+    // The `hidden` attribute is overridden by explicitly setting the CSS `display` property.
+    // See: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden
+    &:not([hidden]) {
+      display: grid;
+    }
+
+    align-content      : start;
+    grid-template-areas:
+      "header header"
+      "list editor";
+    grid-template-columns: auto 1fr;
+
+    // TODO: Set max height of <main>, so overflow settings work properly.
+    // Might be best to use CSS grid to set banner + wrapper heights.
+
+    .lexeme-editor {
+      grid-area: editor;
+    }
+
+    &__header {
+      grid-area: header;
+    }
+
+    &__nav {
+      grid-area : list;
+      overflow-y: hidden;
+    }
+
   }
 
 }

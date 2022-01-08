@@ -4,4 +4,4 @@ export default {
   title: `Components/Code`,
 };
 
-export const Code = () => `<p>This is some text with a <span class=code>code</span> in it.</p>`;
+export const Code = () => `<p>This is some text with <span class=code>code</span> in it.</p>`;

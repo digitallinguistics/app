@@ -81,8 +81,8 @@ describe(`Database`, function() {
       const txn = this.db.idb.transaction([`languages`, `lexemes`], `readwrite`);
 
       txn.oncomplete = resolve;
-      txn.onerror = reject;
-      txn.onsuccess = resolve;
+      txn.onerror    = reject;
+      txn.onsuccess  = resolve;
 
       txn.objectStore(`languages`).add(language);
       txn.objectStore(`lexemes`).add(lexeme);
@@ -329,10 +329,10 @@ describe(`Database`, function() {
     // Add lexemes for multiple languages to the database.
     await new Promise((resolve, reject) => {
 
-      const txn = this.db.idb.transaction(`lexemes`, `readwrite`);
+      const txn   = this.db.idb.transaction(`lexemes`, `readwrite`);
       const store = txn.objectStore(`lexemes`);
 
-      txn.onerror = reject;
+      txn.onerror    = reject;
       txn.oncomplete = resolve;
 
       lexemes.forEach(item => store.add(item));
@@ -367,10 +367,10 @@ describe(`Database`, function() {
     // Add lexemes for multiple languages to the database.
     await new Promise((resolve, reject) => {
 
-      const txn = this.db.idb.transaction(`lexemes`, `readwrite`);
+      const txn   = this.db.idb.transaction(`lexemes`, `readwrite`);
       const store = txn.objectStore(`lexemes`);
 
-      txn.onerror = reject;
+      txn.onerror    = reject;
       txn.oncomplete = resolve;
 
       lexemes.forEach(item => store.add(item));
@@ -379,8 +379,8 @@ describe(`Database`, function() {
 
     // ACTION
     // Retrieve only lexemes from one language.
-    const index = `language`;
-    const query = IDBKeyRange.only(langA);
+    const index   = `language`;
+    const query   = IDBKeyRange.only(langA);
     const results = await this.db.lexemes.getAll({ index, query });
 
     // ASSERTION
@@ -408,7 +408,7 @@ describe(`Database`, function() {
       const txn   = this.db.idb.transaction(`languages`, `readwrite`);
       const store = txn.objectStore(`languages`);
 
-      txn.onerror = reject;
+      txn.onerror    = reject;
       txn.oncomplete = resolve;
 
       languages.forEach(item => store.add(item));
