@@ -116,15 +116,20 @@ describe(`Language Editor`, function() {
 
   it(`deletes an Analysis Language`, function() {
 
-    cy.get(`[data-id="0"]`).within(() => {
-      cy.get(`.js-analysis-language__delete-button`)
-      .click();
+    cy.window().then(win => {
+
+      cy.stub(win, `prompt`).returns(`YES`);
+
+      cy.get(`[data-id="0"]`).within(() => {
+        cy.get(`.js-analysis-language__delete-button`)
+        .click();
+      });
+
+      cy.get(`.js-language-editor__analysis-langs-list`)
+      .children()
+      .should(`have.lengthOf`, 1);
+      
     });
-
-    cy.get(`.js-language-editor__analysis-langs-list`)
-    .children()
-    .should(`have.lengthOf`, 1);
-
   });
 
   it(`deletes an empty Orthography when editing is canceled`, function() {
