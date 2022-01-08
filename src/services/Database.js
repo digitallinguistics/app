@@ -1,10 +1,10 @@
 import Collection from './DatabaseCollection.js';
-import Language from '../models/Language.js';
-import Lexeme from '../models/Lexeme.js';
-import Text from '../models/Text.js';
+import Language   from '../models/Language.js';
+import Lexeme     from '../models/Lexeme.js';
+import Text       from '../models/Text.js';
 
 const IndexedDB = window.indexedDB;
-const version = 1;
+const version   = 1;
 
 /**
  * A class representing a local database.

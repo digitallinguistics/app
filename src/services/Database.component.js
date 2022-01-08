@@ -405,7 +405,7 @@ describe(`Database`, function() {
     // Add 3 languages to the database.
     await new Promise((resolve, reject) => {
 
-      const txn = this.db.idb.transaction(`languages`, `readwrite`);
+      const txn   = this.db.idb.transaction(`languages`, `readwrite`);
       const store = txn.objectStore(`languages`);
 
       txn.onerror = reject;

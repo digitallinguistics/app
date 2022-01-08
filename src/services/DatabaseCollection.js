@@ -29,8 +29,8 @@ class DatabaseCollection {
    * @param {IDBDatabase} database        The instance of the IndexedDB database to create transactions on.
    */
   constructor(objectStoreName, Model, database) {
-    this.#idb = database;
-    this.#Model = Model;
+    this.#idb       = database;
+    this.#Model     = Model;
     this.#storeName = objectStoreName;
   }
 
@@ -74,8 +74,8 @@ class DatabaseCollection {
     return new Promise((resolve, reject) => {
 
       const isArrayInput = Array.isArray(clientIDs);
-      const cids = isArrayInput ? clientIDs : [clientIDs];
-      const txn = this.#idb.transaction(this.#storeName, `readwrite`);
+      const cids         = isArrayInput ? clientIDs : [clientIDs];
+      const txn          = this.#idb.transaction(this.#storeName, `readwrite`);
 
       txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve();
@@ -208,7 +208,7 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
+      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
