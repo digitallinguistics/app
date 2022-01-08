@@ -26,6 +26,16 @@ class Lexeme extends Model {
       this.stem = new Transcription(this.stem);
     }
 
+    /**
+     * Create an indexable "_lemma" property.
+     */
+    Object.defineProperty(this, `_lemma`, {
+      enumerable: true,
+      get() {
+        return this.lemma.default;
+      },
+    });
+
   }
 
 }

@@ -47,13 +47,13 @@ class DatabaseCollection {
       const isArrayInput = Array.isArray(data);
 
       const items = (isArrayInput ? data : [data])
-      .map(item => item instanceof this.#Model ? item : new this.#Model(item));
+      .map(item => (item instanceof this.#Model ? item : new this.#Model(item)));
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(isArrayInput ? items : items[0]);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       const store = txn.objectStore(this.#storeName);
 
@@ -77,17 +77,17 @@ class DatabaseCollection {
       const cids         = isArrayInput ? clientIDs : [clientIDs];
       const txn          = this.#idb.transaction(this.#storeName, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve();
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       const store = txn.objectStore(this.#storeName);
 
       for (const cid of cids) {
 
         store.get(cid).onsuccess = ev => {
-          const item        = ev.target.result;
-          item.deleted      = true;
+          const item = ev.target.result;
+          item.deleted = true;
           item.dateModified = new Date;
           store.put(item);
         };
@@ -108,9 +108,9 @@ class DatabaseCollection {
       const txn = this.#idb.transaction(this.#storeName);
       let result;
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(result);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       txn.objectStore(this.#storeName)
       .get(key)
@@ -124,28 +124,32 @@ class DatabaseCollection {
 
   /**
    * Retrieve all the items from the collection.
-   * @param  {Object}             [options={}]
-   * @param  {Integer}            [options.count]                The number of items to return if more than 1 is found.
-   * @param  {Boolean}            [options.includeDeleted=false] Whether to include deleted items in the results.
-   * @param  {String|IDBKeyRange} [options.query]                The client ID (cid) or an IDBKeyRange to limit the results to.
-   * @return {Promise<Array>}                                    Returns a Promise that resolves to an Array of items in the collection.
+   * @param  {Object}      [options={}]
+   * @param  {Integer}     [options.count]                The number of items to return if more than 1 is found.
+   * @param  {Boolean}     [options.includeDeleted=false] Whether to include deleted items in the results.
+   * @param  {String}      [options.index]                The name of an index to use.
+   * @param  {IDBKeyRange} [options.query]                An IDBKeyRange to limit the results to.
+   * @return {Promise<Array>}                             Returns a Promise that resolves to an Array of items in the collection.
    */
   getAll({
-    query,
     count,
     includeDeleted = false,
+    index,
+    query,
   } = {}) {
     return new Promise((resolve, reject) => {
 
       const txn = this.#idb.transaction(this.#storeName);
       let result;
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(result);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
-      txn.objectStore(this.#storeName)
-      .getAll(query, count)
+      let store = txn.objectStore(this.#storeName);
+      store = index ? store.index(index) : store;
+
+      store.getAll(query, count)
       .onsuccess = ev => {
         result = ev.target.result.map(item => new this.#Model(item));
         if (!includeDeleted) result = result.filter(item => !item.deleted);
@@ -156,14 +160,17 @@ class DatabaseCollection {
 
   /**
    * Run a callback for each item in the collection. Useful for retrieving very large collections asynchronously.
-   * @param   {Function} cb                       The callback function to call on each returned item.
-   * @param   {Object}   [options={}]             Options
-   * @param   {Boolean}  [options.includeDeleted] Whether to include deleted items in the results.
+   * @param   {Function}    cb                       The callback function to call on each returned item.
+   * @param   {Object}      [options={}]             Options
+   * @param   {Boolean}     [options.includeDeleted] Whether to include deleted items in the results.
+   * @param   {String}      [options.index]          The name of the index to iterate over.
+   * @param   {IDBKeyRange} [options.query]          An IDBKeyRange to limit the results to.
    * @returns {Promise}
    */
   iterate(cb, {
     includeDeleted = false,
     index,
+    query,
   } = {}) {
     return new Promise((resolve, reject) => {
 
@@ -173,11 +180,9 @@ class DatabaseCollection {
       txn.oncomplete = () => resolve();
       txn.onerror    = () => reject(txn.error);
 
-      const store = txn.objectStore(this.#storeName);
-
-      const req = index ?
-        store.index(index).openCursor() :
-        store.openCursor();
+      let store = txn.objectStore(this.#storeName);
+      store     = index ? store.index(index) : store;
+      const req = store.openCursor(query);
 
       req.onsuccess = ev => {
         const cursor = ev.target.result;
@@ -207,9 +212,9 @@ class DatabaseCollection {
 
       const txn = this.#idb.transaction(this.#storeName, `readwrite`);
 
-      txn.onabort    = () => reject(txn.error);
+      txn.onabort = () => reject(txn.error);
       txn.oncomplete = () => resolve(isArrayInput ? items : items[0]);
-      txn.onerror    = () => reject(txn.error);
+      txn.onerror = () => reject(txn.error);
 
       const store = txn.objectStore(this.#storeName);
 
@@ -219,6 +224,14 @@ class DatabaseCollection {
       });
 
     });
+  }
+
+  /**
+   * Returns the name of the object store for this collection.
+   * @return {String}
+   */
+  get storeName() {
+    return this.#storeName;
   }
 
 }
