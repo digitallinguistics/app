@@ -2,6 +2,27 @@ import Database from './Database.js';
 import Language from '../models/Language.js';
 import Lexeme   from '../models/Lexeme.js';
 
+// For unknown reasons, transpiling this code with ESBuild breaks
+// Cypress + Sinon stubs, and `to.have.been.calledTwice` isn't recognized.
+// Need to use custom stubbing here instead.
+function createStub() {
+
+  let called = 0;
+
+  function stub() {
+    called++;
+  }
+
+  Object.defineProperty(stub, `called`, {
+    get() {
+      return called;
+    },
+  });
+
+  return stub;
+
+}
+
 describe(`Database`, function() {
 
   beforeEach(async function() {
@@ -245,15 +266,7 @@ describe(`Database`, function() {
 
       txn.oncomplete = () => {
 
-        // For unknown reasons, transpiling this code with ESBuild breaks
-        // Cypress + Sinon stubs, and `to.have.been.calledTwice` isn't recognized.
-        // Need to use custom stubbing here instead.
-        let count = 0;
-
-        const stub = () => {
-          count++;
-        };
-
+        const stub = createStub();
         this.db.onupdate = stub;
 
         this.db.exportData()
@@ -261,7 +274,7 @@ describe(`Database`, function() {
           expect(langExport.cid).to.equal(lang.cid);
           expect(textExport.cid).to.equal(text.cid);
           expect(textExport.tags.test).to.be.true;
-          expect(count).to.equal(2);
+          expect(stub.called).to.equal(2);
           resolve();
         })
         .catch(reject);
@@ -450,7 +463,7 @@ describe(`Database`, function() {
   it(`iterates over all items in a store`, function() {
     return new Promise((resolve, reject) => {
 
-      const stub  = cy.stub();
+      const stub  = createStub();
       const txn   = this.db.idb.transaction(`languages`, `readwrite`);
       const store = txn.objectStore(`languages`);
 
@@ -460,7 +473,7 @@ describe(`Database`, function() {
 
         this.db.languages.iterate(stub)
         .then(() => {
-          expect(stub).to.have.been.calledTwice;
+          expect(stub.called).to.equal(2);
           resolve();
         })
         .catch(reject);
