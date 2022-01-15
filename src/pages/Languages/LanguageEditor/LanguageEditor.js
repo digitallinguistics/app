@@ -127,7 +127,7 @@ export default class LanguageEditor extends View {
         alert(`There must be at least one analysis language.`);
         return;
       }
-      const confirmDelete = prompt(`Are you sure you want to delete this Analysis Language? This action will permanently delete any entries associated with this Analysis Language and it cannot be undone. Type "YES" to delete.`);
+      const confirmDelete = prompt(`Are you sure you want to delete this Analysis Language? This action will permanently delete any data in this Analysis Language and it cannot be undone. Type "YES" to delete.`);
       if (confirmDelete !== `YES`) return;
       const i = Number(target.closest(`.analysis-language`).dataset.id);
       return this.deleteAnalysisLang(i);
