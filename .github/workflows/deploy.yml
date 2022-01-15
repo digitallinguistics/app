@@ -53,6 +53,13 @@ jobs:
           skip_app_build: true # Use a custom build step (above)
           ###### End of Repository/Build Configurations ######
 
+      - name: deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        if:   github.event_name == 'release'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir:  ./docs
+
   close_pull_request_job:
     if:      github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
