@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>App/App.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="App.html">App</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addEventListeners">addEventListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addLanguage">addLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#announce">announce</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#changeLanguage">changeLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#displayPage">displayPage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#initialize">initialize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#renderPage">renderPage</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.EventEmitter.html">EventEmitter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#emit">emit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#off">off</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#on">on</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#once">once</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#stop">stop</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.View.html">View</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#addEventListeners">addEventListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#cloneTemplate">cloneTemplate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#initialize">initialize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#loadStyles">loadStyles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.WebWorker.html">WebWorker</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.WebWorker.html#post">post</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.WebWorker.html#stream">stream</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.WebWorker.html#terminate">terminate</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.WebWorker_WebWorker.html">WebWorker</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Model.html">Model</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Language.html">Language</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Lexeme.html">Lexeme</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.MultiLangString.html">MultiLangString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Models.MultiLangString.html#toJSON">toJSON</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Note.html">Note</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Orthography.html">Orthography</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Text.html">Text</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Transcription.html">Transcription</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Models.Transcription.html#toJSON">toJSON</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Services.Database.html">Database</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#addAnalysisLanguage">addAnalysisLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#deleteAnalysisLanguage">deleteAnalysisLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#deleteDatabase">deleteDatabase</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#exportData">exportData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#importData">importData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#initialize">initialize</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html">DatabaseCollection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#delete">delete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#getAll">getAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#iterate">iterate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#put">put</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Services.Settings.html">Settings</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Services.Database.html#event:onupdate">onupdate</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Core.html">Core</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Models.html">Models</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Services.html">Services</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Utilities.html">Utilities</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utilities.html#compare">compare</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utilities.html#debounce">debounce</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utilities.html#html2element">html2element</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#default">default</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">App/App.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Database        from '../services/Database.js';
+import HelpMenu        from './HelpMenu/HelpMenu.js';
+import Language        from '../models/Language.js';
+import LanguageChooser from './LanguageChooser/LanguageChooser.js';
+import Mousetrap       from 'mousetrap';
+import Nav             from './Nav/Nav.js';
+import { pascalCase }  from 'pascal-case';
+import Settings        from '../services/Settings.js';
+import sort            from '../utilities/sort.js';
+import View            from '../core/View.js';
+
+/**
+ * The controller for the App. The App API is available globally to all components under `window.app` (or just `app`).
+ * @extends View
+ * @global
+ */
+class App extends View {
+
+  // PROPERTIES
+
+  /**
+   * A reference to the local database module.
+   * @type {Database}
+   */
+  db = new Database;
+
+  /**
+   * A reference to the app `&lt;body>` tag.
+   */
+  el = document.getElementById(`app`);
+
+  /**
+   * A reference to the helpmenu controller.
+   * @type {HelpMenu}
+   */
+  helpMenu = new HelpMenu;
+
+  /**
+   * A reference to the Main Nav controller.
+   * @type {MainNav}
+   */
+  nav = new Nav;
+
+  /**
+   * A table of references to DOM nodes used by the App controller.
+   * @type {Object}
+   * @prop {HTMLElement} info
+   * @prop {HTMLElement} wrapper
+   */
+  nodes = {
+    info:    document.getElementById(`info`),
+    wrapper: document.getElementById(`wrapper`),
+  };
+
+  /**
+   * A Map of page Views, loaded dynamically when the page is requested.
+   * @type {Map}
+   */
+  pages = new Map;
+
+  /**
+   * An object for persisting app/user settings. Saves to Local Storage.
+   * @type {Settings}
+   */
+  settings = new Settings(JSON.parse(localStorage.getItem(`settings`) ?? `{}`));
+
+  /**
+   * An object for registering/unregistering keyboard shortcuts. See {@link https://craig.is/killing/mice} for complete documentation. The `shortcuts` property is a Mousetrap instance.
+   */
+  shortcuts = Mousetrap;
+
+  // APP METHODS
+
+  /**
+   * Attach event listeners to app shell components.
+   */
+  addEventListeners() {
+    this.nav.events.on(`change`, this.displayPage.bind(this));
+    this.nav.events.on(`toggle`, ({ expanded }) => { this.settings.navOpen = expanded; });
+  }
+
+  /**
+   * Add a new language and rerender the Languages page.
+   * @return {Promise}
+   */
+  async addLanguage() {
+    let language = new Language;
+    language.autonym.set(`default`, ``);
+    language.name.set(`eng`, `{ new language }`);
+    language = await this.db.languages.add(language);
+    this.settings.language = language.cid;
+    this.settings.lexeme   = null;
+    const languagesPage = document.getElementById(`languages-page`);
+    if (languagesPage) languagesPage.remove();
+    return this.displayPage(`languages`);
+  }
+
+  /**
+   * Announce text to screen readers by updating an ARIA live region.
+   * @param {String} text the text to announce to screen readers
+   */
+  announce(text) {
+    this.nodes.info.textContent = text;
+  }
+
+  /**
+   * Change the current language.
+   * @param {String} languageCID The CID of the language to switch to.
+   */
+  changeLanguage(languageCID) {
+
+    this.settings.language = languageCID;
+    this.settings.lexeme   = null;
+
+    const lexiconPage = document.getElementById(`lexicon-page`);
+    if (lexiconPage) lexiconPage.remove();
+
+    this.displayPage(this.settings.page);
+
+  }
+
+  async deleteLanguage(languageCID) {
+
+    await this.db.languages.delete(languageCID);
+
+    this.settings.language = null;
+    this.settings.lexeme   = null;
+
+    const languagesPage = document.getElementById(`languages-page`);
+    if (languagesPage) languagesPage.remove();
+
+    const lexiconPage = document.getElementById(`lexicon-page`);
+    if (lexiconPage) lexiconPage.remove();
+
+    this.displayPage(this.settings.page);
+
+  }
+
+  /**
+   * Display a page, rendering it if necessary.
+   * @param {String} page The page to display (in lowercase).
+   */
+  async displayPage(page) {
+
+    if (page !== `language-chooser`) {
+      this.settings.page = page;
+      this.nav.setPage(page);
+    }
+
+    const mains = Array.from(document.getElementsByClassName(`main`));
+
+    for (const main of mains) {
+      main.hidden = true;
+    }
+
+    const targetPage = mains.find(main => main.dataset.page === page);
+
+    if (targetPage) targetPage.hidden = false;
+    else await this.renderPage(page);
+
+    this.announce(`${ page } page`);
+
+  }
+
+  /**
+   * Initialize the App.
+   */
+  async initialize() {
+    await this.db.initialize();
+    this.helpMenu.initialize();
+    this.nav.render(this.settings.page, { open: this.settings.navOpen });
+    this.displayPage(this.settings.page); // async
+    this.addEventListeners();
+    return this.el;
+  }
+
+  /**
+   * Render a specific page. This is the only method that should call page-rendering methods.
+   * @param {String} page the page to render (`home`, `languages`, etc.)
+   */
+  async renderPage(page) {
+
+    if (page === `language-chooser`) {
+      return this.renderLanguageChooser();
+    }
+
+    if (!this.pages.has(page)) {
+      const Page = pascalCase(page);
+      const { default: PageView } = await import(`../pages/${ Page }/${ Page }.js`);
+      this.pages.set(page, PageView);
+    }
+
+    switch (page) {
+        case `languages`: return this.renderLanguagesPage();
+        case `lexicon`: return this.renderLexiconPage();
+        default: return this.renderHomePage();
+    }
+
+  }
+
+  // PAGES
+
+  renderHomePage() {
+
+    const HomePage = this.pages.get(`home`);
+    const homePage = new HomePage;
+
+    const oldPage = document.getElementById(`home-page`);
+    const newPage = homePage.render();
+
+    if (oldPage) oldPage.replaceWith(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
+
+  }
+
+  async renderLanguageChooser() {
+
+    const languages = await this.db.languages.getAll();
+
+    languages.sort((a, b) => sort(a.name.default, b.name.default));
+
+    const languageChooser = new LanguageChooser(languages);
+
+    languageChooser.events.on(`add`, this.addLanguage.bind(this));
+    languageChooser.events.on(`select`, this.changeLanguage.bind(this));
+
+    const oldPage = document.getElementById(`language-chooser`);
+    const newPage = languageChooser.render();
+
+    if (oldPage) oldPage.replaceWith(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
+
+  }
+
+  async renderLanguagesPage() {
+
+    const languages = await this.db.languages.getAll();
+
+    if (!languages.length) {
+      return this.displayPage(`language-chooser`);
+    }
+
+    const LanguagesPage = this.pages.get(`languages`);
+    const languagesPage = new LanguagesPage(languages);
+
+    languagesPage.events.on(`add`, this.addLanguage.bind(this));
+    languagesPage.events.on(`delete`, this.deleteLanguage.bind(this));
+
+    const oldPage = document.getElementById(`languages-page`);
+    const newPage = languagesPage.render(this.settings.language);
+
+    if (oldPage) oldPage.replaceWith(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
+
+    languagesPage.initialize();
+
+  }
+
+  async renderLexiconPage() {
+
+    if (!this.settings.language) {
+      return this.displayPage(`language-chooser`);
+    }
+
+    const LexiconPage = this.pages.get(`lexicon`);
+    const language    = await this.db.languages.get(this.settings.language);
+    const query       = IDBKeyRange.only(this.settings.language);
+    const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
+    const lexiconPage = new LexiconPage(language, lexemes);
+    const oldPage     = document.getElementById(`lexicon-page`);
+    const newPage     = lexiconPage.render(this.settings.lexeme);
+
+    if (oldPage) oldPage.replaceWith(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
+
+  }
+
+}
+
+export default App;
+
+// JSDoc Virtual Comments
+
+/**
+ * The custom vanilla JavaScript framework used by the Lotus app.
+ * @namespace Core
+ */
+
+/**
+ * Data models for each type of database object.
+ * @namespace Models
+ */
+
+/**
+ * External services like databases or APIs.
+ * @namespace Services
+ */
+
+/**
+ * JavaScript utilities.
+ * @namespace Utilities
+ */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 12:33:24 GMT-0700 (Mountain Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

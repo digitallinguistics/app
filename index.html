@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="App.html">App</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addEventListeners">addEventListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addLanguage">addLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#announce">announce</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#changeLanguage">changeLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#displayPage">displayPage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#initialize">initialize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#renderPage">renderPage</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.EventEmitter.html">EventEmitter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#emit">emit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#off">off</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#on">on</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#once">once</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.EventEmitter.html#stop">stop</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.View.html">View</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#addEventListeners">addEventListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#cloneTemplate">cloneTemplate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#initialize">initialize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#loadStyles">loadStyles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.View.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.WebWorker.html">WebWorker</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.WebWorker.html#post">post</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.WebWorker.html#stream">stream</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Core.WebWorker.html#terminate">terminate</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Core.WebWorker_WebWorker.html">WebWorker</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Model.html">Model</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Language.html">Language</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Lexeme.html">Lexeme</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.MultiLangString.html">MultiLangString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Models.MultiLangString.html#toJSON">toJSON</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Note.html">Note</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Orthography.html">Orthography</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Text.html">Text</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Models.Transcription.html">Transcription</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Models.Transcription.html#toJSON">toJSON</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Services.Database.html">Database</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#addAnalysisLanguage">addAnalysisLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#deleteAnalysisLanguage">deleteAnalysisLanguage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#deleteDatabase">deleteDatabase</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#exportData">exportData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#importData">importData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.Database.html#initialize">initialize</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html">DatabaseCollection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#delete">delete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#getAll">getAll</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#iterate">iterate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Services.DatabaseCollection.html#put">put</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Services.Settings.html">Settings</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Services.Database.html#event:onupdate">onupdate</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Core.html">Core</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Models.html">Models</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Services.html">Services</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="Utilities.html">Utilities</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utilities.html#compare">compare</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utilities.html#debounce">debounce</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utilities.html#html2element">html2element</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#default">default</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>Contributor Guidelines</h1>
+<p>🌟Thank you🌟 for contributing to the Lotus app! 🙏🏼</p>
+<p>Consider <a href="https://github.com/digitallinguistics/app/issues/new">opening an issue</a> for any of the following:</p>
+<ul>
+<li>questions</li>
+<li>bugs or problems</li>
+<li>feature requests</li>
+</ul>
+<p>Want to contribute code to the Lotus app? Awesome! 🌟 Check out <a href="https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution">GitHub's Open Source Guide</a> on contributing to open source projects.</p>
+<h2>Quick Links</h2>
+<ul>
+<li><a href="https://developer.digitallinguistics.io/app">View the complete developer documentation here.</a> **</li>
+<li><a href="https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md">View documentation for maintainers.</a></li>
+<li><a href="https://developer.digitallinguistics.io/app">View JavaScript documentation.</a> **</li>
+</ul>
+<p>** Developer documentation can currently only be viewed by openining <code>docs/index.html</code> in a browser.</p>
+<h2>Contents</h2>
+<!-- TOC -->
+<ul>
+<li><a href="#project-principles">Project Principles</a></li>
+<li><a href="#setting-up-the-development-environment">Setting up the Development Environment</a></li>
+<li><a href="#developer-tools">Developer Tools</a>
+<ul>
+<li><a href="#nodemon">nodemon</a></li>
+<li><a href="#eslint--stylelint">ESLint &amp; Stylelint</a></li>
+<li><a href="#storybook">Storybook</a></li>
+</ul>
+</li>
+<li><a href="#organization">Organization</a>
+<ul>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#directory-structure">Directory Structure</a></li>
+<li><a href="#app-structure">App Structure</a></li>
+</ul>
+</li>
+<li><a href="#components">Components</a>
+<ul>
+<li><a href="#types-of-components">Types of Components</a></li>
+<li><a href="#writing-components">Writing Components</a>
+<ul>
+<li><a href="#html--handlebars">HTML / Handlebars</a></li>
+<li><a href="#css--less">CSS / LESS</a></li>
+<li><a href="#javascript">JavaScript</a>
+<ul>
+<li><a href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+<li><a href="#testing-the-app">Testing the App</a>
+<ul>
+<li><a href="#types-of-tests">Types of Tests</a></li>
+<li><a href="#writing-tests">Writing Tests</a>
+<ul>
+<li><a href="#unit-tests">Unit Tests</a></li>
+<li><a href="#component-tests">Component Tests</a></li>
+<li><a href="#end-to-end-tests-e2e">End-to-End Tests (E2E)</a></li>
+<li><a href="#miscellaneous-notes-on-testing">Miscellaneous Notes on Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#build-process">Build Process</a>
+<ul>
+<li><a href="#offline-functionality">Offline Functionality</a></li>
+</ul>
+</li>
+<li><a href="#resources">Resources</a>
+<ul>
+<li><a href="#images">Images</a></li>
+<li><a href="#accessibility">Accessibility</a></li>
+<li><a href="#inspiration">Inspiration</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2>Project Principles</h2>
+<p>This project is driven by the needs of documentary and descriptive linguists, and so its development should be sensitive to the following principles:</p>
+<ul>
+<li><strong>accessibility</strong> (e.g. keyboard entry and manipulation, inclusive design, progressive enhancement)</li>
+<li><strong>broad applicability</strong> (e.g. only features many linguists are expected to use; no project-specific features)</li>
+<li><strong>community-oriented</strong> (e.g. accessible to community members, access controlled by community members)</li>
+<li><strong>data freedom</strong> (e.g. import/export in various formats, data longevity)</li>
+<li><strong>ethics and data privacy</strong> (e.g. autonyms, choice of where data are stored, user permissions, access rights)</li>
+<li><strong>fieldwork-oriented</strong> (e.g. works offline, launches quickly)</li>
+<li><strong>linguistic diversity</strong> (e.g. support RTL and LTR writing systems, choice of font, choice of lexical category)</li>
+<li><strong>open source</strong> (e.g. free, easy to contribute, rely only on well-supported tools/libraries, well-documented)</li>
+<li><strong>scientific transparency</strong> (e.g. ability to recreate data sets, faithfulness to original data, easily citable)</li>
+</ul>
+<h2>Setting up the Development Environment</h2>
+<p>Follow these steps to set up your local development environment:</p>
+<ol>
+<li>
+<p>Install the latest Current version of <a href="https://nodejs.org/en/">Node</a>. (If you need use multiple versions of Node on your machine, consider using <a href="https://github.com/nvm-sh/nvm">nvm</a> (unix, macOS, and windows WSL) or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> (windows)).</p>
+</li>
+<li>
+<p>Clone the repository and <code>cd</code> into its folder:</p>
+<pre class="prettyprint source lang-cmd"><code>> git clone https://github.com/digitallinguistics/app.git
+> cd app
+</code></pre>
+<p>If you're unfamiliar with the git or the command line, you may want to install <a href="https://desktop.github.com/">GitHub Desktop</a>, an easy-to-use user interface for managing git repositories.</p>
+</li>
+<li>
+<p>Install all the software dependencies for the project. This typically takes several minutes.</p>
+<pre class="prettyprint source lang-cmd"><code>> npm install
+</code></pre>
+</li>
+<li>
+<p>Build the app. This processes all of the files in the <code>src/</code> directory and outputs the production-ready code in the <code>dist/</code> directory.</p>
+<pre class="prettyprint source lang-cmd"><code>> npm run build
+</code></pre>
+</li>
+<li>
+<p>Start a local server which points to the production-ready files in <code>dist/</code>.</p>
+<pre class="prettyprint source lang-cmd"><code>> npm start
+</code></pre>
+</li>
+<li>
+<p>View the working version of the app by opening a browser and navigating to https://localhost:3000.</p>
+</li>
+</ol>
+<h2>Developer Tools</h2>
+<p>This section describes several developer tools it is strongly recommended that you use while making changes to the code.</p>
+<h3>nodemon</h3>
+<p>Each time you make changes to the sources files, you will need to rebuild the app. You do not need to restart the server each time, but you will need to refresh the page in the browser for the changes to appear.</p>
+<p>One way to do this is to open two terminals—one to run the server (<code>npm start</code>), and run to rebuild the app each time you make a change (<code>npm run build</code>).</p>
+<p>An easier solution is to use a tool like <a href="https://nodemon.io/">nodemon</a>, which watches the project for changes and automatically runs commands of your choosing each time a file changes. In this case, you can run <code>npm run build</code> each time the code changes.</p>
+<p><strong>Steps to Use nodemon</strong></p>
+<ol>
+<li>
+<p>Install nodemon globally:</p>
+<pre class="prettyprint source lang-cmd"><code>> npm install --global nodemon
+</code></pre>
+</li>
+<li>
+<p>Add a <code>nodemon.json</code> config file to the root of the project. Below is a recommended configuration. It will watch for changes to any files which have an extension in the <code>ext</code> field, but ignore any files which match the glob patterns in the <code>ignore</code> field. Any time a change is detected, it will run <code>npm run build</code>.</p>
+<pre class="prettyprint source lang-json"><code>&lt;!-- nodemon.json -->
+
+{
+  &quot;exec&quot;: &quot;npm run build&quot;,
+  &quot;ext&quot;: &quot;hbs,js,less,md&quot;,
+  &quot;ignore&quot;: [
+    &quot;dist&quot;,
+    &quot;docs&quot;,
+    &quot;**/*.stories.js&quot;,
+    &quot;**/*.test.js&quot;,
+    &quot;**/*.unit.js&quot;
+  ]
+}
+</code></pre>
+</li>
+<li>
+<p>Start nodemon.</p>
+<pre class="prettyprint source lang-cmd"><code>> nodemon
+</code></pre>
+</li>
+</ol>
+<p>You can configure nodemon to run different commands instead. For example, nodemon can rebuild the app after each change and then start the server, or rebuild the app and then run tests, etc. See the complete documentation on the <a href="https://nodemon.io/">nodemon website</a>.</p>
+<h3>ESLint &amp; Stylelint</h3>
+<p><a href="https://eslint.org/">ESLint</a> and <a href="https://stylelint.io/">Stylelint</a> are two tools that analyze or &quot;lint&quot; your code as you work to detect common problems and in many cases fix them automatically. They also help ensure that different developers structure their code in the same way.</p>
+<p>ESLint lints JavaScript, while Stylelint lints CSS / LESS. The list of rules / problems that ESLint checks for are located in <code>.eslintrc.yml</code>. The list of rules / problems that Stylelint checks for are located in <code>.stylelintrc.yml</code>.</p>
+<p>Most code editors have settings, plugins, or extensions that support ESLint and Stylelint. You should install these plugins / extensions so that your editor automatically reports issues found by ESLint and Stylelint.</p>
+<h3>Storybook</h3>
+<p><a href="https://storybook.js.org/">Storybook</a> is a tool for managing a library of components. It allows developers to create, style, and test each component in isolation, as well as in combination. Each component is given its own &quot;story&quot;, and files containing story specifications end in <code>.stories.js</code>. When creating new components, it is recommended that you develop using Storybook first, and then write component tests using Cypress.</p>
+<p>To use Storybook:</p>
+<ol>
+<li>Start a local server (<code>npm start</code>).</li>
+<li>Run the Storybook application (<code>npm run storybook</code>).</li>
+<li>The Storybook interface will open, allowing you to explore each component and its variations.</li>
+<li>Storybook automatically updates its interface when you make changes to either the stories or the component (&quot;hot reloading&quot;). You do not (usually) need to restart Storybook after each change, or even refresh the page.</li>
+</ol>
+<p>The <a href="https://storybook.js.org/">Storybook documentation</a> explains how to write stories for components.</p>
+<h2>Organization</h2>
+<p>This section explains the organization of the project and the app code.</p>
+<h3>Project Structure</h3>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.github/</code></td>
+<td>Developer documentation.</td>
+</tr>
+<tr>
+<td><code>.storybook/</code></td>
+<td>Configuration for <a href="https://storybook.js.org/">Storybook</a>.</td>
+</tr>
+<tr>
+<td><code>build/</code></td>
+<td>Scripts to build the production version of the app from the <code>src/</code> files.</td>
+</tr>
+<tr>
+<td><code>dist/</code></td>
+<td>Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.</td>
+</tr>
+<tr>
+<td><code>src/</code></td>
+<td>Source code for the app. Test files should live alongside their source components. See <a href="#app-structure">App Structure</a> below for details.</td>
+</tr>
+<tr>
+<td><code>test/</code></td>
+<td>Configuration code and fixtures for tests. Test specs should <em>not</em> be placed here unless they are tests having to do with the development environment. Test files belong next to the component they are testing. (See <a href="#testing-the-app">Testing the App</a>.)</td>
+</tr>
+</tbody>
+</table>
+<h3>Directory Structure</h3>
+<p>The <code>src/</code> folder contains the following:</p>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>App/</code></td>
+<td>The App is a special top-level component, globally accessible with the <code>app</code> variable. Also contains components that are specific to the app shell.</td>
+</tr>
+<tr>
+<td><code>components/</code></td>
+<td>Components that are shared across pages (but not part of the app shell).</td>
+</tr>
+<tr>
+<td><code>core/</code></td>
+<td>The app's JavaScript framework (a custom framework written in vanilla JavaScript).</td>
+</tr>
+<tr>
+<td><code>fonts/</code></td>
+<td>Font files.</td>
+</tr>
+<tr>
+<td><code>images/</code></td>
+<td>Images and icons used in the app.</td>
+</tr>
+<tr>
+<td><code>models/</code></td>
+<td>Data models (e.g. Language, Text, etc.).</td>
+</tr>
+<tr>
+<td><code>pages/</code></td>
+<td>Each subfolder contains all the code for a single &quot;page&quot;.</td>
+</tr>
+<tr>
+<td><code>services/</code></td>
+<td>JavaScript modules which manage access to services like databases and APIs.</td>
+</tr>
+<tr>
+<td><code>styles/</code></td>
+<td>Global classes, variables, and utility classes that are used across pages.</td>
+</tr>
+<tr>
+<td><code>utilities/</code></td>
+<td>JavaScript utilities that are reused across components.</td>
+</tr>
+<tr>
+<td><code>index.hbs</code></td>
+<td>The HTML shell for the app.</td>
+</tr>
+<tr>
+<td><code>index.less</code></td>
+<td>Global styles that apply across the app.</td>
+</tr>
+<tr>
+<td><code>manifest.json</code></td>
+<td>Web app manifest for installing the site as a web app.</td>
+</tr>
+<tr>
+<td><code>offline-worker.js</code></td>
+<td>A service worker which makes the app work offline.</td>
+</tr>
+</tbody>
+</table>
+<h3>App Structure</h3>
+<p>The Lotus app follows a typical <a href="https://developers.google.com/web/fundamentals/architecture/app-shell">app shell model</a>. A lightweight HTML + CSS + JS skeleton with minimal content is delivered to the browser, and everything else is then loaded dynamically or lazy-loaded. Think of the app shell as your development environment—it makes certain global features and variables available for you to work with, such as predefined HTML regions, global CSS variables, and a global <code>app</code> object with methods for updating settings, accessing the database, etc. etc.</p>
+<ul>
+<li>
+<p><strong>HTML:</strong> Each section of the app's HTML shell is documented with inline comments in <code>src/index.hbs</code>. However, the areas where content can be rendered are as follows:</p>
+<pre class="prettyprint source lang-html"><code>&lt;body id=app>
+  &lt;header id=banner>&lt;!-- Main banner at top of page, with a few app-level controls and menus. Sticky positioning. -->
+  &lt;div id=wrapper>&lt;!-- Wrapper for laying out the main app sections. -->
+    &lt;nav id=nav>&lt;!-- Main navigation for the app. Collapsible. -->
+    &lt;main id=main>&lt;!-- Where main page content is rendered. -->
+    &lt;aside id=sidebar>&lt;!-- Sidebar for ancillary page components. Collapsible. NOTE: Not yet implemented. -->
+  &lt;/div>
+  &lt;footer id=footer>&lt;!-- Status / information bar. Sticky positioning. NOTE: Not yet implemented. -->
+&lt;/body>
+</code></pre>
+</li>
+<li>
+<p><strong>CSS / LESS:</strong> Global styles and utilities are located in <code>src/styles/</code>. Styling for the app shell is located in <code>src/App/App.less</code>. Styles for individual components are located alongside their components, in <code>{ComponentName}.less</code>.</p>
+</li>
+<li>
+<p><strong>JavaScript:</strong> Many single-page apps use a JavaScript framework such as Vue or React. The Lotus app uses its own simple, vanilla JavaScript framework instead, consisting of base <code>View</code>, <code>Model</code>, and <code>EventEmitter</code> classes, among others. In addition, all modules have access to the global <code>app</code> object.</p>
+<p>The documentation for the app's JavaScript framework is available at https://developer.digitallinguistics.io/app. It shows all the methods available on the global <code>App</code> object, as well as documents how to use other shared modules such as the <code>View</code> and <code>EventEmitter</code> classes.</p>
+</li>
+</ul>
+<p>The Lotus app is also a <a href="https://developers.google.com/web/updates/2015/12/getting-started-pwa">Progressive Web App</a> (PWA), meaning that it works offline and is installable as a native app on devices. Pull requests should adhere to the principles of PWAs.</p>
+<h2>Components</h2>
+<p>Each interactive section of the app is called a <strong>component</strong>. Components may contain other, smaller components. For example, the top-level <code>App</code> component contains a <code>LanguagesPage</code> component, the <code>LanguagesPage</code> component contains a <code>LanguageEditor</code> component, and the <code>LanguageEditor</code> component uses the <code>TranscriptionGroup</code> component.</p>
+<p>Each component can have several types of files associated with it. Not all components will have all of these types of files. Many components consist of just a CSS class, and so consist of a single LESS file. Most components only need 1 type of test file as well.</p>
+<ul>
+<li><code>.component.js</code>: Component tests for this component.</li>
+<li><code>.e2e.js</code>: End-to-end tests for this component.</li>
+<li><code>.hbs</code>: The HTML template for the component, written in <a href="https://handlebarsjs.com/">Handlebars</a>.</li>
+<li><code>.less</code>: The styling for the component, written in <a href="https://lesscss.org/">LESS</a>.</li>
+<li><code>.js</code>: The JavaScript controller that manages this view's functionality.</li>
+<li><code>.stories.js</code>: The code for rendering this component in Storybook.</li>
+<li><code>.unit.js</code>: Unit tests for this component.</li>
+</ul>
+<p>All of these files should be located together in the same directory. For example, the <code>NavList</code> directory looks like this:</p>
+<pre class="prettyprint source"><code>NavList/
+  - NavList.component.js
+  - NavList.hbs
+  - NavList.js
+  - NavList.less
+  - NavList.stories.js
+</code></pre>
+<h3>Types of Components</h3>
+<p>There are four types of components in the app:</p>
+<ul>
+<li>the top-level <code>App</code> component (<code>src/App/</code>)</li>
+<li>one component for each page (<code>src/pages/</code>), ex. <code>Languages</code></li>
+<li>components that are specific to a certain page (<code>src/pages/{Page}/{ComponentName}/</code>), ex. <code>LanguageEditor</code></li>
+<li>components that are shared across pages (<code>src/components/{ComponentName}/</code>), ex. <code>List</code></li>
+</ul>
+<h3>Writing Components</h3>
+<p>This section provides guidelines for writing components.</p>
+<h4>HTML / Handlebars</h4>
+<p>The HTML for each component is written in <a href="https://handlebarsjs.com/">Handlebars</a>, an HTML templating language. This allows you to embed components within components using <code>{{&gt; ComponentName }}</code>.</p>
+<p>You can import Handlebars templates directly into your component's Javascript, and use the View to clone the template using the <code>cloneTemplate()</code> method. This method clones the template and sets it to the View's <code>el</code> property.</p>
+<pre class="prettyprint source lang-js"><code>import styles   from './View.less';
+import template from './View.hbs';
+
+class List extends View {
+
+  constructor() {
+    super({ styles, template });
+  }
+
+  render() {
+    this.loadStyles();
+    this.cloneTemplate(); // sets this.el
+    /* other rendering code */
+    this.addEventListeners();
+    return this.el;
+  }
+
+}
+</code></pre>
+<h4>CSS / LESS</h4>
+<p>The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS.</p>
+<p>The most useful LESS feature is nesting. For example, instead of writing this…</p>
+<pre class="prettyprint source lang-css"><code>#header {
+  color: black;
+}
+
+#header .navigation {
+  font-size: 12px;
+}
+
+#header .logo {
+  width: 300px;
+}
+</code></pre>
+<p>…we can write this:</p>
+<pre class="prettyprint source lang-less"><code>#header {
+
+  color: black;
+
+  .navigation {
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+}
+</code></pre>
+<p>You can load other LESS dependencies into your LESS stylesheet with the <code>@import</code> command. For example, <code>App.less</code> loads stylesheets for the Banner, Nav, and Skip Link.</p>
+<pre class="prettyprint source lang-less"><code>@import 'Banner/Banner';
+@import 'Nav/Nav';
+@import 'Skip-Link/Skip-Link';
+</code></pre>
+<p>If you only want to use specific styles/declarations from a stylesheet, use <code>@import (reference)</code>. For example, the following line in <code>App.less</code> loads the <code>variables.less</code> file, but will <em>only</em> import the variables that <code>App.less</code> explicitly uses.</p>
+<pre class="prettyprint source lang-less"><code>@import (reference) 'variables';
+</code></pre>
+<p><a href="https://lesscss.org/">See the LESS documentation for more details on using LESS.</a></p>
+<p>The Lotus project partially uses <a href="http://getbem.com/introduction/">Block-Element-Modifier (BEM)</a> naming conventions for CSS, which typically looks like this:</p>
+<pre class="prettyprint source lang-css"><code>.block__element--modifier {
+  /* styles here */
+}
+</code></pre>
+<p>For the Lotus app, a &quot;block&quot; is a component, and an &quot;element&quot; is any element within that component. The Lotus app does <em>not</em> use the <code>--modifier</code> syntax however. Instead it uses a separate modifier class.</p>
+<p>As an example, if you have a Languages Nav component which includes a green &quot;Add a language&quot; button and a red &quot;Delete a language&quot; button, your HTML and styles might look like this:</p>
+<pre class="prettyprint source lang-html"><code>&lt;nav class=lang-nav>
+  &lt;ul class=lang-nav__list>
+    &lt;li class=lang-nav__item>Language A&lt;/li>
+    &lt;li class=lang-nav__item>Language B&lt;/li>
+    &lt;li class=lang-nav__item>Language C&lt;/li>
+  &lt;/ul>
+  &lt;button class='btn green lang-nav__btn lang-nav__add-lang-btn'>Add a language&lt;/button>
+  &lt;button class='btn red lang-nav__btn lang-nav__delete-lang-btn'>Delete a language&lt;/button>
+&lt;/nav>
+</code></pre>
+<pre class="prettyprint source lang-css"><code>.btn {
+  /* generic button styles */
+}
+
+.green {
+  /* green button styles */
+}
+
+.red {
+  /* red button styles */
+}
+
+.lang-nav {
+  /* styles for the &lt;nav> */
+}
+
+.lang-nav .lang-nav__list {
+  /* styles for the list */
+}
+
+.lang-nav .lang-nav__item {
+  /* styles for list items */
+}
+
+.lang-nav__btn {
+  /* styles for the specific buttons inside the languages nav */
+}
+
+.lang-nav__add-lang-btn {
+  /* styles specific to the Add a Language button */
+}
+
+.lang-nav__delete-lang-btn {
+  /* styles specific to the Delete a Language button */
+}
+</code></pre>
+<p>In LESS, this can be written much more tersely:</p>
+<pre class="prettyprint source lang-less"><code>.btn {
+  &.red { /* styles */ }
+  &.green { /* styles */ }
+}
+
+.lang-nav {
+  &__list { /* styles */ }
+  &__item { /* styles */ }
+  &__btn { /* styles */ }
+  &__add-lang-btn { /* styles */ }
+  &__delete-lang-btn { /* styles */ }
+}
+</code></pre>
+<p><strong>Where to import component styles</strong></p>
+<ul>
+<li>
+<p>Global styles and declarations that apply across the app are located in <code>index.less</code>.</p>
+</li>
+<li>
+<p>Styling for the app shell is located in <code>App/App.less</code>.</p>
+</li>
+<li>
+<p>Styles for individual JavaScript components should be imported by their component, and then added to the page with the View's <code>loadStyles()</code> method, which adds a <code>&lt;style&gt;</code> tag to the page's <code>&lt;head&gt;</code> containing that component's styles.</p>
+<pre class="prettyprint source lang-js"><code>import styles   from './View.less';
+import template from './View.hbs';
+
+class List extends View {
+
+  constructor() {
+    super({ styles, template });
+  }
+
+  render() {
+    this.loadStyles();
+    this.cloneTemplate();
+    /* other rendering code */
+    this.addEventListeners();
+    return this.el;
+  }
+
+}
+</code></pre>
+</li>
+<li>
+<p>Styles for CSS-only components should be added to each page that uses that component. Component styles should <em>not</em> be added to the global styles in <code>index.less</code>. For example, the <code>LineInput</code> class is used by the Languages page and the Lexicon page, but not the Home page, so <code>Languages.less</code> and <code>Home.less</code> import <code>LineInput.less</code>, but <code>Home.less</code> does not.</p>
+</li>
+</ul>
+<h4>JavaScript</h4>
+<p>Each component with functionality has a JavaScript <em>controller</em> which controls that functionality. The main tasks of the controller are to render the component, respond to user interactions with the component, and alert other components when certain events happen.</p>
+<p>Each controller should be an instance of the <code>View</code> class (<code>src/core/View.js</code>). Each JavaScript file for a component should export a single view as its default export. For example, the <code>List</code> component looks like this:</p>
+<pre class="prettyprint source lang-js"><code>// List.js
+
+import View from '../../core/View.js';
+
+export default class List extends View { /* ... */ }
+</code></pre>
+<p>The <code>View</code> class has some utilities for controllers, and documents the conventions that should be followed by view instances. <em>Be sure to read the source code comments in <code>src/core/View.js</code>.</em></p>
+<p>Each view should have a <code>render()</code> method which creates the DOM element for that component. The <code>render()</code> method should do several things:</p>
+<ol>
+<li>Load its styles (using <code>View.prototype.loadStyles()</code>).</li>
+<li>Create an element from its template, if needed (using <code>View.prototype.cloneTemplate()</code>).</li>
+<li>Attach event listeners (by adding an <code>addEventListeners()</code> method).</li>
+<li>Return the new HTML element for the View.</li>
+</ol>
+<h5>Notes</h5>
+<ul>
+<li>
+<p>Components for entire pages must always return a <code>&lt;main id=main class=main data-page={PageName}&gt;</code> element.</p>
+</li>
+<li>
+<p><em>Components should never insert themselves into the DOM.</em> This is the job of their parent controller. For example, the App component controls the Languages page component, and the Languages page component controls the LanguageEditor component. Each component is responsible for loading its immediate subcomponents.</p>
+</li>
+<li>
+<p>Controllers <em>should</em> add their own event listeners. This is usually done at the end of the <code>render()</code> method.</p>
+</li>
+<li>
+<p>Controllers <em>should</em> add their own CSS to the page. See <a href="#css--less">Writing Components &gt; CSS / LESS</a> above for details.</p>
+</li>
+<li>
+<p>Be sure to document your JavaScript code using <a href="https://jsdoc.app/">JSDoc</a> code comments.</p>
+</li>
+</ul>
+<p>Sometimes components will need to listen for events on other components. For example, clicking a button in one component might cause another component to update. To alert other components of an event, use <code>{view}.events.emit('{event name}', data)</code>. To subscribe to events on another component, use <code>{view}.events.on('{event name}', callbackFunction)</code>. When an event is emitted, the data for that event is passed to the callback function. Event listeners can be synchronous or asynchronous. See the source code for the <code>EventEmitter</code> class in <code>src/core/EventEmitter.js</code> for more details. Views should only listen for events on their children / subcomponents.</p>
+<h2>Keyboard Shortcuts</h2>
+<p>The Lotus app supports keyboard shortcuts using the <a href="https://craig.is/killing/mice">Mousetrap</a> library. A Mousetrap instance is saved at <code>app.shortcuts</code>, allowing you to register / deregister keyboard shortcuts there. See the <a href="https://craig.is/killing/mice">Mousetrap documentation</a> for complete details.</p>
+<h2>Testing the App</h2>
+<p>The Lotus project includes a collection of tests that you can run to ensure that everything in the app is functioning correctly. Before you make a pull request, you should run the tests for the app to check that your changes did not break any existing functionality. (Instructions for how to run the tests are below.) If the tests fail, you should either fix the code or update the tests to reflect the new functionality.</p>
+<p>Whenever possible, write a test for the changes you are making. This ensures that future changes will not break your code.</p>
+<h3>Types of Tests</h3>
+<p>There are several types of tests in this project:</p>
+<ul>
+<li>
+<p><strong>unit tests:</strong> These tests cover small, isolated parts of the code such as individual classes, methods, or modules. These tests are run with <a href="https://mochajs.org/">Mocha</a> and have a <code>.unit.js</code> extension.</p>
+</li>
+<li>
+<p><strong>component tests:</strong> These tests check the functionality of individual components of the app in isolation, such as a nav, dropdown, etc. These tests are run with a combination of <a href="https://storybook.js.org/">Storybook</a> + <a href="https://www.cypress.io/">Cypress</a> and have a <code>.component.js</code> extension.</p>
+</li>
+<li>
+<p><strong>end-to-end (E2E) tests:</strong> These tests imitate the behavior of the end user using the entire production-ready app to accomplish various tasks, and depend on databases, servers, etc. These typically only test the &quot;happy path&quot;, rather than various errors. These tests are run with <a href="https://www.cypress.io/">Cypress</a> and have a <code>.e2e.js</code> extension.</p>
+</li>
+<li>
+<p><strong>performance tests:</strong> These tests check the app's performance in terms of speed and other metrics. These tests are run with <a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse</a>.</p>
+</li>
+</ul>
+<p><strong>NOTE:</strong> Both Mocha and Cypress use the <a href="https://www.chaijs.com/">Chai</a> assertion framework to make assertions about expected behaviors.</p>
+<p>The list of tests above is ordered from quickest / least computationally expensive to slowest / most computationally expensive.</p>
+<pre class="prettyprint source"><code>fast / cheap &lt;------------> slow / expensive
+
+unit &lt;--- component --- E2E ---> performance
+</code></pre>
+<p>Since tests on the lower end of this continuum are quick and easy to write and run, you should write as many of your tests on the unit testing end of the continuum as possible. This will create what is known as the &quot;testing pyramid&quot;, with many tiny unit / component tests and a small number of E2E / performance tests.</p>
+<p>Cypress tests can either be run programmatically (from the command line), or by using an interactive interface which allows you to watch the tests interact with the app, rerun, and debug those tests.</p>
+<p>You can run the various types of tests with the following commands:</p>
+<table>
+<thead>
+<tr>
+<th>Test Type</th>
+<th>Extension</th>
+<th>Interface</th>
+<th>Command (with <code>npm run</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unit</td>
+<td><code>.unit.js</code></td>
+<td>interactive</td>
+<td>—</td>
+</tr>
+<tr>
+<td>unit</td>
+<td><code>.unit.js</code></td>
+<td>programmatic</td>
+<td><code>test:unit</code></td>
+</tr>
+<tr>
+<td>component</td>
+<td><code>.component.js</code></td>
+<td>interactive</td>
+<td><code>cypress-ct</code></td>
+</tr>
+<tr>
+<td>component</td>
+<td><code>.component.js</code></td>
+<td>programmatic</td>
+<td><code>test:component</code></td>
+</tr>
+<tr>
+<td>E2E</td>
+<td><code>.e2e.js</code></td>
+<td>interactive</td>
+<td><code>cypress-e2e</code></td>
+</tr>
+<tr>
+<td>E2E</td>
+<td><code>.e2e.js</code></td>
+<td>programmatic</td>
+<td><code>test:e2e</code></td>
+</tr>
+<tr>
+<td>performance</td>
+<td>—</td>
+<td>interactive</td>
+<td><a href="https://developers.google.com/web/tools/lighthouse/#devtools">Chromium dev tools</a></td>
+</tr>
+<tr>
+<td>performance</td>
+<td>—</td>
+<td>programmatic</td>
+<td><code>test:perf</code></td>
+</tr>
+</tbody>
+</table>
+<p>You can also open Storybook + Cypress individually. First run <code>npm run storybook</code>, and then in a separate terminal run <code>npm run cypress-ct-open</code>. However, it is typically easier to just run one of the commands in the table above.</p>
+<h3>Writing Tests</h3>
+<p>This section explains how to structure the different kinds of tests.</p>
+<h4>Unit Tests</h4>
+<p>Unit tests typically test pure JavaScript modules that don't require a browser to run. Each test within a unit test suite should work in isolation, independently of any of the other tests. You should even be able to run them out of order.</p>
+<p>In this project, items that have unit tests are modules in <code>core/</code>, <code>models/</code>, or <code>utilities/</code>, plus a few tests of the development environment in <code>test/</code>.</p>
+<p>To write a unit test, import the module you are testing as well as the <a href="https://www.chaijs.com/">Chai</a> assertion library, then write tests for each of the properties / methods that the module exposes. Here is a small example:</p>
+<pre class="prettyprint source lang-js"><code>// EventEmitter.unit.js
+
+import chai         from 'chai';
+import EventEmitter from './EventEmitter.js'
+
+const { expect } = chai;
+
+describe(`EventEmitter`, function() {
+
+  it(`has an events Map`, function() {
+    const emitter = new EventEmitter;
+    expect(emitter.events).to.be.a(Map);
+  });
+
+});
+</code></pre>
+<p>You may occasionally also want to import other testing utilities such as <a href="https://sinonjs.org/">Sinon</a> for stubs, mocks, and spies:</p>
+<pre class="prettyprint source lang-js"><code>// EventEmitter.unit.js
+
+import chai         from 'chai';
+import EventEmitter from './EventEmitter.js';
+import sinon        from 'sinon';
+import sinonChai    from 'sinon-chai';
+
+chai.use(sinonChai);
+
+const { expect } = chai;
+
+describe(`EventEmitter`, function() {
+
+  it(`emit`, async function() {
+
+    const emitter = new EventEmitter;
+    const stub    = sinon.stub();
+
+    emitter.on(`test`, stub);
+    await emitter.emit(`test`);
+
+    expect(stub).to.have.been.calledOnce;
+
+  });
+
+});
+</code></pre>
+<p><strong>NOTE:</strong> Some unit tests have to be run in the browser because they rely on specific browser APIs (for example, the tests for <code>Model.js</code>). These should be given the <code>.component.js</code> extension so that they run in the browser, but otherwise can be written as normal unit tests.</p>
+<h4>Component Tests</h4>
+<p>Component tests check the functionality of a single component in isolation. Any items in the <code>components/</code> folder that have functionality, or any page-specific components in <code>pages/{ComponentName}</code> that have functionality, should have a component test.</p>
+<p>Component tests are run using <a href="https://www.cypress.io/">Cypress</a> tests on a single <a href="https://storybook.js.org/">Storybook</a> story. To load the component, call <code>cy.visit()</code> on the URL for that particular story. You can find the URL by opening that story in Storybook, clicking the &quot;Open canvas in new tab&quot; icon in the upper right (the external link icon), and copying the URL from that tab. Now you can write your component tests using Cypress' API. Note that you do <em>not</em> need to import Chai or Sinon—these are included in Cypress. Here is a small example test:</p>
+<pre class="prettyprint source lang-js"><code>// List.component.js
+
+describe(`List`, function() {
+
+  // load the Storybook story
+  before(function() {
+    cy.visit(`http://localhost:6006/iframe.html?id=components-list`);
+  });
+
+  // run tests on the component
+  it(`renders`, function() {
+    cy.get(`.list`)
+    .children()
+    .should(`have.lengthOf`, 3);
+  });
+
+});
+</code></pre>
+<h4>End-to-End Tests (E2E)</h4>
+<p>End-to-end (E2E) tests are tests on the entire composed app that imitate how a user would interact with the app to perform various tasks. E2E tests should generally only test the &quot;happy path&quot; (that the required functionality works as expected); they should not test every possible error and edge case.</p>
+<p>E2E tests do not use Storybook components. Instead they run directly on the app itself. E2E tests often involve long chains of commands, where the result of one test depends on the outcome of previous tests. <a href="https://docs.cypress.io/guides/references/best-practices#Creating-tiny-tests-with-a-single-assertion">Read the Cypress docs about tiny tests for more information.</a></p>
+<p>To write an E2E test, first visit the app page using <code>cy.visit('/')</code>, and then use Cypress to interact with the app like a user would. For example, you could use <code>cy.get()</code> to look for text on a page rather than IDs or class names. See the <code>Languages.e2e.js</code> file for a good example of what this looks like.</p>
+<h4>Miscellaneous Notes on Testing</h4>
+<ul>
+<li>Use &quot;if/when ..., then ...&quot; format whenever appropriate.</li>
+</ul>
+<h2>Build Process</h2>
+<p>You can build the app, its tests, and all its documentation with <code>npm run build</code>. (Remember that you can also use <a href="https://nodemon.io/">nodemon</a> to automatically rerun this command when files change.)</p>
+<p>Running <code>npm run build</code> triggers a number of build steps. Many of these steps can also be run individually with the following commands. Build scripts are all located in <code>build/</code>.</p>
+<ul>
+<li><code>npm run build:cache</code>: builds a list of assets to cache offline</li>
+<li><code>npm run build:copy</code>: copies static assets to <code>dist/</code></li>
+<li><code>npm run build:docs</code>: builds the developer documentation</li>
+<li><code>npm run build:js</code>: builds transpiled JS files</li>
+<li><code>npm run build:stories</code>: builds assets required by Storybook</li>
+</ul>
+<p>You can skip building the docs and Storybook stories by running <code>npm run quick-build</code>.</p>
+<h3>Offline Functionality</h3>
+<p>The Lotus app is designed to be an offline web app. As such, all assets required to run the app must be available offline. This functionality is achieved via the <code>src/offline-worker.js</code> file. This file caches all the required assets for the app. It uses the file <code>dist/cache.json</code> to determine which files need to be cached. The <code>cache.json</code> file is generated during the build process (by <code>buildCache.js</code>) by creating a list of all files present in the <code>dist/</code> folder (except for <code>offline-worker.js</code> itself).</p>
+<h2>Resources</h2>
+<p>This section contains various resources that may be useful during development.</p>
+<h3>Images</h3>
+<p>The Lotus app uses <a href="https://feathericons.com/">Feather Icons</a> for UI purposes by default. The app also has some more decorative icons that are less interactive. These are taken from <a href="https://www.flaticon.com/">Flaticon</a>. Generally, UI icons should be black and white with rounded edges, while decorative icons should be colorful and flat with sharp edges.</p>
+<h3>Accessibility</h3>
+<p>Some great resources on creating accessible components:</p>
+<ul>
+<li><a href="https://inclusive-components.design/">Inclusive Components</a></li>
+<li><a href="https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/">A complete guide to accessible front-end components</a></li>
+<li><a href="https://www.accessibility-developer-guide.com/">Developer Accessibility Guide</a></li>
+</ul>
+<h3>Inspiration</h3>
+<p>Other single-page apps or tools this project sometimes mimics:</p>
+<ul>
+<li><a href="https://software.sil.org/fieldworks/">FLEx</a></li>
+<li>GitHub (web)</li>
+<li>GitHub (desktop)</li>
+<li><a href="https://to-do.live.com/">Microsoft Todo</a> (web)</li>
+<li><a href="https://software.sil.org/saymore/">SayMore</a></li>
+<li>Slack (desktop)</li>
+<li>Trello</li>
+</ul>
+<p>Some older versions of styles for the app are located <a href="https://github.com/digitallinguistics/styles/tree/8ec3d9f232e37080531a0b69fa542e66fb49721c">here</a>.</p>
+<!-- LINKS --></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 12:33:24 GMT-0700 (Mountain Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
