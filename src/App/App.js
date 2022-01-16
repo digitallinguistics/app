@@ -19,6 +19,12 @@ class App extends View {
   // PROPERTIES
 
   /**
+   * A reference to the Azure App Insights SDK (production only).
+   * @type {Object}
+   */
+  appInsights;
+
+  /**
    * A reference to the local database module.
    * @type {Database}
    */
@@ -57,6 +63,12 @@ class App extends View {
    * @type {Map}
    */
   pages = new Map;
+
+  /**
+   * A boolean indicating whether the app is currently running on production.
+   * @type {Boolean}
+   */
+  production = location.hostname === `app.digitallinguistics.io`;
 
   /**
    * An object for persisting app/user settings. Saves to Local Storage.
@@ -160,6 +172,10 @@ class App extends View {
 
     this.announce(`${ page } page`);
 
+    if (this.production && navigator.onLine) {
+      this.appInsights.trackPageView({ name: page });
+    }
+
   }
 
   /**
@@ -171,7 +187,16 @@ class App extends View {
     this.nav.render(this.settings.page, { open: this.settings.navOpen });
     this.displayPage(this.settings.page); // async
     this.addEventListeners();
+    await this.initializeAppInsights();
     return this.el;
+  }
+
+  async initializeAppInsights() {
+    if (this.production) {
+      const { appInsights } = await import(`../services/AppInsights.js`);
+      this.appInsights = appInsights;
+      this.appInsights.loadAppInsights();
+    }
   }
 
   /**
