@@ -19,7 +19,7 @@ If you use the Lotus app in your work, please consider citing it similar to the 
 
 <!-- LINKS -->
 [app]:          https://app.digitallinguistics.io
-[dev-docs:      https://developer.digitallinguistics.io/app
+[dev-docs]:     https://developer.digitallinguistics.io/app
 [GitHub]:       https://github.com/digitallinguistics/app
 [issues]:       https://github.com/digitallinguistics/app/issues
 [new-issue]:    https://github.com/digitallinguistics/app/issues/new
