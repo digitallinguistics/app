@@ -1,6 +1,6 @@
 /* eslint-env serviceworker */
 
-const cacheName = `dlx`;
+const cacheName = `Lotus`;
 
 // NOTE: Filenames in the asset list need to start with an initial slash
 // in order to be matched correctly curing cleanupCache().
