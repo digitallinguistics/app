@@ -47,6 +47,7 @@
     "@babel/core": "^7.16.5",
     "@lhci/cli": "^0.8.1",
     "@microsoft/applicationinsights-web": "^2.7.2",
+    "@storybook/addon-docs": "~6.3.12",
     "@storybook/builder-webpack5": "~6.3.12",
     "@storybook/html": "~6.3.12",
     "@storybook/manager-webpack5": "~6.3.12",
