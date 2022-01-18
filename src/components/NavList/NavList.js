@@ -43,21 +43,23 @@ export default class NavList extends List {
 
     if (items.length) {
 
-      //  clear the current item
+      //  clear the previous item
 
-      for (const item of items) {
-        item.removeAttribute(`aria-current`);
-        item.classList.remove(`current`);
+      const previousItem = items.find(item => item.classList.contains(`current`));
+
+      if (previousItem) {
+        previousItem.removeAttribute(`aria-current`);
+        previousItem.classList.remove(`current`);
       }
 
       // set the current item
 
       const currentItem = items.find(item => item.dataset.id === id);
 
-      if (!currentItem) return;
-
-      currentItem.setAttribute(`aria-current`, this.name);
-      currentItem.classList.add(`current`);
+      if (currentItem) {
+        currentItem.setAttribute(`aria-current`, this.name);
+        currentItem.classList.add(`current`);
+      }
 
     }
 
