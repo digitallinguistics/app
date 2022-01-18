@@ -1,6 +1,8 @@
 export default {
-  parameters: { layout: `fullscreen` },
-  title:      `App/Banner`,
+  parameters: {
+    layout: `fullscreen`,
+  },
+  title: `App/Banner`,
 };
 
 export const Banner = () => {

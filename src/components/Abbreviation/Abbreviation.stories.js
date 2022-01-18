@@ -1,6 +1,10 @@
 import '../../../dist/components/Abbreviation/Abbreviation.css';
+import page from './Abbreviation.stories.mdx';
 
 export default {
+  docs: {
+    page,
+  },
   title: `Components/Abbreviation`,
 };
 
