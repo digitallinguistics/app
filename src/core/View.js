@@ -60,7 +60,7 @@ class View {
   }
 
   /**
-   * Complete any rendering logic that requires the view to be attached to the DOM, and add event listeners. This should be called after the `render()` method. This `initialize()` method should be overridden by View instances.
+   * Complete any rendering logic that requires the view to be attached to the DOM or is asynchronous, and add event listeners. This should be called after the `render()` method. This `initialize()` method should be overridden by View instances.
    */
   initialize() { /* no-op */ }
 
@@ -82,7 +82,7 @@ class View {
   }
 
   /**
-   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. The `render()` method should always be synchronous. The `render()` method typically also calls `loadStyles()` and `cloneTemplate()`. The `render()` method should be overwritten by View instances.
+   * Compiles the DOM tree for this view, sets the value of `this.el` to the element for this view, and returns that element. Views should not insert themselves into the DOM; this is the responsibility of their parent view/controller. The `render()` method should always be synchronous. Use `initialize()` for asynchronous work. The `render()` method typically also calls `loadStyles()` and `cloneTemplate()`. The `render()` method should be overwritten by View instances.
    * @abstract
    */
   render() { /* no-op */ }
