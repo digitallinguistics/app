@@ -23,7 +23,7 @@ describe(`docs`, function() {
   it(`license has the correct year`, async function() {
 
     const license     = await readFile(joinPath(currentDir, `../LICENSE`), `utf8`);
-    const { year }    = license.match(/\(c\) (?<year>\d{4})/u).groups;
+    const { year }    = license.match(/\(c\) 2013–(?<year>\d{4})/u).groups;
 
     expect(Number(year)).to.equal(currentYear);
 

@@ -3,31 +3,14 @@ describe(`Lexicon`, function() {
   beforeEach(function() {
     cy.visit(`/`);
     cy.setupStore(`languages`);
-    cy.get(`#nav[data-loaded=true]`);
   });
 
-  it(`when no language is selected, it renders the Language Chooser and creates a new language`, function() {
+  it(`when no language is selected, it renders the Language Chooser`, function() {
 
     cy.contains(`#nav li`, `Lexicon`)
     .click();
 
-    cy.contains(`Add a language`)
-    .click();
-
-    cy.get(`.language-editor [name=name-eng]`)
-    .should(`have.value`, `{ new language }`);
-
-  });
-
-  it(`when no language is selected, it renders the Language Chooser and selects a language`, function() {
-
-    cy.contains(`#nav li`, `Lexicon`)
-    .click();
-
-    cy.contains(`li`, `Nuuchahnulth`)
-    .click();
-
-    cy.contains(`.lexicon h1`, `Nuuchahnulth`);
+    cy.get(`#language-chooser`);
 
   });
 
@@ -38,7 +21,7 @@ describe(`Lexicon`, function() {
     cy.contains(`#nav li`, `Languages`)
     .click();
 
-    cy.contains(`.js-languages-page__languages-list li`, `Chitimacha`)
+    cy.contains(`li`, `Chitimacha`)
     .click();
 
     cy.get(`#name-eng`)

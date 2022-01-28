@@ -28,10 +28,10 @@ export default class List extends View {
 
   /**
    * Create a new List View
-   * @param {Array}    [collection=[]]           The collection of models to render in the list. Defaults to an empty array.
-   * @param {Object}   [options={}]              An optional options hash
-   * @param {Array}    [options.classes=[]]      An Array of classes to add to the list.
-   * @param {Function} [options.template]        A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
+   * @param {Array}    [collection=[]]      The collection of models to render in the list. Defaults to an empty array.
+   * @param {Object}   [options={}]         An optional options hash
+   * @param {Array}    [options.classes=[]] An Array of classes to add to the list.
+   * @param {Function} [options.template]   A templating function that accepts a model and returns a `<li>` element. This function will be used by the render method to render the list.
    */
   constructor(collection = [], {
     classes = [],
@@ -42,7 +42,8 @@ export default class List extends View {
 
     this.classes    = classes;
     this.collection = collection;
-    this.template   = template ?? this.template;
+
+    if (template) this.renderItem = template;
 
   }
 
@@ -58,14 +59,16 @@ export default class List extends View {
     }
 
     this.collection
-    .map(this.template.bind(this))
+    .map(this.renderItem.bind(this))
     .forEach(item => this.el.appendChild(item));
 
     return this.el;
 
   }
 
-  // NOTE: Must use property assignment here to overwrite `template` property.
-  template = () => document.createElement(`li`);
+  // NOTE: Do not name this "template", because it conflicts with the View's template.
+  renderItem() {
+    return document.createElement(`li`);
+  }
 
 }

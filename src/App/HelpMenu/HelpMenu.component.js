@@ -19,7 +19,6 @@ describe(`HelpMenu`, function() {
     cy.get(`body`)
     .type(`{esc}`);
 
-
   });
 
 });

@@ -1,0 +1,46 @@
+.lexemes-list {
+
+  cursor    : pointer;
+  overflow-y: auto;
+
+  li {
+    border-block: var(--border-width) solid var(--gray-1);
+    padding     : var(--text-padding-sm);
+  }
+
+  .current {
+    background-color        : var(--blue-1);
+    border-block-start-width: calc(var(--border-width) * 2);
+    border-color            : var(--blue-3);
+    margin-block-start      : calc(var(--border-width) * -1);
+  }
+
+  .current + li {
+    border-block-start-color: var(--blue-3);
+  }
+
+  li:hover {
+    background-color: var(--gray-1);
+  }
+
+  li.current:hover {
+    background-color: var(--blue-2);
+  }
+
+  li:first-child {
+    border-block-start-width: calc(var(--border-width) * 2);
+  }
+
+  li.current:first-child {
+    margin-block-start: 0;
+  }
+
+  li:last-child {
+    border-block-end-width: calc(var(--border-width) * 2);
+  }
+
+  li.current:last-child {
+    margin-block-end: 0;
+  }
+
+}

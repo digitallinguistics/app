@@ -51,7 +51,7 @@ describe(`List View`, function() {
         const template = () => cy.stub();
         const list     = new List([], { template });
 
-        expect(list.template).to.equal(template);
+        expect(list.renderItem).to.equal(template);
 
       });
 

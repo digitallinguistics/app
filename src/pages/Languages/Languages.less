@@ -18,6 +18,9 @@
 
   &__languages-list {
     margin-inline: var(--space);
+    li {
+      hyphens: auto;
+    }
   }
 
   &__nav {
@@ -34,6 +37,12 @@
   &__nav-add-lang-button {
     .align-center;
     margin: var(--space);
+  }
+
+  .language-editor-placeholder {
+    inline-size  : 100%;
+    margin       : var(--space);
+    margin-inline: auto;
   }
 
   // small screens

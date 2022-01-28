@@ -96,6 +96,16 @@
         inline-size: fit-content;
       }
 
+      .link {
+        &:not([href*='app.digitallinguistics.io'], [href^='#']) {
+          margin-inline-end: 0;
+        }
+        &::after {
+          display: none;
+        }
+
+      }
+
       span {
         .visually-hidden;
       }

@@ -55,6 +55,11 @@ describe(`MultiLangString`, function() {
     expect(mls.default).to.equal(`Haus`);
   });
 
+  it(`can set a default language`, function() {
+    const mls = new MultiLangString(objData, { defaultLanguage: `spa` });
+    expect(mls.default).to.equal(`casa`);
+  });
+
   it(`serializes as a JSON Object`, function() {
 
     const mls = new MultiLangString(objData);
