@@ -1,3 +1,4 @@
+import cleanWhitespace from '../../utilities/cleanWhitespace.js';
 import styles   from './Note.less';
 import template from './Note.hbs';
 import View     from '../../core/View.js';
@@ -51,8 +52,8 @@ export default class NoteView extends View {
 
   save() {
     this.note.dateModified = new Date;
-    this.note.text         = this.textInput.value.cleanWhitespace();
-    this.note.source       = this.srcInput.value.cleanWhitespace();
+    this.note.text         = cleanWhitespace(this.textInput.value);
+    this.note.source       = cleanWhitespace(this.srcInput.value);
   }
 
   showEditor() {

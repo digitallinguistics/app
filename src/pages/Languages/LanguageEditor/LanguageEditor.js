@@ -1,5 +1,6 @@
 import AdditionalName        from '../AdditionalName/AdditionalName.js';
 import AnalysisLanguage      from '../AnalysisLanguage/AnalysisLanguage.js';
+import cleanWhitespace       from '../../../utilities/cleanWhitespace.js'
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
@@ -56,7 +57,7 @@ export default class LanguageEditor extends View {
     if (target.classList.contains(`js-additional-name__cancel-button`)) {
       const item     = target.closest(`.additional-name`);
       const { view } = item;
-      const name     = view.nameInput.value.cleanWhitespace();
+      const name     = cleanWhitespace(view.nameInput.value);
       if (name) return;
       const index = item.dataset.id;
       this.language.additionalNames.splice(index, 1);
@@ -333,7 +334,7 @@ export default class LanguageEditor extends View {
   updateAutonym(ev) {
     const { name, value } = ev.target;
     const abbr = /autonym-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
-    this.language.autonym.set(abbr, value.cleanWhitespace());
+    this.language.autonym.set(abbr, cleanWhitespace(value));
     return this.save();
   }
 
@@ -363,7 +364,7 @@ export default class LanguageEditor extends View {
     const isValid = input.checkValidity();
     input.reportValidity();
     if (!isValid) return;
-    this.language[name.cleanWhitespace()] = value;
+    this.language[cleanWhitespace(name)] = value;
     return this.save();
   }
 
