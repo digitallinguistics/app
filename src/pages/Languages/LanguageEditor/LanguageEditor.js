@@ -364,7 +364,7 @@ export default class LanguageEditor extends View {
     const isValid = input.checkValidity();
     input.reportValidity();
     if (!isValid) return;
-    this.language[cleanWhitespace(name)] = value;
+    this.language[name] = cleanWhitespace(value);
     return this.save();
   }
 
