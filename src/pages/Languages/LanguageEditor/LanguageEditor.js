@@ -1,6 +1,6 @@
 import AdditionalName        from '../AdditionalName/AdditionalName.js';
 import AnalysisLanguage      from '../AnalysisLanguage/AnalysisLanguage.js';
-import cleanWhitespace       from '../../../utilities/cleanWhitespace.js'
+import cleanWhitespace       from '../../../utilities/cleanWhitespace.js';
 import compare               from '../../../utilities/compare.js';
 import debounce              from '../../../utilities/debounce.js';
 import List                  from '../../../components/List/List.js';
@@ -353,7 +353,7 @@ export default class LanguageEditor extends View {
     }
 
     const abbr = /name-(?<abbr>.+)$/u.exec(name)?.groups?.abbr;
-    this.language.name.set(abbr, value);
+    this.language.name.set(abbr, cleanWhitespace(value));
     await this.save();
     await this.events.emit(`update:name`, this.language.cid);
 
