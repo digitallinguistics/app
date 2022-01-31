@@ -26,7 +26,7 @@ class Settings {
   /* eslint-disable no-constructor-return */
   constructor(initialSettings = {}) {
 
-    const settings = Object.assign(this.#defaults, initialSettings);
+    const settings = Object.assign({}, this.#defaults, initialSettings);
 
     return new Proxy(settings, {
       set(target, prop, val) {
