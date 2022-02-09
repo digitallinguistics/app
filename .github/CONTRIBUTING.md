@@ -12,11 +12,8 @@ Want to contribute code to the Lotus app? Awesome! 🌟 Check out [GitHub's Open
 
 ## Quick Links
 
-* [View the complete developer documentation here.][developers] **
+* [View the complete developer documentation here.][developers]
 * [View documentation for maintainers.][maintainers]
-* [View JavaScript documentation.][developers] **
-
-\** Developer documentation can currently only be viewed by openining `docs/index.html` in a browser.
 
 ## Contents
 
@@ -107,49 +104,11 @@ Follow these steps to set up your local development environment:
 
 ## Developer Tools
 
-This section describes several developer tools it is strongly recommended that you use while making changes to the code.
+This section describes several developer tools that are strongly recommended while making changes to the code.
 
 ### nodemon
 
-Each time you make changes to the sources files, you will need to rebuild the app. You do not need to restart the server each time, but you will need to refresh the page in the browser for the changes to appear.
-
-One way to do this is to open two terminals—one to run the server (`npm start`), and run to rebuild the app each time you make a change (`npm run build`).
-
-An easier solution is to use a tool like [nodemon], which watches the project for changes and automatically runs commands of your choosing each time a file changes. In this case, you can run `npm run build` each time the code changes.
-
-**Steps to Use nodemon**
-
-1. Install nodemon globally:
-
-    ```cmd
-    > npm install --global nodemon
-    ```
-
-2. Add a `nodemon.json` config file to the root of the project. Below is a recommended configuration. It will watch for changes to any files which have an extension in the `ext` field, but ignore any files which match the glob patterns in the `ignore` field. Any time a change is detected, it will run `npm run build`.
-
-    ```json
-    <!-- nodemon.json -->
-
-    {
-      "exec": "npm run build",
-      "ext": "hbs,js,less,md",
-      "ignore": [
-        "dist",
-        "docs",
-        "**/*.stories.js",
-        "**/*.test.js",
-        "**/*.unit.js"
-      ]
-    }
-    ```
-
-3. Start nodemon.
-
-    ```cmd
-    > nodemon
-    ```
-
-You can configure nodemon to run different commands instead. For example, nodemon can rebuild the app after each change and then start the server, or rebuild the app and then run tests, etc. See the complete documentation on the [nodemon website][nodemon].
+Each time you make changes to the sources files, you will need to rebuild the app. You do not need to restart the server each time, but you will need to refresh the page in the browser for the changes to appear. [nodemon] is a simple tool that you can configure to automatically rebuild the app and restart the server each time a change is detected in your files.
 
 ### ESLint & Stylelint
 
@@ -161,7 +120,7 @@ Most code editors have settings, plugins, or extensions that support ESLint and 
 
 ### Storybook
 
-[Storybook] is a tool for managing a library of components. It allows developers to create, style, and test each component in isolation, as well as in combination. Each component is given its own "story", and files containing story specifications end in `.stories.js`. When creating new components, it is recommended that you develop using Storybook first, and then write component tests using Cypress.
+[Storybook] is a tool for managing a library of components. It allows developers to create, style, and test each component in isolation, as well as in combination. Each component is given its own "story", and files containing story specifications end in `.stories.mdx`. When creating new components, it is recommended that you develop using Storybook first, and then write component tests using Cypress.
 
 To use Storybook:
 
@@ -178,24 +137,28 @@ This section explains the organization of the project and the app code.
 
 ### Project Structure
 
-| Folder        | Description                                                                                                                                                                                                                                                 |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.github/`    | Developer documentation.                                                                                                                                                                                                                                    |
-| `.storybook/` | Configuration for [Storybook].                                                                                                                                                                                                                              |
-| `build/`      | Scripts to build the production version of the app from the `src/` files.                                                                                                                                                                                   |
-| `dist/`       | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.                                                                                                           |
-| `docs/`       | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.                                                                                                                                              |
-| `src/`        | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.                                                                                                                   |
-| `test/`       | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment. Test files belong next to the component they are testing. (See [Testing the App](#testing-the-app).) |
+| Folder            | Description                                                                                                                                                                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.github/`        | Developer documentation.                                                                                                                                                                                                                                    |
+| `.storybook/`     | Configuration for [Storybook].                                                                                                                                                                                                                              |
+| `build/`          | Scripts to build the production version of the app from the `src/` files.                                                                                                                                                                                   |
+| `dist/`**         | Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.                                                                                                           |
+| `docs/`**         | Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.                                                                                                                                              |
+| `node_modules/`** | JavaScript libraries that this project uses as dependencies. This folder is not checked into git.                                                                                                                                                           |
+| `src/`            | Source code for the app. Test files should live alongside their source components. See [App Structure](#app-structure) below for details.                                                                                                                   |
+| `test/`           | Configuration code and fixtures for tests. Test specs should _not_ be placed here unless they are tests having to do with the development environment. Test files belong next to the component they are testing. (See [Testing the App](#testing-the-app).) |
 
-### Directory Structure
+\** Not checked into git.
+
+### `src/` Directory Structure
 
 The `src/` folder contains the following:
 
 | Folder              | Description                                                                                                                                         |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `App/`              | The App is a special top-level component, globally accessible with the `app` variable. Also contains components that are specific to the app shell. |
-| `components/`       | Components that are shared across pages (but not part of the app shell).                                                                            |
+| `classes/`          | CSS-only components that are shared across pages.                                                                                                   |
+| `components/`       | Interactive components (that use JavaScript) that are shared across pages (but not part of the app shell).                                          |
 | `core/`             | The app's JavaScript framework (a custom framework written in vanilla JavaScript).                                                                  |
 | `fonts/`            | Font files.                                                                                                                                         |
 | `images/`           | Images and icons used in the app.                                                                                                                   |
@@ -207,7 +170,7 @@ The `src/` folder contains the following:
 | `index.hbs`         | The HTML shell for the app.                                                                                                                         |
 | `index.less`        | Global styles that apply across the app.                                                                                                            |
 | `manifest.json`     | Web app manifest for installing the site as a web app.                                                                                              |
-| `offline-worker.js` | A service worker which makes the app work offline.                                                                                                  |
+| `offline‑worker.js` | A service worker which makes the app work offline.                                                                                                  |
 
 ### App Structure
 
@@ -246,7 +209,7 @@ Each component can have several types of files associated with it. Not all compo
 - `.hbs`: The HTML template for the component, written in [Handlebars].
 - `.less`: The styling for the component, written in [LESS].
 - `.js`: The JavaScript controller that manages this view's functionality.
-- `.stories.js`: The code for rendering this component in Storybook.
+- `.stories.mdx`: The code for rendering this component in Storybook.
 - `.unit.js`: Unit tests for this component.
 
 All of these files should be located together in the same directory. For example, the `NavList` directory looks like this:
@@ -257,7 +220,7 @@ NavList/
   - NavList.hbs
   - NavList.js
   - NavList.less
-  - NavList.stories.js
+  - NavList.stories.mdx
 ```
 
 ### Types of Components
@@ -302,55 +265,7 @@ class List extends View {
 
 #### CSS / LESS
 
-The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS.
-
-The most useful LESS feature is nesting. For example, instead of writing this…
-
-```css
-#header {
-  color: black;
-}
-
-#header .navigation {
-  font-size: 12px;
-}
-
-#header .logo {
-  width: 300px;
-}
-```
-
-…we can write this:
-
-```less
-#header {
-
-  color: black;
-
-  .navigation {
-    font-size: 12px;
-  }
-
-  .logo {
-    width: 300px;
-  }
-
-}
-```
-
-You can load other LESS dependencies into your LESS stylesheet with the `@import` command. For example, `App.less` loads stylesheets for the Banner, Nav, and Skip Link.
-
-```less
-@import 'Banner/Banner';
-@import 'Nav/Nav';
-@import 'Skip-Link/Skip-Link';
-```
-
-If you only want to use specific styles/declarations from a stylesheet, use `@import (reference)`. For example, the following line in `App.less` loads the `variables.less` file, but will *only* import the variables that `App.less` explicitly uses.
-
-```less
-@import (reference) 'variables';
-```
+The styles for each component are written in [LESS], an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS.
 
 [See the LESS documentation for more details on using LESS.][LESS]
 
@@ -539,16 +454,16 @@ Cypress tests can either be run programmatically (from the command line), or by 
 
 You can run the various types of tests with the following commands:
 
-| Test Type   | Extension         | Interface    | Command (with `npm run`)          |
-| ----------- | ----------------- | ------------ | --------------------------------- |
-| unit        | `.unit.js`        | interactive  | —                                 |
-| unit        | `.unit.js`        | programmatic | `test:unit`                       |
-| component   | `.component.js`   | interactive  | `cypress-ct`                      |
-| component   | `.component.js`   | programmatic | `test:component`                  |
-| E2E         | `.e2e.js`         | interactive  | `cypress-e2e`                     |
-| E2E         | `.e2e.js`         | programmatic | `test:e2e`                        |
-| performance | —                 | interactive  | [Chromium dev tools][lh-devtools] |
-| performance | —                 | programmatic | `test:perf`                       |
+| Test Type   | Extension       | Interface    | Command (with `npm run`)          |
+| ----------- | --------------- | ------------ | --------------------------------- |
+| unit        | `.unit.js`      | interactive  | —                                 |
+| unit        | `.unit.js`      | programmatic | `test:unit`                       |
+| component   | `.component.js` | interactive  | `cypress-ct`                      |
+| component   | `.component.js` | programmatic | `test:component`                  |
+| E2E         | `.e2e.js`       | interactive  | `cypress-e2e`                     |
+| E2E         | `.e2e.js`       | programmatic | `test:e2e`                        |
+| performance | —               | interactive  | [Chromium dev tools][lh-devtools] |
+| performance | —               | programmatic | `test:perf`                       |
 
 You can also open Storybook + Cypress individually. First run `npm run storybook`, and then in a separate terminal run `npm run cypress-ct-open`. However, it is typically easier to just run one of the commands in the table above.
 
