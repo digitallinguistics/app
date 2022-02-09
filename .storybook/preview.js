@@ -7,6 +7,7 @@ import '../dist/classes/Code/Code.css';
 import '../dist/classes/Fieldset/Fieldset.css';
 import '../dist/classes/HelpText/HelpText.css';
 import '../dist/classes/InputGroup/InputGroup.css';
+import '../dist/classes/Label/Label.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
