@@ -4,6 +4,7 @@ import '../dist/classes/BlockHeader/BlockHeader.css';
 import '../dist/classes/BoxInput/BoxInput.css';
 import '../dist/classes/Button/Button.css';
 import '../dist/classes/Code/Code.css';
+import '../dist/classes/Fieldset/Fieldset.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
