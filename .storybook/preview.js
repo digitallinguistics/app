@@ -8,6 +8,12 @@ import '../dist/classes/Fieldset/Fieldset.css';
 import '../dist/classes/HelpText/HelpText.css';
 import '../dist/classes/InputGroup/InputGroup.css';
 import '../dist/classes/Label/Label.css';
+import '../dist/classes/Legend/Legend.css';
+import '../dist/classes/LineInput/LineInput.css';
+import '../dist/classes/Link/Link.css';
+import '../dist/classes/PageTitle/PageTitle.css';
+import '../dist/classes/Required/Required.css';
+import '../dist/classes/SectionHeader/SectionHeader.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
