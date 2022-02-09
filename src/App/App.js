@@ -96,15 +96,21 @@ class App extends View {
    * @return {Promise}
    */
   async addLanguage() {
+
     let language = new Language;
+
     language.autonym.set(`default`, ``);
     language.name.set(`eng`, `{ new language }`);
+
     language = await this.db.languages.add(language);
+
     this.settings.language = language.cid;
     this.settings.lexeme   = null;
-    const languagesPage = document.getElementById(`languages-page`);
-    if (languagesPage) languagesPage.remove();
+
+    this.clearLanguagePages();
+
     return this.displayPage(`languages`);
+
   }
 
   /**
@@ -124,10 +130,21 @@ class App extends View {
     this.settings.language = languageCID;
     this.settings.lexeme   = null;
 
+    this.clearLanguagePages();
+    return this.displayPage(this.settings.page);
+
+  }
+
+  clearLanguagePages() {
+
+    const languageChooser = document.getElementById(`language-chooser`);
+    if (languageChooser) languageChooser.remove();
+
+    const languagesPage = document.getElementById(`languages-page`);
+    if (languagesPage) languagesPage.remove();
+
     const lexiconPage = document.getElementById(`lexicon-page`);
     if (lexiconPage) lexiconPage.remove();
-
-    this.displayPage(this.settings.page);
 
   }
 
@@ -138,13 +155,8 @@ class App extends View {
     this.settings.language = null;
     this.settings.lexeme   = null;
 
-    const languagesPage = document.getElementById(`languages-page`);
-    if (languagesPage) languagesPage.remove();
-
-    const lexiconPage = document.getElementById(`lexicon-page`);
-    if (lexiconPage) lexiconPage.remove();
-
-    this.displayPage(this.settings.page);
+    this.clearLanguagePages();
+    return this.displayPage(this.settings.page);
 
   }
 
@@ -229,12 +241,9 @@ class App extends View {
 
     const HomePage = this.pages.get(`home`);
     const homePage = new HomePage;
+    const el       = homePage.render();
 
-    const oldPage = document.getElementById(`home-page`);
-    const newPage = homePage.render();
-
-    if (oldPage) oldPage.replaceWith(newPage);
-    else this.nodes.wrapper.appendChild(newPage);
+    this.nodes.wrapper.appendChild(el);
 
   }
 
@@ -249,11 +258,9 @@ class App extends View {
     languageChooser.events.on(`add`, this.addLanguage.bind(this));
     languageChooser.events.on(`select`, this.changeLanguage.bind(this));
 
-    const oldPage = document.getElementById(`language-chooser`);
-    const newPage = languageChooser.render();
+    const el = languageChooser.render();
 
-    if (oldPage) oldPage.replaceWith(newPage);
-    else this.nodes.wrapper.appendChild(newPage);
+    this.nodes.wrapper.appendChild(el);
 
   }
 
@@ -271,11 +278,9 @@ class App extends View {
     languagesPage.events.on(`add`, this.addLanguage.bind(this));
     languagesPage.events.on(`delete`, this.deleteLanguage.bind(this));
 
-    const oldPage = document.getElementById(`languages-page`);
-    const newPage = languagesPage.render(this.settings.language);
+    const el = languagesPage.render(this.settings.language);
 
-    if (oldPage) oldPage.replaceWith(newPage);
-    else this.nodes.wrapper.appendChild(newPage);
+    this.nodes.wrapper.appendChild(el);
 
     languagesPage.initialize();
 
@@ -292,11 +297,9 @@ class App extends View {
     const query       = IDBKeyRange.only(this.settings.language);
     const lexemes     = await app.db.lexemes.getAll({ index: `lemma`, query });
     const lexiconPage = new LexiconPage(language, lexemes);
-    const oldPage     = document.getElementById(`lexicon-page`);
-    const newPage     = lexiconPage.render(this.settings.lexeme);
+    const el          = lexiconPage.render(this.settings.lexeme);
 
-    if (oldPage) oldPage.replaceWith(newPage);
-    else this.nodes.wrapper.appendChild(newPage);
+    this.nodes.wrapper.appendChild(el);
 
   }
 
