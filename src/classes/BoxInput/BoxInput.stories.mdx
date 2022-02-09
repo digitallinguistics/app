@@ -1,0 +1,26 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+
+<Meta title='Classes/Box Input' />
+
+# Box Input
+
+Line Inputs should generally be preferred to Box Inputs when possible. Otherwise, Box Inputs can be used. Box Inputs are most common with `<textarea>`s.
+
+<Canvas>
+  <input
+    autocomplete='off'
+    class='box-input'
+    inputmode='text'
+    spellcheck='false'
+    placeholder='placeholder text'
+    type='text'
+  ></input>
+  <textarea
+    autocomplete='off'
+    class='box-input'
+    cols='20'
+    placeholder='Write your text here.'
+    rows='4'
+    spellcheck='false'
+  ></textarea>
+</Canvas>

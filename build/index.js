@@ -28,12 +28,17 @@ await oraPromise(buildAppShell(), `Build app shell`);
 await oraPromise(buildJS(), `Build JavaScript`);
 await oraPromise(copyAssets(), `Copy static assets`);
 await oraPromise(buildCache(), `Create cache list`);
-await oraPromise(buildStories(), `Build stories`);
-await oraPromise(emptyDir(joinPath(currentDir, `../docs`)), `Empty /docs directory`);
 
-const jsdocDir         = joinPath(currentDir, `../node_modules/.bin/jsdoc`);
-const buildDocsPromise = execute(`${ jsdocDir } -c build/jsdoc.json`);
+if (!process.argv.includes(`--quick`)) {
 
-await oraPromise(buildDocsPromise, `Build developer documentation`);
+  await oraPromise(buildStories(), `Build stories`);
+  await oraPromise(emptyDir(joinPath(currentDir, `../docs`)), `Empty /docs directory`);
+
+  const jsdocDir         = joinPath(currentDir, `../node_modules/.bin/jsdoc`);
+  const buildDocsPromise = execute(`${ jsdocDir } -c build/jsdoc.json`);
+
+  await oraPromise(buildDocsPromise, `Build developer documentation`);
+
+}
 
 console.info(`App finished building.\n`);

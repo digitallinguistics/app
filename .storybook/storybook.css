@@ -1,12 +1,14 @@
 /* Apply #app styles to #root. */
 
+.docs-story {
+  font-family: var(--font);
+  font-size  : 100%;
+  line-height: 1.5;
+}
+
 #root {
   font-family: var(--font);
   font-size  : 100%;
   line-height: 1.5;
   min-height : 100vh;
-}
-
-#lexicon-page {
-  block-size: 100vh;
 }

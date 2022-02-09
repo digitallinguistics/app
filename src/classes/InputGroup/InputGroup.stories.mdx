@@ -1,0 +1,43 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+<Meta title='Classes/Input Group' />
+
+# Input Group
+
+An Input Group is used to group a Line Input with its Label and Help Text.
+
+<Canvas>
+  <div class='input-group'>
+    <label for='abbreviation'>Abbreviation</label>
+    <div>
+      <input
+        autocomplete='off'
+        class='line-input'
+        id='abbreviation'
+        inputmode='text'
+        name='abbreviation'
+        pattern='[(a-z)|(A-Z)|(0-9)]+'
+        placeholder='e.g. spa'
+        type='text'
+      ></input>
+      <p class='help-text'>An abbreviation for this language variety. May only contain letters and numbers.</p>
+    </div>
+  </div>
+  <div class='input-group'>
+    <label for='abbreviation'>Abbreviation</label>
+    <div>
+      <input
+        autocomplete='off'
+        class='line-input'
+        id='abbreviation'
+        inputmode='text'
+        name='abbreviation'
+        pattern='[(a-z)|(A-Z)|(0-9)]+'
+        placeholder='e.g. spa'
+        type='text'
+        value='bad value'
+      ></input>
+      <p class='help-text'>An abbreviation for this language variety. May only contain letters and numbers.</p>
+    </div>
+  </div>
+</Canvas>
