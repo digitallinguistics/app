@@ -14,6 +14,7 @@ import '../dist/classes/Link/Link.css';
 import '../dist/classes/PageTitle/PageTitle.css';
 import '../dist/classes/Required/Required.css';
 import '../dist/classes/SectionHeader/SectionHeader.css';
+import '../dist/classes/Transcription/Transcription.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
