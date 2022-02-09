@@ -6,6 +6,7 @@ import '../dist/classes/Button/Button.css';
 import '../dist/classes/Code/Code.css';
 import '../dist/classes/Fieldset/Fieldset.css';
 import '../dist/classes/HelpText/HelpText.css';
+import '../dist/classes/InputGroup/InputGroup.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
