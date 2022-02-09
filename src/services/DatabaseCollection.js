@@ -1,3 +1,6 @@
+// NOTE: This module is tested as part of the Database.js test suite.
+// No additional tests need to be written for this module.
+
 /**
  * A utility class for performing methods on an IndexedDB object store.
  * @memberof Services
