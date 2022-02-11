@@ -253,11 +253,9 @@ class App extends View {
     const ReconstructionsPage = this.pages.get(`reconstructions`);
     const reconstructionsPage = new ReconstructionsPage;
 
-    const oldPage = document.getElementById(`reconstructions-page`);
-    const newPage = reconstructionsPage.render();
+    const el = reconstructionsPage.render();
 
-    if (oldPage) oldPage.replaceWith(newPage);
-    else this.nodes.wrapper.appendChild(newPage);
+    this.nodes.wrapper.appendChild(newPage);
 
   }
 
