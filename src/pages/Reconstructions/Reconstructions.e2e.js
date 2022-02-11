@@ -4,7 +4,7 @@ describe(`Reconstructions`, function() {
     cy.visit(`/`);
     cy.contains(`#nav li`, `Reconstructions`)
     .click();
-    cy.contains(`.page-title`, `This is reconstructions page`);
+    cy.contains(`.page-title`, `Reconstructions`);
   });
 
 });
