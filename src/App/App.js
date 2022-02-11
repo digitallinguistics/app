@@ -230,6 +230,7 @@ class App extends View {
     switch (page) {
         case `languages`: return this.renderLanguagesPage();
         case `lexicon`: return this.renderLexiconPage();
+        case `reconstructions`: return this.renderReconstructionsPage();
         default: return this.renderHomePage();
     }
 
@@ -244,6 +245,19 @@ class App extends View {
     const el       = homePage.render();
 
     this.nodes.wrapper.appendChild(el);
+
+  }
+
+  renderReconstructionsPage() {
+
+    const ReconstructionsPage = this.pages.get(`reconstructions`);
+    const reconstructionsPage = new ReconstructionsPage;
+
+    const oldPage = document.getElementById(`reconstructions-page`);
+    const newPage = reconstructionsPage.render();
+
+    if (oldPage) oldPage.replaceWith(newPage);
+    else this.nodes.wrapper.appendChild(newPage);
 
   }
 

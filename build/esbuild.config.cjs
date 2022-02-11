@@ -14,6 +14,7 @@ module.exports = {
     joinPath(srcDir, `pages/Home/Home.js`),
     joinPath(srcDir, `pages/Languages/Languages.js`),
     joinPath(srcDir, `pages/Lexicon/Lexicon.js`),
+    joinPath(srcDir, `pages/Reconstructions/Reconstructions.js`),
   ],
   format:    `esm`,
   minify:    env === `production`,
