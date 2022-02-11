@@ -146,6 +146,9 @@ class App extends View {
     const lexiconPage = document.getElementById(`lexicon-page`);
     if (lexiconPage) lexiconPage.remove();
 
+    const reconstructionsPage = document.getElementById(`reconstructions-page`);
+    if (reconstructionsPage) reconstructionsPage.remove();
+
   }
 
   async deleteLanguage(languageCID) {
@@ -230,6 +233,7 @@ class App extends View {
     switch (page) {
         case `languages`: return this.renderLanguagesPage();
         case `lexicon`: return this.renderLexiconPage();
+        case `reconstructions`: return this.renderReconstructionsPage();
         default: return this.renderHomePage();
     }
 
@@ -242,6 +246,16 @@ class App extends View {
     const HomePage = this.pages.get(`home`);
     const homePage = new HomePage;
     const el       = homePage.render();
+
+    this.nodes.wrapper.appendChild(el);
+
+  }
+
+  renderReconstructionsPage() {
+
+    const ReconstructionsPage = this.pages.get(`reconstructions`);
+    const reconstructionsPage = new ReconstructionsPage;
+    const el                  = reconstructionsPage.render();
 
     this.nodes.wrapper.appendChild(el);
 
