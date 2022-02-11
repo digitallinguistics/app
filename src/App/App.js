@@ -255,7 +255,7 @@ class App extends View {
 
     const el = reconstructionsPage.render();
 
-    this.nodes.wrapper.appendChild(newPage);
+    this.nodes.wrapper.appendChild(el);
 
   }
 
