@@ -146,6 +146,9 @@ class App extends View {
     const lexiconPage = document.getElementById(`lexicon-page`);
     if (lexiconPage) lexiconPage.remove();
 
+    const reconstructionsPage = document.getElementById(`reconstructions-page`);
+    if (reconstructionsPage) reconstructionsPage.remove();
+
   }
 
   async deleteLanguage(languageCID) {
@@ -252,8 +255,7 @@ class App extends View {
 
     const ReconstructionsPage = this.pages.get(`reconstructions`);
     const reconstructionsPage = new ReconstructionsPage;
-
-    const el = reconstructionsPage.render();
+    const el                  = reconstructionsPage.render();
 
     this.nodes.wrapper.appendChild(el);
 
