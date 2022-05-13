@@ -59,11 +59,9 @@
 <p>Want to contribute code to the Lotus app? Awesome! 🌟 Check out <a href="https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution">GitHub's Open Source Guide</a> on contributing to open source projects.</p>
 <h2>Quick Links</h2>
 <ul>
-<li><a href="https://developer.digitallinguistics.io/app">View the complete developer documentation here.</a> **</li>
+<li><a href="https://developer.digitallinguistics.io/app">View the complete developer documentation here.</a></li>
 <li><a href="https://github.com/digitallinguistics/app/blob/main/.github/MAINTAINERS.md">View documentation for maintainers.</a></li>
-<li><a href="https://developer.digitallinguistics.io/app">View JavaScript documentation.</a> **</li>
 </ul>
-<p>** Developer documentation can currently only be viewed by openining <code>docs/index.html</code> in a browser.</p>
 <h2>Contents</h2>
 <!-- TOC -->
 <ul>
@@ -173,48 +171,15 @@
 </li>
 </ol>
 <h2>Developer Tools</h2>
-<p>This section describes several developer tools it is strongly recommended that you use while making changes to the code.</p>
+<p>This section describes several developer tools that are strongly recommended while making changes to the code.</p>
 <h3>nodemon</h3>
-<p>Each time you make changes to the sources files, you will need to rebuild the app. You do not need to restart the server each time, but you will need to refresh the page in the browser for the changes to appear.</p>
-<p>One way to do this is to open two terminals—one to run the server (<code>npm start</code>), and run to rebuild the app each time you make a change (<code>npm run build</code>).</p>
-<p>An easier solution is to use a tool like <a href="https://nodemon.io/">nodemon</a>, which watches the project for changes and automatically runs commands of your choosing each time a file changes. In this case, you can run <code>npm run build</code> each time the code changes.</p>
-<p><strong>Steps to Use nodemon</strong></p>
-<ol>
-<li>
-<p>Install nodemon globally:</p>
-<pre class="prettyprint source lang-cmd"><code>> npm install --global nodemon
-</code></pre>
-</li>
-<li>
-<p>Add a <code>nodemon.json</code> config file to the root of the project. Below is a recommended configuration. It will watch for changes to any files which have an extension in the <code>ext</code> field, but ignore any files which match the glob patterns in the <code>ignore</code> field. Any time a change is detected, it will run <code>npm run build</code>.</p>
-<pre class="prettyprint source lang-json"><code>&lt;!-- nodemon.json -->
-
-{
-  &quot;exec&quot;: &quot;npm run build&quot;,
-  &quot;ext&quot;: &quot;hbs,js,less,md&quot;,
-  &quot;ignore&quot;: [
-    &quot;dist&quot;,
-    &quot;docs&quot;,
-    &quot;**/*.stories.js&quot;,
-    &quot;**/*.test.js&quot;,
-    &quot;**/*.unit.js&quot;
-  ]
-}
-</code></pre>
-</li>
-<li>
-<p>Start nodemon.</p>
-<pre class="prettyprint source lang-cmd"><code>> nodemon
-</code></pre>
-</li>
-</ol>
-<p>You can configure nodemon to run different commands instead. For example, nodemon can rebuild the app after each change and then start the server, or rebuild the app and then run tests, etc. See the complete documentation on the <a href="https://nodemon.io/">nodemon website</a>.</p>
+<p>Each time you make changes to the sources files, you will need to rebuild the app. You do not need to restart the server each time, but you will need to refresh the page in the browser for the changes to appear. <a href="https://nodemon.io/">nodemon</a> is a simple tool that you can configure to automatically rebuild the app and restart the server each time a change is detected in your files.</p>
 <h3>ESLint &amp; Stylelint</h3>
 <p><a href="https://eslint.org/">ESLint</a> and <a href="https://stylelint.io/">Stylelint</a> are two tools that analyze or &quot;lint&quot; your code as you work to detect common problems and in many cases fix them automatically. They also help ensure that different developers structure their code in the same way.</p>
 <p>ESLint lints JavaScript, while Stylelint lints CSS / LESS. The list of rules / problems that ESLint checks for are located in <code>.eslintrc.yml</code>. The list of rules / problems that Stylelint checks for are located in <code>.stylelintrc.yml</code>.</p>
 <p>Most code editors have settings, plugins, or extensions that support ESLint and Stylelint. You should install these plugins / extensions so that your editor automatically reports issues found by ESLint and Stylelint.</p>
 <h3>Storybook</h3>
-<p><a href="https://storybook.js.org/">Storybook</a> is a tool for managing a library of components. It allows developers to create, style, and test each component in isolation, as well as in combination. Each component is given its own &quot;story&quot;, and files containing story specifications end in <code>.stories.js</code>. When creating new components, it is recommended that you develop using Storybook first, and then write component tests using Cypress.</p>
+<p><a href="https://storybook.js.org/">Storybook</a> is a tool for managing a library of components. It allows developers to create, style, and test each component in isolation, as well as in combination. Each component is given its own &quot;story&quot;, and files containing story specifications end in <code>.stories.mdx</code>. When creating new components, it is recommended that you develop using Storybook first, and then write component tests using Cypress.</p>
 <p>To use Storybook:</p>
 <ol>
 <li>Start a local server (<code>npm start</code>).</li>
@@ -247,12 +212,16 @@
 <td>Scripts to build the production version of the app from the <code>src/</code> files.</td>
 </tr>
 <tr>
-<td><code>dist/</code></td>
+<td><code>dist/</code>**</td>
 <td>Production code for the app. The contents of this folder are deployed to the production server on release, and a staging server on pull requests.</td>
 </tr>
 <tr>
-<td><code>docs/</code></td>
+<td><code>docs/</code>**</td>
 <td>Developer documentation. The contents of this folder are deployed to https://developer.digitallinguistics/app.</td>
+</tr>
+<tr>
+<td><code>node_modules/</code>**</td>
+<td>JavaScript libraries that this project uses as dependencies. This folder is not checked into git.</td>
 </tr>
 <tr>
 <td><code>src/</code></td>
@@ -264,7 +233,8 @@
 </tr>
 </tbody>
 </table>
-<h3>Directory Structure</h3>
+<p>** Not checked into git.</p>
+<h3><code>src/</code> Directory Structure</h3>
 <p>The <code>src/</code> folder contains the following:</p>
 <table>
 <thead>
@@ -279,8 +249,12 @@
 <td>The App is a special top-level component, globally accessible with the <code>app</code> variable. Also contains components that are specific to the app shell.</td>
 </tr>
 <tr>
+<td><code>classes/</code></td>
+<td>CSS-only components that are shared across pages.</td>
+</tr>
+<tr>
 <td><code>components/</code></td>
-<td>Components that are shared across pages (but not part of the app shell).</td>
+<td>Interactive components (that use JavaScript) that are shared across pages (but not part of the app shell).</td>
 </tr>
 <tr>
 <td><code>core/</code></td>
@@ -327,7 +301,7 @@
 <td>Web app manifest for installing the site as a web app.</td>
 </tr>
 <tr>
-<td><code>offline-worker.js</code></td>
+<td><code>offline‑worker.js</code></td>
 <td>A service worker which makes the app work offline.</td>
 </tr>
 </tbody>
@@ -366,7 +340,7 @@
 <li><code>.hbs</code>: The HTML template for the component, written in <a href="https://handlebarsjs.com/">Handlebars</a>.</li>
 <li><code>.less</code>: The styling for the component, written in <a href="https://lesscss.org/">LESS</a>.</li>
 <li><code>.js</code>: The JavaScript controller that manages this view's functionality.</li>
-<li><code>.stories.js</code>: The code for rendering this component in Storybook.</li>
+<li><code>.stories.mdx</code>: The code for rendering this component in Storybook.</li>
 <li><code>.unit.js</code>: Unit tests for this component.</li>
 </ul>
 <p>All of these files should be located together in the same directory. For example, the <code>NavList</code> directory looks like this:</p>
@@ -375,7 +349,7 @@
   - NavList.hbs
   - NavList.js
   - NavList.less
-  - NavList.stories.js
+  - NavList.stories.mdx
 </code></pre>
 <h3>Types of Components</h3>
 <p>There are four types of components in the app:</p>
@@ -410,43 +384,7 @@ class List extends View {
 }
 </code></pre>
 <h4>CSS / LESS</h4>
-<p>The styles for each component are written in LESS, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS.</p>
-<p>The most useful LESS feature is nesting. For example, instead of writing this…</p>
-<pre class="prettyprint source lang-css"><code>#header {
-  color: black;
-}
-
-#header .navigation {
-  font-size: 12px;
-}
-
-#header .logo {
-  width: 300px;
-}
-</code></pre>
-<p>…we can write this:</p>
-<pre class="prettyprint source lang-less"><code>#header {
-
-  color: black;
-
-  .navigation {
-    font-size: 12px;
-  }
-
-  .logo {
-    width: 300px;
-  }
-
-}
-</code></pre>
-<p>You can load other LESS dependencies into your LESS stylesheet with the <code>@import</code> command. For example, <code>App.less</code> loads stylesheets for the Banner, Nav, and Skip Link.</p>
-<pre class="prettyprint source lang-less"><code>@import 'Banner/Banner';
-@import 'Nav/Nav';
-@import 'Skip-Link/Skip-Link';
-</code></pre>
-<p>If you only want to use specific styles/declarations from a stylesheet, use <code>@import (reference)</code>. For example, the following line in <code>App.less</code> loads the <code>variables.less</code> file, but will <em>only</em> import the variables that <code>App.less</code> explicitly uses.</p>
-<pre class="prettyprint source lang-less"><code>@import (reference) 'variables';
-</code></pre>
+<p>The styles for each component are written in <a href="https://lesscss.org/">LESS</a>, an extension to CSS syntax which provides some useful additional features for developers. All valid CSS is also valid LESS.</p>
 <p><a href="https://lesscss.org/">See the LESS documentation for more details on using LESS.</a></p>
 <p>The Lotus project partially uses <a href="http://getbem.com/introduction/">Block-Element-Modifier (BEM)</a> naming conventions for CSS, which typically looks like this:</p>
 <pre class="prettyprint source lang-css"><code>.block__element--modifier {
@@ -805,7 +743,7 @@ describe(`List`, function() {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 12:33:24 GMT-0700 (Mountain Standard Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri May 13 2022 23:01:28 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
