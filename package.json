@@ -65,7 +65,7 @@
     "flexbox-reset": "^3.0.0",
     "fs-extra": "^10.0.0",
     "handlebars": "^4.7.7",
-    "handlebars-loader": "^1.7.1",
+    "handlebars-loader": "^1.7.3",
     "html-loader": "^3.0.1",
     "jsdoc": "^3.6.7",
     "jsdoc-export-default-interop": "^0.3.1",
